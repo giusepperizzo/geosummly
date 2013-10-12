@@ -14,6 +14,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+<repositories>
+	<repository>
+	    <id>foursquareapijava</id>
+	    <name>Foursquare V2 API for Java Repository</name>
+	    <url>http://foursquare-api-java.googlecode.com/svn/repository</url>
+	</repository>
+</repositories>
+	
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -21,5 +29,15 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    <groupId>fi.foyt</groupId>
+    <artifactId>foursquare-api</artifactId>
+    <version>1.0.2</version>
+  </dependency>
+  <dependency>
+	<groupId>org.mongodb</groupId>
+	<artifactId>mongo-java-driver</artifactId>
+	<version>2.10.1</version>
+</dependency>
   </dependencies>
 </project>
