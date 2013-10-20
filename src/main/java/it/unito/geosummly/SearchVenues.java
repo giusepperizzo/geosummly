@@ -1,20 +1,16 @@
 package it.unito.geosummly;
 
 import java.net.UnknownHostException;
-
-import org.json.JSONWriter;
-
+import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
-
+import com.mongodb.util.JSON;
 import fi.foyt.foursquare.api.FoursquareApi;
 import fi.foyt.foursquare.api.FoursquareApiException;
-import fi.foyt.foursquare.api.JSONFieldParser;
 import fi.foyt.foursquare.api.Result;
-import fi.foyt.foursquare.api.entities.Category;
 import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 
@@ -33,60 +29,45 @@ public class SearchVenues {
 	    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(ll, null, null, null, null, null, null, null, null, null, null);
 	    if(result.getMeta().getCode() == 200) {
 	    	
-	    	//Initialize MongoDB instance
+	    	//Initialize a MongoDB instance
 	    	MongoClient mongoClient=new MongoClient("localhost");
 	    	DB db=mongoClient.getDB("VenueDB");
 	    	DBCollection coll=db.getCollection("ResultVenues");
+	    	   	
+    		//Initialize a Gson instance and declare a FoursquareDataObject
+	    	Gson gson=new Gson();
+    		FoursquareDataObject dataobj;
+    		
+    		//Declare the document which will contain the JSON results for MongoDB 
+    		BasicDBObject doc;
 	    	
-	    	//Declare the documents which will contain the JSON results
-	    	BasicDBObject doc;
-	    	BasicDBObject innerdoc_contact;
-	    	BasicDBObject innerdoc_category;
-	    	BasicDBObject innerdoc_innercategory;
-	    	BasicDBObject innerdoc_stats;
-	    	
-	    	//For each point: create a JSON file with the informations
+	    	//For each point: create a JSON file (using Gson and FoursquareDataObject) and store it in MongoDB  
 	    	for(CompactVenue venue : result.getResult().getVenues()){
 	    		
-	    		//Initialize the documents which will contain the JSON results
-	    		doc=new BasicDBObject();
-	    		innerdoc_contact=new BasicDBObject();
-	    		innerdoc_category=new BasicDBObject();
-	    		innerdoc_innercategory=new BasicDBObject();
-	    		innerdoc_stats=new BasicDBObject();
+	    		//Initialize the FoursquareDataObject and fill it with the venue informations
+	    		dataobj=new FoursquareDataObject();
+	    		dataobj.setRow(row);
+	    		dataobj.setColumn(column);
+	    		dataobj.setVenueId(venue.getId());
+	    		dataobj.setVenueName(venue.getName());
+	    		dataobj.setLatitude(venue.getLocation().getLat());
+	    		dataobj.setLongitude(venue.getLocation().getLng());
+	    		dataobj.setCategories(venue.getCategories());
+	    		dataobj.setEmail(venue.getContact().getEmail());
+	    		dataobj.setPhone(venue.getContact().getPhone());
+	    		dataobj.setFacebook(venue.getContact().getFacebook());
+	    		dataobj.setTwitter(venue.getContact().getTwitter());
+	    		dataobj.setVerified(venue.getVerified());
+	    		dataobj.setCheckinsCount(venue.getStats().getCheckinsCount());
+	    		dataobj.setUsersCount(venue.getStats().getUsersCount());
+	    		dataobj.setUrl(venue.getUrl());
+	    		dataobj.setHereNow(venue.getHereNow().getCount());
+	    		String obj=gson.toJson(dataobj);
 	    		
-	    		//Add information about the corresponding cell of the bounding box
-	    		doc.append("Box cell", new BasicDBObject("Row", row).append("Column", column));
+	    		//Initialize the document which will contain the JSON result parsed for MongoDB
+	    		doc= (BasicDBObject) JSON.parse(obj);
 	    		
-	    		//From this point: information using Foursquare
-	    		doc.append("Venue ID", venue.getId());
-	    		doc.append("Venue name", venue.getName());
-	    		doc.append("Latitude", venue.getLocation().getLat());
-		    	doc.append("Longitude", venue.getLocation().getLng());
-		    	//For each category of the point: append informations such as id, name, plural name, primary status
-		    	for(int i=0;i<venue.getCategories().length;i++){
-		    		innerdoc_category.append("Category_"+i, innerdoc_innercategory.
-		    				append("Category ID", venue.getCategories()[i].getId()).
-		    				append("Category name", venue.getCategories()[i].getName()).
-		    				append("Category plural name", venue.getCategories()[i].getPluralName()).
-		    				append("Category primary", venue.getCategories()[i].getPrimary()));
-		    	}
-		    	doc.append("Categories", innerdoc_category);
-		    	//Contact information has several fields: email, phone, Facebook or Twitter address
-		    	doc.append("Contact", innerdoc_contact.
-		    			append("Email", venue.getContact().getEmail()).
-		    			append("Phone", venue.getContact().getPhone()).
-		    			append("Facebook", venue.getContact().getFacebook()).
-		    			append("Twitter", venue.getContact().getTwitter()));
-		    	doc.append("Verified", venue.getVerified());
-		    	//Stats information has two fields: checkins and users count
-		    	doc.append("Stats", innerdoc_stats.
-		    			append("Checkins count", venue.getStats().getCheckinsCount()).
-		    			append("Users counts", venue.getStats().getUsersCount()));
-    			doc.append("Url", venue.getUrl());
-    			doc.append("Here now", venue.getHereNow().getCount());
-    			
-    			//Insert JSON document into MongoDB collection
+	    		//Insert the document into MongoDB collection
 	    		coll.insert(doc);
 	    	}
 	    	
