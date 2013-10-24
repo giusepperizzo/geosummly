@@ -11,6 +11,8 @@ public class BoundingBox {
 	private double south;
 	private double west;
 	private double east;
+	private int row; //row of the cell (position)
+	private int column; //column of the cell (position)
 
 	
 	public BoundingBox(){}
@@ -52,6 +54,22 @@ public class BoundingBox {
 
 	public double getEast(){
 		return east;
+	}
+	
+	public int getRow() {
+		return row;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public void setColumn(int column) {
+		this.column = column;
 	}
 
 	public String toString(){

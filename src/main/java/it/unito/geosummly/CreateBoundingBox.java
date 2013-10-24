@@ -74,13 +74,16 @@ public class CreateBoundingBox {
 		double southSingleCell;
 		double westSingleCell=bbox.getWest(); //west coordinate of the first cell (top-left side of bounding box)
 		double eastSingleCell;
+		int row=1;
+		int column=1;
 		
 		while(northSingleCell>bbox.getSouth()){
-			//set the row
+			//set the rows
 			southSingleCell=northSingleCell-singleCellLength;
+			column=1;
 			
 			while(westSingleCell<bbox.getEast()){
-				//set the column
+				//set the columns
 				eastSingleCell=westSingleCell+singleCellWidth;
 				
 				//set cell coordinates
@@ -90,11 +93,16 @@ public class CreateBoundingBox {
 				singleCell.setWest(westSingleCell);
 				singleCell.setEast(eastSingleCell);
 				
+				//set cell position
+				singleCell.setRow(row);
+				singleCell.setColumn(column);
+				
 				//add the cell to data structure
 				structure.add(singleCell);
 				
 				//update the column index
 				westSingleCell=eastSingleCell;
+				column++;
 			}
 			
 			//start again from the first column
@@ -102,6 +110,7 @@ public class CreateBoundingBox {
 			
 			//update the row index
 			northSingleCell=southSingleCell;
+			row++;
 		}
 	}
 	
