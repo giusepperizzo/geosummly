@@ -1,6 +1,14 @@
 package it.unito.geosummly;
 
+import java.util.Arrays;
 import fi.foyt.foursquare.api.entities.Category;
+
+
+/**
+ * @author Giacomo Falcone
+ *
+ * This class represents a template of the object returned by 4square
+ */
 
 public class FoursquareDataObject {
 	private int row;
@@ -20,6 +28,7 @@ public class FoursquareDataObject {
 	private String url;
 	private Long hereNow;
 	
+
 	public FoursquareDataObject(){}
 
 	public int getRow() {
@@ -148,5 +157,16 @@ public class FoursquareDataObject {
 
 	public void setHereNow(Long hereNow) {
 		this.hereNow = hereNow;
+	}
+	
+	public String toString() {
+		return "FoursquareDataObject [row=" + row + ", column=" + column
+				+ ", venueId=" + venueId + ", venueName=" + venueName
+				+ ", latitude=" + latitude + ", longitude=" + longitude
+				+ ", categories=" + Arrays.toString(categories) + ", email="
+				+ email + ", phone=" + phone + ", facebook=" + facebook
+				+ ", twitter=" + twitter + ", verified=" + verified
+				+ ", checkinsCount=" + checkinsCount + ", usersCount="
+				+ usersCount + ", url=" + url + ", hereNow=" + hereNow + "]";
 	}
 }

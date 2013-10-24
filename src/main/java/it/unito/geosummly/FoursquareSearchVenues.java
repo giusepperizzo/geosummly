@@ -14,10 +14,10 @@ import fi.foyt.foursquare.api.Result;
 import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 
-public class SearchVenues {
+public class FoursquareSearchVenues {
 	
 	//Constructor method
-	public SearchVenues(){}
+	public FoursquareSearchVenues(){}
 	
 	//Search venue's informations given latitude and longitude as parameters
 	public int searchVenues(String ll, int row, int column) throws FoursquareApiException, UnknownHostException {
