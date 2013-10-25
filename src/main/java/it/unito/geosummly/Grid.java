@@ -1,6 +1,6 @@
 package it.unito.geosummly;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**
  * @author James
@@ -12,7 +12,7 @@ public class Grid {
 	private BoundingBox bbox; //Bounding box
 	private BoundingBox cell; //Central cell of the bounding box. Around this cell we construct the bounding box
 	private int cellsNumber; //Number N of cells
-	private LinkedList<BoundingBox> structure; //Data structure which contains the bounding box 
+	private ArrayList<BoundingBox> structure; //Data structure which contains the bounding box 
 	
 	public Grid(){}
 	
@@ -57,11 +57,11 @@ public class Grid {
 		this.cellsNumber = cellsNumber;
 	}
 
-	public LinkedList<BoundingBox> getStructure() {
+	public ArrayList<BoundingBox> getStructure() {
 		return structure;
 	}
 
-	public void setStructure(LinkedList<BoundingBox> structure) {
+	public void setStructure(ArrayList<BoundingBox> structure) {
 		this.structure = structure;
 	}
 	

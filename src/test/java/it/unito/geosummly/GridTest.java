@@ -1,6 +1,6 @@
 package it.unito.geosummly;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
@@ -14,7 +14,7 @@ public class GridTest extends TestCase {
 		//Create the bounding box (just set its coordinates)
 		Grid grid=new Grid();
 		grid.setCellsNumber(20);
-		grid.setStructure(new LinkedList<BoundingBox>());
+		grid.setStructure(new ArrayList<BoundingBox>());
 		grid.setCell(cell);
 		grid.setBbox(new BoundingBox());
 		
@@ -40,18 +40,18 @@ public class GridTest extends TestCase {
 		//Create the bounding box
 		Grid grid=new Grid();
 		grid.setCellsNumber(2);
-		grid.setStructure(new LinkedList<BoundingBox>());
+		grid.setStructure(new ArrayList<BoundingBox>());
 		grid.setCell(cell);
 		grid.setBbox(new BoundingBox());
 		grid.createCells();
-		LinkedList<BoundingBox> lb=grid.getStructure();
+		ArrayList<BoundingBox> lb=grid.getStructure();
 		
 		//Construct the test case
 		BoundingBox b1=new BoundingBox(45.05745, 45.05655, 7.65935, 7.6606499999999995);
 		BoundingBox b2=new BoundingBox(45.05745, 45.05655, 7.6606499999999995, 7.661949999999999);
 		BoundingBox b3=new BoundingBox(45.05655, 45.05565, 7.65935, 7.6606499999999995);
 		BoundingBox b4=new BoundingBox(45.05655, 45.05565, 7.6606499999999995, 7.661949999999999);
-		LinkedList<BoundingBox> lb1=new LinkedList<BoundingBox>();
+		ArrayList<BoundingBox> lb1=new ArrayList<BoundingBox>();
 		lb1.add(b1);
 		lb1.add(b2);
 		lb1.add(b3);

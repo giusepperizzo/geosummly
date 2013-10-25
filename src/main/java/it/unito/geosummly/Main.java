@@ -2,7 +2,7 @@ package it.unito.geosummly;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -28,7 +28,7 @@ public class Main {
 		
 		BoundingBox bbox=new BoundingBox(); //Bounding box
 		BoundingBox cell=new BoundingBox(north, south, west, east); //Central cell
-		LinkedList<BoundingBox> data=new LinkedList<BoundingBox>(); //Data structure
+		ArrayList<BoundingBox> data=new ArrayList<BoundingBox>(); //Data structure
 		
 		//Create a N*N bounding box
 		Grid box=new Grid();
