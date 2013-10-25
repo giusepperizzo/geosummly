@@ -1,15 +1,13 @@
 package it.unito.geosummly;
 
-import static org.junit.Assert.*;
-import fi.foyt.foursquare.api.FoursquareApiException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
-import org.junit.Test;
+import junit.framework.TestCase;
+import fi.foyt.foursquare.api.FoursquareApiException;
 
-public class FoursquareSearchVenuesTest {
+public class FoursquareSearchVenuesTest extends TestCase {
 
-	@Test
 	public void testSearchVenues() throws UnknownHostException, FoursquareApiException{
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<String> array;

@@ -1,12 +1,11 @@
 package it.unito.geosummly;
 
-import static org.junit.Assert.*;
 import java.util.LinkedList;
-import org.junit.Test;
 
-public class CreateBoundingBoxTest {
+import junit.framework.TestCase;
 
-	@Test
+public class CreateBoundingBoxTest extends TestCase {
+
 	public void testSetBbox(){
 		
 		//Central cell
@@ -32,8 +31,7 @@ public class CreateBoundingBoxTest {
 		assertEquals(7.647650000000004, west, 0);
 		assertEquals(7.673649999999997, east, 0);
 	}
-	
-	@Test
+
 	public void testCreateCells() {
 		
 		//Central cell
@@ -65,5 +63,4 @@ public class CreateBoundingBoxTest {
 		for(int i=0;i<lb.size();i++)
 			assertTrue(lb.get(i).toString().equals(lb1.get(i).toString()));
 	}
-
 }
