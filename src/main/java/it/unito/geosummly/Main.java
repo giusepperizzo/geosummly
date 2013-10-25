@@ -31,7 +31,7 @@ public class Main {
 		LinkedList<BoundingBox> data=new LinkedList<BoundingBox>(); //Data structure
 		
 		//Create a N*N bounding box
-		CreateBoundingBox box=new CreateBoundingBox();
+		Grid box=new Grid();
 		box.setCellsNumber(cells_number);
 		box.setStructure(data);
 		box.setCell(cell);

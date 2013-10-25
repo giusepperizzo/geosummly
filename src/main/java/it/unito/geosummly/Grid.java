@@ -8,13 +8,13 @@ import java.util.LinkedList;
  * This class create a bounding box of N*N cells.
  */
 
-public class CreateBoundingBox {
+public class Grid {
 	private BoundingBox bbox; //Bounding box
 	private BoundingBox cell; //Central cell of the bounding box. Around this cell we construct the bounding box
 	private int cellsNumber; //Number N of cells
 	private LinkedList<BoundingBox> structure; //Data structure which contains the bounding box 
 	
-	public CreateBoundingBox(){}
+	public Grid(){}
 	
 	public BoundingBox getBbox() {
 		return bbox;
