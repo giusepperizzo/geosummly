@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.Gson;
-
 import fi.foyt.foursquare.api.FoursquareApi;
 import fi.foyt.foursquare.api.FoursquareApiException;
 import fi.foyt.foursquare.api.Result;
+import fi.foyt.foursquare.api.entities.Category;
 import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 
@@ -35,7 +34,7 @@ public class FoursquareSearchVenues{
 	}
 	
 	//Search venue informations
-	public ArrayList<String> searchVenues(int row, int column, double north, double south, double west, double east) throws FoursquareApiException, UnknownHostException {
+	public ArrayList<FoursquareDataObject> searchVenues(int row, int column, double north, double south, double west, double east) throws FoursquareApiException, UnknownHostException {
 		
 		//Initialize parameters for venues search
 		String ne=north+","+east;
@@ -46,17 +45,16 @@ public class FoursquareSearchVenues{
 		searchParams.put("sw", sw);
 		
 		//Array to return
-		ArrayList<String> doclist=new ArrayList<String>(); 
+		ArrayList<FoursquareDataObject> doclist=new ArrayList<FoursquareDataObject>(); 
 	    
 	    //After client has been initialized we can make queries.
 	    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
 	    if(result.getMeta().getCode() == 200) {
 	    	   	
-    		//Initialize a Gson instance and declare a FoursquareDataObject
-	    	Gson gson=new Gson();
+    		//Declare a FoursquareDataObject
     		FoursquareDataObject dataobj;
 	    	
-	    	//For each point: create a JSON file (using Gson and FoursquareDataObject)
+	    	//For each point: create a FoursquareDataObject)
 	    	for(CompactVenue venue : result.getResult().getVenues()){
 	    		//Initialize the FoursquareDataObject and fill it with the venue informations
 	    		dataobj=new FoursquareDataObject();
@@ -76,8 +74,7 @@ public class FoursquareSearchVenues{
 	    		dataobj.setUsersCount(venue.getStats().getUsersCount());
 	    		dataobj.setUrl(venue.getUrl());
 	    		dataobj.setHereNow(venue.getHereNow().getCount());
-	    		String obj=gson.toJson(dataobj);
-	    		doclist.add(obj);
+	    		doclist.add(dataobj);
 	    	}
 	    	return doclist;
     	} 
@@ -88,5 +85,52 @@ public class FoursquareSearchVenues{
 		      System.out.println("  detail: " + result.getMeta().getErrorDetail());
 		      return doclist;
 	    }
+	}
+	
+	//Return the total number of categories
+	public int getCategoriesNumber(ArrayList<FoursquareDataObject> array){
+		int n=0;
+		for(FoursquareDataObject fdo: array){
+			n+=fdo.getCategories().length;
+		}
+		return n;
+	}
+	
+	//Create a list with distinct categories for a bounding box cell
+	public ArrayList<String> createCategoryList(ArrayList<FoursquareDataObject> array){
+		ArrayList<String> categories=new ArrayList<String>();
+		categories.add(array.get(0).getCategories()[0].getName());
+		for(int i=0; i<array.size();i++){
+			Category[] cat_array=array.get(i).getCategories();
+			for(int j=0; j<cat_array.length;j++){
+				Category c=cat_array[j];
+				int k=0;
+				boolean found=false;
+				while(k<categories.size() && !found){
+					String s=categories.get(k);
+					if(c.getName().equals((String) s))
+						found=true;
+					k++;
+				}
+				if(!found)
+					categories.add(c.getName());
+			}
+		}
+		return categories;
+	}
+		
+	//Create a list with the number of occurrences for each distinct category
+	public ArrayList<Integer> getCategoryOccurences(ArrayList<FoursquareDataObject> array, ArrayList<String> cat_list){
+		int n=0;
+		ArrayList<Integer> occurrences=new ArrayList<Integer>();
+		for(String s: cat_list){
+			n=0;
+			for(FoursquareDataObject fdo: array)
+				for(Category c: fdo.getCategories())
+					if(c.getName().equals((String) s))
+						n++;
+			occurrences.add(n);
+		}
+		return occurrences;
 	}
  }
