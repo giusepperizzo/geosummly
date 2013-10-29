@@ -2,7 +2,6 @@ package it.unito.geosummly;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.ArrayList;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -37,7 +36,7 @@ public class Main {
 		box.setCell(cell);
 		box.setBbox(bbox);
 		box.createCells();
-		//box.printAll();
+		box.printAll();
 		
 		/***************************************************************************************/
 		/*****************************COLLECT ALL THE GEOPOINTS*********************************/

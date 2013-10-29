@@ -92,6 +92,8 @@ public class Grid {
 				singleCell.setSouth(southSingleCell);
 				singleCell.setWest(westSingleCell);
 				singleCell.setEast(eastSingleCell);
+				singleCell.setCenterLat((northSingleCell+southSingleCell/2));
+				singleCell.setCenterLng((westSingleCell+eastSingleCell)/2);
 				
 				//set cell position
 				singleCell.setRow(row);

@@ -11,6 +11,8 @@ public class BoundingBox {
 	private double south;
 	private double west;
 	private double east;
+	private double centerLat; //Latitude of central point
+	private double centerLng; //Longitude of central point
 	private int row; //row of the cell (position)
 	private int column; //column of the cell (position)
 
@@ -22,6 +24,8 @@ public class BoundingBox {
 		this.south=s;
 		this.west=w;
 		this.east=e;
+		this.centerLat=(n+s)/2;
+		this.centerLng=(w+e)/2;
 	}
 
 	public void setNorth(double north){
@@ -56,6 +60,22 @@ public class BoundingBox {
 		return east;
 	}
 	
+	public void setCenterLat(double centerLat){
+		this.centerLat=centerLat;
+	}
+
+	public double getCenterLat(){
+		return centerLat;
+	}
+	
+	public void setCenterLng(double centerLng){
+		this.centerLng=centerLng;
+	}
+
+	public double getCenterLng(){
+		return centerLng;
+	}
+	
 	public int getRow() {
 		return row;
 	}
@@ -73,6 +93,6 @@ public class BoundingBox {
 	}
 
 	public String toString(){
-		return "N: "+north+" S:"+south+" W:"+west+" E:"+east;
+		return "N: "+north+" S:"+south+" W:"+west+" E:"+east+" C_Lat:"+centerLat+" C_Lng:"+centerLng;
 	}
 }
