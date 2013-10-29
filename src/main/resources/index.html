@@ -29,12 +29,19 @@ function initialize() {
       new google.maps.LatLng(45.057, 7.6600),
       new google.maps.LatLng(45.0561, 7.6613)
   );
+  console.log(bounds);
 
   // Define a rectangle and set its editable property to true.
   var rectangle = new google.maps.Rectangle({
     bounds: bounds,
     editable: true
   });
+  
+  var NE = bounds.getNorthEast();
+  var SW = bounds.getSouthWest();
+  var NW = new google.maps.LatLng(NE.lat(),SW.lng());
+  var SE = new google.maps.LatLng(SW.lat(),NE.lng());
+  console.log("ne=" + NE + ";sw=" + SW + ";NW=" + NW + "SE=" + SE); 
 
   rectangle.setMap(map);
 // [END region_rectangle]
