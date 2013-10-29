@@ -1,10 +1,14 @@
 package it.unito.geosummly;
 
+import it.unito.geosummly.utils.PropFactory;
+
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import com.google.gson.Gson;
+
 import fi.foyt.foursquare.api.FoursquareApi;
 import fi.foyt.foursquare.api.FoursquareApiException;
 import fi.foyt.foursquare.api.Result;
@@ -24,7 +28,10 @@ public class FoursquareSearchVenues{
 	//Constructor method
 	public FoursquareSearchVenues(){
 		//Initialize FoursquareApi
-		foursquareApi = new FoursquareApi("SD1NLAAR3HC5DRFKIM3AAMNACXKKT0WKIH301M5WGNJMTLAY", "3T5N0TCD0PSMITOKVU2A41AE0C1Y2MAXTLUV1MUNTTBAIVA0", "http://www.foursquare.com");
+		foursquareApi = new FoursquareApi(
+		        PropFactory.config.getProperty("it.unito.geosummly.foursquare.clientID"), 
+		        PropFactory.config.getProperty("it.unito.geosummly.foursquare.clientSecret"), 
+		        "http://www.foursquare.com");
 	}
 	
 	//Search venue informations

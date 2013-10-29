@@ -21,5 +21,6 @@ public class FoursquareSearchVenuesTest extends TestCase {
 		//Start the tests
 		assertNotNull(array);
 		assertEquals(s1, s);
+		
 	}
 }
