@@ -11,7 +11,7 @@
         padding: 0px
       }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=geometry"></script>
     <script>
 // This example adds a user-editable rectangle to the map.
 
@@ -42,6 +42,9 @@ function initialize() {
   var NW = new google.maps.LatLng(NE.lat(),SW.lng());
   var SE = new google.maps.LatLng(SW.lat(),NE.lng());
   console.log("ne=" + NE + ";sw=" + SW + ";NW=" + NW + "SE=" + SE); 
+  
+  console.log(google.maps.geometry.spherical.computeDistanceBetween(NE,SE) + "m");
+  console.log(google.maps.geometry.spherical.computeDistanceBetween(NW,SW) + "m");  
 
   rectangle.setMap(map);
 // [END region_rectangle]
