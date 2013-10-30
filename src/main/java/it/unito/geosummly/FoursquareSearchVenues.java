@@ -99,7 +99,7 @@ public class FoursquareSearchVenues{
 	//Create a list with distinct categories for a bounding box cell
 	public ArrayList<String> createCategoryList(ArrayList<FoursquareDataObject> array){
 		ArrayList<String> categories=new ArrayList<String>();
-		categories.add(array.get(0).getCategories()[0].getName());
+		//categories.add(array.get(0).getCategories()[0].getName());
 		for(int i=0; i<array.size();i++){
 			Category[] cat_array=array.get(i).getCategories();
 			for(int j=0; j<cat_array.length;j++){
