@@ -2,25 +2,26 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>it.unito.geosummly</groupId>
-  <artifactId>geosummly</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+	<groupId>it.unito.geosummly</groupId>
+	<artifactId>geosummly</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-  <name>geosummly</name>
-  <url>http://maven.apache.org</url>
+	<name>geosummly</name>
+	<url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<properties>
+        <system.libs>${basedir}/lib</system.libs>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
-<repositories>
+	<repositories>
 	<repository>
 	    <id>foursquareapijava</id>
 	    <name>Foursquare V2 API for Java Repository</name>
 	    <url>http://foursquare-api-java.googlecode.com/svn/repository</url>
 	</repository>
-</repositories>
+	</repositories>
 	
 	<dependencies>
 		<dependency>
@@ -45,5 +46,13 @@
 	      	<version>2.2.4</version>
 	      	<scope>compile</scope>
 	    </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons.csv</groupId>
+            <artifactId>csv</artifactId>
+            <version>1.0</version>    
+            <scope>system</scope>
+            <systemPath>${system.libs}/commons-csv-1.0-20131011.114144-243.jar</systemPath>
+        </dependency>
 	</dependencies>
 </project>

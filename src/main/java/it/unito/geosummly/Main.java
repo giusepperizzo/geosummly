@@ -1,13 +1,23 @@
 package it.unito.geosummly;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.util.JSON;
 
@@ -15,6 +25,8 @@ import fi.foyt.foursquare.api.FoursquareApiException;
 
 
 public class Main {
+    public static Logger logger = Logger.getLogger(Main.class.toString());
+    
 	public static void main(String[] args) throws FoursquareApiException, UnknownHostException{
 		
 		/***************************************************************************************/
@@ -37,7 +49,6 @@ public class Main {
 		box.setCell(cell);
 		box.setBbox(bbox);
 		box.createCells();
-		//box.printAll();
 		
 		/***************************************************************************************/
 		/****************************COLLECT ALL THE GEOPOINTS AND******************************/
@@ -62,14 +73,14 @@ public class Main {
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> venueInfo;
 		for(BoundingBox b: data){
-			
+		    logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
+
 			//Venues of a single cell
 			venueInfo=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			
 			for(FoursquareDataObject fdo: venueInfo){
 				//Serialize with Gson
 				String obj=gson.toJson(fdo);
-	    		
 				//Initialize the document which will contain the JSON result parsed for MongoDB and insert this document into MongoDB collection
 				doc= (BasicDBObject) JSON.parse(obj);
 				coll.insert(doc);
@@ -87,6 +98,38 @@ public class Main {
 			row_of_matrix.add(b.getCenterLng());
 			t_matrix.addRow(row_of_matrix);
 		}
+		
+		
+		// write down the transformation matrix to a file		
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+		OutputStreamWriter osw = new OutputStreamWriter(bout);
+        try {
+            CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
+		
+            //write the header of the matrix
+            csv.printRecord("headerColumn1,headerColumn2,...");
+            // iterate per each row of the matrix
+            //for(row : rows) {
+                //csv.print("colum1");
+                //csv.print("colum2");
+                //...
+                //csv.println();
+            //}
+            csv.flush();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+		
+		OutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream ("matrix.csv");
+            bout.writeTo(outputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+
 		
 		//Print JSON files (just for debug)
     	/*DBCursor cursorDocJSON = coll.find();

@@ -124,4 +124,5 @@ public class Grid {
 		for(BoundingBox b : structure)
 			System.out.println(b);
 	}
+	
 }
