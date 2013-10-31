@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Drawing tools</title>
+    <title>Geosummly</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
@@ -11,18 +11,30 @@
         padding: 0px
       }
     </style>
+    <script src="js/jquery-2.0.3.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing"></script>
     <script>
-
     function send (rectangle) {
       var bounds = rectangle.getBounds();
-      var ne = bounds.getNorthEast();
-      var sw = bounds.getSouthWest();
-      var nw = new google.maps.LatLng(ne.lat(),sw.lng());
-      var se = new google.maps.LatLng(sw.lat(),ne.lng());
-      console.log("NE=" + ne + "\nSW=" + sw + "\nNW=" + nw + "\nSE=" + se); 
+      var _ne = bounds.getNorthEast();
+      var _sw = bounds.getSouthWest();
+      var _nw = new google.maps.LatLng(_ne.lat(),_sw.lng());
+      var _se = new google.maps.LatLng(_sw.lat(),_ne.lng());
+      console.log("NE=" + _ne + "\nSW=" + _sw + "\nNW=" + _nw + "\nSE=" + _se); 
+
       //console.log("height=" + google.maps.geometry.spherical.computeDistanceBetween(NE,SE) + "m");
       //console.log("width=" + google.maps.geometry.spherical.computeDistanceBetween(NE,NW) + "m");  
+
+      $.get( "/api/fingerprint", { nelat: _ne.lat(), nelng: _ne.lng(), 
+                                   swlat: _sw.lat(), swlng: _sw.lng(),
+                                   nwlat: _nw.lat(), nwlng: _nw.lng(),
+                                   selat: _se.lat(), selng: _se.lng()} )
+      .success(function( data ) {
+          console.log( "Data fetched: " + data );
+      })
+      .fail(function() {
+          console.log( "error" );
+      });
     }
 
     function initialize() {
@@ -36,12 +48,12 @@
         mapOptions);
 
       var drawingManager = new google.maps.drawing.DrawingManager({
-        drawingMode: google.maps.drawing.OverlayType.MARKER,
+        //drawingMode: google.maps.drawing.OverlayType.MARKER,
         drawingControl: true,
         drawingControlOptions: {
           position: google.maps.ControlPosition.TOP_CENTER,
           drawingModes: [
-            google.maps.drawing.OverlayType.MARKER,
+            //google.maps.drawing.OverlayType.MARKER,
             //google.maps.drawing.OverlayType.CIRCLE,
             //google.maps.drawing.OverlayType.POLYGON,
             //google.maps.drawing.OverlayType.POLYLINE,
