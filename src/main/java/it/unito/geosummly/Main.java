@@ -32,23 +32,21 @@ public class Main {
 		/***************************************************************************************/
 		/******************************CREATE THE BOUNDING BOX**********************************/
 		/***************************************************************************************/
-		double north=45.057; //north coordinate of the central cell
-		double south=45.0561;
+		double north=45.057; //north coordinate of the bounding box
+		double south=45.0390186;
 		double west=7.6600;
-		double east=7.6613;
+		double east=7.6854548;
 		int cells_number=20; //Number N of cells
 		
-		BoundingBox bbox=new BoundingBox(); //Bounding box
-		BoundingBox cell=new BoundingBox(north, south, west, east); //Central cell
+		BoundingBox bbox=new BoundingBox(north, south, west, east); //Initialize the bounding box
 		ArrayList<BoundingBox> data=new ArrayList<BoundingBox>(); //Data structure
 		
-		//Create a N*N bounding box
-		Grid box=new Grid();
-		box.setCellsNumber(cells_number);
-		box.setStructure(data);
-		box.setCell(cell);
-		box.setBbox(bbox);
-		box.createCells();
+		//Create a N*N grid based on the bounding box
+		Grid grid=new Grid();
+		grid.setCellsNumber(cells_number);
+		grid.setBbox(bbox);
+		grid.setStructure(data);
+		grid.createCells();
 		
 		/***************************************************************************************/
 		/****************************COLLECT ALL THE GEOPOINTS AND******************************/
@@ -128,7 +126,7 @@ public class Main {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } 
+        }
 
 		
 		//Print JSON files (just for debug)

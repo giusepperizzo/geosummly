@@ -93,6 +93,6 @@ public class BoundingBox {
 	}
 
 	public String toString(){
-		return "N: "+north+" S:"+south+" W:"+west+" E:"+east+" C_Lat:"+centerLat+" C_Lng:"+centerLng;
+		return "Row: "+row+" Column: "+column+" N: "+north+" S:"+south+" W:"+west+" E:"+east+" C_Lat:"+centerLat+" C_Lng:"+centerLng;
 	}
 }
