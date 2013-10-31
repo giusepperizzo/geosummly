@@ -1,9 +1,12 @@
 package it.unito.geosummly;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class TransformationMatrix {
 	private ArrayList<ArrayList<Double>> matrix; //data structure
+	
+	public static Logger logger = Logger.getLogger(TransformationMatrix.class.toString());
 	
 	public TransformationMatrix(){}
 	

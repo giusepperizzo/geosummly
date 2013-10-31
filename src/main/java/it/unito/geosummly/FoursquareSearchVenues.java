@@ -6,6 +6,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import fi.foyt.foursquare.api.FoursquareApi;
 import fi.foyt.foursquare.api.FoursquareApiException;
@@ -23,6 +25,8 @@ import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 
 public class FoursquareSearchVenues{
 	private FoursquareApi foursquareApi;
+	
+	public static Logger logger = Logger.getLogger(FoursquareSearchVenues.class.toString());
 	
 	//Constructor method
 	public FoursquareSearchVenues(){
@@ -79,11 +83,8 @@ public class FoursquareSearchVenues{
 	    	return doclist;
     	} 
     	else {
-		      System.out.println("Error occured: ");
-		      System.out.println("  code: " + result.getMeta().getCode());
-		      System.out.println("  type: " + result.getMeta().getErrorType());
-		      System.out.println("  detail: " + result.getMeta().getErrorDetail());
-		      return doclist;
+    			logger.log(Level.INFO, "Error occurred:\ncode: "+result.getMeta().getCode()+"\ntype: "+result.getMeta().getErrorType()+"\ndetail: "+result.getMeta().getErrorDetail());
+    			return doclist;
 	    }
 	}
 	

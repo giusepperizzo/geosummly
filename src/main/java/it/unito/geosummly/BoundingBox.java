@@ -1,5 +1,7 @@
 package it.unito.geosummly;
 
+import java.util.logging.Logger;
+
 /**
  * @author Giacomo Falcone
  *
@@ -15,6 +17,8 @@ public class BoundingBox {
 	private double centerLng; //Longitude of central point
 	private int row; //row of the cell (position)
 	private int column; //column of the cell (position)
+	
+	public static Logger logger = Logger.getLogger(BoundingBox.class.toString());
 
 	
 	public BoundingBox(){}

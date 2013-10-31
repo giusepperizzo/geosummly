@@ -1,6 +1,7 @@
 package it.unito.geosummly;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 /**
  * @author James
@@ -11,7 +12,9 @@ import java.util.ArrayList;
 public class Grid {
 	private BoundingBox bbox; //Bounding box
 	private int cellsNumber; //Number N of cells
-	private ArrayList<BoundingBox> structure; //Data structure which contains the bounding box 
+	private ArrayList<BoundingBox> structure; //Data structure which contains the bounding box
+	
+	public static Logger logger = Logger.getLogger(Grid.class.toString());
 	
 	public Grid(){}
 	

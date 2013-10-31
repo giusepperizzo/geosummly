@@ -1,6 +1,8 @@
 package it.unito.geosummly;
 
 import java.util.Arrays;
+import java.util.logging.Logger;
+
 import fi.foyt.foursquare.api.entities.Category;
 
 
@@ -27,6 +29,8 @@ public class FoursquareDataObject {
 	private Integer usersCount;
 	private String url;
 	private Long hereNow;
+	
+	public static Logger logger = Logger.getLogger(FoursquareDataObject.class.toString());
 	
 
 	public FoursquareDataObject(){}
