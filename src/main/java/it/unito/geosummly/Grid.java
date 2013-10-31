@@ -63,16 +63,8 @@ public class Grid {
 				//set the columns
 				eastSingleCell=westSingleCell+cellWidth;
 				
-				//set cell coordinates
-				singleCell=new BoundingBox();
-				singleCell.setNorth(northSingleCell);
-				singleCell.setSouth(southSingleCell);
-				singleCell.setWest(westSingleCell);
-				singleCell.setEast(eastSingleCell);
-				singleCell.setCenterLat((northSingleCell+southSingleCell/2));
-				singleCell.setCenterLng((westSingleCell+eastSingleCell)/2);
-				
-				//set cell position
+				//set cell coordinates and position
+				singleCell=new BoundingBox(northSingleCell, southSingleCell, westSingleCell, eastSingleCell);
 				singleCell.setRow(row);
 				singleCell.setColumn(column);
 				
