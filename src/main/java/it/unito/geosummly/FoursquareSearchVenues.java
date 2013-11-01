@@ -121,7 +121,7 @@ public class FoursquareSearchVenues{
 	}
 		
 	//Create a list with the number of occurrences for each distinct category
-	public ArrayList<Integer> getCategoryOccurences(ArrayList<FoursquareDataObject> array, ArrayList<String> cat_list){
+	public ArrayList<Integer> getCategoryOccurences(ArrayList<FoursquareDataObject> array, ArrayList<String> cat_list) {
 		int n=0;
 		ArrayList<Integer> occurrences=new ArrayList<Integer>();
 		for(String s: cat_list){

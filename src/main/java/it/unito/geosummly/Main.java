@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -63,8 +64,10 @@ public class Main {
 		
 		//Initialize the transformation matrix and its parameters
 		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
+		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
 		TransformationMatrix t_matrix=new TransformationMatrix();
 		t_matrix.setMatrix(matrix);
+		t_matrix.setMap(map);
 		ArrayList<Double> row_of_matrix; //row of the transformation matrix (one for each cell);
 		
 		//Download venues informations
@@ -88,12 +91,8 @@ public class Main {
 			int cat_num=fsv.getCategoriesNumber(venueInfo);//total number of categories of a single cell
 			ArrayList<String> distinct_list=fsv.createCategoryList(venueInfo); //list of all the distinct categories
 			ArrayList<Integer> occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
-			row_of_matrix=new ArrayList<Double>();
-			for(Integer i: occurrences_list){
-				row_of_matrix.add((double)(i/cat_num));
-			}
-			row_of_matrix.add(b.getCenterLat());
-			row_of_matrix.add(b.getCenterLng());
+			t_matrix.updateMap(distinct_list);//update the hash map
+			row_of_matrix=t_matrix.fillRow(occurrences_list, distinct_list, cat_num, b.getCenterLat(), b.getCenterLng()); //create a consistent row (related to the categories)
 			t_matrix.addRow(row_of_matrix);
 		}
 		
