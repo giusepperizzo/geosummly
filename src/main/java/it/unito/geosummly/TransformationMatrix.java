@@ -32,6 +32,16 @@ public class TransformationMatrix {
 		this.matrix.add(row);
 	}
 	
+	public String toString() {
+		String s= "Matrix Rows: "+matrix.size()+"\nMatrix Columns:"+matrix.get(0).size()+"\nAll categories frequencies:";
+		for(ArrayList<Double> r : matrix) {
+			for(Double d: r)
+				s+=d+", ";
+			s+="\n";
+		}
+		return s;
+	}
+	
 	//Update the hash map with new categories
 	public void updateMap(ArrayList<String> categories) {
 		for(String s: categories)
@@ -52,6 +62,14 @@ public class TransformationMatrix {
 			row.set(category_value, ((double) occurrences.get(i))/((double) cat_num)); //put the occurrence value in the "right" position
 		}
 		return row;
+	}
+	
+	//Fix the row length to have rows with the same length value
+	public void fixRowsLength(int tot_num) {
+		for(ArrayList<Double> row: this.matrix)
+			for(int i=row.size();i<tot_num;i++) {
+				row.add(0.0);
+			}	
 	}
 	
 }

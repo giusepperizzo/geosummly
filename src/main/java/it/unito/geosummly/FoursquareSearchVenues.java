@@ -88,7 +88,7 @@ public class FoursquareSearchVenues{
 	    }
 	}
 	
-	//Return the total number of categories
+	//Return the total number of categories for a bounding box cell
 	public int getCategoriesNumber(ArrayList<FoursquareDataObject> array){
 		int n=0;
 		for(FoursquareDataObject fdo: array){

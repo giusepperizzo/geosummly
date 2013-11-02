@@ -70,6 +70,12 @@ public class Main {
 		t_matrix.setMap(map);
 		ArrayList<Double> row_of_matrix; //row of the transformation matrix (one for each cell);
 		
+		//Support variables for transformation matrix task
+		int cat_num=0; //total number of categories of a single cell
+		int tot_num=0; //overall number of categories
+		ArrayList<String> distinct_list; //list of all the distinct categories for a single cell
+		ArrayList<Integer> occurrences_list; //list of the occurrences of the distinct categories for a single cell
+		
 		//Download venues informations
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> venueInfo;
@@ -88,13 +94,16 @@ public class Main {
 			}
 			
 			//Transformation matrix task
-			int cat_num=fsv.getCategoriesNumber(venueInfo);//total number of categories of a single cell
-			ArrayList<String> distinct_list=fsv.createCategoryList(venueInfo); //list of all the distinct categories
-			ArrayList<Integer> occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
+			cat_num=fsv.getCategoriesNumber(venueInfo);//set the total number of categories of the cell
+			distinct_list=fsv.createCategoryList(venueInfo); 
+			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
 			t_matrix.updateMap(distinct_list);//update the hash map
 			row_of_matrix=t_matrix.fillRow(occurrences_list, distinct_list, cat_num, b.getCenterLat(), b.getCenterLng()); //create a consistent row (related to the categories)
+			if(tot_num < row_of_matrix.size()-2)
+				tot_num=row_of_matrix.size()-2; //update the overall number of categories
 			t_matrix.addRow(row_of_matrix);
 		}
+		t_matrix.fixRowsLength(tot_num); //update rows length for consistency
 		
 		
 		// write down the transformation matrix to a file		
@@ -104,14 +113,17 @@ public class Main {
             CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
 		
             //write the header of the matrix
-            csv.printRecord("headerColumn1,headerColumn2,...");
+            for(String s: t_matrix.getMap().keySet()) {
+            	csv.print(s);
+            }
             // iterate per each row of the matrix
-            //for(row : rows) {
-                //csv.print("colum1");
-                //csv.print("colum2");
-                //...
-                //csv.println();
-            //}
+            ArrayList<ArrayList<Double>> tm=t_matrix.getMatrix();
+            for(ArrayList<Double> a: tm) {
+            	for(Double d: a) {
+            		csv.print(d);
+            	}
+            	csv.println();
+            }
             csv.flush();
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -119,7 +131,7 @@ public class Main {
 		
 		OutputStream outputStream;
         try {
-            outputStream = new FileOutputStream ("matrix.csv");
+            outputStream = new FileOutputStream ("output/matrix.csv");
             bout.writeTo(outputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
