@@ -6,7 +6,8 @@ import java.util.logging.Logger;
 
 public class TransformationMatrix {
 	private ArrayList<ArrayList<Double>> matrix; //data structure
-	private HashMap<String, Integer> map;
+	private HashMap<String, Integer> map; //Map category to index
+	private ArrayList<String> header; //Sorted list of categories by column index 
 	
 	public static Logger logger = Logger.getLogger(TransformationMatrix.class.toString());
 	
@@ -28,6 +29,14 @@ public class TransformationMatrix {
 		this.map = map;
 	}
 	
+	public ArrayList<String> getHeader() {
+		return header;
+	}
+
+	public void setHeader(ArrayList<String> header) {
+		this.header = header;
+	}
+
 	public void addRow(ArrayList<Double> row) {
 		this.matrix.add(row);
 	}
@@ -45,8 +54,10 @@ public class TransformationMatrix {
 	//Update the hash map with new categories
 	public void updateMap(ArrayList<String> categories) {
 		for(String s: categories)
-			if(!this.map.containsKey(s))
+			if(!this.map.containsKey(s)) {
 				this.map.put(s, this.map.size()+2); //first value in the map has to be 2
+				this.header.add(s);
+			}
 	}
 	
 	//Build a row of the matrix

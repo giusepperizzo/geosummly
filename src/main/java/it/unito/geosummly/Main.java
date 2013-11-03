@@ -54,20 +54,22 @@ public class Main {
 		/****************************CREATE THE TRANSFORMATION MATRIX***************************/
 		/***************************************************************************************/
 		//Initialize a MongoDB instance
-    	MongoClient mongoClient=new MongoClient("localhost");
+    	/*MongoClient mongoClient=new MongoClient("localhost");
     	DB db=mongoClient.getDB("VenueDB");
     	DBCollection coll=db.getCollection("ResultVenues");
     	
     	//Initialize a Gson instance and declare the document which will contain the JSON results for MongoDB 
     	Gson gson=new Gson();
-		BasicDBObject doc;
+		BasicDBObject doc;*/
 		
 		//Initialize the transformation matrix and its parameters
 		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
+		ArrayList<String> header=new ArrayList<String>(); //Sorted list of the distinct category (related to the hash map)
 		TransformationMatrix t_matrix=new TransformationMatrix();
 		t_matrix.setMatrix(matrix);
 		t_matrix.setMap(map);
+		t_matrix.setHeader(header);
 		ArrayList<Double> row_of_matrix; //row of the transformation matrix (one for each cell);
 		
 		//Support variables for transformation matrix task
@@ -85,13 +87,13 @@ public class Main {
 			//Venues of a single cell
 			venueInfo=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			
-			for(FoursquareDataObject fdo: venueInfo){
+			/*for(FoursquareDataObject fdo: venueInfo){
 				//Serialize with Gson
 				String obj=gson.toJson(fdo);
 				//Initialize the document which will contain the JSON result parsed for MongoDB and insert this document into MongoDB collection
 				doc= (BasicDBObject) JSON.parse(obj);
 				coll.insert(doc);
-			}
+			}*/
 			
 			//Transformation matrix task
 			cat_num=fsv.getCategoriesNumber(venueInfo);//set the total number of categories of the cell
@@ -112,8 +114,9 @@ public class Main {
         try {
             CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
 		
-            //write the header of the matrix
-            for(String s: t_matrix.getMap().keySet()) {
+            // write the header of the matrix
+            ArrayList<String> hdr=t_matrix.getHeader();
+            for(String s: hdr) {
             	csv.print(s);
             }
             // iterate per each row of the matrix

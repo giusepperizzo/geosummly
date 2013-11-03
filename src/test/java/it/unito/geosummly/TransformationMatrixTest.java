@@ -10,8 +10,10 @@ public class TransformationMatrixTest extends TestCase {
 	public void testUpdateMap() {
 		//Initialize the transformation matrix and create the hash map 
 		TransformationMatrix tm=new TransformationMatrix();
-		HashMap<String, Integer> actual=new HashMap<String, Integer>();
-		tm.setMap(actual);
+		HashMap<String, Integer> actualMap=new HashMap<String, Integer>();
+		tm.setMap(actualMap);
+		ArrayList<String> actualHeader=new ArrayList<String>();
+		tm.setHeader(actualHeader);
 		ArrayList<String> a=new ArrayList<String>();
 		a.add("Cat 1");
 		a.add("Cat 1");
@@ -33,18 +35,26 @@ public class TransformationMatrixTest extends TestCase {
 		tm.updateMap(a);
 		
 		//Construct the test case
-		HashMap<String, Integer> expected=new HashMap<String, Integer>();
-		expected.put("Cat 1", 2);
-		expected.put("Cat 2", 3);
-		expected.put("Cat 3", 4);
-		expected.put("Cat 4", 5);
-		expected.put("Cat 5", 6);
-		expected.put("Cat 6", 7);
-		System.out.println(expected);
+		HashMap<String, Integer> expectedMap=new HashMap<String, Integer>();
+		expectedMap.put("Cat 1", 2);
+		expectedMap.put("Cat 2", 3);
+		expectedMap.put("Cat 3", 4);
+		expectedMap.put("Cat 4", 5);
+		expectedMap.put("Cat 5", 6);
+		expectedMap.put("Cat 6", 7);
+		ArrayList<String> expectedHeader=new ArrayList<String>();
+		expectedHeader.add("Cat 1");
+		expectedHeader.add("Cat 2");
+		expectedHeader.add("Cat 3");
+		expectedHeader.add("Cat 4");
+		expectedHeader.add("Cat 5");
+		expectedHeader.add("Cat 6");
 		
 		//Start the tests
-		assertNotNull(actual);
-		assertEquals(expected, actual);
+		assertNotNull(actualMap);
+		assertNotNull(expectedHeader);
+		assertEquals(expectedMap, actualMap);
+		assertEquals(expectedHeader, actualHeader);
 	}
 	
 	public void testFillRow() {
