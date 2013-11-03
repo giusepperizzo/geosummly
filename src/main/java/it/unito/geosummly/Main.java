@@ -54,13 +54,13 @@ public class Main {
 		/****************************CREATE THE TRANSFORMATION MATRIX***************************/
 		/***************************************************************************************/
 		//Initialize a MongoDB instance
-    	/*MongoClient mongoClient=new MongoClient("localhost");
+    	MongoClient mongoClient=new MongoClient("localhost");
     	DB db=mongoClient.getDB("VenueDB");
     	DBCollection coll=db.getCollection("ResultVenues");
     	
     	//Initialize a Gson instance and declare the document which will contain the JSON results for MongoDB 
     	Gson gson=new Gson();
-		BasicDBObject doc;*/
+		BasicDBObject doc;
 		
 		//Initialize the transformation matrix and its parameters
 		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
@@ -87,13 +87,13 @@ public class Main {
 			//Venues of a single cell
 			venueInfo=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			
-			/*for(FoursquareDataObject fdo: venueInfo){
+			for(FoursquareDataObject fdo: venueInfo){
 				//Serialize with Gson
 				String obj=gson.toJson(fdo);
 				//Initialize the document which will contain the JSON result parsed for MongoDB and insert this document into MongoDB collection
 				doc= (BasicDBObject) JSON.parse(obj);
 				coll.insert(doc);
-			}*/
+			}
 			
 			//Transformation matrix task
 			cat_num=fsv.getCategoriesNumber(venueInfo);//set the total number of categories of the cell
