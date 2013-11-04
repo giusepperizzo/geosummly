@@ -10,7 +10,7 @@ import fi.foyt.foursquare.api.FoursquareApiException;
 
 public class FoursquareSearchVenuesTest extends TestCase {
 
-	public void testSearchVenues() throws UnknownHostException, FoursquareApiException{
+	public void testSearchVenues() throws UnknownHostException, FoursquareApiException {
 		Gson gson=new Gson();
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> array;
@@ -24,18 +24,22 @@ public class FoursquareSearchVenuesTest extends TestCase {
 		//Start the tests
 		assertNotNull(array);
 		assertEquals(s1, s);
-		//for(int i=0;i<array.size();i++)
-			//System.out.println(gson.toJson(array.get(i)));
 		
 	}
 	
-	public void testCreateCategoryList() throws UnknownHostException, FoursquareApiException{
+	public void testCreateCategoryList() throws UnknownHostException, FoursquareApiException {
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> array;
 		array=fsv.searchVenues(1, 1, 45.057, 45.0561, 7.6600, 7.6613);
 		ArrayList<String> actual=fsv.createCategoryList(array);
+		
+		//Construct the test case
 		ArrayList<String> expected=new ArrayList<String>();
-		expected.add("Home (private)");
+		expected.add("Residence");
+		expected.add("Food");
+		expected.add("Nightlife Spot");
+		expected.add("Shop & Service");
+		/*expected.add("Home (private)");
 		expected.add("Coffee Shop");
 		expected.add("Bar");
 		expected.add("Gourmet Shop");
@@ -46,19 +50,25 @@ public class FoursquareSearchVenuesTest extends TestCase {
 		expected.add("Electronics Store");
 		expected.add("Mobile Phone Shop");
 		expected.add("Kids Store");
-		expected.add("Clothing Store");
+		expected.add("Clothing Store");*/
+		
+		//Start the tests
 		assertNotNull(actual);
 		assertEquals(expected.size(), actual.size());
 		for(int i=0;i<actual.size();i++)
 			assertEquals(expected.get(i), actual.get(i));
 	}
 	
-	public void testGetCategoryOccurences() throws UnknownHostException, FoursquareApiException{
+	public void testGetCategoryOccurences() throws UnknownHostException, FoursquareApiException {
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> array;
 		array=fsv.searchVenues(1, 1, 45.057, 45.0561, 7.6600, 7.6613);
 		ArrayList<String> cat_list=new ArrayList<String>();
-		cat_list.add("Home (private)");
+		cat_list.add("Residence");
+		cat_list.add("Food");
+		cat_list.add("Nightlife Spot");
+		cat_list.add("Shop & Service");
+		/*cat_list.add("Home (private)");
 		cat_list.add("Coffee Shop");
 		cat_list.add("Bar");
 		cat_list.add("Gourmet Shop");
@@ -69,10 +79,16 @@ public class FoursquareSearchVenuesTest extends TestCase {
 		cat_list.add("Electronics Store");
 		cat_list.add("Mobile Phone Shop");
 		cat_list.add("Kids Store");
-		cat_list.add("Clothing Store");
+		cat_list.add("Clothing Store");*/
 		ArrayList<Integer> actual=fsv.getCategoryOccurences(array, cat_list);
+		
+		//Construct the test case
 		ArrayList<Integer> expected=new ArrayList<Integer>();
 		expected.add(1);
+		expected.add(2);
+		expected.add(1);
+		expected.add(12);
+		/*expected.add(1);
 		expected.add(1);
 		expected.add(1);
 		expected.add(1);
@@ -83,7 +99,9 @@ public class FoursquareSearchVenuesTest extends TestCase {
 		expected.add(1);
 		expected.add(3);
 		expected.add(1);
-		expected.add(2);
+		expected.add(2);*/
+		
+		//Start the tests
 		assertNotNull(actual);
 		assertEquals(expected.size(), actual.size());
 		for(int i=0;i<actual.size();i++){

@@ -9,7 +9,7 @@ import fi.foyt.foursquare.api.entities.Category;
 /**
  * @author Giacomo Falcone
  *
- * This class represents a template of the object returned by 4square
+ * Template of the object returned by 4square
  */
 
 public class FoursquareDataObject {

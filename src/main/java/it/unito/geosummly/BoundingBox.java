@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 /**
  * @author Giacomo Falcone
  *
- * This class represents the concept of bounding box
+ * Representation of bounding box concept
  */
 
 public class BoundingBox {

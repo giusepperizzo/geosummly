@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+/**
+ * @author Giacomo Falcone
+ *
+ * M*N Transformation matrix creation.
+ * M is the number of bounding box cell.
+ * N is the total number of categories found in the bounding box.
+ * The cell C_ij, 0<i<M-1 and 0<j<N-1, contains the occurrence of the (N_j)th category for the (M_i)th cell,
+ * normalized with respect to the M_i area and the total number of categories found in M_i 
+ */
 public class TransformationMatrix {
 	private ArrayList<ArrayList<Double>> matrix; //data structure
 	private HashMap<String, Integer> map; //Map category to index

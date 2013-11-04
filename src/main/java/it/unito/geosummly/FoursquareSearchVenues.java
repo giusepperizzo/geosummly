@@ -20,16 +20,16 @@ import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 /**
  * @author Giacomo Falcone
  *
- * This class built for download venue informations from 4square 
+ * Download venue informations from 4square 
  */
 
-public class FoursquareSearchVenues{
+public class FoursquareSearchVenues {
 	private FoursquareApi foursquareApi;
 	
 	public static Logger logger = Logger.getLogger(FoursquareSearchVenues.class.toString());
 	
 	//Constructor method
-	public FoursquareSearchVenues(){
+	public FoursquareSearchVenues() {
 		//Initialize FoursquareApi
 		foursquareApi = new FoursquareApi(
 		        PropFactory.config.getProperty("it.unito.geosummly.foursquare.clientID"), 
@@ -59,7 +59,7 @@ public class FoursquareSearchVenues{
     		FoursquareDataObject dataobj;
 	    	
 	    	//For each point: create a FoursquareDataObject)
-	    	for(CompactVenue venue : result.getResult().getVenues()){
+	    	for(CompactVenue venue : result.getResult().getVenues()) {
 	    		//Initialize the FoursquareDataObject and fill it with the venue informations
 	    		dataobj=new FoursquareDataObject();
 	    		dataobj.setRow(row);
@@ -89,31 +89,35 @@ public class FoursquareSearchVenues{
 	}
 	
 	//Return the total number of categories for a bounding box cell
-	public int getCategoriesNumber(ArrayList<FoursquareDataObject> array){
+	public int getCategoriesNumber(ArrayList<FoursquareDataObject> array) {
 		int n=0;
-		for(FoursquareDataObject fdo: array){
+		for(FoursquareDataObject fdo: array) {
 			n+=fdo.getCategories().length;
 		}
 		return n;
 	}
 	
 	//Create a list with distinct categories for a bounding box cell
-	public ArrayList<String> createCategoryList(ArrayList<FoursquareDataObject> array){
+	public ArrayList<String> createCategoryList(ArrayList<FoursquareDataObject> array) {
 		ArrayList<String> categories=new ArrayList<String>();
 		for(int i=0; i<array.size();i++){
 			Category[] cat_array=array.get(i).getCategories();
 			for(int j=0; j<cat_array.length;j++){
-				Category c=cat_array[j];
+				String c;
+				if(cat_array[j].getParents().length>0)
+					c=cat_array[j].getParents()[0]; //take the parent category name only if it is set
+				else
+					c=cat_array[j].getName();
 				int k=0;
 				boolean found=false;
-				while(k<categories.size() && !found){
+				while(k<categories.size() && !found) {
 					String s=categories.get(k);
-					if(c.getName().equals((String) s))
+					if(c.equals((String) s))
 						found=true;
 					k++;
 				}
 				if(!found)
-					categories.add(c.getName());
+					categories.add(c);
 			}
 		}
 		return categories;
@@ -123,12 +127,18 @@ public class FoursquareSearchVenues{
 	public ArrayList<Integer> getCategoryOccurences(ArrayList<FoursquareDataObject> array, ArrayList<String> cat_list) {
 		int n=0;
 		ArrayList<Integer> occurrences=new ArrayList<Integer>();
-		for(String s: cat_list){
+		for(String s: cat_list) {
 			n=0;
 			for(FoursquareDataObject fdo: array)
-				for(Category c: fdo.getCategories())
-					if(c.getName().equals((String) s))
+				for(Category c: fdo.getCategories()) {
+					String str;
+					if(c.getParents().length>0)
+						str=c.getParents()[0]; //take the parent category name only if it is set
+					else
+						str=c.getName();
+					if(str.equals((String) s))
 						n++;
+				}
 			occurrences.add(n);
 		}
 		return occurrences;

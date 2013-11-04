@@ -6,7 +6,8 @@ import java.util.logging.Logger;
 /**
  * @author James
  *
- * This class create a bounding box of N*N cells.
+ * Creation of a bounding box of N*N cells.
+ * N is a parameter given by the user.
  */
 
 public class Grid {
