@@ -96,4 +96,10 @@ public class TransformationMatrix {
 			}	
 	}
 	
+	//Normalize coordinate value in range [0,1]
+	public double normalizeCoordinate(double min, double max, double c) {
+		double norm_c=(c-min)/(max-min);
+		return norm_c;
+	}
+	
 }

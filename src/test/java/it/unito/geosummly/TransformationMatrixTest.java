@@ -150,4 +150,10 @@ public class TransformationMatrixTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
+	public void testNormalizeCoordinate() {
+		TransformationMatrix tm=new TransformationMatrix();
+		double actual=tm.normalizeCoordinate(-90, 90, 45);
+		double expected=0.75;
+		assertEquals(expected, actual, 0);
+	}
 }

@@ -75,6 +75,8 @@ public class Main {
 		//Support variables for transformation matrix task
 		int cat_num=0; //total number of categories of a single cell
 		int tot_num=0; //overall number of categories
+		double norm_lat=0; //normalized value in [0,1] of latitude 
+		double norm_lng=0;
 		ArrayList<String> distinct_list; //list of all the distinct categories for a single cell
 		ArrayList<Integer> occurrences_list; //list of the occurrences of the distinct categories for a single cell
 		
@@ -100,7 +102,9 @@ public class Main {
 			distinct_list=fsv.createCategoryList(venueInfo); 
 			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
 			t_matrix.updateMap(distinct_list);//update the hash map
-			row_of_matrix=t_matrix.fillRow(occurrences_list, distinct_list, cat_num, b.getCenterLat(), b.getCenterLng(), b.getArea()); //create a consistent row (related to the categories)
+			norm_lat=t_matrix.normalizeCoordinate(-90, 90, b.getCenterLat()); //get the normalized value of latitude coordinate
+			norm_lng=t_matrix.normalizeCoordinate(-180, 180, b.getCenterLng());
+			row_of_matrix=t_matrix.fillRow(occurrences_list, distinct_list, cat_num, norm_lat, norm_lng, b.getArea()); //create a consistent row (related to the categories)
 			if(tot_num < row_of_matrix.size()-2)
 				tot_num=row_of_matrix.size()-2; //update the overall number of categories
 			t_matrix.addRow(row_of_matrix);
