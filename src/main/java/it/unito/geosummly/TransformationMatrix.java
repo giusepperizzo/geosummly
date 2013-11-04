@@ -34,6 +34,8 @@ public class TransformationMatrix {
 	}
 
 	public void setHeader(ArrayList<String> header) {
+		header.add("Latitude"); //First two values (columns) of the header have to be lat and lng
+		header.add("Longitude");
 		this.header = header;
 	}
 

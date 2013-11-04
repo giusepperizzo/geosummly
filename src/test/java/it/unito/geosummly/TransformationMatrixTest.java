@@ -43,6 +43,8 @@ public class TransformationMatrixTest extends TestCase {
 		expectedMap.put("Cat 5", 6);
 		expectedMap.put("Cat 6", 7);
 		ArrayList<String> expectedHeader=new ArrayList<String>();
+		expectedHeader.add("Latitude");
+		expectedHeader.add("Longitude");
 		expectedHeader.add("Cat 1");
 		expectedHeader.add("Cat 2");
 		expectedHeader.add("Cat 3");
