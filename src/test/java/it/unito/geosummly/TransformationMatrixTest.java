@@ -85,17 +85,17 @@ public class TransformationMatrixTest extends TestCase {
 		double lat=10.0;
 		double lng=20.0;
 		ArrayList<Double> actual;
-		actual=tm.fillRow(occurrences, distincts, cat_num, lat, lng);
+		actual=tm.fillRow(occurrences, distincts, cat_num, lat, lng, 10.0);
 		
 		//Construct the test case
 		ArrayList<Double> expected = new ArrayList<Double>();
 		expected.add(10.0);
 		expected.add(20.0);
-		expected.add(0.1);
-		expected.add(0.2);
-		expected.add(0.3);
-		expected.add(0.4);
-		expected.add(0.5);
+		expected.add(0.01);
+		expected.add(0.02);
+		expected.add(0.03);
+		expected.add(0.04);
+		expected.add(0.05);
 		
 		//Start the tests
 		assertNotNull(actual);

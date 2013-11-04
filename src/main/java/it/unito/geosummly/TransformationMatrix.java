@@ -63,7 +63,7 @@ public class TransformationMatrix {
 	}
 	
 	//Build a row of the matrix
-	public ArrayList<Double> fillRow(ArrayList<Integer> occurrences, ArrayList<String> distincts, int cat_num, double lat, double lng) {
+	public ArrayList<Double> fillRow(ArrayList<Integer> occurrences, ArrayList<String> distincts, int cat_num, double lat, double lng, double area) {
 		ArrayList<Double> row=new ArrayList<Double>();
 		row.add(lat); //lat and lng are in position 0 and 1
 		row.add(lng);
@@ -71,8 +71,10 @@ public class TransformationMatrix {
 			row.add(0.0);
 		}
 		for(int i=0;i<distincts.size();i++){
-			int category_value=this.map.get(distincts.get(i)); //get the category corresponding to its occurrence value 
-			row.set(category_value, ((double) occurrences.get(i))/((double) cat_num)); //put the occurrence value in the "right" position
+			int category_index=this.map.get(distincts.get(i)); //get the category corresponding to its occurrence value
+			double occ= (double) occurrences.get(i);
+			double num=(double) cat_num;
+			row.set(category_index, (occ/num)/area); //put the occurrence value (normalized with the corresponding cell area) in the "right" position
 		}
 		return row;
 	}

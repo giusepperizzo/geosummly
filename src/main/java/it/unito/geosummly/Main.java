@@ -54,13 +54,13 @@ public class Main {
 		/****************************CREATE THE TRANSFORMATION MATRIX***************************/
 		/***************************************************************************************/
 		//Initialize a MongoDB instance
-    	/*MongoClient mongoClient=new MongoClient("localhost");
+    	MongoClient mongoClient=new MongoClient("localhost");
     	DB db=mongoClient.getDB("VenueDB");
     	DBCollection coll=db.getCollection("ResultVenues");
     	
     	//Initialize a Gson instance and declare the document which will contain the JSON results for MongoDB 
     	Gson gson=new Gson();
-		BasicDBObject doc;*/
+		BasicDBObject doc;
 		
 		//Initialize the transformation matrix and its parameters
 		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
@@ -87,20 +87,20 @@ public class Main {
 			//Venues of a single cell
 			venueInfo=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			
-			/*for(FoursquareDataObject fdo: venueInfo){
+			for(FoursquareDataObject fdo: venueInfo){
 				//Serialize with Gson
 				String obj=gson.toJson(fdo);
 				//Initialize the document which will contain the JSON result parsed for MongoDB and insert this document into MongoDB collection
 				doc= (BasicDBObject) JSON.parse(obj);
 				coll.insert(doc);
-			}*/
+			}
 			
 			//Transformation matrix task
 			cat_num=fsv.getCategoriesNumber(venueInfo);//set the total number of categories of the cell
 			distinct_list=fsv.createCategoryList(venueInfo); 
 			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
 			t_matrix.updateMap(distinct_list);//update the hash map
-			row_of_matrix=t_matrix.fillRow(occurrences_list, distinct_list, cat_num, b.getCenterLat(), b.getCenterLng()); //create a consistent row (related to the categories)
+			row_of_matrix=t_matrix.fillRow(occurrences_list, distinct_list, cat_num, b.getCenterLat(), b.getCenterLng(), b.getArea()); //create a consistent row (related to the categories)
 			if(tot_num < row_of_matrix.size()-2)
 				tot_num=row_of_matrix.size()-2; //update the overall number of categories
 			t_matrix.addRow(row_of_matrix);
