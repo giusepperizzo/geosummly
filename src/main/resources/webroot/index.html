@@ -24,11 +24,9 @@
 
       //console.log("height=" + google.maps.geometry.spherical.computeDistanceBetween(NE,SE) + "m");
       //console.log("width=" + google.maps.geometry.spherical.computeDistanceBetween(NE,NW) + "m");  
-
-      $.get( "/api/fingerprint", { nelat: _ne.lat(), nelng: _ne.lng(), 
-                                   swlat: _sw.lat(), swlng: _sw.lng(),
-                                   nwlat: _nw.lat(), nwlng: _nw.lng(),
-                                   selat: _se.lat(), selng: _se.lng()} )
+     
+      $.get( "/api/fingerprint", { north: _ne.lat(), south: _sw.lat(), 
+                                   est: _ne.lng(), west: _sw.lng()} )
       .success(function( data ) {
           console.log( "Data fetched: " + data );
       })

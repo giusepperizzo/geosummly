@@ -22,22 +22,16 @@ public class Fingerprint {
     @Produces(MediaType.TEXT_PLAIN)
     public Response compute(  
                               @Context Request request,
-                              @QueryParam("nelat") Double neLat,
-                              @QueryParam("nelng") Double neLng,
-                              @QueryParam("swlat") Double swLat,
-                              @QueryParam("swlng") Double swLng,
-                              @QueryParam("nwlat") Double nwLat,
-                              @QueryParam("nwlng") Double nwLng,
-                              @QueryParam("selat") Double seLat,
-                              @QueryParam("selng") Double seLng
+                              @QueryParam("north") Double north,
+                              @QueryParam("sud") Double south,
+                              @QueryParam("west") Double west,
+                              @QueryParam("est") Double est
                             ) 
     {       
         
-        logger.log(Level.INFO, "Compute fingerprint of the BBox with the "
-                + "following vertices: ne=(" + neLat + "," + neLng + ")," +
-                                      "se=(" + seLat + "," + seLng + ")," + 
-                                      "nw=(" + nwLat + "," + nwLng + ")," + 
-                                      "sw=(" + swLat + "," + swLng + ")");
+        logger.log(Level.INFO, "Compute fingerprint of the BBox contained within "
+                + "with the following delimiters: "
+                + "north=" + north + ",south=" + south + ",west=" + west + ",est=" + est); 
         
         //launch process
         
@@ -46,4 +40,33 @@ public class Fingerprint {
                 .entity("OK")
                 .build();
     }
+//    
+//    @GET
+//    @Produces(MediaType.TEXT_PLAIN)
+//    public Response compute(  
+//                              @Context Request request,
+//                              @QueryParam("nelat") Double neLat,
+//                              @QueryParam("nelng") Double neLng,
+//                              @QueryParam("swlat") Double swLat,
+//                              @QueryParam("swlng") Double swLng,
+//                              @QueryParam("nwlat") Double nwLat,
+//                              @QueryParam("nwlng") Double nwLng,
+//                              @QueryParam("selat") Double seLat,
+//                              @QueryParam("selng") Double seLng
+//                            ) 
+//    {       
+//        
+//        logger.log(Level.INFO, "Compute fingerprint of the BBox with the "
+//                + "following vertices: ne=(" + neLat + "," + neLng + ")," +
+//                                      "se=(" + seLat + "," + seLng + ")," + 
+//                                      "nw=(" + nwLat + "," + nwLng + ")," + 
+//                                      "sw=(" + swLat + "," + swLng + ")");
+//        
+//        //launch process
+//        
+//        return Response
+//                .status(Response.Status.OK)
+//                .entity("OK")
+//                .build();
+//    }
 }
