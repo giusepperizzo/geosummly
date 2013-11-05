@@ -66,10 +66,10 @@ public class Main {
 		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
 		ArrayList<String> header=new ArrayList<String>(); //Sorted list of the distinct category (related to the hash map)
-		TransformationMatrix t_matrix=new TransformationMatrix();
-		t_matrix.setMatrix(matrix);
-		t_matrix.setMap(map);
-		t_matrix.setHeader(header);
+		TransformationMatrix tm=new TransformationMatrix();
+		tm.setMatrix(matrix);
+		tm.setMap(map);
+		tm.setHeader(header);
 		ArrayList<Double> row_of_matrix; //row of the transformation matrix (one for each cell);
 		
 		//Support variables for transformation matrix task
@@ -101,15 +101,15 @@ public class Main {
 			cat_num=fsv.getCategoriesNumber(venueInfo);//set the total number of categories of the cell
 			distinct_list=fsv.createCategoryList(venueInfo); 
 			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
-			t_matrix.updateMap(distinct_list);//update the hash map
-			norm_lat=t_matrix.normalizeCoordinate(-90, 90, b.getCenterLat()); //get the normalized value of latitude coordinate
-			norm_lng=t_matrix.normalizeCoordinate(-180, 180, b.getCenterLng());
-			row_of_matrix=t_matrix.fillRow(occurrences_list, distinct_list, cat_num, norm_lat, norm_lng, b.getArea()); //create a consistent row (related to the categories)
-			if(tot_num < row_of_matrix.size()-2)
-				tot_num=row_of_matrix.size()-2; //update the overall number of categories
-			t_matrix.addRow(row_of_matrix);
+			tm.updateMap(distinct_list);//update the hash map
+			norm_lat=tm.normalizeCoordinate(-90, 90, b.getCenterLat()); //get the normalized value of latitude coordinate
+			norm_lng=tm.normalizeCoordinate(-180, 180, b.getCenterLng());
+			row_of_matrix=tm.fillRow(occurrences_list, distinct_list, cat_num, norm_lat, norm_lng, b.getArea()); //create a consistent row (related to the categories)
+			if(tot_num < row_of_matrix.size())
+				tot_num=row_of_matrix.size(); //update the overall number of categories
+			tm.addRow(row_of_matrix);
 		}
-		t_matrix.fixRowsLength(tot_num); //update rows length for consistency
+		tm.fixRowsLength(tot_num); //update rows length for consistency
 		
 		
 		// write down the transformation matrix to a file		
@@ -119,14 +119,14 @@ public class Main {
             CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
 		
             // write the header of the matrix
-            ArrayList<String> hdr=t_matrix.getHeader();
+            ArrayList<String> hdr=tm.getHeader();
             for(String s: hdr) {
             	csv.print(s);
             }
             csv.println();
             // iterate per each row of the matrix
-            ArrayList<ArrayList<Double>> tm=t_matrix.getMatrix();
-            for(ArrayList<Double> a: tm) {
+            ArrayList<ArrayList<Double>> m=tm.getMatrix();
+            for(ArrayList<Double> a: m) {
             	for(Double d: a) {
             		csv.print(d);
             	}
