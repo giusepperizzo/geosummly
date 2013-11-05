@@ -33,10 +33,10 @@ public class Main {
 		/***************************************************************************************/
 		/******************************CREATE THE BOUNDING BOX**********************************/
 		/***************************************************************************************/
-		double north=45.057; //north coordinate of the bounding box
-		double south=45.0390186;
-		double west=7.6600;
-		double east=7.6854548;
+		double north=45.08200587145192; //north coordinate of the bounding box
+		double south=45.05218065994234;
+		double west=7.661247253417969;
+		double east=7.70416259765625;
 		int cells_number=20; //Number N of cells
 		
 		BoundingBox bbox=new BoundingBox(north, south, west, east); //Initialize the bounding box

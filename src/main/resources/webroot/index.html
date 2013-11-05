@@ -22,8 +22,8 @@
       var _se = new google.maps.LatLng(_sw.lat(),_ne.lng());
       console.log("NE=" + _ne + "\nSW=" + _sw + "\nNW=" + _nw + "\nSE=" + _se); 
 
-      //console.log("height=" + google.maps.geometry.spherical.computeDistanceBetween(NE,SE) + "m");
-      //console.log("width=" + google.maps.geometry.spherical.computeDistanceBetween(NE,NW) + "m");  
+      console.log("height=" + google.maps.geometry.spherical.computeDistanceBetween(_ne,_se) + "m");
+      console.log("width=" + google.maps.geometry.spherical.computeDistanceBetween(_ne,_nw) + "m");  
      
       $.get( "/api/fingerprint", { north: _ne.lat(), south: _sw.lat(), 
                                    est: _ne.lng(), west: _sw.lng()} )

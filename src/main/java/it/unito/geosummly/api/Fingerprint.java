@@ -23,7 +23,7 @@ public class Fingerprint {
     public Response compute(  
                               @Context Request request,
                               @QueryParam("north") Double north,
-                              @QueryParam("sud") Double south,
+                              @QueryParam("south") Double south,
                               @QueryParam("west") Double west,
                               @QueryParam("est") Double est
                             ) 
