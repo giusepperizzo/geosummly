@@ -14,7 +14,16 @@
     <script src="js/jquery-2.0.3.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=drawing"></script>
     <script>
-    function send (rectangle) {
+
+    function fromLatLngToPoint(latLng, map) {
+	    var topRight = map.getProjection().fromLatLngToPoint(map.getBounds().getNorthEast());
+	    var bottomLeft = map.getProjection().fromLatLngToPoint(map.getBounds().getSouthWest());
+	    var scale = Math.pow(2, map.getZoom());
+	    var worldPoint = map.getProjection().fromLatLngToPoint(latLng);
+	    return new google.maps.Point((worldPoint.x - bottomLeft.x) * scale, (worldPoint.y - topRight.y) * scale);
+    }
+    
+    function send (map, rectangle) {
       var bounds = rectangle.getBounds();
       var _ne = bounds.getNorthEast();
       var _sw = bounds.getSouthWest();
@@ -24,7 +33,11 @@
 
       console.log("height=" + google.maps.geometry.spherical.computeDistanceBetween(_ne,_se) + "m");
       console.log("width=" + google.maps.geometry.spherical.computeDistanceBetween(_ne,_nw) + "m");  
-     
+      
+      //get x,y of the pixel
+      console.log(fromLatLngToPoint(_nw,map));
+ 	  console.log(fromLatLngToPoint(_se,map));
+
       $.get( "/api/fingerprint", { north: _ne.lat(), south: _sw.lat(), 
                                    est: _ne.lng(), west: _sw.lng()} )
       .success(function( data ) {
@@ -32,14 +45,15 @@
       })
       .fail(function() {
           console.log( "error" );
-      });
+      });	  
     }
 
     function initialize() {
       var mapOptions = {
         center: new google.maps.LatLng(45.057, 7.6600),
         zoom: 10,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        draggable: false
       };
 
       var map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -91,11 +105,11 @@
           google.maps.event.addListener(rectangle, 'bounds_changed', function () {
           window.clearTimeout(timeout);
           timeout = window.setTimeout(function () {
-              send(rectangle);
+              send(map, rectangle);
               }, 500);
           });
 
-          send(rectangle);
+          send(map, rectangle);
         } ); 
 
       drawingManager.setMap(map);
@@ -106,6 +120,6 @@
     </script>
   </head>
   <body>
-    <div id="map-canvas"></div>
+    <div id="map-canvas" height="100" width="200"></div>
   </body>
 </html>
