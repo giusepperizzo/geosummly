@@ -83,7 +83,8 @@ public class TransformationMatrix {
 			int category_index=this.map.get(distincts.get(i)); //get the category corresponding to its occurrence value
 			double occ= (double) occurrences.get(i);
 			double num=(double) cat_num;
-			row.set(category_index, (occ/num)/area); //put the occurrence value (normalized with the corresponding cell area) in the "right" position
+			row.set(category_index, (occ/num)/(area/1000)); //put the occurrence value (normalized with the corresponding cell area) in the "right" position
+			                                                //normalize by Km    
 		}
 		return row;
 	}
