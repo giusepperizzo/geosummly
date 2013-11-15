@@ -37,7 +37,7 @@ public class FoursquareSearchVenues {
 		        "http://www.foursquare.com");
 	}
 	
-	//Search venue informations
+	//Search venue informations (row and column informations included)
 	public ArrayList<FoursquareDataObject> searchVenues(int row, int column, double north, double south, double west, double east) throws FoursquareApiException, UnknownHostException {
 		
 		//Initialize parameters for venues search
@@ -87,6 +87,55 @@ public class FoursquareSearchVenues {
     			return doclist;
 	    }
 	}
+	
+	//Search venue informations (without row and column informations)
+		public ArrayList<FoursquareDataObject> searchVenues(double north, double south, double west, double east) throws FoursquareApiException, UnknownHostException {
+			
+			//Initialize parameters for venues search
+			String ne=north+","+east;
+			String sw=south+","+west;
+			Map<String, String> searchParams = new HashMap<String, String>(); 
+			searchParams.put("intent", "browse");
+			searchParams.put("ne", ne); 
+			searchParams.put("sw", sw);
+			
+			//Array to return
+			ArrayList<FoursquareDataObject> doclist=new ArrayList<FoursquareDataObject>(); 
+		    
+		    //After client has been initialized we can make queries.
+		    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
+		    if(result.getMeta().getCode() == 200) {
+		    	   	
+	    		//Declare a FoursquareDataObject
+	    		FoursquareDataObject dataobj;
+		    	
+		    	//For each point: create a FoursquareDataObject)
+		    	for(CompactVenue venue : result.getResult().getVenues()) {
+		    		//Initialize the FoursquareDataObject and fill it with the venue informations
+		    		dataobj=new FoursquareDataObject();
+		    		dataobj.setVenueId(venue.getId());
+		    		dataobj.setVenueName(venue.getName());
+		    		dataobj.setLatitude(venue.getLocation().getLat());
+		    		dataobj.setLongitude(venue.getLocation().getLng());
+		    		dataobj.setCategories(venue.getCategories());
+		    		dataobj.setEmail(venue.getContact().getEmail());
+		    		dataobj.setPhone(venue.getContact().getPhone());
+		    		dataobj.setFacebook(venue.getContact().getFacebook());
+		    		dataobj.setTwitter(venue.getContact().getTwitter());
+		    		dataobj.setVerified(venue.getVerified());
+		    		dataobj.setCheckinsCount(venue.getStats().getCheckinsCount());
+		    		dataobj.setUsersCount(venue.getStats().getUsersCount());
+		    		dataobj.setUrl(venue.getUrl());
+		    		dataobj.setHereNow(venue.getHereNow().getCount());
+		    		doclist.add(dataobj);
+		    	}
+		    	return doclist;
+	    	} 
+	    	else {
+	    			logger.log(Level.INFO, "Error occurred:\ncode: "+result.getMeta().getCode()+"\ntype: "+result.getMeta().getErrorType()+"\ndetail: "+result.getMeta().getErrorDetail());
+	    			return doclist;
+		    }
+		}
 	
 	//Return the total number of categories for a bounding box cell
 	public int getCategoriesNumber(ArrayList<FoursquareDataObject> array) {
