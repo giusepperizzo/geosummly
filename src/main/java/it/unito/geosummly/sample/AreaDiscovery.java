@@ -24,7 +24,7 @@ public class AreaDiscovery {
 	public static Logger logger = Logger.getLogger(AreaDiscovery.class.toString());
 	
 	public static void main(String[] args) throws UnknownHostException, FoursquareApiException {
-		double north= 48.86985261204524;
+		double north= 48.86985261204524; //coordinates of Paris (city center)
 		double south= 48.840486362012925;
 		double west= 2.3219776258338243;
 		double east= 2.384977351175621;
@@ -113,8 +113,8 @@ public class AreaDiscovery {
 		OutputStream outputStream_freq;
 		OutputStream outputStream_dev;
         try {
-            outputStream_freq = new FileOutputStream ("output/samples/freqMatrix.csv");
-            outputStream_dev = new FileOutputStream ("output/samples/devMatrix.csv");
+            outputStream_freq = new FileOutputStream ("output/samples/freqMetroParis.csv");
+            outputStream_dev = new FileOutputStream ("output/samples/devMetroParis.csv");
             bout_freq.writeTo(outputStream_freq);
             bout_dev.writeTo(outputStream_dev);
         } catch (FileNotFoundException e) {
