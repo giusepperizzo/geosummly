@@ -35,7 +35,7 @@ public class AreaDiscovery {
 		ArrayList<ArrayList<Double>> freqStructure=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> devStructure=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
-		ArrayList<String> actualCategories=new ArrayList<String>(); //Sorted list of the distinct category (related to the hash map)
+		ArrayList<String> features=new ArrayList<String>(); //Sorted list of the distinct category (related to the hash map)
 		SampleArea sA=new SampleArea(north, south, west, east);
 		sA.setGridStructure(gridStructure);
 		sA.setFreqStructure(freqStructure);
@@ -43,7 +43,7 @@ public class AreaDiscovery {
 		sA.setCellsNumber(cellsNumber);
 		sA.setSampleNumber(sampleNumber);
 		sA.setMap(map);
-		sA.setActualCategories(actualCategories);
+		sA.setFeatures(features);
 		sA.createSampleGrid(); //fill the gridStructure with 'sampleNumber' samples
 		ArrayList<Double> row_of_matrix; //row of the matrixStructure of the sample area (one for each box);
 		
@@ -79,7 +79,7 @@ public class AreaDiscovery {
             CSVPrinter csv_dev = new CSVPrinter(osw_dev, CSVFormat.DEFAULT);
 		
             // write the header of the matrix
-            ArrayList<String> hdr=sA.getActualCategories();
+            ArrayList<String> hdr=sA.getFeatures();
             for(String s: hdr) {
             	csv_freq.print(s);
             	csv_dev.print(s);

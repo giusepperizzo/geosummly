@@ -17,7 +17,7 @@ public class SampleArea {
 	private ArrayList<ArrayList<Double>> freqStructure; //matrix of normalized frequencies
 	private ArrayList<ArrayList<Double>> devStructure; //matrix of standard deviations
 	private HashMap<String, Integer> map; //Map category to index
-	private ArrayList<String> actualCategories; //Sorted list of categories by column index
+	private ArrayList<String> features; //Sorted list of categories by column index
 	
 	public SampleArea(double north, double south, double west, double east) {
 		this.north=north;
@@ -106,12 +106,12 @@ public class SampleArea {
 		this.map = map;
 	}
 
-	public ArrayList<String> getActualCategories() {
-		return actualCategories;
+	public ArrayList<String> getFeatures() {
+		return features;
 	}
 
-	public void setActualCategories(ArrayList<String> actualCategories) {
-		this.actualCategories = actualCategories;
+	public void setFeatures(ArrayList<String> features) {
+		this.features = features;
 	}
 	
 	public void createSampleGrid() {
@@ -149,7 +149,7 @@ public class SampleArea {
 		for(String s: categories)
 			if(!this.map.containsKey(s)) {
 				this.map.put(s, this.map.size());
-				this.actualCategories.add(s);
+				this.features.add(s);
 			}
 	}
 	
