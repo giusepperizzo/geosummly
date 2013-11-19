@@ -1,4 +1,4 @@
-package it.unito.geosummly.sample;
+package it.unito.geosummly.discovery;
 
 import java.util.ArrayList;
 import java.util.HashMap;
