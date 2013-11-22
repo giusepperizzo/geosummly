@@ -14,7 +14,8 @@ import java.util.logging.Logger;
  * normalized with respect to the M_i area and the total number of categories found in M_i 
  */
 public class TransformationMatrix {
-	private ArrayList<ArrayList<Double>> matrix; //data structure
+	private ArrayList<ArrayList<Double>> original_matrix; //data structure before normalization
+	private ArrayList<ArrayList<Double>> matrix; //data structure after normalization
 	private HashMap<String, Integer> map; //Map category to index
 	private ArrayList<String> header; //Sorted list of categories by column index 
 	
@@ -22,6 +23,16 @@ public class TransformationMatrix {
 	
 	public TransformationMatrix(){}
 	
+	
+	public ArrayList<ArrayList<Double>> getOriginalMatrix() {
+		return original_matrix;
+	}
+
+	public void setOriginalMatrix(ArrayList<ArrayList<Double>> original_matrix) {
+		this.original_matrix = original_matrix;
+	}
+
+
 	public ArrayList<ArrayList<Double>> getMatrix() {
 		return matrix;
 	}
@@ -49,7 +60,7 @@ public class TransformationMatrix {
 	}
 
 	public void addRow(ArrayList<Double> row) {
-		this.matrix.add(row);
+		this.original_matrix.add(row);
 	}
 	
 	public String toString() {
@@ -72,9 +83,9 @@ public class TransformationMatrix {
 	}
 	
 	//Build a row of the matrix
-	public ArrayList<Double> fillRow(ArrayList<Integer> occurrences, ArrayList<String> distincts, int cat_num, double lat, double lng, double area) {
+	public ArrayList<Double> fillRow(ArrayList<Integer> occurrences, ArrayList<String> distincts, double lat, double lng) {
 		ArrayList<Double> row=new ArrayList<Double>();
-		row.add(lat); //lat and lng are in position 0 and 1
+		row.add(lat); //lat, lng and area are in position 0, 1 and 2
 		row.add(lng);
 		for(int i=0; i<this.map.size(); i++) {
 			row.add(0.0);
@@ -82,25 +93,89 @@ public class TransformationMatrix {
 		for(int i=0;i<distincts.size();i++){
 			int category_index=this.map.get(distincts.get(i)); //get the category corresponding to its occurrence value
 			double occ= (double) occurrences.get(i);
-			double num=(double) cat_num;
-			row.set(category_index, (occ/num)/(area/1000)); //put the occurrence value (normalized with the corresponding cell area) in the "right" position
-			                                                //normalize by Km    
+			row.set(category_index, occ); //put the occurrence value in the "right" position    
 		}
 		return row;
 	}
 	
-	//Fix the row length to have rows with the same length value
+	//Fix the row length to have rows with the same length
 	public void fixRowsLength(int tot_num) {
-		for(ArrayList<Double> row: this.matrix)
+		for(ArrayList<Double> row: this.original_matrix)
 			for(int i=row.size();i<tot_num;i++) {
 				row.add(0.0);
 			}	
 	}
 	
-	//Normalize coordinate value in range [0,1]
+	//Build the normalized transformation matrix
+	public void buildMatrix(ArrayList<ArrayList<Double>> original, ArrayList<Double> area) {
+		ArrayList<Double> sumArray=new ArrayList<Double>();
+		double sum=0;
+		double currentValue=0;
+		double density=0;
+		double normalizedLat=0;
+		double normalizedLng=0;
+		
+		//get min and max values of latitude and longitude
+		double[] minmaxLat=getMinMax(original, 0);
+		double[] minmaxLng=getMinMax(original, 1);
+		double minLat=minmaxLat[0];
+		double maxLat=minmaxLat[1];
+		double minLng=minmaxLng[0];
+		double maxLng=minmaxLng[1];
+		
+		//get all the sums of the features occurrences per column (it starts by 2 because first 2 cells are for lat and lng)
+		for(int j=2; j<original.get(0).size(); j++) {
+			sum=getSum(original, j);
+			sumArray.add(sum);
+		}
+		
+		//create the matrix
+		for(int i=0;i<original.size();i++) {
+			ArrayList<Double> normalizedRecord=new ArrayList<Double>();
+			normalizedLat=normalizeCoordinate(minLat, maxLat, original.get(i).get(0));
+			normalizedLng=normalizeCoordinate(minLng, maxLng, original.get(i).get(1));
+			normalizedRecord.add(normalizedLat);
+			normalizedRecord.add(normalizedLng);
+			for(int j=2;j<original.get(i).size();j++) {
+				currentValue=original.get(i).get(j);
+				density=(currentValue/sumArray.get(j-2)) / (area.get(i)/1000); //density=frequency/area
+				normalizedRecord.add(density);
+			}
+			this.matrix.add(normalizedRecord);
+		}
+	}
+	
+	//Get the total number of elements of a specific category
+	public double getSum(ArrayList<ArrayList<Double>> original, int index) {
+		double sum=0;
+		for(int i=0; i<original.size(); i++) {
+			sum+=original.get(i).get(index);
+		}
+		return sum;
+	}
+	
+	//Get the min and max values of a coordinate
+	public double[] getMinMax(ArrayList<ArrayList<Double>> original, int index){
+		double min=Double.MAX_VALUE;
+		double max=-1*Double.MAX_VALUE;
+		double current=0;
+		double[] minmax=new double[2];
+		
+		for(int i=0; i<original.size(); i++) {
+			current=original.get(i).get(index);
+			if(current<min)
+				min=current;
+			if(current>max)
+				max=current;
+		}
+		minmax[0]=min;
+		minmax[1]=max;
+		return minmax;
+	}
+	
+	//Normalize coordinate value in range [min,max]
 	public double normalizeCoordinate(double min, double max, double c) {
 		double norm_c=(c-min)/(max-min);
 		return norm_c;
 	}
-	
 }
