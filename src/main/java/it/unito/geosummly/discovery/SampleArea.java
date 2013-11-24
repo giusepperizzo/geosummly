@@ -14,7 +14,7 @@ public class SampleArea {
 	private int cellsNumber;
 	private int sampleNumber;
 	private ArrayList<BoundingBox> gridStructure;
-	private ArrayList<ArrayList<Double>> freqStructure; //matrix of normalized frequencies
+	private ArrayList<ArrayList<Double>> densityStructure; //matrix of densities
 	private ArrayList<ArrayList<Double>> devStructure; //matrix of standard deviations
 	private HashMap<String, Integer> map; //Map category to index
 	private ArrayList<String> features; //Sorted list of categories by column index
@@ -82,12 +82,12 @@ public class SampleArea {
 		this.gridStructure = gridStructure;
 	}
 	
-	public ArrayList<ArrayList<Double>> getFreqStructure() {
-		return freqStructure;
+	public ArrayList<ArrayList<Double>> getDensityStructure() {
+		return densityStructure;
 	}
 
-	public void setFreqStructure(ArrayList<ArrayList<Double>> freqStructure) {
-		this.freqStructure = freqStructure;
+	public void setDensityStructure(ArrayList<ArrayList<Double>> densityStructure) {
+		this.densityStructure = densityStructure;
 	}
 	
 	public ArrayList<ArrayList<Double>> getDevStructure() {
@@ -139,9 +139,9 @@ public class SampleArea {
 		}
 	}
 	
-	//Add a record to the matrix structure
+	//Add a record to the densityStructure
 	public void addRecord(ArrayList<Double> record) {
-		this.freqStructure.add(record);
+		this.densityStructure.add(record);
 	}
 	
 	//Update the hash map with new categories
@@ -153,8 +153,8 @@ public class SampleArea {
 			}
 	}
 	
-	//Build a record of the matrix structure
-	public ArrayList<Double> fillRecord(ArrayList<Integer> occurrences, ArrayList<String> distincts, int cat_num, double area) {
+	//Build a record of the densityStructure
+	public ArrayList<Double> fillRecord(ArrayList<Integer> occurrences, ArrayList<String> distincts) {
 		ArrayList<Double> record=new ArrayList<Double>();
 		for(int i=0; i<this.map.size(); i++) {
 			record.add(0.0);
@@ -162,60 +162,99 @@ public class SampleArea {
 		for(int i=0;i<distincts.size();i++){
 			int category_index=this.map.get(distincts.get(i)); //get the category corresponding to its occurrence value
 			double occ= (double) occurrences.get(i);
-			double num=(double) cat_num;
-			record.set(category_index, (occ/num)/(area/1000)); //put the occurrence value (normalized with the corresponding cell area) in the "right" position
+			record.set(category_index, occ); //put the occurrence value in the "right" position
 		}
 		return record;
 	}
 	
 	//Fix the record length to have columns with the same length value
 	public void fixRecordsLength(int tot_num) {
-		for(ArrayList<Double> record: this.freqStructure)
+		for(ArrayList<Double> record: this.densityStructure)
 			for(int i=record.size();i<tot_num;i++) {
 				record.add(0.0);
 			}	
 	}
 	
-	//Create a matrix with standard deviation values starting by the matrix of normalized frequencies
-	public void createStdDevMatrix(ArrayList<ArrayList<Double>> freqMatrix) {
+	//Get records with density values (density=frequency/area)
+	public void getDensities(ArrayList<Double> area) {
+		ArrayList<ArrayList<Double>> tmpStructure=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> sumArray=new ArrayList<Double>();
+		double sum=0;
+		double currentValue=0;
+		double density=0;
+		
+		//Get all the sums of the features occurrences per column
+		for(int j=0; j<this.densityStructure.get(0).size(); j++) {
+			sum=getSum(j);
+			sumArray.add(sum);
+		}
+		
+		//Build records
+		for(int i=0;i<this.densityStructure.size();i++) {
+			ArrayList<Double> normalizedRecord=new ArrayList<Double>();
+			for(int j=0;j<this.densityStructure.get(i).size();j++) {
+				currentValue=this.densityStructure.get(i).get(j);
+				density=(currentValue/sumArray.get(j)) / (area.get(i)/1000); //density=frequency/area
+				normalizedRecord.add(density);
+			}
+			tmpStructure.add(normalizedRecord);
+		}
+		
+		//Update with the density values
+		for(int i=0;i<this.densityStructure.size();i++) {
+			this.densityStructure.set(i, tmpStructure.get(i));
+		}
+	}
+	
+	//Get the total number of elements of a specific category
+	public double getSum(int index) {
+		double sum=0;
+		for(int i=0; i<this.densityStructure.size(); i++) {
+			sum+=this.densityStructure.get(i).get(index);
+		}
+		return sum;
+	}
+	
+	//Create a matrix with standard deviation values starting by the matrix of densities
+	public void createStdDevMatrix(ArrayList<ArrayList<Double>> densMatrix) {
 		ArrayList<Double> stdDevArray=new ArrayList<Double>();
 		double mean=0; //mean of the element (of the same category) found
 		double variance=0;
 		double stdDev=0;
 		
 		//get all the standard deviation values
-		for(int j=0; j<freqMatrix.get(0).size(); j++) {
-			mean=getMean(freqMatrix, j);
-			variance=getVariance(freqMatrix, j, mean);
+		for(int j=0; j<densMatrix.get(0).size(); j++) {
+			mean=getMean(densMatrix, j);
+			variance=getVariance(densMatrix, j, mean);
 			stdDev=getStdDev(variance);
 			stdDevArray.add(stdDev);
 		}
 		
 		//Build the matrix
-		for(int i=0; i<freqMatrix.size(); i++) {
+		for(int i=0; i<densMatrix.size(); i++) {
 			ArrayList<Double> stdDevRecord=new ArrayList<Double>(stdDevArray);
 			this.devStructure.add(stdDevRecord);
 		}
 	}
 	
 	//Calculate the mean of a given array of values
-	public double getMean(ArrayList<ArrayList<Double>> freqMatrix, int index) {
+	public double getMean(ArrayList<ArrayList<Double>> densMatrix, int index) {
 		double sum=0; //sum of element (of the same category) found 
 		double size=0; //number of element (of the same category) found
-		for(int i=0; i<freqMatrix.size(); i++) {
-			sum+=freqMatrix.get(i).get(index);
+		for(int i=0; i<densMatrix.size(); i++) {
+			sum+=densMatrix.get(i).get(index);
 			size++;
 		}
 		return sum/size;
 	}
 	
 	//Calculate the variance of a given array of values
-	public double getVariance(ArrayList<ArrayList<Double>> freqMatrix, int index, double mean) {
+	public double getVariance(ArrayList<ArrayList<Double>> densMatrix, int index, double mean) {
 		double value=0;
 		double tmp=0;
 		double size=0;
-		for(int i=0; i<freqMatrix.size(); i++) {
-			value=freqMatrix.get(i).get(index);
+		for(int i=0; i<densMatrix.size(); i++) {
+			value=densMatrix.get(i).get(index);
 			tmp+=(mean-value)*(mean-value);
 			size++;
 		}

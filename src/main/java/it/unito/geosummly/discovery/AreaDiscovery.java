@@ -29,75 +29,76 @@ public class AreaDiscovery {
 		double west= 13.43353271484375;
 		double east= 13.542022705078125;
 		
-		int cellsNumber=20; //it corresponds to cellsNumber of class grid 
+		int cellsNumber=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber=100; //number of samples of the sample area
 		ArrayList<BoundingBox> gridStructure=new ArrayList<BoundingBox>();
-		ArrayList<ArrayList<Double>> freqStructure=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> densityStructure=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> devStructure=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
 		ArrayList<String> features=new ArrayList<String>(); //Sorted list of the distinct category (related to the hash map)
 		SampleArea sA=new SampleArea(north, south, west, east);
 		sA.setGridStructure(gridStructure);
-		sA.setFreqStructure(freqStructure);
+		sA.setDensityStructure(densityStructure);
 		sA.setDevStructure(devStructure);
 		sA.setCellsNumber(cellsNumber);
 		sA.setSampleNumber(sampleNumber);
 		sA.setMap(map);
 		sA.setFeatures(features);
 		sA.createSampleGrid(); //fill the gridStructure with 'sampleNumber' samples
-		ArrayList<Double> row_of_matrix; //row of the matrixStructure of the sample area (one for each box);
+		ArrayList<Double> row_of_matrix; //one row per box;
 		
-		int cat_num=0; //total number of categories of a box
 		int tot_num=0; //overall number of categories
 		ArrayList<String> distinct_list; //list of all the distinct categories for a single cell
 		ArrayList<Integer> occurrences_list; //list of the occurrences of the distinct categories for a single cell
+		ArrayList<Double> box_area =new ArrayList<Double>(); //list of the bounding boxes area values
 		
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> venueInfo;
 		for(BoundingBox b: sA.getGridStructure()){
 			//Venues of a single cell
 			venueInfo=fsv.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
-			cat_num=fsv.getCategoriesNumber(venueInfo);//set the total number of categories of the cell
 			distinct_list=fsv.createCategoryList(venueInfo); 
 			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
 			sA.updateMap(distinct_list); //update the hash map
-			row_of_matrix=sA.fillRecord(occurrences_list, distinct_list, cat_num, b.getArea()); //create a consistent row (related to the categories)
+			row_of_matrix=sA.fillRecord(occurrences_list, distinct_list); //create a consistent row (related to the categories)
 			if(tot_num < row_of_matrix.size())
 				tot_num=row_of_matrix.size(); //update the overall number of categories
 			sA.addRecord(row_of_matrix);
+			box_area.add(b.getArea());
 		}
 		sA.fixRecordsLength(tot_num); //update rows length for consistency
-		sA.createStdDevMatrix(sA.getFreqStructure()); //get the matrix with standard deviation values
+		sA.getDensities(box_area); //get a structure with density values
+		sA.createStdDevMatrix(sA.getDensityStructure()); //get the matrix with standard deviation values
 		
-		// write down the matrix of normalized frequencies and of standard deviation values to a file		
-		ByteArrayOutputStream bout_freq = new ByteArrayOutputStream();
-		OutputStreamWriter osw_freq = new OutputStreamWriter(bout_freq);
+		// write down the matrix of densities and of standard deviation values to a file		
+		ByteArrayOutputStream bout_density = new ByteArrayOutputStream();
+		OutputStreamWriter osw_density = new OutputStreamWriter(bout_density);
 		ByteArrayOutputStream bout_dev = new ByteArrayOutputStream();
 		OutputStreamWriter osw_dev = new OutputStreamWriter(bout_dev);
         try {
-            CSVPrinter csv_freq = new CSVPrinter(osw_freq, CSVFormat.DEFAULT);
+            CSVPrinter csv_density = new CSVPrinter(osw_density, CSVFormat.DEFAULT);
             CSVPrinter csv_dev = new CSVPrinter(osw_dev, CSVFormat.DEFAULT);
 		
             // write the header of the matrix
             ArrayList<String> hdr=sA.getFeatures();
             for(String s: hdr) {
-            	csv_freq.print(s);
+            	csv_density.print(s);
             	csv_dev.print(s);
             }
-            csv_freq.println();
+            csv_density.println();
             csv_dev.println();
             
             // iterate per each row of the matrix
-            ArrayList<ArrayList<Double>> freq=sA.getFreqStructure();
+            ArrayList<ArrayList<Double>> dens=sA.getDensityStructure();
             ArrayList<ArrayList<Double>> dev=sA.getDevStructure();
             
-            for(ArrayList<Double> a: freq) {
+            for(ArrayList<Double> a: dens) {
             	for(Double d: a) {
-            		csv_freq.print(d);
+            		csv_density.print(d);
             	}
-            	csv_freq.println();
+            	csv_density.println();
             }
-            csv_freq.flush();
+            csv_density.flush();
             
             for(ArrayList<Double> a: dev) {
             	for(Double d: a) {
@@ -110,12 +111,12 @@ public class AreaDiscovery {
             e1.printStackTrace();
         }
 		
-		OutputStream outputStream_freq;
+		OutputStream outputStream_density;
 		OutputStream outputStream_dev;
         try {
-            outputStream_freq = new FileOutputStream ("output/discovery/freqNaturalGranSasso.csv");
+            outputStream_density = new FileOutputStream ("output/discovery/densityNaturalGranSasso.csv");
             outputStream_dev = new FileOutputStream ("output/discovery/devNaturalGranSasso.csv");
-            bout_freq.writeTo(outputStream_freq);
+            bout_density.writeTo(outputStream_density);
             bout_dev.writeTo(outputStream_dev);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

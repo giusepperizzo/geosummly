@@ -10,8 +10,17 @@ import java.util.logging.Logger;
  * M*N Transformation matrix creation.
  * M is the number of bounding box cell.
  * N is the total number of categories found in the bounding box.
- * The cell C_ij, 0<i<M-1 and 0<j<N-1, contains the occurrence of the (N_j)th category for the (M_i)th cell,
- * normalized with respect to the M_i area and the total number of categories found in M_i 
+ * 
+ * In the original matrix: 
+ * The cell C_ij, 0<i<M-1 and 0<j<2, will contain the latitude and longitude values for the (M_i)th cell.
+ * The cell C_ij, 0<i<M-1 and 2<j<N-1, will contain the occurrence of the (N_j)th category for the (M_i)th cell.
+ * 
+ * In the normalized matrix: 
+ * The cell C_ij, 0<i<M-1 and 0<j<2, will contain the normalized latitude and longitude values for the (M_i)th cell.
+ * For a cell C_ij, 0<i<M-1 and 2<j<N-1, let OCC_j be the occurrence of the (N_j)th category for the (M_i)th cell, let AREA_i be 
+ * the area value for M_i and let TOT_j be the total number of categories found in the (N_j)th column. So, C_ij will contain a density
+ * value given by (OCC_j/TOT_j)/(AREA_i/1000).
+ *   
  */
 public class TransformationMatrix {
 	private ArrayList<ArrayList<Double>> original_matrix; //data structure before normalization
@@ -64,7 +73,7 @@ public class TransformationMatrix {
 	}
 	
 	public String toString() {
-		String s= "Matrix Rows: "+matrix.size()+"\nMatrix Columns:"+matrix.get(0).size()+"\nAll categories frequencies:";
+		String s= "Matrix Rows: "+matrix.size()+"\nMatrix Columns:"+matrix.get(0).size()+"\nAll categories occurrences:";
 		for(ArrayList<Double> r : matrix) {
 			for(Double d: r)
 				s+=d+", ";
@@ -106,7 +115,7 @@ public class TransformationMatrix {
 			}	
 	}
 	
-	//Build the normalized transformation matrix
+	//Build a transformation matrix with normalized coordinates and density values
 	public void buildMatrix(ArrayList<ArrayList<Double>> original, ArrayList<Double> area) {
 		ArrayList<Double> sumArray=new ArrayList<Double>();
 		double sum=0;
