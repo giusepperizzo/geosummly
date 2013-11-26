@@ -63,13 +63,14 @@ public class Main {
 		BasicDBObject doc;
 		
 		//Initialize the transformation matrix and its parameters
-		ArrayList<ArrayList<Double>> originalMatrix=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> supportMatrix=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> notNormalizedMatrix=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> normalizedMatrix=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
 		ArrayList<String> header=new ArrayList<String>(); //Sorted list of the distinct category (related to the hash map)
 		TransformationMatrix tm=new TransformationMatrix();
-		tm.setOriginalMatrix(originalMatrix);
-		tm.setMatrix(matrix);
+		tm.setNotNormalizedMatrix(notNormalizedMatrix);
+		tm.setNormalizedMatrix(normalizedMatrix);
 		tm.setMap(map);
 		tm.setHeader(header);
 		ArrayList<Double> row_of_matrix; //row of the transformation matrix (one for each cell);
@@ -78,7 +79,6 @@ public class Main {
 		int tot_num=0; //overall number of categories
 		ArrayList<String> distinct_list; //list of all the distinct categories for a single cell
 		ArrayList<Integer> occurrences_list; //list of the occurrences of the distinct categories for a single cell
-		ArrayList<Double> box_area =new ArrayList<Double>(); //list of the bounding boxes area values
 		
 		//Download venues informations
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
@@ -101,54 +101,46 @@ public class Main {
 			distinct_list=fsv.createCategoryList(venueInfo);
 			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
 			tm.updateMap(distinct_list);//update the hash map
-			row_of_matrix=tm.fillRow(occurrences_list, distinct_list, b.getCenterLat(), b.getCenterLng()); //create a consistent row (related to the categories)
+			row_of_matrix=tm.fillRow(occurrences_list, distinct_list, b.getCenterLat(), b.getCenterLng(), b.getArea()); //create a consistent row (related to the categories)
 			if(tot_num < row_of_matrix.size())
 				tot_num=row_of_matrix.size(); //update the overall number of categories
-			tm.addRow(row_of_matrix);
-			box_area.add(b.getArea());
+			supportMatrix.add(row_of_matrix);
 		}
-		tm.fixRowsLength(tot_num); //update rows length for consistency
+		tm.fixRowsLength(tot_num, supportMatrix); //update rows length for consistency
 		
-		//Create the normalized transformation matrix
-		tm.buildMatrix(tm.getOriginalMatrix(), box_area);
+		tm.buildNotNormalizedMatrix(supportMatrix); //Create a not normalized transformation matrix
+		tm.buildNormalizedMatrix(tm.getNotNormalizedMatrix()); //Create a normalized transformation matrix
 		
 		
 		// write down the transformation matrix to a file		
-		ByteArrayOutputStream bout_original = new ByteArrayOutputStream();
-		OutputStreamWriter osw_original = new OutputStreamWriter(bout_original);
+		ByteArrayOutputStream bout_notnorm = new ByteArrayOutputStream();
+		OutputStreamWriter osw_notnorm = new OutputStreamWriter(bout_notnorm);
 		ByteArrayOutputStream bout_norm = new ByteArrayOutputStream();
 		OutputStreamWriter osw_norm = new OutputStreamWriter(bout_norm);
         try {
-            CSVPrinter csv_original = new CSVPrinter(osw_original, CSVFormat.DEFAULT);
+            CSVPrinter csv_notnorm = new CSVPrinter(osw_notnorm, CSVFormat.DEFAULT);
             CSVPrinter csv_norm = new CSVPrinter(osw_norm, CSVFormat.DEFAULT);
 		
             // write the header of the matrix
-            ArrayList<String> hdr_original=tm.getHeader();
-            ArrayList<String> hdr_norm=new ArrayList<>();
-            for(int i=0; i<hdr_original.size(); i++)
-            	if(i!=2)
-            		hdr_norm.add(hdr_original.get(i));
-            for(String s: hdr_original) {
-            	csv_original.print(s);
-            }
-            csv_original.println();
-            
-            for(String s: hdr_norm) {
+            ArrayList<String> hdr=tm.getHeader();
+            for(String s: hdr) {
+            	csv_notnorm.print(s);
             	csv_norm.print(s);
             }
+            csv_notnorm.println();
             csv_norm.println();
             
             // iterate per each row of the matrix
-            ArrayList<ArrayList<Double>> m_original=tm.getOriginalMatrix();
+            ArrayList<ArrayList<Double>> m_original=tm.getNotNormalizedMatrix();
             for(ArrayList<Double> a: m_original) {
             	for(Double d: a) {
-            		csv_original.print(d);
+            		csv_notnorm.print(d);
             	}
-            	csv_original.println();
+            	csv_notnorm.println();
             }
-            csv_original.flush();
+            csv_notnorm.flush();
             
-            ArrayList<ArrayList<Double>> m_norm=tm.getMatrix();
+            ArrayList<ArrayList<Double>> m_norm=tm.getNormalizedMatrix();
             for(ArrayList<Double> a: m_norm) {
             	for(Double d: a) {
             		csv_norm.print(d);
@@ -160,11 +152,11 @@ public class Main {
             e1.printStackTrace();
         }
 		
-		OutputStream outputStream_original;
+		OutputStream outputStream_notnorm;
 		OutputStream outputStream_norm;
         try {
-            outputStream_original = new FileOutputStream ("output/original-transformation-matrix.csv");
-            bout_original.writeTo(outputStream_original);
+            outputStream_notnorm = new FileOutputStream ("output/not-normalized-transformation-matrix.csv");
+            bout_notnorm.writeTo(outputStream_notnorm);
             outputStream_norm = new FileOutputStream ("output/normalized-transformation-matrix.csv");
             bout_norm.writeTo(outputStream_norm);
         } catch (FileNotFoundException e) {

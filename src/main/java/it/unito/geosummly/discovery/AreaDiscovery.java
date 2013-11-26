@@ -70,7 +70,7 @@ public class AreaDiscovery {
 		sA.getDensities(box_area); //get a structure with density values
 		sA.createStdDevMatrix(sA.getDensityStructure()); //get the matrix with standard deviation values
 		
-		// write down the matrix of densities and of standard deviation values to a file		
+		// write down the matrices of densities and standard deviation values to a file		
 		ByteArrayOutputStream bout_density = new ByteArrayOutputStream();
 		OutputStreamWriter osw_density = new OutputStreamWriter(bout_density);
 		ByteArrayOutputStream bout_dev = new ByteArrayOutputStream();

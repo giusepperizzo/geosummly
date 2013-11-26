@@ -83,18 +83,19 @@ public class TransformationMatrixTest extends TestCase {
 		distincts.add("Cat 2");
 		double lat=10.0;
 		double lng=20.0;
+		double area=100;
 		ArrayList<Double> actual;
-		actual=tm.fillRow(occurrences, distincts, lat, lng);
+		actual=tm.fillRow(occurrences, distincts, lat, lng, area);
 		
 		//Construct the test case
 		ArrayList<Double> expected = new ArrayList<Double>();
 		expected.add(10.0);
 		expected.add(20.0);
-		expected.add(1.0);
-		expected.add(2.0);
-		expected.add(3.0);
-		expected.add(4.0);
-		expected.add(5.0);
+		expected.add(10.0);
+		expected.add(20.0);
+		expected.add(30.0);
+		expected.add(40.0);
+		expected.add(50.0);
 		
 		//Start the tests
 		assertNotNull(actual);
@@ -104,7 +105,7 @@ public class TransformationMatrixTest extends TestCase {
 	public void testFixRowsLength() {
 		//Initialize the transformation matrix and execute the method
 		TransformationMatrix tm=new TransformationMatrix();
-		ArrayList<ArrayList<Double>> matrix= new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> actual= new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> row1=new ArrayList<Double>();
 		row1.add(0.1);
 		row1.add(0.2);
@@ -117,12 +118,10 @@ public class TransformationMatrixTest extends TestCase {
 		row3.add(0.2);
 		row3.add(0.0);
 		row3.add(0.1);
-		matrix.add(row1);
-		matrix.add(row2);
-		matrix.add(row3);
-		tm.setOriginalMatrix(matrix);
-		tm.fixRowsLength(row2.size());
-		ArrayList<ArrayList<Double>> actual=tm.getOriginalMatrix();
+		actual.add(row1);
+		actual.add(row2);
+		actual.add(row3);
+		tm.fixRowsLength(row2.size(), actual);
 		
 		//Construct the test case
 		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
@@ -149,11 +148,11 @@ public class TransformationMatrixTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
-	public void testBuildMatrix() {
+	public void testBuildNotNormalizedMatrix() {
 		//Initialize the transformation matrix and execute the method
 		TransformationMatrix tm=new TransformationMatrix();
-		ArrayList<ArrayList<Double>> matrix= new ArrayList<ArrayList<Double>>();
-		tm.setMatrix(matrix);
+		ArrayList<ArrayList<Double>> notnorm=new ArrayList<ArrayList<Double>>();
+		tm.setNotNormalizedMatrix(notnorm);
 		ArrayList<Double> a=new ArrayList<Double>();
 		a.add(10.0);
 		a.add(10.0);
@@ -169,33 +168,85 @@ public class TransformationMatrixTest extends TestCase {
 		c.add(20.0);
 		c.add(6.0);
 		c.add(2.0);
-		ArrayList<ArrayList<Double>> original=new ArrayList<ArrayList<Double>>();
-		original.add(a);
-		original.add(b);
-		original.add(c);
-		ArrayList<Double> area=new ArrayList<Double>();
-		area.add(100.0);
-		area.add(100.0);
-		area.add(100.0);
-		tm.buildMatrix(original, area);
-		ArrayList<ArrayList<Double>> actual=tm.getMatrix();
+		ArrayList<ArrayList<Double>> support=new ArrayList<ArrayList<Double>>();
+		support.add(a);
+		support.add(b);
+		support.add(c);
+		tm.buildNotNormalizedMatrix(support);
+		ArrayList<ArrayList<Double>> actual=tm.getNotNormalizedMatrix();
+		
+		//Construct the test case
+		ArrayList<Double> exp1=new ArrayList<Double>();
+		exp1.add(10.0);
+		exp1.add(10.0);
+		exp1.add(0.333);
+		exp1.add(0.5);
+		ArrayList<Double> exp2=new ArrayList<Double>();
+		exp2.add(10.0);
+		exp2.add(20.0);
+		exp2.add(0.166);
+		exp2.add(0.333);
+		ArrayList<Double> exp3=new ArrayList<Double>();
+		exp3.add(20.0);
+		exp3.add(20.0);
+		exp3.add(0.5);
+		exp3.add(0.166);
+		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
+		expected.add(exp1);
+		expected.add(exp2);
+		expected.add(exp3);
+		
+		//Start the tests
+		assertNotNull(actual);
+		assertEquals(expected.size(), actual.size());		
+		for(int i=0;i<expected.size();i++)
+			for(int j=0;j<expected.get(0).size();j++)
+				assertEquals(expected.get(i).get(j), actual.get(i).get(j),  0.001);
+	}
+	
+	public void testBuildNormalizedMatrix() {
+		//Initialize the transformation matrix and execute the method
+		TransformationMatrix tm=new TransformationMatrix();
+		ArrayList<ArrayList<Double>> norm=new ArrayList<ArrayList<Double>>();
+		tm.setNormalizedMatrix(norm);
+		ArrayList<Double> a=new ArrayList<Double>();
+		a.add(10.0);
+		a.add(10.0);
+		a.add(4.0);
+		a.add(8.0);
+		ArrayList<Double> b=new ArrayList<Double>();
+		b.add(10.0);
+		b.add(20.0);
+		b.add(2.0);
+		b.add(4.0);
+		ArrayList<Double> c=new ArrayList<Double>();
+		c.add(20.0);
+		c.add(20.0);
+		c.add(8.0);
+		c.add(2.0);
+		ArrayList<ArrayList<Double>> support=new ArrayList<ArrayList<Double>>();
+		support.add(a);
+		support.add(b);
+		support.add(c);
+		tm.buildNormalizedMatrix(support);
+		ArrayList<ArrayList<Double>> actual=tm.getNormalizedMatrix();
 		
 		//Construct the test case
 		ArrayList<Double> exp1=new ArrayList<Double>();
 		exp1.add(0.0);
 		exp1.add(0.0);
-		exp1.add(3.333);
-		exp1.add(5.0);
+		exp1.add(0.333);
+		exp1.add(1.0);
 		ArrayList<Double> exp2=new ArrayList<Double>();
 		exp2.add(0.0);
 		exp2.add(1.0);
-		exp2.add(1.666);
-		exp2.add(3.333);
+		exp2.add(0.0);
+		exp2.add(0.333);
 		ArrayList<Double> exp3=new ArrayList<Double>();
 		exp3.add(1.0);
 		exp3.add(1.0);
-		exp3.add(5.0);
-		exp3.add(1.666);
+		exp3.add(1.0);
+		exp3.add(0.0);
 		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
 		expected.add(exp1);
 		expected.add(exp2);
@@ -236,27 +287,30 @@ public class TransformationMatrixTest extends TestCase {
 		TransformationMatrix tm=new TransformationMatrix();
 		ArrayList<Double> a=new ArrayList<Double>();
 		a.add(5.0);
+		a.add(3.0);
 		ArrayList<Double> b=new ArrayList<Double>();
 		b.add(2.0);
+		b.add(4.0);
 		ArrayList<Double> c=new ArrayList<Double>();
 		c.add(6.0);
+		c.add(10.0);
 		ArrayList<ArrayList<Double>> abc=new ArrayList<ArrayList<Double>>();
 		abc.add(a);
 		abc.add(b);
 		abc.add(c);
-		double[] actual=tm.getMinMax(abc, 0);
+		double[] actual=tm.getMinMax(abc, 1);
 		
 		//Construct the test case
-		double[] expected={2.0, 6.0};
+		double[] expected={3.0, 10.0};
 		
 		//Start the test
 		for(int i=0;i<actual.length;i++)
 			assertEquals(expected[i], actual[i]);
 	}
 	
-	public void testNormalizeCoordinate() {
+	public void testNormalizeValues() {
 		TransformationMatrix tm=new TransformationMatrix();
-		double actual=tm.normalizeCoordinate(-90, 90, 45);
+		double actual=tm.normalizeValues(-90, 90, 45);
 		double expected=0.75;
 		assertEquals(expected, actual, 0);
 	}
