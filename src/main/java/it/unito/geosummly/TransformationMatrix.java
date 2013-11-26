@@ -131,7 +131,10 @@ public class TransformationMatrix {
 			normalizedRecord.add(matrix.get(i).get(1));
 			for(int j=2;j<matrix.get(i).size();j++) {
 				currentValue=matrix.get(i).get(j);
-				norm_value=(currentValue/sumArray.get(j-2)); //intra-feature frequency
+				if(sumArray.get(j-2)>0)
+					norm_value=(currentValue/sumArray.get(j-2)); //intra-feature frequency
+				else
+					norm_value=0.0;
 				normalizedRecord.add(norm_value);
 			}
 			this.not_normalized_matrix.add(normalizedRecord);

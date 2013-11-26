@@ -14,7 +14,7 @@ public class SampleArea {
 	private int cellsNumber;
 	private int sampleNumber;
 	private ArrayList<BoundingBox> gridStructure;
-	private ArrayList<ArrayList<Double>> densityStructure; //matrix of densities
+	private ArrayList<ArrayList<Double>> freqStructure; //matrix of densities
 	private ArrayList<ArrayList<Double>> devStructure; //matrix of standard deviations
 	private HashMap<String, Integer> map; //Map category to index
 	private ArrayList<String> features; //Sorted list of categories by column index
@@ -82,12 +82,12 @@ public class SampleArea {
 		this.gridStructure = gridStructure;
 	}
 	
-	public ArrayList<ArrayList<Double>> getDensityStructure() {
-		return densityStructure;
+	public ArrayList<ArrayList<Double>> getFreqStructure() {
+		return freqStructure;
 	}
 
-	public void setDensityStructure(ArrayList<ArrayList<Double>> densityStructure) {
-		this.densityStructure = densityStructure;
+	public void setFreqStructure(ArrayList<ArrayList<Double>> freqStructure) {
+		this.freqStructure = freqStructure;
 	}
 	
 	public ArrayList<ArrayList<Double>> getDevStructure() {
@@ -147,8 +147,8 @@ public class SampleArea {
 			}
 	}
 	
-	//Build a record of the densityStructure
-	public ArrayList<Double> fillRecord(ArrayList<Integer> occurrences, ArrayList<String> distincts, double area) {
+	//Build a record of the freqStructure
+	public ArrayList<Double> fillRecord(ArrayList<Integer> occurrences, ArrayList<String> distincts) {
 		ArrayList<Double> record=new ArrayList<Double>();
 		for(int i=0; i<this.map.size(); i++) {
 			record.add(0.0);
@@ -156,21 +156,20 @@ public class SampleArea {
 		for(int i=0;i<distincts.size();i++){
 			int category_index=this.map.get(distincts.get(i)); //get the category corresponding to its occurrence value
 			double occ= (double) occurrences.get(i);
-			record.set(category_index, occ/(area/1000)); //put the density value in the "right" position
+			record.set(category_index, occ); //put the occurrence value in the "right" position
 		}
 		return record;
 	}
 	
-	//Get records with density values (density=frequency/area) with intra-feature normalization
-	public ArrayList<ArrayList<Double>> getNotNormalizedDensities(ArrayList<ArrayList<Double>> matrix) {
-		ArrayList<ArrayList<Double>> tmpStructure=new ArrayList<ArrayList<Double>>();
+	//Get records with intra-feature frequency
+	public void getIntrafeatureFrequency(ArrayList<ArrayList<Double>> matrix) {
 		ArrayList<Double> sumArray=new ArrayList<Double>();
 		double sum=0;
 		double currentValue=0;
-		double norm_density=0;
+		double norm_freq=0;
 		
 		//Get all the sums of the features occurrences per column
-		for(int j=0; j<matrix.size(); j++) {
+		for(int j=0; j<matrix.get(0).size(); j++) {
 			sum=getSum(matrix, j);
 			sumArray.add(sum);
 		}
@@ -180,37 +179,13 @@ public class SampleArea {
 			ArrayList<Double> normalizedRecord=new ArrayList<Double>();
 			for(int j=0;j<matrix.get(i).size();j++) {
 				currentValue=matrix.get(i).get(j);
-				norm_density=(currentValue/sumArray.get(j)); //density=frequency/area
-				normalizedRecord.add(norm_density);
+				if(sumArray.get(j)!=0)
+					norm_freq=(currentValue/sumArray.get(j));
+				else
+					norm_freq=0.0;
+				normalizedRecord.add(norm_freq);
 			}
-			tmpStructure.add(normalizedRecord);
-		}
-		return tmpStructure;
-	}
-	
-	//Density values normalized in [0,1]
-	public void getNormalizedDensities(ArrayList<ArrayList<Double>> matrix) {
-		ArrayList<Double> minArray=new ArrayList<Double>();
-		ArrayList<Double> maxArray=new ArrayList<Double>();
-		double currentValue=0;
-		double normalizedValue=0;
-		
-		//get all the min and max values of the columns
-		for(int j=0; j<matrix.get(0).size(); j++) {
-			double[] minmax=getMinMax(matrix, j);
-			minArray.add(minmax[0]); //min value of column j
-			maxArray.add(minmax[1]); //max value of column j
-		}
-		
-		//create the matrix
-		for(int i=0;i<matrix.size();i++) {
-			ArrayList<Double> normalizedRecord=new ArrayList<Double>();
-			for(int j=0;j<matrix.get(i).size();j++) {
-				currentValue=matrix.get(i).get(j);
-				normalizedValue=normalizeValues(minArray.get(j), maxArray.get(j), currentValue);
-				normalizedRecord.add(normalizedValue);
-			}
-			this.densityStructure.add(normalizedRecord);
+			this.freqStructure.add(normalizedRecord);
 		}
 	}
 	
@@ -221,31 +196,6 @@ public class SampleArea {
 			sum+=matrix.get(i).get(index);
 		}
 		return sum;
-	}
-	
-	//Get the min and max values of a coordinate
-	public double[] getMinMax(ArrayList<ArrayList<Double>> array, int index){
-		double min=Double.MAX_VALUE;
-		double max=-1*Double.MAX_VALUE;
-		double current=0;
-		double[] minmax=new double[2];
-		
-		for(int i=0; i<array.size(); i++) {
-			current=array.get(i).get(index);
-			if(current<min)
-				min=current;
-			if(current>max)
-				max=current;
-		}
-		minmax[0]=min;
-		minmax[1]=max;
-		return minmax;
-	}
-	
-	//Normalize values in [0,1]
-	public double normalizeValues(double min, double max, double c) {
-		double norm_c=(c-min)/(max-min);
-		return norm_c;
 	}
 	
 	//Create a matrix with standard deviation values starting by the matrix of densities

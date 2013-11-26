@@ -36,7 +36,7 @@ public class AreaDiscovery {
 		features.add("Shop & Service");
 		features.add("Travel & Transport");
 		
-		double north= 42.54296310520118; //coordinates of GranSasso
+		double north= 42.54296310520118; //coordinates of Gran Sasso
 		double south= 42.45588764197166;
 		double west= 13.43353271484375;
 		double east= 13.542022705078125;
@@ -45,12 +45,12 @@ public class AreaDiscovery {
 		int sampleNumber=100; //number of samples of the sample area
 		ArrayList<BoundingBox> gridStructure=new ArrayList<BoundingBox>();
 		ArrayList<ArrayList<Double>> supportMatrix=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> densityStructure=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> FreqStructure=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> devStructure=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
 		SampleArea sA=new SampleArea(north, south, west, east);
 		sA.setGridStructure(gridStructure);
-		sA.setDensityStructure(densityStructure);
+		sA.setFreqStructure(FreqStructure);
 		sA.setDevStructure(devStructure);
 		sA.setCellsNumber(cellsNumber);
 		sA.setSampleNumber(sampleNumber);
@@ -70,13 +70,13 @@ public class AreaDiscovery {
 			venueInfo=fsv.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			distinct_list=fsv.createCategoryList(venueInfo); 
 			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
-			row_of_matrix=sA.fillRecord(occurrences_list, distinct_list, b.getArea()); //create a consistent row (related to the categories)
+			row_of_matrix=sA.fillRecord(occurrences_list, distinct_list); //create a consistent row (related to the categories)
 			supportMatrix.add(row_of_matrix);
 		}
 		
-		ArrayList<ArrayList<Double>> not_norm_dens=sA.getNotNormalizedDensities(supportMatrix); //get a structure with intra-feature normalized densities
-		sA.getNormalizedDensities(not_norm_dens); //density values normalized in [0,1]
-		sA.createStdDevMatrix(sA.getDensityStructure()); //get the matrix with standard deviation values
+		sA.getIntrafeatureFrequency(supportMatrix); //get a structure with intra-feature frequencies
+		
+		//**************sA.createStdDevMatrix(sA.getFreqStructure()); //get the matrix with standard deviation values
 		
 		// write down the matrices of densities and standard deviation values to a file		
 		ByteArrayOutputStream bout_density = new ByteArrayOutputStream();
@@ -97,7 +97,7 @@ public class AreaDiscovery {
             csv_dev.println();
             
             // iterate per each row of the matrix
-            ArrayList<ArrayList<Double>> dens=sA.getDensityStructure();
+            ArrayList<ArrayList<Double>> dens=sA.getFreqStructure();
             ArrayList<ArrayList<Double>> dev=sA.getDevStructure();
             
             for(ArrayList<Double> a: dens) {
