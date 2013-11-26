@@ -24,6 +24,18 @@ public class AreaDiscovery {
 	public static Logger logger = Logger.getLogger(AreaDiscovery.class.toString());
 	
 	public static void main(String[] args) throws UnknownHostException, FoursquareApiException {
+		ArrayList<String> features=new ArrayList<String>();
+		features.add("Arts & Entertainment");
+		features.add("College & University");
+		features.add("Event");
+		features.add("Food");
+		features.add("Nightlife Spot");
+		features.add("Outdoors & Recreation");
+		features.add("Professional & Other Places");
+		features.add("Residence");
+		features.add("Shop & Service");
+		features.add("Travel & Transport");
+		
 		double north= 42.54296310520118; //coordinates of GranSasso
 		double south= 42.45588764197166;
 		double west= 13.43353271484375;
@@ -32,10 +44,10 @@ public class AreaDiscovery {
 		int cellsNumber=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber=100; //number of samples of the sample area
 		ArrayList<BoundingBox> gridStructure=new ArrayList<BoundingBox>();
+		ArrayList<ArrayList<Double>> supportMatrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> densityStructure=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> devStructure=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
-		ArrayList<String> features=new ArrayList<String>(); //Sorted list of the distinct category (related to the hash map)
 		SampleArea sA=new SampleArea(north, south, west, east);
 		sA.setGridStructure(gridStructure);
 		sA.setDensityStructure(densityStructure);
@@ -43,14 +55,13 @@ public class AreaDiscovery {
 		sA.setCellsNumber(cellsNumber);
 		sA.setSampleNumber(sampleNumber);
 		sA.setMap(map);
+		sA.updateMap(features);
 		sA.setFeatures(features);
 		sA.createSampleGrid(); //fill the gridStructure with 'sampleNumber' samples
 		ArrayList<Double> row_of_matrix; //one row per box;
 		
-		int tot_num=0; //overall number of categories
 		ArrayList<String> distinct_list; //list of all the distinct categories for a single cell
 		ArrayList<Integer> occurrences_list; //list of the occurrences of the distinct categories for a single cell
-		ArrayList<Double> box_area =new ArrayList<Double>(); //list of the bounding boxes area values
 		
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> venueInfo;
@@ -59,15 +70,12 @@ public class AreaDiscovery {
 			venueInfo=fsv.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			distinct_list=fsv.createCategoryList(venueInfo); 
 			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
-			sA.updateMap(distinct_list); //update the hash map
-			row_of_matrix=sA.fillRecord(occurrences_list, distinct_list); //create a consistent row (related to the categories)
-			if(tot_num < row_of_matrix.size())
-				tot_num=row_of_matrix.size(); //update the overall number of categories
-			sA.addRecord(row_of_matrix);
-			box_area.add(b.getArea());
+			row_of_matrix=sA.fillRecord(occurrences_list, distinct_list, b.getArea()); //create a consistent row (related to the categories)
+			supportMatrix.add(row_of_matrix);
 		}
-		sA.fixRecordsLength(tot_num); //update rows length for consistency
-		sA.getDensities(box_area); //get a structure with density values
+		
+		ArrayList<ArrayList<Double>> not_norm_dens=sA.getNotNormalizedDensities(supportMatrix); //get a structure with intra-feature normalized densities
+		sA.getNormalizedDensities(not_norm_dens); //density values normalized in [0,1]
 		sA.createStdDevMatrix(sA.getDensityStructure()); //get the matrix with standard deviation values
 		
 		// write down the matrices of densities and standard deviation values to a file		

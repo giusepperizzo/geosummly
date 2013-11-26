@@ -79,6 +79,7 @@ public class Main {
 		int tot_num=0; //overall number of categories
 		ArrayList<String> distinct_list; //list of all the distinct categories for a single cell
 		ArrayList<Integer> occurrences_list; //list of the occurrences of the distinct categories for a single cell
+		ArrayList<Double> bboxArea=new ArrayList<Double>();
 		
 		//Download venues informations
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
@@ -101,15 +102,16 @@ public class Main {
 			distinct_list=fsv.createCategoryList(venueInfo);
 			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
 			tm.updateMap(distinct_list);//update the hash map
-			row_of_matrix=tm.fillRow(occurrences_list, distinct_list, b.getCenterLat(), b.getCenterLng(), b.getArea()); //create a consistent row (related to the categories)
+			row_of_matrix=tm.fillRow(occurrences_list, distinct_list, b.getCenterLat(), b.getCenterLng()); //create a consistent row (related to the categories)
 			if(tot_num < row_of_matrix.size())
 				tot_num=row_of_matrix.size(); //update the overall number of categories
 			supportMatrix.add(row_of_matrix);
+			bboxArea.add(b.getArea());
 		}
 		tm.fixRowsLength(tot_num, supportMatrix); //update rows length for consistency
 		
-		tm.buildNotNormalizedMatrix(supportMatrix); //Create a not normalized transformation matrix
-		tm.buildNormalizedMatrix(tm.getNotNormalizedMatrix()); //Create a normalized transformation matrix
+		tm.buildNotNormalizedMatrix(supportMatrix); //Create a not normalized transformation matrix with frequencies
+		tm.buildNormalizedMatrix(tm.getNotNormalizedMatrix(), bboxArea); //Create a normalized transformation matrix in [0,1] with densities
 		
 		
 		// write down the transformation matrix to a file		

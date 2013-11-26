@@ -88,7 +88,7 @@ public class TransformationMatrix {
 	}
 	
 	//Build a row of the matrix
-	public ArrayList<Double> fillRow(ArrayList<Integer> occurrences, ArrayList<String> distincts, double lat, double lng, double area) {
+	public ArrayList<Double> fillRow(ArrayList<Integer> occurrences, ArrayList<String> distincts, double lat, double lng) {
 		ArrayList<Double> row=new ArrayList<Double>();
 		row.add(lat); //lat, lng and area are in position 0 and 1
 		row.add(lng);
@@ -98,7 +98,7 @@ public class TransformationMatrix {
 		for(int i=0;i<distincts.size();i++){
 			int category_index=this.map.get(distincts.get(i)); //get the category corresponding to its occurrence value
 			double occ= (double) occurrences.get(i);
-			row.set(category_index, occ/(area/1000)); //put the density value in the "right" position    
+			row.set(category_index, occ); //put the occurrence value in the "right" position    
 		}
 		return row;
 	}
@@ -111,11 +111,12 @@ public class TransformationMatrix {
 			}	
 	}
 	
+	//Matrix with frequencies
 	public void buildNotNormalizedMatrix(ArrayList<ArrayList<Double>> matrix) {
 		ArrayList<Double> sumArray=new ArrayList<Double>();
 		double sum=0;
 		double currentValue=0;
-		double norm_density=0;
+		double norm_value=0;
 		
 		//get all the sums of the features occurrences per column (it starts by 2 because first 2 cells are for lat and lng)
 		for(int j=2; j<matrix.get(0).size(); j++) {
@@ -130,15 +131,15 @@ public class TransformationMatrix {
 			normalizedRecord.add(matrix.get(i).get(1));
 			for(int j=2;j<matrix.get(i).size();j++) {
 				currentValue=matrix.get(i).get(j);
-				norm_density=(currentValue/sumArray.get(j-2));
-				normalizedRecord.add(norm_density);
+				norm_value=(currentValue/sumArray.get(j-2)); //intra-feature frequency
+				normalizedRecord.add(norm_value);
 			}
 			this.not_normalized_matrix.add(normalizedRecord);
 		}
 	}
 	
-	//Build a transformation matrix with normalized values in [0,1]
-	public void buildNormalizedMatrix(ArrayList<ArrayList<Double>> matrix) {
+	//Matrix with densities normalized in [0,1]
+	public void buildNormalizedMatrix(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> area) {
 		ArrayList<Double> minArray=new ArrayList<Double>();
 		ArrayList<Double> maxArray=new ArrayList<Double>();
 		double currentValue=0;
@@ -146,7 +147,7 @@ public class TransformationMatrix {
 		
 		//get all the min and max values of the columns
 		for(int j=0; j<matrix.get(0).size(); j++) {
-			double[] minmax=getMinMax(matrix, j);
+			double[] minmax=getMinMax(matrix, area, j);
 			minArray.add(minmax[0]); //min value of column j
 			maxArray.add(minmax[1]); //max value of column j
 		}
@@ -155,7 +156,7 @@ public class TransformationMatrix {
 		for(int i=0;i<matrix.size();i++) {
 			ArrayList<Double> normalizedRecord=new ArrayList<Double>();
 			for(int j=0;j<matrix.get(i).size();j++) {
-				currentValue=matrix.get(i).get(j);
+				currentValue=matrix.get(i).get(j)/(area.get(i)/1000); //get the density
 				normalizedValue=normalizeValues(minArray.get(j), maxArray.get(j), currentValue);
 				normalizedRecord.add(normalizedValue);
 			}
@@ -172,15 +173,15 @@ public class TransformationMatrix {
 		return sum;
 	}
 	
-	//Get the min and max values of a coordinate
-	public double[] getMinMax(ArrayList<ArrayList<Double>> array, int index){
+	//Get the min and max density values of a column
+	public double[] getMinMax(ArrayList<ArrayList<Double>> array, ArrayList<Double> area,int index){
 		double min=Double.MAX_VALUE;
 		double max=-1*Double.MAX_VALUE;
 		double current=0;
 		double[] minmax=new double[2];
 		
 		for(int i=0; i<array.size(); i++) {
-			current=array.get(i).get(index);
+			current=array.get(i).get(index)/(area.get(i)/1000); //get the density
 			if(current<min)
 				min=current;
 			if(current>max)

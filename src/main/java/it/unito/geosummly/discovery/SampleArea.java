@@ -139,22 +139,16 @@ public class SampleArea {
 		}
 	}
 	
-	//Add a record to the densityStructure
-	public void addRecord(ArrayList<Double> record) {
-		this.densityStructure.add(record);
-	}
-	
 	//Update the hash map with new categories
 	public void updateMap(ArrayList<String> categories) {
 		for(String s: categories)
 			if(!this.map.containsKey(s)) {
 				this.map.put(s, this.map.size());
-				this.features.add(s);
 			}
 	}
 	
 	//Build a record of the densityStructure
-	public ArrayList<Double> fillRecord(ArrayList<Integer> occurrences, ArrayList<String> distincts) {
+	public ArrayList<Double> fillRecord(ArrayList<Integer> occurrences, ArrayList<String> distincts, double area) {
 		ArrayList<Double> record=new ArrayList<Double>();
 		for(int i=0; i<this.map.size(); i++) {
 			record.add(0.0);
@@ -162,57 +156,96 @@ public class SampleArea {
 		for(int i=0;i<distincts.size();i++){
 			int category_index=this.map.get(distincts.get(i)); //get the category corresponding to its occurrence value
 			double occ= (double) occurrences.get(i);
-			record.set(category_index, occ); //put the occurrence value in the "right" position
+			record.set(category_index, occ/(area/1000)); //put the density value in the "right" position
 		}
 		return record;
 	}
 	
-	//Fix the record length to have columns with the same length value
-	public void fixRecordsLength(int tot_num) {
-		for(ArrayList<Double> record: this.densityStructure)
-			for(int i=record.size();i<tot_num;i++) {
-				record.add(0.0);
-			}	
-	}
-	
-	//Get records with density values (density=frequency/area)
-	public void getDensities(ArrayList<Double> area) {
+	//Get records with density values (density=frequency/area) with intra-feature normalization
+	public ArrayList<ArrayList<Double>> getNotNormalizedDensities(ArrayList<ArrayList<Double>> matrix) {
 		ArrayList<ArrayList<Double>> tmpStructure=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> sumArray=new ArrayList<Double>();
 		double sum=0;
 		double currentValue=0;
-		double density=0;
+		double norm_density=0;
 		
 		//Get all the sums of the features occurrences per column
-		for(int j=0; j<this.densityStructure.get(0).size(); j++) {
-			sum=getSum(j);
+		for(int j=0; j<matrix.size(); j++) {
+			sum=getSum(matrix, j);
 			sumArray.add(sum);
 		}
 		
 		//Build records
-		for(int i=0;i<this.densityStructure.size();i++) {
+		for(int i=0;i<matrix.size();i++) {
 			ArrayList<Double> normalizedRecord=new ArrayList<Double>();
-			for(int j=0;j<this.densityStructure.get(i).size();j++) {
-				currentValue=this.densityStructure.get(i).get(j);
-				density=(currentValue/sumArray.get(j)) / (area.get(i)/1000); //density=frequency/area
-				normalizedRecord.add(density);
+			for(int j=0;j<matrix.get(i).size();j++) {
+				currentValue=matrix.get(i).get(j);
+				norm_density=(currentValue/sumArray.get(j)); //density=frequency/area
+				normalizedRecord.add(norm_density);
 			}
 			tmpStructure.add(normalizedRecord);
 		}
+		return tmpStructure;
+	}
+	
+	//Density values normalized in [0,1]
+	public void getNormalizedDensities(ArrayList<ArrayList<Double>> matrix) {
+		ArrayList<Double> minArray=new ArrayList<Double>();
+		ArrayList<Double> maxArray=new ArrayList<Double>();
+		double currentValue=0;
+		double normalizedValue=0;
 		
-		//Update with the density values
-		for(int i=0;i<this.densityStructure.size();i++) {
-			this.densityStructure.set(i, tmpStructure.get(i));
+		//get all the min and max values of the columns
+		for(int j=0; j<matrix.get(0).size(); j++) {
+			double[] minmax=getMinMax(matrix, j);
+			minArray.add(minmax[0]); //min value of column j
+			maxArray.add(minmax[1]); //max value of column j
+		}
+		
+		//create the matrix
+		for(int i=0;i<matrix.size();i++) {
+			ArrayList<Double> normalizedRecord=new ArrayList<Double>();
+			for(int j=0;j<matrix.get(i).size();j++) {
+				currentValue=matrix.get(i).get(j);
+				normalizedValue=normalizeValues(minArray.get(j), maxArray.get(j), currentValue);
+				normalizedRecord.add(normalizedValue);
+			}
+			this.densityStructure.add(normalizedRecord);
 		}
 	}
 	
 	//Get the total number of elements of a specific category
-	public double getSum(int index) {
+	public double getSum(ArrayList<ArrayList<Double>> matrix, int index) {
 		double sum=0;
-		for(int i=0; i<this.densityStructure.size(); i++) {
-			sum+=this.densityStructure.get(i).get(index);
+		for(int i=0; i<matrix.size(); i++) {
+			sum+=matrix.get(i).get(index);
 		}
 		return sum;
+	}
+	
+	//Get the min and max values of a coordinate
+	public double[] getMinMax(ArrayList<ArrayList<Double>> array, int index){
+		double min=Double.MAX_VALUE;
+		double max=-1*Double.MAX_VALUE;
+		double current=0;
+		double[] minmax=new double[2];
+		
+		for(int i=0; i<array.size(); i++) {
+			current=array.get(i).get(index);
+			if(current<min)
+				min=current;
+			if(current>max)
+				max=current;
+		}
+		minmax[0]=min;
+		minmax[1]=max;
+		return minmax;
+	}
+	
+	//Normalize values in [0,1]
+	public double normalizeValues(double min, double max, double c) {
+		double norm_c=(c-min)/(max-min);
+		return norm_c;
 	}
 	
 	//Create a matrix with standard deviation values starting by the matrix of densities

@@ -83,19 +83,18 @@ public class TransformationMatrixTest extends TestCase {
 		distincts.add("Cat 2");
 		double lat=10.0;
 		double lng=20.0;
-		double area=100;
 		ArrayList<Double> actual;
-		actual=tm.fillRow(occurrences, distincts, lat, lng, area);
+		actual=tm.fillRow(occurrences, distincts, lat, lng);
 		
 		//Construct the test case
 		ArrayList<Double> expected = new ArrayList<Double>();
 		expected.add(10.0);
 		expected.add(20.0);
-		expected.add(10.0);
-		expected.add(20.0);
-		expected.add(30.0);
-		expected.add(40.0);
-		expected.add(50.0);
+		expected.add(1.0);
+		expected.add(2.0);
+		expected.add(3.0);
+		expected.add(4.0);
+		expected.add(5.0);
 		
 		//Start the tests
 		assertNotNull(actual);
@@ -228,7 +227,11 @@ public class TransformationMatrixTest extends TestCase {
 		support.add(a);
 		support.add(b);
 		support.add(c);
-		tm.buildNormalizedMatrix(support);
+		ArrayList<Double> area=new ArrayList<Double>();
+		area.add(100.0);
+		area.add(100.0);
+		area.add(100.0);
+		tm.buildNormalizedMatrix(support, area);
 		ArrayList<ArrayList<Double>> actual=tm.getNormalizedMatrix();
 		
 		//Construct the test case
@@ -298,10 +301,14 @@ public class TransformationMatrixTest extends TestCase {
 		abc.add(a);
 		abc.add(b);
 		abc.add(c);
-		double[] actual=tm.getMinMax(abc, 1);
+		ArrayList<Double> area=new ArrayList<>();
+		area.add(10.0);
+		area.add(10.0);
+		area.add(10.0);
+		double[] actual=tm.getMinMax(abc, area, 1);
 		
 		//Construct the test case
-		double[] expected={3.0, 10.0};
+		double[] expected={300.0, 1000.0};
 		
 		//Start the test
 		for(int i=0;i<actual.length;i++)
