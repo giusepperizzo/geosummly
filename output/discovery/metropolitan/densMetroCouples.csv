@@ -1,0 +1,45 @@
+d(Arts & Entertainment AND College & University),9.992009388968645E-5
+d(Arts & Entertainment AND Event),9.91958979408865E-5
+d(Arts & Entertainment AND Food),9.994708757254562E-5
+d(Arts & Entertainment AND Nightlife Spot),9.993470796132446E-5
+d(Arts & Entertainment AND Outdoors & Recreation),9.991885018753954E-5
+d(Arts & Entertainment AND Professional & Other Places),9.993940130728843E-5
+d(Arts & Entertainment AND Residence),9.99395532183824E-5
+d(Arts & Entertainment AND Shop & Service),9.99528756441642E-5
+d(Arts & Entertainment AND Travel & Transport),9.995195693297445E-5
+d(College & University AND Event),9.986856320759158E-5
+d(College & University AND Food),9.992971127202377E-5
+d(College & University AND Nightlife Spot),9.991951624746894E-5
+d(College & University AND Outdoors & Recreation),9.987646513139932E-5
+d(College & University AND Professional & Other Places),9.992423196467848E-5
+d(College & University AND Residence),9.99220012938609E-5
+d(College & University AND Shop & Service),9.992098200654343E-5
+d(College & University AND Travel & Transport),9.991381818719725E-5
+d(Event AND Food),9.970884375461024E-5
+d(Event AND Nightlife Spot),9.966924096409698E-5
+d(Event AND Outdoors & Recreation),9.911979884738306E-5
+d(Event AND Professional & Other Places),9.932624945684169E-5
+d(Event AND Residence),9.961276953504095E-5
+d(Event AND Shop & Service),9.980401503981265E-5
+d(Event AND Travel & Transport),9.975307176836883E-5
+d(Food AND Nightlife Spot),9.993118602492749E-5
+d(Food AND Outdoors & Recreation),9.995570236875617E-5
+d(Food AND Professional & Other Places),9.99702169512535E-5
+d(Food AND Residence),9.996297937873569E-5
+d(Food AND Shop & Service),9.995593495339013E-5
+d(Food AND Travel & Transport),9.99550616442083E-5
+d(Nightlife Spot AND Outdoors & Recreation),9.994248044883267E-5
+d(Nightlife Spot AND Professional & Other Places),9.99591141482227E-5
+d(Nightlife Spot AND Residence),9.994829663694455E-5
+d(Nightlife Spot AND Shop & Service),9.995971524220953E-5
+d(Nightlife Spot AND Travel & Transport),9.994706519164597E-5
+d(Outdoors & Recreation AND Professional & Other Places),9.99392635790558E-5
+d(Outdoors & Recreation AND Residence),9.993423802348483E-5
+d(Outdoors & Recreation AND Shop & Service),9.995767029566415E-5
+d(Outdoors & Recreation AND Travel & Transport),9.99527259868339E-5
+d(Professional & Other Places AND Residence),9.994406217802597E-5
+d(Professional & Other Places AND Shop & Service),9.995443381813225E-5
+d(Professional & Other Places AND Travel & Transport),9.99650293235828E-5
+d(Residence AND Shop & Service),9.993245136640426E-5
+d(Residence AND Travel & Transport),9.994883235054766E-5
+d(Shop & Service AND Travel & Transport),9.99554897084738E-5
