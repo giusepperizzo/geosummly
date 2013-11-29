@@ -11,15 +11,17 @@ import java.util.logging.Logger;
  * M is the number of bounding box cell.
  * N is the total number of categories found in the bounding box.
  * 
- * In the original matrix: 
+ * In the not-normalized matrix: 
  * The cell C_ij, 0<i<M-1 and 0<j<2, will contain the latitude and longitude values for the (M_i)th cell.
- * The cell C_ij, 0<i<M-1 and 2<j<N-1, will contain the occurrence of the (N_j)th category for the (M_i)th cell.
+ * The cell C_ij, 0<i<M-1 and 2<j<N-1, let OCC_j be the occurrence of the (N_j)th category for the (M_i)th cell and
+ * let TOT_j be the total number of categories found in the (N_j)th column. So, C_ij will contain a frequency value given by
+ * (OCC_j/TOT_j). This means that all these values are intra-feature normalized.
  * 
- * In the normalized matrix: 
- * The cell C_ij, 0<i<M-1 and 0<j<2, will contain the normalized latitude and longitude values for the (M_i)th cell.
- * For a cell C_ij, 0<i<M-1 and 2<j<N-1, let OCC_j be the occurrence of the (N_j)th category for the (M_i)th cell, let AREA_i be 
- * the area value for M_i and let TOT_j be the total number of categories found in the (N_j)th column. So, C_ij will contain a density
- * value given by (OCC_j/TOT_j)/(AREA_i/1000).
+ * In the normalized-matrix: 
+ * The cell C_ij, 0<i<M-1 and 0<j<2, will contain the normalized latitude and longitude values in [0,1] for the (M_i)th cell.
+ * For a cell C_ij, 0<i<M-1 and 2<j<N-1, let FREQ_j be the intra-feature normalized frequency of the (N_j)th category
+ * for the (M_i)th cell and let AREA_i be the area value for M_i. So, C_ij will contain a density value given by (FREQ_J)/(AREA_i),
+ * normalized in [0,1].
  *   
  */
 public class TransformationMatrix {
@@ -159,7 +161,7 @@ public class TransformationMatrix {
 		for(int i=0;i<matrix.size();i++) {
 			ArrayList<Double> normalizedRecord=new ArrayList<Double>();
 			for(int j=0;j<matrix.get(i).size();j++) {
-				currentValue=matrix.get(i).get(j)/(area.get(i)/1000); //get the density
+				currentValue=matrix.get(i).get(j)/(area.get(i)); //get the density
 				normalizedValue=normalizeValues(minArray.get(j), maxArray.get(j), currentValue);
 				normalizedRecord.add(normalizedValue);
 			}
@@ -184,7 +186,7 @@ public class TransformationMatrix {
 		double[] minmax=new double[2];
 		
 		for(int i=0; i<array.size(); i++) {
-			current=array.get(i).get(index)/(area.get(i)/1000); //get the density
+			current=array.get(i).get(index)/(area.get(i)); //get the density
 			if(current<min)
 				min=current;
 			if(current>max)

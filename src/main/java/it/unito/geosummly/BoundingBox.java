@@ -1,5 +1,6 @@
 package it.unito.geosummly;
 
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 /**
@@ -31,7 +32,7 @@ public class BoundingBox {
 		this.east=e;
 		this.centerLat=(n+s)/2;
 		this.centerLng=(e+w)/2;
-		this.area=(getDistance(s, w, n, w) * getDistance(s, w, s, e));
+		this.area=(getDistance(s, w, n, w) * getDistance(n, w, n, e));
 	}
 
 	public void setNorth(double north){
@@ -113,7 +114,7 @@ public class BoundingBox {
 	
 	//Haversine formula implementation. It returns the distance between two points given latitude and longitude values 
 	public double getDistance(double lat1, double lng1, double lat2, double lng2){
-		double earthRadius = 3958.75;
+		double earthRadius = 6371; //in km
 	    double dLat = Math.toRadians(lat2-lat1);
 	    double dLng = Math.toRadians(lng2-lng1);
 	    double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -122,8 +123,6 @@ public class BoundingBox {
 	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 	    double dist = earthRadius * c;
 
-	    double meterConversion = 1609.00;
-
-	    return dist*meterConversion;
+	    return Math.floor(dist*1000)/1000;
 	}
 }
