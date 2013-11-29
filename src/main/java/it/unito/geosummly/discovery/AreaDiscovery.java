@@ -40,10 +40,10 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 1**************************************/
 		/***************************************************************************************/
 		
-		double north= 48.86985261204524; //coordinates of Paris
-		double south= 48.840486362012925;
-		double west= 2.3219776258338243;
-		double east= 2.384977351175621;
+		double north= 45.84724672082038; //coordinates of Mont Blanc
+		double south= 45.81967790116538;
+		double west= 6.848859786987305;
+		double east= 6.888341903686523;
 		
 		int cellsNumber=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber=100; //number of samples of the sample area
@@ -84,10 +84,10 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 2**************************************/
 		/***************************************************************************************/
 
-		double north_1= 51.537473682752406; //coordinates of London
-		double south_1= 51.48159670633237;
-		double west_1= -0.1802444038912654;
-		double east_1= -0.05201335530728102;
+		double north_1= 37.4452213227590466; //coordinates of Gran Sasso
+		double south_1= 37.412368711958656;
+		double west_1= 15.031700134277344;
+		double east_1= 15.072813034057617;
 		
 		int cellsNumber_1=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber_1=100; //number of samples of the sample area
@@ -128,7 +128,7 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 3**************************************/
 		/***************************************************************************************/
 		
-		double north_2= 41.91875659707589; //coordinates of Rome
+		/*double north_2= 41.91875659707589; //coordinates of Rome
 		double south_2= 41.87409864599624;
 		double west_2= 12.451157569885254;
 		double east_2= 12.518448829650879;
@@ -166,14 +166,14 @@ public class AreaDiscovery {
 			supportMatrix_2.add(row_of_matrix_2);
 		}
 		
-		sA_2.getIntrafeatureFrequency(supportMatrix_2); //get a structure with intra-feature frequencies
+		sA_2.getIntrafeatureFrequency(supportMatrix_2); //get a structure with intra-feature frequencies*/
 		
 		/***************************************************************************************/
 		/******************************CREATE THE BIG MATRIX**********************************/
 		/***************************************************************************************/
 		
 		ArrayList<ArrayList<Double>> bigArea=new ArrayList<ArrayList<Double>>();
-		ClassOfArea metropolitan=new ClassOfArea("Metropolitan", bigArea, sA.getFreqStructure(), sA_1.getFreqStructure(), sA_2.getFreqStructure());
+		ClassOfArea metropolitan=new ClassOfArea("Natural", bigArea, sA.getFreqStructure(), sA_1.getFreqStructure()/*, sA_2.getFreqStructure()*/);
 		ArrayList<Double> meanFrequencies=metropolitan.getMeanFrequencies(metropolitan.getBigArea());
 		ArrayList<ArrayList<Double>> stdMatrix=metropolitan.getStdMatrix(metropolitan.getBigArea());
 		ArrayList<Double> stdSingles=new ArrayList<Double>(stdMatrix.get(0));
@@ -189,8 +189,8 @@ public class AreaDiscovery {
 		OutputStreamWriter osw_freq1 = new OutputStreamWriter(bout_freq1);
 		ByteArrayOutputStream bout_freq2 = new ByteArrayOutputStream();
 		OutputStreamWriter osw_freq2 = new OutputStreamWriter(bout_freq2);
-		ByteArrayOutputStream bout_freq3 = new ByteArrayOutputStream();
-		OutputStreamWriter osw_freq3 = new OutputStreamWriter(bout_freq3);
+		/*ByteArrayOutputStream bout_freq3 = new ByteArrayOutputStream();
+		OutputStreamWriter osw_freq3 = new OutputStreamWriter(bout_freq3);*/
 		ByteArrayOutputStream bout_std = new ByteArrayOutputStream();
 		OutputStreamWriter osw_std = new OutputStreamWriter(bout_std);
 		ByteArrayOutputStream bout_singles = new ByteArrayOutputStream();
@@ -200,7 +200,7 @@ public class AreaDiscovery {
         try {
             CSVPrinter csv_freq1 = new CSVPrinter(osw_freq1, CSVFormat.DEFAULT);
             CSVPrinter csv_freq2 = new CSVPrinter(osw_freq2, CSVFormat.DEFAULT);
-            CSVPrinter csv_freq3 = new CSVPrinter(osw_freq3, CSVFormat.DEFAULT);
+            //CSVPrinter csv_freq3 = new CSVPrinter(osw_freq3, CSVFormat.DEFAULT);
             CSVPrinter csv_std = new CSVPrinter(osw_std, CSVFormat.DEFAULT);
             CSVPrinter csv_singles = new CSVPrinter(osw_singles, CSVFormat.DEFAULT);
             CSVPrinter csv_pairs = new CSVPrinter(osw_pairs, CSVFormat.DEFAULT);
@@ -210,18 +210,18 @@ public class AreaDiscovery {
             for(String s: hdr) {
             	csv_freq1.print(s);
             	csv_freq2.print(s);
-            	csv_freq3.print(s);
+            	//csv_freq3.print(s);
             	csv_std.print(s);
             }
             csv_freq1.println();
             csv_freq2.println();
-            csv_freq3.println();
+            //csv_freq3.println();
             csv_std.println();
             
             // iterate per each row of the matrix for frequency and standard deviation
             ArrayList<ArrayList<Double>> freq1=sA.getFreqStructure();
             ArrayList<ArrayList<Double>> freq2=sA_1.getFreqStructure();
-            ArrayList<ArrayList<Double>> freq3=sA_2.getFreqStructure();
+            //ArrayList<ArrayList<Double>> freq3=sA_2.getFreqStructure();
             
             for(ArrayList<Double> a: freq1) {
             	for(Double d: a) {
@@ -239,13 +239,13 @@ public class AreaDiscovery {
             }
             csv_freq2.flush();
             
-            for(ArrayList<Double> a: freq3) {
+            /*for(ArrayList<Double> a: freq3) {
             	for(Double d: a) {
             		csv_freq3.print(d);
             	}
             	csv_freq3.println();
             }
-            csv_freq3.flush();
+            csv_freq3.flush();*/
             
             for(ArrayList<Double> a: stdMatrix) {
             	for(Double d: a) {
@@ -278,20 +278,20 @@ public class AreaDiscovery {
 		
 		OutputStream outputStream_freq1;
 		OutputStream outputStream_freq2;
-		OutputStream outputStream_freq3;
+		//OutputStream outputStream_freq3;
 		OutputStream outputStream_std;
 		OutputStream outputStream_singles;
 		OutputStream outputStream_pairs;
         try {
-            outputStream_freq1 = new FileOutputStream ("output/discovery/metropolitan/freqMetroParis.csv");
-            outputStream_freq2 = new FileOutputStream ("output/discovery/metropolitan/freqMetroLondon.csv");
-            outputStream_freq3 = new FileOutputStream ("output/discovery/metropolitan/freqMetroRome.csv");
-            outputStream_std = new FileOutputStream ("output/discovery/metropolitan/stdMetroArea.csv");
-            outputStream_singles = new FileOutputStream ("output/discovery/metropolitan/densMetroSingles.csv");
-            outputStream_pairs = new FileOutputStream ("output/discovery/metropolitan/densMetroCouples.csv");
+            outputStream_freq1 = new FileOutputStream ("output/discovery/natural/freqNaturalMontBlanc.csv");
+            outputStream_freq2 = new FileOutputStream ("output/discovery/natural/freqNaturalGranSasso.csv");
+            //outputStream_freq3 = new FileOutputStream ("output/discovery/metropolitan/freqMetroRome.csv");
+            outputStream_std = new FileOutputStream ("output/discovery/natural/stdNaturalArea.csv");
+            outputStream_singles = new FileOutputStream ("output/discovery/natural/densNaturalSingles.csv");
+            outputStream_pairs = new FileOutputStream ("output/discovery/natural/densNaturalCouples.csv");
             bout_freq1.writeTo(outputStream_freq1);
             bout_freq2.writeTo(outputStream_freq2);
-            bout_freq3.writeTo(outputStream_freq3);
+            //bout_freq3.writeTo(outputStream_freq3);
             bout_std.writeTo(outputStream_std);
             bout_singles.writeTo(outputStream_singles);
             bout_pairs.writeTo(outputStream_pairs);
