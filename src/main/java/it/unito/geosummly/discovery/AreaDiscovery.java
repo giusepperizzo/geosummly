@@ -40,10 +40,10 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 1**************************************/
 		/***************************************************************************************/
 		
-		double north= 45.087823610447764; //coordinates of San Donato Turin
-		double south= 45.06927750182052;
-		double west= 7.644338607788086;
-		double east= 7.672834396362305;
+		double north= 44.484014614538964; //coordinates of Val Maira, Piedmont
+		double south= 44.442604689982026;
+		double west= 7.318267822265625;
+		double east= 7.391395568847656;
 		
 		int cellsNumber=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber=100; //number of samples of the sample area
@@ -84,10 +84,10 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 2**************************************/
 		/***************************************************************************************/
 
-		double north_1= 41.83388618820479; //coordinates of Eur Rome
-		double south_1= 41.80343833461624;
-		double west_1= 12.444934803061187;
-		double east_1= 12.490253406576812;
+		double north_1= 45.153353406479106; //coordinates of Val di Susa, Piedmont
+		double south_1= 45.13416254594802;
+		double west_1= 7.142057418823242;
+		double east_1= 7.170724868774414;
 		
 		int cellsNumber_1=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber_1=100; //number of samples of the sample area
@@ -173,7 +173,7 @@ public class AreaDiscovery {
 		/***************************************************************************************/
 		
 		ArrayList<ArrayList<Double>> bigArea=new ArrayList<ArrayList<Double>>();
-		ClassOfArea metropolitan=new ClassOfArea("Residential", bigArea, sA.getFreqStructure(), sA_1.getFreqStructure()/*, sA_2.getFreqStructure()*/);
+		ClassOfArea metropolitan=new ClassOfArea("Rural", bigArea, sA.getFreqStructure(), sA_1.getFreqStructure()/*, sA_2.getFreqStructure()*/);
 		ArrayList<Double> meanFrequencies=metropolitan.getMeanFrequencies(metropolitan.getBigArea());
 		ArrayList<ArrayList<Double>> stdMatrix=metropolitan.getStdMatrix(metropolitan.getBigArea());
 		ArrayList<Double> stdSingles=new ArrayList<Double>(stdMatrix.get(0));
@@ -283,12 +283,12 @@ public class AreaDiscovery {
 		OutputStream outputStream_singles;
 		OutputStream outputStream_pairs;
         try {
-            outputStream_freq1 = new FileOutputStream ("output/discovery/residential/freqResidentialSanDonatoTurin.csv");
-            outputStream_freq2 = new FileOutputStream ("output/discovery/residential/freqResidentialEurRome.csv");
+            outputStream_freq1 = new FileOutputStream ("output/discovery/rural/freqRuralValMaira.csv");
+            outputStream_freq2 = new FileOutputStream ("output/discovery/rural/freqRuralValDiSusa.csv");
             //outputStream_freq3 = new FileOutputStream ("output/discovery/metropolitan/freqMetroRome.csv");
-            outputStream_std = new FileOutputStream ("output/discovery/residential/stdResidentialArea.csv");
-            outputStream_singles = new FileOutputStream ("output/discovery/residential/densResidentialSingles.csv");
-            outputStream_pairs = new FileOutputStream ("output/discovery/residential/densResidentialCouples.csv");
+            outputStream_std = new FileOutputStream ("output/discovery/rural/stdRuralArea.csv");
+            outputStream_singles = new FileOutputStream ("output/discovery/rural/densRuralSingles.csv");
+            outputStream_pairs = new FileOutputStream ("output/discovery/rural/densRuralCouples.csv");
             bout_freq1.writeTo(outputStream_freq1);
             bout_freq2.writeTo(outputStream_freq2);
             //bout_freq3.writeTo(outputStream_freq3);
