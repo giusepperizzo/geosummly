@@ -4,27 +4,40 @@ import java.util.ArrayList;
 
 public class ClassOfArea {
 	private String type;
-	private ArrayList<ArrayList<Double>> bigArea;
+	private ArrayList<ArrayList<Double>> bigAreaOcc;
+	private ArrayList<ArrayList<Double>> bigAreaDens;
 	
 	
-	public ClassOfArea(String type, ArrayList<ArrayList<Double>> bigArea, ArrayList<ArrayList<Double>> area_1, ArrayList<ArrayList<Double>> area_2) {
+	public ClassOfArea(String type, ArrayList<ArrayList<Double>> bigAreaOcc, ArrayList<ArrayList<Double>> bigAreaDens, ArrayList<ArrayList<Double>> area_1_occ, ArrayList<ArrayList<Double>> area_2_occ, ArrayList<ArrayList<Double>> area_1_dens, ArrayList<ArrayList<Double>> area_2_dens) {
 		this.type=type;
-		this.bigArea=bigArea;
-		for(ArrayList<Double> record: area_1)
-			this.bigArea.add(record);
-		for(ArrayList<Double> record: area_2)
-			this.bigArea.add(record);
+		this.bigAreaOcc=bigAreaOcc;
+		this.bigAreaDens=bigAreaDens;
+		for(ArrayList<Double> record: area_1_occ)
+			this.bigAreaOcc.add(record);
+		for(ArrayList<Double> record: area_2_occ)
+			this.bigAreaOcc.add(record);
+		for(ArrayList<Double> record: area_1_dens)
+			this.bigAreaOcc.add(record);
+		for(ArrayList<Double> record: area_2_dens)
+			this.bigAreaOcc.add(record);
 	}
 	
-	public ClassOfArea(String type, ArrayList<ArrayList<Double>> bigArea, ArrayList<ArrayList<Double>> area_1, ArrayList<ArrayList<Double>> area_2, ArrayList<ArrayList<Double>> area_3) {
+	public ClassOfArea(String type, ArrayList<ArrayList<Double>> bigAreaOcc, ArrayList<ArrayList<Double>> bigAreaDens, ArrayList<ArrayList<Double>> area_1_occ, ArrayList<ArrayList<Double>> area_2_occ, ArrayList<ArrayList<Double>> area_3_occ, ArrayList<ArrayList<Double>> area_1_dens, ArrayList<ArrayList<Double>> area_2_dens, ArrayList<ArrayList<Double>> area_3_dens ) {
 		this.type=type;
-		this.bigArea=bigArea;
-		for(ArrayList<Double> record: area_1)
-			this.bigArea.add(record);
-		for(ArrayList<Double> record: area_2)
-			this.bigArea.add(record);
-		for(ArrayList<Double> record: area_3)
-			this.bigArea.add(record);
+		this.bigAreaOcc=bigAreaOcc;
+		this.bigAreaDens=bigAreaDens;
+		for(ArrayList<Double> record: area_1_occ)
+			this.bigAreaOcc.add(record);
+		for(ArrayList<Double> record: area_2_occ)
+			this.bigAreaOcc.add(record);
+		for(ArrayList<Double> record: area_3_occ)
+			this.bigAreaOcc.add(record);
+		for(ArrayList<Double> record: area_1_dens)
+			this.bigAreaOcc.add(record);
+		for(ArrayList<Double> record: area_2_dens)
+			this.bigAreaOcc.add(record);
+		for(ArrayList<Double> record: area_3_dens)
+			this.bigAreaOcc.add(record);
 	}
 
 	public String getType() {
@@ -35,17 +48,25 @@ public class ClassOfArea {
 		this.type = type;
 	}
 
-	public ArrayList<ArrayList<Double>> getBigArea() {
-		return bigArea;
+	public ArrayList<ArrayList<Double>> getBigAreaOcc() {
+		return bigAreaOcc;
 	}
 
-	public void setBigArea(ArrayList<ArrayList<Double>> bigArea) {
-		this.bigArea = bigArea;
+	public void setBigAreaOcc(ArrayList<ArrayList<Double>> bigAreaOcc) {
+		this.bigAreaOcc = bigAreaOcc;
 	}
 	
-	//get the mean frequency for each category
-	public ArrayList<Double> getMeanFrequencies(ArrayList<ArrayList<Double>> matrix) {
-		ArrayList<Double> meanFrequencies=new ArrayList<Double>();
+	public ArrayList<ArrayList<Double>> getBigAreaDens() {
+		return bigAreaDens;
+	}
+
+	public void setBigAreaDens(ArrayList<ArrayList<Double>> bigAreaDens) {
+		this.bigAreaDens = bigAreaDens;
+	}
+	
+	//get an array with the mean for each category
+	public ArrayList<Double> getMeanArray(ArrayList<ArrayList<Double>> matrix) {
+		ArrayList<Double> meanArray=new ArrayList<Double>();
 		double sum=0;
 		double total=0;
 		double mean=0;
@@ -58,12 +79,12 @@ public class ClassOfArea {
 				total++;
 			}
 			mean=sum/total;
-			meanFrequencies.add(mean); //mean frequency per column
+			meanArray.add(mean); //mean densities per column
 		}
-		return meanFrequencies;
+		return meanArray;
 	}
 	
-	//Create a matrix with standard deviation values starting by the matrix of frequencies
+	//Create a matrix with standard deviation values starting by the matrix of densities
 	public ArrayList<ArrayList<Double>> getStdMatrix(ArrayList<ArrayList<Double>> freqMatrix) {
 		ArrayList<ArrayList<Double>> stdMatrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> stdDevArray=new ArrayList<Double>();
@@ -116,14 +137,14 @@ public class ClassOfArea {
 		return Math.sqrt(variance);
 	}
 	
-	//Get single density values with E(f_n)-1.96*std
-	public ArrayList<Double> getSingleDensities(ArrayList<Double> meanFreq, ArrayList<Double> std) {
+	//Get single density values with E(d)-1.96*std
+	public ArrayList<Double> getSingleDensities(ArrayList<Double> meanDens, ArrayList<Double> std) {
 		ArrayList<Double> singleDensities=new ArrayList<Double>();
 		double mF=0;
 		double sD=0;
 		double density=0;
-		for(int i=0;i<meanFreq.size();i++) {
-			mF=meanFreq.get(i);
+		for(int i=0;i<meanDens.size();i++) {
+			mF=meanDens.get(i);
 			sD=std.get(i);
 			density=mF-(1.96*sD);
 			singleDensities.add(density);

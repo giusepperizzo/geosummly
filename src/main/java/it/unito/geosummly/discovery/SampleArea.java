@@ -14,8 +14,8 @@ public class SampleArea {
 	private int cellsNumber;
 	private int sampleNumber;
 	private ArrayList<BoundingBox> gridStructure;
-	private ArrayList<ArrayList<Double>> freqStructure; //matrix of densities
-	private ArrayList<ArrayList<Double>> devStructure; //matrix of standard deviations
+	private ArrayList<ArrayList<Double>> occurrenceStructure; //matrix of occurrences
+	private ArrayList<ArrayList<Double>> densityStructure; //matrix of densities
 	private HashMap<String, Integer> map; //Map category to index
 	private ArrayList<String> features; //Sorted list of categories by column index
 	
@@ -82,22 +82,22 @@ public class SampleArea {
 		this.gridStructure = gridStructure;
 	}
 	
-	public ArrayList<ArrayList<Double>> getFreqStructure() {
-		return freqStructure;
-	}
-
-	public void setFreqStructure(ArrayList<ArrayList<Double>> freqStructure) {
-		this.freqStructure = freqStructure;
+	public ArrayList<ArrayList<Double>> getOccurrenceStructure() {
+		return occurrenceStructure;
 	}
 	
-	public ArrayList<ArrayList<Double>> getDevStructure() {
-		return devStructure;
+	public void setOccurrenceStructure(ArrayList<ArrayList<Double>> occurrenceStructure) {
+		this.occurrenceStructure = occurrenceStructure;
+	}
+	
+	public ArrayList<ArrayList<Double>> getDensityStructure() {
+		return densityStructure;
 	}
 
-	public void setDevStructure(ArrayList<ArrayList<Double>> devStructure) {
-		this.devStructure = devStructure;
+	public void setDensityStructure(ArrayList<ArrayList<Double>> freqStructure) {
+		this.densityStructure = freqStructure;
 	}
-
+	
 	public HashMap<String, Integer> getMap() {
 		return map;
 	}
@@ -147,46 +147,22 @@ public class SampleArea {
 			}
 	}
 	
-	//Build a record of the freqStructure
-	public ArrayList<Double> fillRecord(ArrayList<Integer> occurrences, ArrayList<String> distincts) {
+	//Build a record of the densityStructure
+	public void fillRecord(ArrayList<Integer> occurrences, ArrayList<String> distincts, double area) {
+		ArrayList<Double> record_occ=new ArrayList<Double>();
 		ArrayList<Double> record=new ArrayList<Double>();
 		for(int i=0; i<this.map.size(); i++) {
+			record_occ.add(0.0);
 			record.add(0.0);
 		}
 		for(int i=0;i<distincts.size();i++){
 			int category_index=this.map.get(distincts.get(i)); //get the category corresponding to its occurrence value
 			double occ= (double) occurrences.get(i);
-			record.set(category_index, occ); //put the occurrence value in the "right" position
+			record_occ.set(category_index, occ);
+			record.set(category_index, occ/area); //put the density value in the "right" position
 		}
-		return record;
-	}
-	
-	//Get records with intra-feature frequency
-	public void getIntrafeatureFrequency(ArrayList<ArrayList<Double>> matrix) {
-		ArrayList<Double> sumArray=new ArrayList<Double>();
-		double sum=0;
-		double currentValue=0;
-		double norm_freq=0;
-		
-		//Get all the sums of the features occurrences per column
-		for(int j=0; j<matrix.get(0).size(); j++) {
-			sum=getSum(matrix, j);
-			sumArray.add(sum);
-		}
-		
-		//Build records
-		for(int i=0;i<matrix.size();i++) {
-			ArrayList<Double> normalizedRecord=new ArrayList<Double>();
-			for(int j=0;j<matrix.get(i).size();j++) {
-				currentValue=matrix.get(i).get(j);
-				if(sumArray.get(j)!=0)
-					norm_freq=(currentValue/sumArray.get(j));
-				else
-					norm_freq=0.0;
-				normalizedRecord.add(norm_freq);
-			}
-			this.freqStructure.add(normalizedRecord);
-		}
+		this.occurrenceStructure.add(record_occ);
+		this.densityStructure.add(record);
 	}
 	
 	//Get the total number of elements of a specific category

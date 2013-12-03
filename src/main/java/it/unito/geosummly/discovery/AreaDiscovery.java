@@ -48,21 +48,19 @@ public class AreaDiscovery {
 		int cellsNumber=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber=100; //number of samples of the sample area
 		ArrayList<BoundingBox> gridStructure=new ArrayList<BoundingBox>();
-		ArrayList<ArrayList<Double>> supportMatrix=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> FreqStructure=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> devStructure=new ArrayList<ArrayList<Double>>();
+		//ArrayList<ArrayList<Double>> occurrenceStructure=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> densityStructure=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
 		SampleArea sA=new SampleArea(north, south, west, east);
 		sA.setGridStructure(gridStructure);
-		sA.setFreqStructure(FreqStructure);
-		sA.setDevStructure(devStructure);
+		//sA.setOccurrenceStructure(occurrenceStructure);
+		sA.setDensityStructure(densityStructure);
 		sA.setCellsNumber(cellsNumber);
 		sA.setSampleNumber(sampleNumber);
 		sA.setMap(map);
 		sA.updateMap(features);
 		sA.setFeatures(features);
 		sA.createSampleGrid(); //fill the gridStructure with 'sampleNumber' samples
-		ArrayList<Double> row_of_matrix; //one row per box;
 		
 		ArrayList<String> distinct_list; //list of all the distinct categories for a single cell
 		ArrayList<Integer> occurrences_list; //list of the occurrences of the distinct categories for a single cell
@@ -74,11 +72,8 @@ public class AreaDiscovery {
 			venueInfo=fsv.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			distinct_list=fsv.createCategoryList(venueInfo); 
 			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
-			row_of_matrix=sA.fillRecord(occurrences_list, distinct_list); //create a consistent row (related to the categories)
-			supportMatrix.add(row_of_matrix);
+			sA.fillRecord(occurrences_list, distinct_list, b.getArea()); //create a consistent row (related to the categories)
 		}
-		
-		sA.getIntrafeatureFrequency(supportMatrix); //get a structure with intra-feature frequencies
 		
 		/***************************************************************************************/
 		/*********************************VENUES OF AREA 2**************************************/
@@ -92,21 +87,19 @@ public class AreaDiscovery {
 		int cellsNumber_1=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber_1=100; //number of samples of the sample area
 		ArrayList<BoundingBox> gridStructure_1=new ArrayList<BoundingBox>();
-		ArrayList<ArrayList<Double>> supportMatrix_1=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> FreqStructure_1=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> devStructure_1=new ArrayList<ArrayList<Double>>();
+		//ArrayList<ArrayList<Double>> occurrenceStructure_1=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> densityStructure_1=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map_1=new HashMap<String, Integer>(); //HashMap of all the distinct categories
 		SampleArea sA_1=new SampleArea(north_1, south_1, west_1, east_1);
 		sA_1.setGridStructure(gridStructure_1);
-		sA_1.setFreqStructure(FreqStructure_1);
-		sA_1.setDevStructure(devStructure_1);
+		//sA_1.setOccurrenceStructure(occurrenceStructure_1);
+		sA_1.setDensityStructure(densityStructure_1);
 		sA_1.setCellsNumber(cellsNumber_1);
 		sA_1.setSampleNumber(sampleNumber_1);
 		sA_1.setMap(map_1);
 		sA_1.updateMap(features);
 		sA_1.setFeatures(features);
 		sA_1.createSampleGrid(); //fill the gridStructure with 'sampleNumber' samples
-		ArrayList<Double> row_of_matrix_1; //one row per box;
 		
 		ArrayList<String> distinct_list_1; //list of all the distinct categories for a single cell
 		ArrayList<Integer> occurrences_list_1; //list of the occurrences of the distinct categories for a single cell
@@ -118,11 +111,8 @@ public class AreaDiscovery {
 			venueInfo_1=fsv_1.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			distinct_list_1=fsv_1.createCategoryList(venueInfo_1); 
 			occurrences_list_1=fsv_1.getCategoryOccurences(venueInfo_1, distinct_list_1);
-			row_of_matrix_1=sA_1.fillRecord(occurrences_list_1, distinct_list_1); //create a consistent row (related to the categories)
-			supportMatrix_1.add(row_of_matrix_1);
+			sA_1.fillRecord(occurrences_list_1, distinct_list_1, b.getArea()); //create a consistent row (related to the categories)
 		}
-		
-		sA_1.getIntrafeatureFrequency(supportMatrix_1); //get a structure with intra-feature frequencies
 		
 		/***************************************************************************************/
 		/*********************************VENUES OF AREA 3**************************************/
@@ -172,23 +162,25 @@ public class AreaDiscovery {
 		/******************************CREATE THE BIG MATRIX**********************************/
 		/***************************************************************************************/
 		
-		ArrayList<ArrayList<Double>> bigArea=new ArrayList<ArrayList<Double>>();
-		ClassOfArea metropolitan=new ClassOfArea("Rural", bigArea, sA.getFreqStructure(), sA_1.getFreqStructure()/*, sA_2.getFreqStructure()*/);
-		ArrayList<Double> meanFrequencies=metropolitan.getMeanFrequencies(metropolitan.getBigArea());
-		ArrayList<ArrayList<Double>> stdMatrix=metropolitan.getStdMatrix(metropolitan.getBigArea());
+		ArrayList<ArrayList<Double>> bigAreaOcc=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> bigAreaDens=new ArrayList<ArrayList<Double>>();
+		ClassOfArea metropolitan=new ClassOfArea("Rural", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA_1.getOccurrenceStructure(), sA.getDensityStructure(), sA_1.getDensityStructure()/*, sA_2.getFreqStructure()*/);
+		//ArrayList<Double> singleOccurrences=metropolitan.getMeanArray(bigAreaOcc);
+		ArrayList<Double> meanDensities=metropolitan.getMeanArray(metropolitan.getBigAreaDens());
+		ArrayList<ArrayList<Double>> stdMatrix=metropolitan.getStdMatrix(metropolitan.getBigAreaDens());
 		ArrayList<Double> stdSingles=new ArrayList<Double>(stdMatrix.get(0));
-		ArrayList<Double> singleDensities=metropolitan.getSingleDensities(meanFrequencies, stdSingles);
-		ArrayList<Double> pairDensities=metropolitan.getPairDensities(metropolitan.getBigArea(), meanFrequencies);
+		ArrayList<Double> singleDensities=metropolitan.getSingleDensities(meanDensities, stdSingles);
+		ArrayList<Double> pairDensities=metropolitan.getPairDensities(metropolitan.getBigAreaDens(), meanDensities);
 		
 		/***************************************************************************************/
 		/******************************WRITE OUTPUT TO CSV**********************************/
 		/***************************************************************************************/
 		
 		// write down the matrices of densities and standard deviation values to a file		
-		ByteArrayOutputStream bout_freq1 = new ByteArrayOutputStream();
-		OutputStreamWriter osw_freq1 = new OutputStreamWriter(bout_freq1);
-		ByteArrayOutputStream bout_freq2 = new ByteArrayOutputStream();
-		OutputStreamWriter osw_freq2 = new OutputStreamWriter(bout_freq2);
+		ByteArrayOutputStream bout_dens1 = new ByteArrayOutputStream();
+		OutputStreamWriter osw_dens1 = new OutputStreamWriter(bout_dens1);
+		ByteArrayOutputStream bout_dens2 = new ByteArrayOutputStream();
+		OutputStreamWriter osw_dens2 = new OutputStreamWriter(bout_dens2);
 		/*ByteArrayOutputStream bout_freq3 = new ByteArrayOutputStream();
 		OutputStreamWriter osw_freq3 = new OutputStreamWriter(bout_freq3);*/
 		ByteArrayOutputStream bout_std = new ByteArrayOutputStream();
@@ -198,46 +190,46 @@ public class AreaDiscovery {
 		ByteArrayOutputStream bout_pairs = new ByteArrayOutputStream();
 		OutputStreamWriter osw_pairs = new OutputStreamWriter(bout_pairs);
         try {
-            CSVPrinter csv_freq1 = new CSVPrinter(osw_freq1, CSVFormat.DEFAULT);
-            CSVPrinter csv_freq2 = new CSVPrinter(osw_freq2, CSVFormat.DEFAULT);
+            CSVPrinter csv_dens1 = new CSVPrinter(osw_dens1, CSVFormat.DEFAULT);
+            CSVPrinter csv_dens2 = new CSVPrinter(osw_dens2, CSVFormat.DEFAULT);
             //CSVPrinter csv_freq3 = new CSVPrinter(osw_freq3, CSVFormat.DEFAULT);
             CSVPrinter csv_std = new CSVPrinter(osw_std, CSVFormat.DEFAULT);
             CSVPrinter csv_singles = new CSVPrinter(osw_singles, CSVFormat.DEFAULT);
             CSVPrinter csv_pairs = new CSVPrinter(osw_pairs, CSVFormat.DEFAULT);
 		
-            // write the header of the matrix for frequency and standard deviation
+            // write the header of the matrix for density and standard deviation
             ArrayList<String> hdr=sA.getFeatures();
             for(String s: hdr) {
-            	csv_freq1.print(s);
-            	csv_freq2.print(s);
+            	csv_dens1.print(s);
+            	csv_dens2.print(s);
             	//csv_freq3.print(s);
             	csv_std.print(s);
             }
-            csv_freq1.println();
-            csv_freq2.println();
+            csv_dens1.println();
+            csv_dens2.println();
             //csv_freq3.println();
             csv_std.println();
             
-            // iterate per each row of the matrix for frequency and standard deviation
-            ArrayList<ArrayList<Double>> freq1=sA.getFreqStructure();
-            ArrayList<ArrayList<Double>> freq2=sA_1.getFreqStructure();
+            // iterate per each row of the matrix for density and standard deviation
+            ArrayList<ArrayList<Double>> dens1=sA.getDensityStructure();
+            ArrayList<ArrayList<Double>> dens2=sA_1.getDensityStructure();
             //ArrayList<ArrayList<Double>> freq3=sA_2.getFreqStructure();
             
-            for(ArrayList<Double> a: freq1) {
+            for(ArrayList<Double> a: dens1) {
             	for(Double d: a) {
-            		csv_freq1.print(d);
+            		csv_dens1.print(d);
             	}
-            	csv_freq1.println();
+            	csv_dens1.println();
             }
-            csv_freq1.flush();
+            csv_dens1.flush();
             
-            for(ArrayList<Double> a: freq2) {
+            for(ArrayList<Double> a: dens2) {
             	for(Double d: a) {
-            		csv_freq2.print(d);
+            		csv_dens2.print(d);
             	}
-            	csv_freq2.println();
+            	csv_dens2.println();
             }
-            csv_freq2.flush();
+            csv_dens2.flush();
             
             /*for(ArrayList<Double> a: freq3) {
             	for(Double d: a) {
@@ -283,14 +275,14 @@ public class AreaDiscovery {
 		OutputStream outputStream_singles;
 		OutputStream outputStream_pairs;
         try {
-            outputStream_freq1 = new FileOutputStream ("output/discovery/rural/freqRuralValMaira.csv");
-            outputStream_freq2 = new FileOutputStream ("output/discovery/rural/freqRuralValDiSusa.csv");
+            outputStream_freq1 = new FileOutputStream ("output/discovery/rural/densRuralValMaira.csv");
+            outputStream_freq2 = new FileOutputStream ("output/discovery/rural/densRuralValDiSusa.csv");
             //outputStream_freq3 = new FileOutputStream ("output/discovery/metropolitan/freqMetroRome.csv");
             outputStream_std = new FileOutputStream ("output/discovery/rural/stdRuralArea.csv");
             outputStream_singles = new FileOutputStream ("output/discovery/rural/densRuralSingles.csv");
             outputStream_pairs = new FileOutputStream ("output/discovery/rural/densRuralCouples.csv");
-            bout_freq1.writeTo(outputStream_freq1);
-            bout_freq2.writeTo(outputStream_freq2);
+            bout_dens1.writeTo(outputStream_freq1);
+            bout_dens2.writeTo(outputStream_freq2);
             //bout_freq3.writeTo(outputStream_freq3);
             bout_std.writeTo(outputStream_std);
             bout_singles.writeTo(outputStream_singles);
