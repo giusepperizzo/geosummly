@@ -1,6 +1,7 @@
 package it.unito.geosummly;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -113,6 +114,33 @@ public class TransformationMatrix {
 			}	
 	}
 	
+	//Sort matrix alphabetically (for features)
+	public ArrayList<ArrayList<Double>> sortMatrix(ArrayList<ArrayList<Double>> matrix, HashMap<String,Integer> map) {
+		String feature="";
+		int value=0;
+		ArrayList<ArrayList<Double>> sortedMatrix=new ArrayList<ArrayList<Double>>();
+		//ArrayList<Double> sortedRecord=new ArrayList<>();
+		//for(int i=0;i<map.size()+2;i++) //+2 is for lat and lng
+			//sortedRecord.add(0.0);
+		Object[] keys= map.keySet().toArray();
+		Arrays.sort(keys);
+		for(int i=0;i<matrix.size();i++) {
+			ArrayList<Double> sortedRecord=new ArrayList<>();
+			sortedRecord.add(matrix.get(i).get(0));
+			sortedRecord.add(matrix.get(i).get(1));
+			//sortedRecord.set(0, matrix.get(i).get(0)); //latitude
+			//sortedRecord.set(1, matrix.get(i).get(1)); //longitude
+			for(int j=0;j<keys.length;j++) {
+				feature=(String)keys[j];
+				value=map.get(feature);
+				//sortedRecord.set(j+2, matrix.get(i).get(value));
+				sortedRecord.add(matrix.get(i).get(value));
+			}
+			sortedMatrix.add(sortedRecord);
+		}
+		return sortedMatrix;
+	}
+	
 	//Matrix with frequencies
 	public void buildNotNormalizedMatrix(ArrayList<ArrayList<Double>> matrix) {
 		ArrayList<Double> sumArray=new ArrayList<Double>();
@@ -179,7 +207,7 @@ public class TransformationMatrix {
 	}
 	
 	//Get the min and max density values of a column
-	public double[] getMinMax(ArrayList<ArrayList<Double>> array, ArrayList<Double> area,int index){
+	public double[] getMinMax(ArrayList<ArrayList<Double>> array, ArrayList<Double> area, int index){
 		double min=Double.MAX_VALUE;
 		double max=-1*Double.MAX_VALUE;
 		double current=0;

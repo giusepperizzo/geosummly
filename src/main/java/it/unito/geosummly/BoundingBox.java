@@ -1,6 +1,5 @@
 package it.unito.geosummly;
 
-import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 /**

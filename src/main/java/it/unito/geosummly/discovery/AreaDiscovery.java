@@ -40,20 +40,20 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 1**************************************/
 		/***************************************************************************************/
 		
-		double north= 44.484014614538964; //coordinates of Val Maira, Piedmont
-		double south= 44.442604689982026;
-		double west= 7.318267822265625;
-		double east= 7.391395568847656;
+		double north= 48.86985261204524; //coordinates of Paris city center
+		double south= 48.840486362012925;
+		double west= 2.3219776258338243;
+		double east= 2.384977351175621;
 		
 		int cellsNumber=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber=100; //number of samples of the sample area
 		ArrayList<BoundingBox> gridStructure=new ArrayList<BoundingBox>();
-		//ArrayList<ArrayList<Double>> occurrenceStructure=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> occurrenceStructure=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> densityStructure=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
 		SampleArea sA=new SampleArea(north, south, west, east);
 		sA.setGridStructure(gridStructure);
-		//sA.setOccurrenceStructure(occurrenceStructure);
+		sA.setOccurrenceStructure(occurrenceStructure);
 		sA.setDensityStructure(densityStructure);
 		sA.setCellsNumber(cellsNumber);
 		sA.setSampleNumber(sampleNumber);
@@ -79,20 +79,20 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 2**************************************/
 		/***************************************************************************************/
 
-		double north_1= 45.153353406479106; //coordinates of Val di Susa, Piedmont
-		double south_1= 45.13416254594802;
-		double west_1= 7.142057418823242;
-		double east_1= 7.170724868774414;
+		double north_1= 51.537473682752406; //coordinates of London city center
+		double south_1= 51.48159670633237;
+		double west_1= -0.1802444038912654;
+		double east_1= -0.05201335530728102;
 		
 		int cellsNumber_1=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber_1=100; //number of samples of the sample area
 		ArrayList<BoundingBox> gridStructure_1=new ArrayList<BoundingBox>();
-		//ArrayList<ArrayList<Double>> occurrenceStructure_1=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> occurrenceStructure_1=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> densityStructure_1=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map_1=new HashMap<String, Integer>(); //HashMap of all the distinct categories
 		SampleArea sA_1=new SampleArea(north_1, south_1, west_1, east_1);
 		sA_1.setGridStructure(gridStructure_1);
-		//sA_1.setOccurrenceStructure(occurrenceStructure_1);
+		sA_1.setOccurrenceStructure(occurrenceStructure_1);
 		sA_1.setDensityStructure(densityStructure_1);
 		sA_1.setCellsNumber(cellsNumber_1);
 		sA_1.setSampleNumber(sampleNumber_1);
@@ -118,7 +118,7 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 3**************************************/
 		/***************************************************************************************/
 		
-		/*double north_2= 41.91875659707589; //coordinates of Rome
+		double north_2= 41.91875659707589; //coordinates of Rome city center
 		double south_2= 41.87409864599624;
 		double west_2= 12.451157569885254;
 		double east_2= 12.518448829650879;
@@ -126,21 +126,19 @@ public class AreaDiscovery {
 		int cellsNumber_2=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber_2=100; //number of samples of the sample area
 		ArrayList<BoundingBox> gridStructure_2=new ArrayList<BoundingBox>();
-		ArrayList<ArrayList<Double>> supportMatrix_2=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> FreqStructure_2=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> devStructure_2=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> occurrenceStructure_2=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> densityStructure_2=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map_2=new HashMap<String, Integer>(); //HashMap of all the distinct categories
 		SampleArea sA_2=new SampleArea(north_2, south_2, west_2, east_2);
 		sA_2.setGridStructure(gridStructure_2);
-		sA_2.setFreqStructure(FreqStructure_2);
-		sA_2.setDevStructure(devStructure_2);
+		sA_2.setOccurrenceStructure(occurrenceStructure_2);
+		sA_2.setDensityStructure(densityStructure_2);
 		sA_2.setCellsNumber(cellsNumber_2);
 		sA_2.setSampleNumber(sampleNumber_2);
 		sA_2.setMap(map_2);
 		sA_2.updateMap(features);
 		sA_2.setFeatures(features);
 		sA_2.createSampleGrid(); //fill the gridStructure with 'sampleNumber' samples
-		ArrayList<Double> row_of_matrix_2; //one row per box;
 		
 		ArrayList<String> distinct_list_2; //list of all the distinct categories for a single cell
 		ArrayList<Integer> occurrences_list_2; //list of the occurrences of the distinct categories for a single cell
@@ -152,11 +150,8 @@ public class AreaDiscovery {
 			venueInfo_2=fsv_2.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			distinct_list_2=fsv_2.createCategoryList(venueInfo_2); 
 			occurrences_list_2=fsv_2.getCategoryOccurences(venueInfo_2, distinct_list_2);
-			row_of_matrix_2=sA_2.fillRecord(occurrences_list_2, distinct_list_2); //create a consistent row (related to the categories)
-			supportMatrix_2.add(row_of_matrix_2);
+			sA_2.fillRecord(occurrences_list_2, distinct_list_2, b.getArea()); //create a consistent row (related to the categories)
 		}
-		
-		sA_2.getIntrafeatureFrequency(supportMatrix_2); //get a structure with intra-feature frequencies*/
 		
 		/***************************************************************************************/
 		/******************************CREATE THE BIG MATRIX**********************************/
@@ -164,80 +159,69 @@ public class AreaDiscovery {
 		
 		ArrayList<ArrayList<Double>> bigAreaOcc=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> bigAreaDens=new ArrayList<ArrayList<Double>>();
-		ClassOfArea metropolitan=new ClassOfArea("Rural", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA_1.getOccurrenceStructure(), sA.getDensityStructure(), sA_1.getDensityStructure()/*, sA_2.getFreqStructure()*/);
-		//ArrayList<Double> singleOccurrences=metropolitan.getMeanArray(bigAreaOcc);
+		ClassOfArea metropolitan=new ClassOfArea("Residential", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA_1.getOccurrenceStructure(), sA_2.getOccurrenceStructure(), sA.getDensityStructure(), sA_1.getDensityStructure(), sA_2.getDensityStructure());
 		ArrayList<Double> meanDensities=metropolitan.getMeanArray(metropolitan.getBigAreaDens());
 		ArrayList<ArrayList<Double>> stdMatrix=metropolitan.getStdMatrix(metropolitan.getBigAreaDens());
 		ArrayList<Double> stdSingles=new ArrayList<Double>(stdMatrix.get(0));
-		ArrayList<Double> singleDensities=metropolitan.getSingleDensities(meanDensities, stdSingles);
-		ArrayList<Double> pairDensities=metropolitan.getPairDensities(metropolitan.getBigAreaDens(), meanDensities);
+		double n=metropolitan.getBigAreaDens().size();
+		ArrayList<Double> singleDensities=metropolitan.getSingleDensities(meanDensities, stdSingles, n);
+		ArrayList<Double> pairDensities=metropolitan.getPairDensities(metropolitan.getBigAreaDens(), meanDensities, n*n);
+		ArrayList<Double> tripleDensities=metropolitan.getTripleDensities(metropolitan.getBigAreaDens(), meanDensities, n*n*n);
+		ArrayList<String> featureFreq=metropolitan.getFeaturesLabel("f",features);
+		ArrayList<String> featureDens=metropolitan.getFeaturesLabel("density",features);
+		ArrayList<String> featureStd=metropolitan.getFeaturesLabel("std", features);
+		ArrayList<String> singleFeatures=metropolitan.getFeaturesLabel("deltad", features);
+		ArrayList<String> pairFeatures= metropolitan.getFeaturesForPairs(features);
+		ArrayList<String> tripleFeatures= metropolitan.getFeaturesForTriples(features);
 		
 		/***************************************************************************************/
 		/******************************WRITE OUTPUT TO CSV**********************************/
 		/***************************************************************************************/
 		
 		// write down the matrices of densities and standard deviation values to a file		
-		ByteArrayOutputStream bout_dens1 = new ByteArrayOutputStream();
-		OutputStreamWriter osw_dens1 = new OutputStreamWriter(bout_dens1);
-		ByteArrayOutputStream bout_dens2 = new ByteArrayOutputStream();
-		OutputStreamWriter osw_dens2 = new OutputStreamWriter(bout_dens2);
+		ByteArrayOutputStream bout_freq = new ByteArrayOutputStream();
+		OutputStreamWriter osw_freq = new OutputStreamWriter(bout_freq);
+		ByteArrayOutputStream bout_dens = new ByteArrayOutputStream();
+		OutputStreamWriter osw_dens = new OutputStreamWriter(bout_dens);
 		/*ByteArrayOutputStream bout_freq3 = new ByteArrayOutputStream();
 		OutputStreamWriter osw_freq3 = new OutputStreamWriter(bout_freq3);*/
 		ByteArrayOutputStream bout_std = new ByteArrayOutputStream();
 		OutputStreamWriter osw_std = new OutputStreamWriter(bout_std);
-		ByteArrayOutputStream bout_singles = new ByteArrayOutputStream();
-		OutputStreamWriter osw_singles = new OutputStreamWriter(bout_singles);
-		ByteArrayOutputStream bout_pairs = new ByteArrayOutputStream();
-		OutputStreamWriter osw_pairs = new OutputStreamWriter(bout_pairs);
+		ByteArrayOutputStream bout_deltad = new ByteArrayOutputStream();
+		OutputStreamWriter osw_deltad = new OutputStreamWriter(bout_deltad);
         try {
-            CSVPrinter csv_dens1 = new CSVPrinter(osw_dens1, CSVFormat.DEFAULT);
-            CSVPrinter csv_dens2 = new CSVPrinter(osw_dens2, CSVFormat.DEFAULT);
-            //CSVPrinter csv_freq3 = new CSVPrinter(osw_freq3, CSVFormat.DEFAULT);
+            CSVPrinter csv_freq = new CSVPrinter(osw_freq, CSVFormat.DEFAULT);
+            CSVPrinter csv_dens = new CSVPrinter(osw_dens, CSVFormat.DEFAULT);
             CSVPrinter csv_std = new CSVPrinter(osw_std, CSVFormat.DEFAULT);
-            CSVPrinter csv_singles = new CSVPrinter(osw_singles, CSVFormat.DEFAULT);
-            CSVPrinter csv_pairs = new CSVPrinter(osw_pairs, CSVFormat.DEFAULT);
+            CSVPrinter csv_deltad = new CSVPrinter(osw_deltad, CSVFormat.DEFAULT);
 		
-            // write the header of the matrix for density and standard deviation
-            ArrayList<String> hdr=sA.getFeatures();
-            for(String s: hdr) {
-            	csv_dens1.print(s);
-            	csv_dens2.print(s);
-            	//csv_freq3.print(s);
-            	csv_std.print(s);
+            // write the header of the matrix for frequency, density and standard deviation
+            for(int i=0;i<features.size();i++) {
+            	csv_freq.print(featureFreq.get(i));
+            	csv_dens.print(featureDens.get(i));
+            	csv_std.print(featureStd.get(i));
             }
-            csv_dens1.println();
-            csv_dens2.println();
-            //csv_freq3.println();
+            csv_freq.println();
+            csv_dens.println();
             csv_std.println();
             
-            // iterate per each row of the matrix for density and standard deviation
-            ArrayList<ArrayList<Double>> dens1=sA.getDensityStructure();
-            ArrayList<ArrayList<Double>> dens2=sA_1.getDensityStructure();
-            //ArrayList<ArrayList<Double>> freq3=sA_2.getFreqStructure();
             
-            for(ArrayList<Double> a: dens1) {
+            // write the values of the matrix for frequency, density and standard deviation
+            for(ArrayList<Double> a: metropolitan.getBigAreaOcc()) {
             	for(Double d: a) {
-            		csv_dens1.print(d);
+            		csv_freq.print(d);
             	}
-            	csv_dens1.println();
+            	csv_freq.println();
             }
-            csv_dens1.flush();
+            csv_freq.flush();
             
-            for(ArrayList<Double> a: dens2) {
+            for(ArrayList<Double> a: metropolitan.getBigAreaDens()) {
             	for(Double d: a) {
-            		csv_dens2.print(d);
+            		csv_dens.print(d);
             	}
-            	csv_dens2.println();
+            	csv_dens.println();
             }
-            csv_dens2.flush();
-            
-            /*for(ArrayList<Double> a: freq3) {
-            	for(Double d: a) {
-            		csv_freq3.print(d);
-            	}
-            	csv_freq3.println();
-            }
-            csv_freq3.flush();*/
+            csv_dens.flush();
             
             for(ArrayList<Double> a: stdMatrix) {
             	for(Double d: a) {
@@ -247,46 +231,43 @@ public class AreaDiscovery {
             }
             csv_std.flush();
             
-            //write down for density of singles
+            //write down values for density of singles, pairs, triples
             for(int i=0;i<singleDensities.size();i++) {
-            	csv_singles.print(features.get(i));
-        		csv_singles.print(singleDensities.get(i));
-            	csv_singles.println();
+            	csv_deltad.print(singleFeatures.get(i));
+        		csv_deltad.print(singleDensities.get(i));
+            	csv_deltad.println();
             }
-            csv_singles.flush();
-            
-            //write down for density of pairs
-            ArrayList<String> pairFeatures=metropolitan.getFeaturesForPairs(features);
+            csv_deltad.println();
 	        for(int i=0;i<pairDensities.size();i++) {
-	        	csv_pairs.print(pairFeatures.get(i));
-	    		csv_pairs.print(pairDensities.get(i));
-	        	csv_pairs.println();
+	        	csv_deltad.print(pairFeatures.get(i));
+	    		csv_deltad.print(pairDensities.get(i));
+	        	csv_deltad.println();
 	        }
-	        csv_pairs.flush();
+	        csv_deltad.println();
+	        for(int i=0;i<pairDensities.size();i++) {
+	        	csv_deltad.print(tripleFeatures.get(i));
+	    		csv_deltad.print(tripleDensities.get(i));
+	        	csv_deltad.println();
+	        }
+	        csv_deltad.flush();
             
         } catch (IOException e1) {
             e1.printStackTrace();
         }
 		
-		OutputStream outputStream_freq1;
-		OutputStream outputStream_freq2;
-		//OutputStream outputStream_freq3;
+		OutputStream outputStream_freq;
+		OutputStream outputStream_dens;
 		OutputStream outputStream_std;
-		OutputStream outputStream_singles;
-		OutputStream outputStream_pairs;
+		OutputStream outputStream_deltad;
         try {
-            outputStream_freq1 = new FileOutputStream ("output/discovery/rural/densRuralValMaira.csv");
-            outputStream_freq2 = new FileOutputStream ("output/discovery/rural/densRuralValDiSusa.csv");
-            //outputStream_freq3 = new FileOutputStream ("output/discovery/metropolitan/freqMetroRome.csv");
-            outputStream_std = new FileOutputStream ("output/discovery/rural/stdRuralArea.csv");
-            outputStream_singles = new FileOutputStream ("output/discovery/rural/densRuralSingles.csv");
-            outputStream_pairs = new FileOutputStream ("output/discovery/rural/densRuralCouples.csv");
-            bout_dens1.writeTo(outputStream_freq1);
-            bout_dens2.writeTo(outputStream_freq2);
-            //bout_freq3.writeTo(outputStream_freq3);
+            outputStream_freq = new FileOutputStream ("output/discovery/metropolitan/frequencyMetropolitanArea.csv");
+            outputStream_dens = new FileOutputStream ("output/discovery/metropolitan/densityMetropolitanArea.csv");
+            outputStream_std = new FileOutputStream ("output/discovery/metropolitan/stdMetropolitanArea.csv");
+            outputStream_deltad = new FileOutputStream ("output/discovery/metropolitan/deltadMetropolitanArea.csv");
+            bout_freq.writeTo(outputStream_freq);
+            bout_dens.writeTo(outputStream_dens);
             bout_std.writeTo(outputStream_std);
-            bout_singles.writeTo(outputStream_singles);
-            bout_pairs.writeTo(outputStream_pairs);
+            bout_deltad.writeTo(outputStream_deltad);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

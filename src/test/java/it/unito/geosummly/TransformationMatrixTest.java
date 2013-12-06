@@ -147,6 +147,63 @@ public class TransformationMatrixTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
+	public void testSortMatrix() {
+		TransformationMatrix tm=new TransformationMatrix();
+		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> rec1=new ArrayList<Double>();
+		rec1.add(40.0);
+		rec1.add(45.0);
+		rec1.add(1.0);
+		rec1.add(2.0);
+		rec1.add(3.0);
+		ArrayList<Double> rec2=new ArrayList<Double>();
+		rec2.add(50.0);
+		rec2.add(55.0);
+		rec2.add(11.0);
+		rec2.add(12.0);
+		rec2.add(13.0);
+		ArrayList<Double> rec3=new ArrayList<Double>();
+		rec3.add(60.0);
+		rec3.add(65.0);
+		rec3.add(21.0);
+		rec3.add(22.0);
+		rec3.add(23.0);
+		matrix.add(rec1);
+		matrix.add(rec2);
+		matrix.add(rec3);
+		HashMap<String, Integer> map=new HashMap<String, Integer>();
+		map.put("B", 2);
+		map.put("C", 3);
+		map.put("A", 4);
+		ArrayList<ArrayList<Double>> actual=tm.sortMatrix(matrix, map);
+		
+		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> exp1=new ArrayList<Double>();
+		exp1.add(40.0);
+		exp1.add(45.0);
+		exp1.add(3.0);
+		exp1.add(1.0);
+		exp1.add(2.0);
+		ArrayList<Double> exp2=new ArrayList<Double>();
+		exp2.add(50.0);
+		exp2.add(55.0);
+		exp2.add(13.0);
+		exp2.add(11.0);
+		exp2.add(12.0);
+		ArrayList<Double> exp3=new ArrayList<Double>();
+		exp3.add(60.0);
+		exp3.add(65.0);
+		exp3.add(23.0);
+		exp3.add(21.0);
+		exp3.add(22.0);
+		expected.add(exp1);
+		expected.add(exp2);
+		expected.add(exp3);
+		
+		//Start the test
+		assertEquals(expected, actual);
+	}
+	
 	public void testBuildNotNormalizedMatrix() {
 		//Initialize the transformation matrix and execute the method
 		TransformationMatrix tm=new TransformationMatrix();
@@ -308,7 +365,7 @@ public class TransformationMatrixTest extends TestCase {
 		double[] actual=tm.getMinMax(abc, area, 1);
 		
 		//Construct the test case
-		double[] expected={300.0, 1000.0};
+		double[] expected={0.3, 1};
 		
 		//Start the test
 		for(int i=0;i<actual.length;i++)

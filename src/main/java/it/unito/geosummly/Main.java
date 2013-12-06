@@ -110,6 +110,8 @@ public class Main {
 		}
 		tm.fixRowsLength(tot_num, supportMatrix); //update rows length for consistency
 		
+		ArrayList<ArrayList<Double>> sortedMatrix=tm.sortMatrix(supportMatrix, tm.getMap());
+		
 		tm.buildNotNormalizedMatrix(supportMatrix); //Create a not normalized transformation matrix with frequencies
 		tm.buildNormalizedMatrix(tm.getNotNormalizedMatrix(), bboxArea); //Create a normalized transformation matrix in [0,1] with densities
 		
