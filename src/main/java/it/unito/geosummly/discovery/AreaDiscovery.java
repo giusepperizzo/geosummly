@@ -183,8 +183,6 @@ public class AreaDiscovery {
 		OutputStreamWriter osw_freq = new OutputStreamWriter(bout_freq);
 		ByteArrayOutputStream bout_dens = new ByteArrayOutputStream();
 		OutputStreamWriter osw_dens = new OutputStreamWriter(bout_dens);
-		/*ByteArrayOutputStream bout_freq3 = new ByteArrayOutputStream();
-		OutputStreamWriter osw_freq3 = new OutputStreamWriter(bout_freq3);*/
 		ByteArrayOutputStream bout_std = new ByteArrayOutputStream();
 		OutputStreamWriter osw_std = new OutputStreamWriter(bout_std);
 		ByteArrayOutputStream bout_deltad = new ByteArrayOutputStream();

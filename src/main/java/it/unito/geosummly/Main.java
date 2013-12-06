@@ -54,25 +54,19 @@ public class Main {
 		/****************************CREATE THE TRANSFORMATION MATRIX***************************/
 		/***************************************************************************************/
 		//Initialize a MongoDB instance
-    	MongoClient mongoClient=new MongoClient("localhost");
+    	/*MongoClient mongoClient=new MongoClient("localhost");
     	DB db=mongoClient.getDB("VenueDB");
     	DBCollection coll=db.getCollection("ResultVenues");
     	
     	//Initialize a Gson instance and declare the document which will contain the JSON results for MongoDB 
     	Gson gson=new Gson();
-		BasicDBObject doc;
+		BasicDBObject doc;*/
 		
 		//Initialize the transformation matrix and its parameters
 		ArrayList<ArrayList<Double>> supportMatrix=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> notNormalizedMatrix=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> normalizedMatrix=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
-		ArrayList<String> header=new ArrayList<String>(); //Sorted list of the distinct category (related to the hash map)
 		TransformationMatrix tm=new TransformationMatrix();
-		tm.setNotNormalizedMatrix(notNormalizedMatrix);
-		tm.setNormalizedMatrix(normalizedMatrix);
 		tm.setMap(map);
-		tm.setHeader(header);
 		ArrayList<Double> row_of_matrix; //row of the transformation matrix (one for each cell);
 		
 		//Support variables for transformation matrix task
@@ -90,15 +84,15 @@ public class Main {
 			//Venues of a single cell
 			venueInfo=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			
-			for(FoursquareDataObject fdo: venueInfo){
+			/*for(FoursquareDataObject fdo: venueInfo){
 				//Serialize with Gson
 				String obj=gson.toJson(fdo);
 				//Initialize the document which will contain the JSON result parsed for MongoDB and insert this document into MongoDB collection
 				doc= (BasicDBObject) JSON.parse(obj);
 				coll.insert(doc);
-			}
+			}*/
 			
-			//Create the original transformation matrix
+			//put venues values in a matrix
 			distinct_list=fsv.createCategoryList(venueInfo);
 			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
 			tm.updateMap(distinct_list);//update the hash map
@@ -110,42 +104,61 @@ public class Main {
 		}
 		tm.fixRowsLength(tot_num, supportMatrix); //update rows length for consistency
 		
-		ArrayList<ArrayList<Double>> sortedMatrix=tm.sortMatrix(supportMatrix, tm.getMap());
-		
-		tm.buildNotNormalizedMatrix(supportMatrix); //Create a not normalized transformation matrix with frequencies
-		tm.buildNormalizedMatrix(tm.getNotNormalizedMatrix(), bboxArea); //Create a normalized transformation matrix in [0,1] with densities
-		
+		//Build the transformation matrix
+		ArrayList<ArrayList<Double>> frequencyMatrix=tm.sortMatrix(supportMatrix, tm.getMap());
+		ArrayList<ArrayList<Double>> densityMatrix=tm.buildDensityMatrix(frequencyMatrix, bboxArea);
+		ArrayList<ArrayList<Double>> normalizedMatrix=tm.buildNormalizedMatrix(densityMatrix);
+		tm.setFrequencyMatrix(frequencyMatrix);
+		tm.setDensityMatrix(densityMatrix);
+		tm.setNormalizedMatrix(normalizedMatrix);
+		tm.setHeader(tm.sortFeatures(map));
 		
 		// write down the transformation matrix to a file		
-		ByteArrayOutputStream bout_notnorm = new ByteArrayOutputStream();
-		OutputStreamWriter osw_notnorm = new OutputStreamWriter(bout_notnorm);
+		ByteArrayOutputStream bout_freq = new ByteArrayOutputStream();
+		OutputStreamWriter osw_freq = new OutputStreamWriter(bout_freq);
+		ByteArrayOutputStream bout_dens = new ByteArrayOutputStream();
+		OutputStreamWriter osw_dens = new OutputStreamWriter(bout_dens);
 		ByteArrayOutputStream bout_norm = new ByteArrayOutputStream();
 		OutputStreamWriter osw_norm = new OutputStreamWriter(bout_norm);
         try {
-            CSVPrinter csv_notnorm = new CSVPrinter(osw_notnorm, CSVFormat.DEFAULT);
+            CSVPrinter csv_freq = new CSVPrinter(osw_freq, CSVFormat.DEFAULT);
+            CSVPrinter csv_dens = new CSVPrinter(osw_dens, CSVFormat.DEFAULT);
             CSVPrinter csv_norm = new CSVPrinter(osw_norm, CSVFormat.DEFAULT);
 		
             // write the header of the matrix
-            ArrayList<String> hdr=tm.getHeader();
-            for(String s: hdr) {
-            	csv_notnorm.print(s);
-            	csv_norm.print(s);
+            ArrayList<String> featureFreq=tm.getFeaturesLabel("f", tm.getHeader());
+            ArrayList<String> featureDens=tm.getFeaturesLabel("density", tm.getHeader());
+            ArrayList<String> featureNorm=tm.getFeaturesLabel("normalized_density", tm.getHeader());
+            for(int i=0;i<featureFreq.size();i++) {
+            	csv_freq.print(featureFreq.get(i));
+            	csv_dens.print(featureDens.get(i));
+            	csv_norm.print(featureNorm.get(i));
             }
-            csv_notnorm.println();
+            csv_freq.println();
+            csv_dens.println();
             csv_norm.println();
             
             // iterate per each row of the matrix
-            ArrayList<ArrayList<Double>> m_original=tm.getNotNormalizedMatrix();
-            for(ArrayList<Double> a: m_original) {
+            ArrayList<ArrayList<Double>> mFreq=tm.getFrequencyMatrix();
+            for(ArrayList<Double> a: mFreq) {
             	for(Double d: a) {
-            		csv_notnorm.print(d);
+            		csv_freq.print(d);
             	}
-            	csv_notnorm.println();
+            	csv_freq.println();
             }
-            csv_notnorm.flush();
+            csv_freq.flush();
             
-            ArrayList<ArrayList<Double>> m_norm=tm.getNormalizedMatrix();
-            for(ArrayList<Double> a: m_norm) {
+            ArrayList<ArrayList<Double>> mDens=tm.getDensityMatrix();
+            for(ArrayList<Double> a: mDens) {
+            	for(Double d: a) {
+            		csv_dens.print(d);
+            	}
+            	csv_dens.println();
+            }
+            csv_dens.flush();
+            
+            ArrayList<ArrayList<Double>> mNorm=tm.getNormalizedMatrix();
+            for(ArrayList<Double> a: mNorm) {
             	for(Double d: a) {
             		csv_norm.print(d);
             	}
@@ -156,11 +169,14 @@ public class Main {
             e1.printStackTrace();
         }
 		
-		OutputStream outputStream_notnorm;
+		OutputStream outputStream_freq;
+		OutputStream outputStream_dens;
 		OutputStream outputStream_norm;
         try {
-            outputStream_notnorm = new FileOutputStream ("output/not-normalized-transformation-matrix.csv");
-            bout_notnorm.writeTo(outputStream_notnorm);
+            outputStream_freq = new FileOutputStream ("output/frequency-transformation-matrix.csv");
+            bout_freq.writeTo(outputStream_freq);
+            outputStream_dens = new FileOutputStream ("output/density-transformation-matrix.csv");
+            bout_dens.writeTo(outputStream_dens);
             outputStream_norm = new FileOutputStream ("output/normalized-transformation-matrix.csv");
             bout_norm.writeTo(outputStream_norm);
         } catch (FileNotFoundException e) {

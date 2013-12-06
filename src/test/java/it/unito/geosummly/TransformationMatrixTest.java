@@ -12,8 +12,6 @@ public class TransformationMatrixTest extends TestCase {
 		TransformationMatrix tm=new TransformationMatrix();
 		HashMap<String, Integer> actualMap=new HashMap<String, Integer>();
 		tm.setMap(actualMap);
-		ArrayList<String> actualHeader=new ArrayList<String>();
-		tm.setHeader(actualHeader);
 		ArrayList<String> a=new ArrayList<String>();
 		a.add("Cat 1");
 		a.add("Cat 1");
@@ -42,21 +40,10 @@ public class TransformationMatrixTest extends TestCase {
 		expectedMap.put("Cat 4", 5);
 		expectedMap.put("Cat 5", 6);
 		expectedMap.put("Cat 6", 7);
-		ArrayList<String> expectedHeader=new ArrayList<String>();
-		expectedHeader.add("Latitude");
-		expectedHeader.add("Longitude");
-		expectedHeader.add("Cat 1");
-		expectedHeader.add("Cat 2");
-		expectedHeader.add("Cat 3");
-		expectedHeader.add("Cat 4");
-		expectedHeader.add("Cat 5");
-		expectedHeader.add("Cat 6");
 		
 		//Start the tests
 		assertNotNull(actualMap);
-		assertNotNull(expectedHeader);
 		assertEquals(expectedMap, actualMap);
-		assertEquals(expectedHeader, actualHeader);
 	}
 	
 	public void testFillRow() {
@@ -147,6 +134,25 @@ public class TransformationMatrixTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
+	public void testSortFeatures() {
+		TransformationMatrix tm=new TransformationMatrix();
+		HashMap<String, Integer> map=new HashMap<String, Integer>();
+		map.put("B", 2);
+		map.put("C", 3);
+		map.put("A", 4);
+		ArrayList<String> actual=tm.sortFeatures(map);
+		
+		ArrayList<String> expected=new ArrayList<String>();
+		expected.add("Latitude");
+		expected.add("Longitude");
+		expected.add("A");
+		expected.add("B");
+		expected.add("C");
+		
+		//Start the test
+		assertEquals(expected, actual);
+	}
+	
 	public void testSortMatrix() {
 		TransformationMatrix tm=new TransformationMatrix();
 		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
@@ -204,120 +210,105 @@ public class TransformationMatrixTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
-	public void testBuildNotNormalizedMatrix() {
-		//Initialize the transformation matrix and execute the method
+	public void testBuildDensityMatrix() {
 		TransformationMatrix tm=new TransformationMatrix();
-		ArrayList<ArrayList<Double>> notnorm=new ArrayList<ArrayList<Double>>();
-		tm.setNotNormalizedMatrix(notnorm);
+		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> a=new ArrayList<Double>();
-		a.add(10.0);
-		a.add(10.0);
-		a.add(4.0);
-		a.add(6.0);
 		ArrayList<Double> b=new ArrayList<Double>();
-		b.add(10.0);
-		b.add(20.0);
-		b.add(2.0);
-		b.add(4.0);
 		ArrayList<Double> c=new ArrayList<Double>();
-		c.add(20.0);
-		c.add(20.0);
-		c.add(6.0);
-		c.add(2.0);
-		ArrayList<ArrayList<Double>> support=new ArrayList<ArrayList<Double>>();
-		support.add(a);
-		support.add(b);
-		support.add(c);
-		tm.buildNotNormalizedMatrix(support);
-		ArrayList<ArrayList<Double>> actual=tm.getNotNormalizedMatrix();
+		a.add(10.0);
+		a.add(20.0);
+		a.add(2.0);
+		a.add(4.0);
+		b.add(30.0);
+		b.add(40.0);
+		b.add(8.0);
+		b.add(16.0);
+		c.add(50.0);
+		c.add(60.0);
+		c.add(32.0);
+		c.add(64.0);
+		matrix.add(a);
+		matrix.add(b);
+		matrix.add(c);
+		ArrayList<Double> area=new ArrayList<Double>();
+		area.add(10.0);
+		area.add(10.0);
+		area.add(10.0);
+		ArrayList<ArrayList<Double>> actual=tm.buildDensityMatrix(matrix, area);
 		
-		//Construct the test case
-		ArrayList<Double> exp1=new ArrayList<Double>();
-		exp1.add(10.0);
-		exp1.add(10.0);
-		exp1.add(0.333);
-		exp1.add(0.5);
-		ArrayList<Double> exp2=new ArrayList<Double>();
-		exp2.add(10.0);
-		exp2.add(20.0);
-		exp2.add(0.166);
-		exp2.add(0.333);
-		ArrayList<Double> exp3=new ArrayList<Double>();
-		exp3.add(20.0);
-		exp3.add(20.0);
-		exp3.add(0.5);
-		exp3.add(0.166);
 		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> exp1=new ArrayList<Double>();
+		ArrayList<Double> exp2=new ArrayList<Double>();
+		ArrayList<Double> exp3=new ArrayList<Double>();
+		exp1.add(10.0);
+		exp1.add(20.0);
+		exp1.add(0.2);
+		exp1.add(0.4);
+		exp2.add(30.0);
+		exp2.add(40.0);
+		exp2.add(0.8);
+		exp2.add(1.6);
+		exp3.add(50.0);
+		exp3.add(60.0);
+		exp3.add(3.2);
+		exp3.add(6.4);
 		expected.add(exp1);
 		expected.add(exp2);
 		expected.add(exp3);
 		
-		//Start the tests
-		assertNotNull(actual);
-		assertEquals(expected.size(), actual.size());		
-		for(int i=0;i<expected.size();i++)
-			for(int j=0;j<expected.get(0).size();j++)
-				assertEquals(expected.get(i).get(j), actual.get(i).get(j),  0.001);
+		//Start the test
+		assertEquals(expected, actual);
 	}
 	
 	public void testBuildNormalizedMatrix() {
 		//Initialize the transformation matrix and execute the method
 		TransformationMatrix tm=new TransformationMatrix();
-		ArrayList<ArrayList<Double>> norm=new ArrayList<ArrayList<Double>>();
-		tm.setNormalizedMatrix(norm);
+		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> a=new ArrayList<Double>();
-		a.add(10.0);
-		a.add(10.0);
-		a.add(4.0);
-		a.add(8.0);
 		ArrayList<Double> b=new ArrayList<Double>();
-		b.add(10.0);
-		b.add(20.0);
-		b.add(2.0);
-		b.add(4.0);
 		ArrayList<Double> c=new ArrayList<Double>();
-		c.add(20.0);
-		c.add(20.0);
-		c.add(8.0);
+		a.add(10.0);
+		a.add(20.0);
+		a.add(2.0);
+		a.add(3.0);
+		b.add(30.0);
+		b.add(40.0);
+		b.add(2.0);
+		b.add(3.0);
+		c.add(50.0);
+		c.add(60.0);
 		c.add(2.0);
-		ArrayList<ArrayList<Double>> support=new ArrayList<ArrayList<Double>>();
-		support.add(a);
-		support.add(b);
-		support.add(c);
-		ArrayList<Double> area=new ArrayList<Double>();
-		area.add(100.0);
-		area.add(100.0);
-		area.add(100.0);
-		tm.buildNormalizedMatrix(support, area);
-		ArrayList<ArrayList<Double>> actual=tm.getNormalizedMatrix();
+		c.add(3.0);
+		matrix.add(a);
+		matrix.add(b);
+		matrix.add(c);
+		ArrayList<ArrayList<Double>> actual=tm.buildNormalizedMatrix(matrix);
 		
-		//Construct the test case
+		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> exp1=new ArrayList<Double>();
+		ArrayList<Double> exp2=new ArrayList<Double>();
+		ArrayList<Double> exp3=new ArrayList<Double>();
 		exp1.add(0.0);
 		exp1.add(0.0);
 		exp1.add(0.333);
-		exp1.add(1.0);
-		ArrayList<Double> exp2=new ArrayList<Double>();
-		exp2.add(0.0);
-		exp2.add(1.0);
-		exp2.add(0.0);
+		exp1.add(0.333);
+		exp2.add(0.5);
+		exp2.add(0.5);
 		exp2.add(0.333);
-		ArrayList<Double> exp3=new ArrayList<Double>();
+		exp2.add(0.333);
 		exp3.add(1.0);
 		exp3.add(1.0);
-		exp3.add(1.0);
-		exp3.add(0.0);
-		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
+		exp3.add(0.333);
+		exp3.add(0.333);
 		expected.add(exp1);
 		expected.add(exp2);
 		expected.add(exp3);
 		
-		//Start the tests
-		assertNotNull(actual);
-		assertEquals(expected.size(), actual.size());		
-		for(int i=0;i<expected.size();i++)
-			for(int j=0;j<expected.get(0).size();j++)
-				assertEquals(expected.get(i).get(j), actual.get(i).get(j),  0.001);
+		//Start the test
+		for(int i=0;i<actual.size();i++)
+			for(int j=0;j<actual.get(i).size();j++)
+				assertEquals(expected.get(i).get(j), actual.get(i).get(j), 0.001);
 	}
 	
 	public void testGetSum() {
@@ -358,14 +349,10 @@ public class TransformationMatrixTest extends TestCase {
 		abc.add(a);
 		abc.add(b);
 		abc.add(c);
-		ArrayList<Double> area=new ArrayList<>();
-		area.add(10.0);
-		area.add(10.0);
-		area.add(10.0);
-		double[] actual=tm.getMinMax(abc, area, 1);
+		double[] actual=tm.getMinMax(abc, 1);
 		
 		//Construct the test case
-		double[] expected={0.3, 1};
+		double[] expected={3, 10};
 		
 		//Start the test
 		for(int i=0;i<actual.length;i++)
@@ -377,5 +364,26 @@ public class TransformationMatrixTest extends TestCase {
 		double actual=tm.normalizeValues(-90, 90, 45);
 		double expected=0.75;
 		assertEquals(expected, actual, 0);
+	}
+	
+	public void testGetFeaturesLabel() {
+		TransformationMatrix tm=new TransformationMatrix();
+		ArrayList<String> a=new ArrayList<String>();
+		a.add("Latitude");
+		a.add("Longitude");
+		a.add("A");
+		a.add("B");
+		a.add("C");
+		ArrayList<String> actual=tm.getFeaturesLabel("d", a);
+		
+		ArrayList<String> expected=new ArrayList<String>();
+		expected.add("Latitude");
+		expected.add("Longitude");
+		expected.add("d(A)");
+		expected.add("d(B)");
+		expected.add("d(C)");
+		
+		//Start the test
+		assertEquals(expected, actual);
 	}
 }

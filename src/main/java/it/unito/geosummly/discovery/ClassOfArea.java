@@ -224,7 +224,7 @@ public class ClassOfArea {
 		return tripleDensities;
 	}
 	
-	//get the feature labelled either for frequency, density, standard deviation or singles' deltad
+	//get the feature labeled either for frequency, density, standard deviation or singles' deltad
 	public ArrayList<String> getFeaturesLabel(String s, ArrayList<String> features) {
 		String label="";
 		ArrayList<String> featuresLabel=new ArrayList<String>();
@@ -235,7 +235,7 @@ public class ClassOfArea {
 		return featuresLabel;
 	}
 	
-	//get the feature labelled for pairs' deltad
+	//get the feature labeled for pairs' deltad
 	public ArrayList<String> getFeaturesForPairs(ArrayList<String> features) {
 		String combination="";
 		ArrayList<String> pairFeatures=new ArrayList<String>();
@@ -248,7 +248,7 @@ public class ClassOfArea {
 		return pairFeatures;
 	}
 	
-	//get the feature labelled for triples' deltad
+	//get the feature labeled for triples' deltad
 	public ArrayList<String> getFeaturesForTriples(ArrayList<String> features) {
 		String combination="";
 		ArrayList<String> tripleFeatures=new ArrayList<String>();
