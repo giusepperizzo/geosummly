@@ -158,21 +158,21 @@ public class TransformationMatrix {
 		return densMatrix;
 	}
 	
-	//Matrix normalized in [0,1] for lat/lng and intra-feature for densities
+	//Matrix normalized in [0,1] for lat/lng and for densities (before normalization in [0,1], densities are intra-feature normalized)
 	public ArrayList<ArrayList<Double>> buildNormalizedMatrix(ArrayList<ArrayList<Double>> matrix) {
 		ArrayList<ArrayList<Double>> normalizedMatrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> sumArray=new ArrayList<Double>();
 		double sum=0;
-		ArrayList<Double> minArray=new ArrayList<Double>();
-		ArrayList<Double> maxArray=new ArrayList<Double>();
+		ArrayList<Double> minCordArray=new ArrayList<Double>();
+		ArrayList<Double> maxCordArray=new ArrayList<Double>();
 		double currentValue=0;
 		double normalizedValue=0;
 		
 		//get all the min and max values of the columns for latitude and longitude
 		for(int j=0; j<2; j++) {
 			double[] minmax=getMinMax(matrix, j);
-			minArray.add(minmax[0]); //min value of column j
-			maxArray.add(minmax[1]); //max value of column j
+			minCordArray.add(minmax[0]); //min value of column j
+			maxCordArray.add(minmax[1]); //max value of column j
 		}
 		
 		//get all the sums of the features densities per column (it starts by 2 because first 2 cells are for lat and lng)
@@ -187,7 +187,7 @@ public class TransformationMatrix {
 			for(int j=0;j<matrix.get(i).size();j++) {
 				currentValue=matrix.get(i).get(j); //get the value
 				if(j==0 || j==1) {
-					normalizedValue=normalizeValues(minArray.get(j), maxArray.get(j), currentValue);
+					normalizedValue=normalizeValues(minCordArray.get(j), maxCordArray.get(j), currentValue);
 					normalizedRecord.add(normalizedValue);
 				}
 				else {
@@ -199,6 +199,21 @@ public class TransformationMatrix {
 				}
 			}
 			normalizedMatrix.add(normalizedRecord);
+		}
+		//get the normalized intra-feature densities
+		ArrayList<Double> minDensArray=new ArrayList<Double>();
+		ArrayList<Double> maxDensArray=new ArrayList<Double>();
+		for(int i=2; i<normalizedMatrix.get(0).size(); i++) {
+			double[] minmax=getMinMax(normalizedMatrix, i);
+			minDensArray.add(minmax[0]); //min value of column j
+			maxDensArray.add(minmax[1]); //max value of column j
+		}
+		for(int i=0;i<normalizedMatrix.size();i++) {
+			for(int j=2;j<normalizedMatrix.get(i).size();j++) {
+				currentValue=normalizedMatrix.get(i).get(j); //get the value
+				normalizedValue=normalizeValues(minDensArray.get(j-2), maxDensArray.get(j-2), currentValue);
+				normalizedMatrix.get(i).set(j, normalizedValue);
+			}
 		}
 		return normalizedMatrix;
 	}

@@ -54,13 +54,13 @@ public class Main {
 		/****************************CREATE THE TRANSFORMATION MATRIX***************************/
 		/***************************************************************************************/
 		//Initialize a MongoDB instance
-    	/*MongoClient mongoClient=new MongoClient("localhost");
+    	MongoClient mongoClient=new MongoClient("localhost");
     	DB db=mongoClient.getDB("VenueDB");
     	DBCollection coll=db.getCollection("ResultVenues");
     	
     	//Initialize a Gson instance and declare the document which will contain the JSON results for MongoDB 
     	Gson gson=new Gson();
-		BasicDBObject doc;*/
+		BasicDBObject doc;
 		
 		//Initialize the transformation matrix and its parameters
 		ArrayList<ArrayList<Double>> supportMatrix=new ArrayList<ArrayList<Double>>();
@@ -84,13 +84,13 @@ public class Main {
 			//Venues of a single cell
 			venueInfo=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			
-			/*for(FoursquareDataObject fdo: venueInfo){
+			for(FoursquareDataObject fdo: venueInfo){
 				//Serialize with Gson
 				String obj=gson.toJson(fdo);
 				//Initialize the document which will contain the JSON result parsed for MongoDB and insert this document into MongoDB collection
 				doc= (BasicDBObject) JSON.parse(obj);
 				coll.insert(doc);
-			}*/
+			}
 			
 			//put venues values in a matrix
 			distinct_list=fsv.createCategoryList(venueInfo);
@@ -147,6 +147,7 @@ public class Main {
             	csv_freq.println();
             }
             csv_freq.flush();
+            csv_freq.close();
             
             ArrayList<ArrayList<Double>> mDens=tm.getDensityMatrix();
             for(ArrayList<Double> a: mDens) {
@@ -156,6 +157,7 @@ public class Main {
             	csv_dens.println();
             }
             csv_dens.flush();
+            csv_dens.close();
             
             ArrayList<ArrayList<Double>> mNorm=tm.getNormalizedMatrix();
             for(ArrayList<Double> a: mNorm) {
@@ -165,6 +167,7 @@ public class Main {
             	csv_norm.println();
             }
             csv_norm.flush();
+            csv_norm.close();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
