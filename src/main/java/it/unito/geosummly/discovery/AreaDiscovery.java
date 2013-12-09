@@ -40,10 +40,10 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 1**************************************/
 		/***************************************************************************************/
 		
-		double north= 48.86985261204524; //coordinates of Paris city center
-		double south= 48.840486362012925;
-		double west= 2.3219776258338243;
-		double east= 2.384977351175621;
+		double north= 45.10975600522702; //coordinates of Turin for local discovery
+		double south= 45.04393354716772;
+		double west= 7.630176544189453;
+		double east= 7.734889984130859;
 		
 		int cellsNumber=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber=100; //number of samples of the sample area
@@ -79,7 +79,7 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 2**************************************/
 		/***************************************************************************************/
 
-		double north_1= 51.537473682752406; //coordinates of London city center
+		/*double north_1= 51.537473682752406; //coordinates of London city center
 		double south_1= 51.48159670633237;
 		double west_1= -0.1802444038912654;
 		double east_1= -0.05201335530728102;
@@ -118,7 +118,7 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 3**************************************/
 		/***************************************************************************************/
 		
-		double north_2= 41.91875659707589; //coordinates of Rome city center
+		/*double north_2= 41.91875659707589; //coordinates of Rome city center
 		double south_2= 41.87409864599624;
 		double west_2= 12.451157569885254;
 		double east_2= 12.518448829650879;
@@ -151,7 +151,7 @@ public class AreaDiscovery {
 			distinct_list_2=fsv_2.createCategoryList(venueInfo_2); 
 			occurrences_list_2=fsv_2.getCategoryOccurences(venueInfo_2, distinct_list_2);
 			sA_2.fillRecord(occurrences_list_2, distinct_list_2, b.getArea()); //create a consistent row (related to the categories)
-		}
+		}*/
 		
 		/***************************************************************************************/
 		/******************************CREATE THE BIG MATRIX**********************************/
@@ -159,7 +159,8 @@ public class AreaDiscovery {
 		
 		ArrayList<ArrayList<Double>> bigAreaOcc=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> bigAreaDens=new ArrayList<ArrayList<Double>>();
-		ClassOfArea metropolitan=new ClassOfArea("Residential", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA_1.getOccurrenceStructure(), sA_2.getOccurrenceStructure(), sA.getDensityStructure(), sA_1.getDensityStructure(), sA_2.getDensityStructure());
+		ClassOfArea metropolitan=new ClassOfArea("Local discovery", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA.getDensityStructure());
+		//ClassOfArea metropolitan=new ClassOfArea("Residential", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA_1.getOccurrenceStructure(), sA_2.getOccurrenceStructure(), sA.getDensityStructure(), sA_1.getDensityStructure(), sA_2.getDensityStructure());
 		ArrayList<Double> meanDensities=metropolitan.getMeanArray(metropolitan.getBigAreaDens());
 		ArrayList<ArrayList<Double>> stdMatrix=metropolitan.getStdMatrix(metropolitan.getBigAreaDens());
 		ArrayList<Double> stdSingles=new ArrayList<Double>(stdMatrix.get(0));
@@ -258,10 +259,10 @@ public class AreaDiscovery {
 		OutputStream outputStream_std;
 		OutputStream outputStream_deltad;
         try {
-            outputStream_freq = new FileOutputStream ("output/discovery/metropolitan/frequencyMetropolitanArea.csv");
-            outputStream_dens = new FileOutputStream ("output/discovery/metropolitan/densityMetropolitanArea.csv");
-            outputStream_std = new FileOutputStream ("output/discovery/metropolitan/stdMetropolitanArea.csv");
-            outputStream_deltad = new FileOutputStream ("output/discovery/metropolitan/deltadMetropolitanArea.csv");
+            outputStream_freq = new FileOutputStream ("output/discovery/metropolitan/local discovery/frequencyMetropolitanTurin.csv");
+            outputStream_dens = new FileOutputStream ("output/discovery/metropolitan/local discovery/densityMetropolitanTurin.csv");
+            outputStream_std = new FileOutputStream ("output/discovery/metropolitan/local discovery/stdMetropolitanTurin.csv");
+            outputStream_deltad = new FileOutputStream ("output/discovery/metropolitan/local discovery/deltadMetropolitanTurin.csv");
             bout_freq.writeTo(outputStream_freq);
             bout_dens.writeTo(outputStream_dens);
             bout_std.writeTo(outputStream_std);

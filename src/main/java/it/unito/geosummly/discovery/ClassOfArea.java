@@ -8,6 +8,16 @@ public class ClassOfArea {
 	private ArrayList<ArrayList<Double>> bigAreaDens;
 	
 	
+	public ClassOfArea(String type, ArrayList<ArrayList<Double>> bigAreaOcc, ArrayList<ArrayList<Double>> bigAreaDens, ArrayList<ArrayList<Double>> area_1_occ, ArrayList<ArrayList<Double>> area_1_dens) {
+		this.type=type;
+		this.bigAreaOcc=bigAreaOcc;
+		this.bigAreaDens=bigAreaDens;
+		for(ArrayList<Double> record: area_1_occ)
+			this.bigAreaOcc.add(record);
+		for(ArrayList<Double> record: area_1_dens)
+			this.bigAreaDens.add(record);
+	}
+	
 	public ClassOfArea(String type, ArrayList<ArrayList<Double>> bigAreaOcc, ArrayList<ArrayList<Double>> bigAreaDens, ArrayList<ArrayList<Double>> area_1_occ, ArrayList<ArrayList<Double>> area_2_occ, ArrayList<ArrayList<Double>> area_1_dens, ArrayList<ArrayList<Double>> area_2_dens) {
 		this.type=type;
 		this.bigAreaOcc=bigAreaOcc;
