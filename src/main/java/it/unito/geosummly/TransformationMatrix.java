@@ -209,6 +209,7 @@ public class TransformationMatrix {
 			maxDensArray.add(minmax[1]); //max value of column j
 		}
 		for(int i=0;i<normalizedMatrix.size();i++) {
+			//ArrayList<Double> shifted
 			for(int j=2;j<normalizedMatrix.get(i).size();j++) {
 				currentValue=normalizedMatrix.get(i).get(j); //get the value
 				normalizedValue=normalizeValues(minDensArray.get(j-2), maxDensArray.get(j-2), currentValue);

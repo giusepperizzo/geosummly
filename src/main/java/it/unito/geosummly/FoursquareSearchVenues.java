@@ -192,4 +192,34 @@ public class FoursquareSearchVenues {
 		}
 		return occurrences;
 	}
+	
+	/*public ArrayList<ArrayList<Double>> getSingleVenuesOccurrences(ArrayList<ArrayList<Double>> venuesMatrix, ArrayList<FoursquareDataObject> array, ArrayList<String> cat_list) {
+		ArrayList<Double> venuesRecord=new ArrayList<Double>();
+		boolean found=false;
+		for(int j=0;j<cat_list.size()+2;j++)
+			venuesRecord.add(0.0);
+		
+			for(FoursquareDataObject fdo: array) {
+				for(int j=0;j<cat_list.size()+2;j++)
+					venuesRecord.set(j,0.0);
+				venuesRecord.set(0, fdo.getLatitude());
+				venuesRecord.set(1, fdo.getLongitude());
+				for(Category c: fdo.getCategories()) {
+					String str;
+					if(c.getParents().length>0)
+						str=c.getParents()[0]; //take the parent category name only if it is set
+					else
+						str=c.getName();
+					for(int i=0;i<cat_list.size() &&!found;i++) {
+						if(str.equals((String) cat_list.get(i))) {
+							venuesRecord.set(i+2, venuesRecord.get(i)+1.0);
+							found=true;
+						}
+					}
+					found=false;
+				}
+				venuesMatrix.add(venuesRecord);
+			}
+		return venuesMatrix;
+	}*/
  }
