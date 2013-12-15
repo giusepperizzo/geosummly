@@ -66,7 +66,8 @@ public class Main {
 		ArrayList<ArrayList<Double>> supportMatrix=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
 		TransformationMatrix tm=new TransformationMatrix();
-		tm.setMap(map);
+		TransformationTools tools=new TransformationTools();
+		
 		ArrayList<Double> row_of_matrix; //row of the transformation matrix (one for each cell);
 		
 		//Support variables for transformation matrix task
@@ -77,41 +78,43 @@ public class Main {
 		
 		//Download venues informations
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
-		ArrayList<FoursquareDataObject> venueInfo;
+		ArrayList<ArrayList<FoursquareDataObject>> allVenues=new ArrayList<ArrayList<FoursquareDataObject>>();
+		ArrayList<FoursquareDataObject> cellVenue;
 		for(BoundingBox b: data){
 		    logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
 
 			//Venues of a single cell
-			venueInfo=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
+			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
 			
-			for(FoursquareDataObject fdo: venueInfo){
+			for(FoursquareDataObject fdo: cellVenue){
 				//Serialize with Gson
 				String obj=gson.toJson(fdo);
 				//Initialize the document which will contain the JSON result parsed for MongoDB and insert this document into MongoDB collection
 				doc= (BasicDBObject) JSON.parse(obj);
 				coll.insert(doc);
 			}
+			allVenues.add(cellVenue);
 			
 			//put venues values in a matrix
-			distinct_list=fsv.createCategoryList(venueInfo);
-			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
-			tm.updateMap(distinct_list);//update the hash map
-			row_of_matrix=tm.fillRow(occurrences_list, distinct_list, b.getCenterLat(), b.getCenterLng()); //create a consistent row (related to the categories)
+			distinct_list=fsv.createCategoryList(cellVenue);
+			occurrences_list=fsv.getCategoryOccurences(cellVenue, distinct_list);
+			map=tools.updateMap(map, distinct_list);//update the hash map
+			row_of_matrix=tools.fillRow(map, occurrences_list, distinct_list, b.getCenterLat(), b.getCenterLng()); //create a consistent row (related to the categories)
 			if(tot_num < row_of_matrix.size())
 				tot_num=row_of_matrix.size(); //update the overall number of categories
 			supportMatrix.add(row_of_matrix);
 			bboxArea.add(b.getArea());
 		}
-		tm.fixRowsLength(tot_num, supportMatrix); //update rows length for consistency
+		supportMatrix=tools.fixRowsLength(tot_num, supportMatrix); //update rows length for consistency
 		
 		//Build the transformation matrix
-		ArrayList<ArrayList<Double>> frequencyMatrix=tm.sortMatrix(supportMatrix, tm.getMap());
-		ArrayList<ArrayList<Double>> densityMatrix=tm.buildDensityMatrix(frequencyMatrix, bboxArea);
-		ArrayList<ArrayList<Double>> normalizedMatrix=tm.buildNormalizedMatrix(densityMatrix);
+		ArrayList<ArrayList<Double>> frequencyMatrix=tools.sortMatrix(supportMatrix, map);
+		ArrayList<ArrayList<Double>> densityMatrix=tools.buildDensityMatrix(frequencyMatrix, bboxArea);
+		ArrayList<ArrayList<Double>> normalizedMatrix=tools.buildNormalizedMatrix(densityMatrix);
 		tm.setFrequencyMatrix(frequencyMatrix);
 		tm.setDensityMatrix(densityMatrix);
 		tm.setNormalizedMatrix(normalizedMatrix);
-		tm.setHeader(tm.sortFeatures(map));
+		tm.setHeader(tools.sortFeatures(map));
 		
 		// write down the transformation matrix to a file		
 		ByteArrayOutputStream bout_freq = new ByteArrayOutputStream();
@@ -126,9 +129,9 @@ public class Main {
             CSVPrinter csv_norm = new CSVPrinter(osw_norm, CSVFormat.DEFAULT);
 		
             // write the header of the matrix
-            ArrayList<String> featureFreq=tm.getFeaturesLabel("f", tm.getHeader());
-            ArrayList<String> featureDens=tm.getFeaturesLabel("density", tm.getHeader());
-            ArrayList<String> featureNorm=tm.getFeaturesLabel("normalized_density", tm.getHeader());
+            ArrayList<String> featureFreq=tools.getFeaturesLabel("f", tm.getHeader());
+            ArrayList<String> featureDens=tools.getFeaturesLabel("density", tm.getHeader());
+            ArrayList<String> featureNorm=tools.getFeaturesLabel("normalized_density", tm.getHeader());
             for(int i=0;i<featureFreq.size();i++) {
             	csv_freq.print(featureFreq.get(i));
             	csv_dens.print(featureDens.get(i));
