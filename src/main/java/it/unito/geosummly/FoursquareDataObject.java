@@ -34,6 +34,44 @@ public class FoursquareDataObject {
 	
 
 	public FoursquareDataObject(){}
+	
+	public FoursquareDataObject(String vId, String vName, double lat, double lng, Category[] cat, String email, 
+			String phone, String fb, String tw, boolean ver, int chkCount, int usrCount, String url, long hn) {
+		this.venueId=vId;
+		this.venueName=vName;
+		this.latitude=lat;
+		this.longitude=lng;
+		this.categories=cat;
+		this.email=email;
+		this.phone=phone;
+		this.facebook=fb;
+		this.twitter=tw;
+		this.verified=ver;
+		this.checkinsCount=chkCount;
+		this.usersCount=usrCount;
+		this.url=url;
+		this.hereNow=hn;
+	}
+	
+	public FoursquareDataObject(int row, int col, String vId, String vName, double lat, double lng, Category[] cat, String email, 
+			String phone, String fb, String tw, boolean ver, int chkCount, int usrCount, String url, long hn) {
+		this.row=row; 
+		this.column=col;
+		this.venueId=vId;
+		this.venueName=vName;
+		this.latitude=lat;
+		this.longitude=lng;
+		this.categories=cat;
+		this.email=email;
+		this.phone=phone;
+		this.facebook=fb;
+		this.twitter=tw;
+		this.verified=ver;
+		this.checkinsCount=chkCount;
+		this.usersCount=usrCount;
+		this.url=url;
+		this.hereNow=hn;
+	}
 
 	public int getRow() {
 		return row;

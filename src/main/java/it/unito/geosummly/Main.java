@@ -30,9 +30,7 @@ public class Main {
     
 	public static void main(String[] args) throws FoursquareApiException, UnknownHostException{
 		
-		/***************************************************************************************/
 		/******************************CREATE THE BOUNDING BOX**********************************/
-		/***************************************************************************************/
 		double north=45.08200587145192; //north coordinate of the bounding box
 		double south=45.05218065994234;
 		double west=7.661247253417969;
@@ -49,10 +47,7 @@ public class Main {
 		grid.setStructure(data);
 		grid.createCells();
 		
-		/***************************************************************************************/
-		/****************************COLLECT ALL THE GEOPOINTS AND******************************/
-		/****************************CREATE THE TRANSFORMATION MATRIX***************************/
-		/***************************************************************************************/
+		/***********COLLECT ALL THE GEOPOINTS AND CREATE THE TRANSFORMATION MATRIX************/
 		//Initialize a MongoDB instance
     	MongoClient mongoClient=new MongoClient("localhost");
     	DB db=mongoClient.getDB("VenueDB");
@@ -62,140 +57,89 @@ public class Main {
     	Gson gson=new Gson();
 		BasicDBObject doc;
 		
-		//Initialize the transformation matrix and its parameters
+		//Get the tools class and its support variables
+		TransformationTools tools=new TransformationTools();
 		ArrayList<ArrayList<Double>> supportMatrix=new ArrayList<ArrayList<Double>>();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
-		TransformationMatrix tm=new TransformationMatrix();
-		TransformationTools tools=new TransformationTools();
-		
-		ArrayList<Double> row_of_matrix; //row of the transformation matrix (one for each cell);
-		
-		//Support variables for transformation matrix task
-		int tot_num=0; //overall number of categories
-		ArrayList<String> distinct_list; //list of all the distinct categories for a single cell
-		ArrayList<Integer> occurrences_list; //list of the occurrences of the distinct categories for a single cell
+		ArrayList<Double> rowOfMatrix; //row of the transformation matrix (one for each cell);
+		ArrayList<String> distinctList; //list of all the distinct categories for a single cell
+		ArrayList<Integer> occurrencesList; //list of the occurrences of the distinct categories for a single cell
 		ArrayList<Double> bboxArea=new ArrayList<Double>();
+		int total=0; //overall number of categories
 		
 		//Download venues informations
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
-		ArrayList<ArrayList<FoursquareDataObject>> allVenues=new ArrayList<ArrayList<FoursquareDataObject>>();
 		ArrayList<FoursquareDataObject> cellVenue;
 		for(BoundingBox b: data){
 		    logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
-
-			//Venues of a single cell
 			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
-			
+			//Copy to cache
 			for(FoursquareDataObject fdo: cellVenue){
-				//Serialize with Gson
-				String obj=gson.toJson(fdo);
-				//Initialize the document which will contain the JSON result parsed for MongoDB and insert this document into MongoDB collection
-				doc= (BasicDBObject) JSON.parse(obj);
-				coll.insert(doc);
+				String obj=gson.toJson(fdo); //Serialize with Gson
+				doc=(BasicDBObject) JSON.parse(obj); //initialize the document with the JSON result parsed for MongoDB
+				coll.insert(doc); //insert the document into MongoDB collection
 			}
-			allVenues.add(cellVenue);
 			
-			//put venues values in a matrix
-			distinct_list=fsv.createCategoryList(cellVenue);
-			occurrences_list=fsv.getCategoryOccurences(cellVenue, distinct_list);
-			map=tools.updateMap(map, distinct_list);//update the hash map
-			row_of_matrix=tools.fillRow(map, occurrences_list, distinct_list, b.getCenterLat(), b.getCenterLng()); //create a consistent row (related to the categories)
-			if(tot_num < row_of_matrix.size())
-				tot_num=row_of_matrix.size(); //update the overall number of categories
-			supportMatrix.add(row_of_matrix);
+			//put the values in a matrix
+			distinctList=fsv.createCategoryList(cellVenue);
+			occurrencesList=fsv.getCategoryOccurences(cellVenue, distinctList); 
+			map=tools.updateMap(map, distinctList);//update the hash map
+			rowOfMatrix=tools.fillRow(map, occurrencesList, distinctList, b.getCenterLat(), b.getCenterLng()); //create a consistent row (related to the categories)
+			if(total<rowOfMatrix.size())
+				total=rowOfMatrix.size(); //update the overall number of categories
+			supportMatrix.add(rowOfMatrix);
 			bboxArea.add(b.getArea());
 		}
-		supportMatrix=tools.fixRowsLength(tot_num, supportMatrix); //update rows length for consistency
+		supportMatrix=tools.fixRowsLength(total, supportMatrix); //update rows length for consistency
 		
 		//Build the transformation matrix
 		ArrayList<ArrayList<Double>> frequencyMatrix=tools.sortMatrix(supportMatrix, map);
 		ArrayList<ArrayList<Double>> densityMatrix=tools.buildDensityMatrix(frequencyMatrix, bboxArea);
 		ArrayList<ArrayList<Double>> normalizedMatrix=tools.buildNormalizedMatrix(densityMatrix);
+		TransformationMatrix tm=new TransformationMatrix();
 		tm.setFrequencyMatrix(frequencyMatrix);
 		tm.setDensityMatrix(densityMatrix);
 		tm.setNormalizedMatrix(normalizedMatrix);
 		tm.setHeader(tools.sortFeatures(map));
 		
-		// write down the transformation matrix to a file		
-		ByteArrayOutputStream bout_freq = new ByteArrayOutputStream();
-		OutputStreamWriter osw_freq = new OutputStreamWriter(bout_freq);
-		ByteArrayOutputStream bout_dens = new ByteArrayOutputStream();
-		OutputStreamWriter osw_dens = new OutputStreamWriter(bout_dens);
-		ByteArrayOutputStream bout_norm = new ByteArrayOutputStream();
-		OutputStreamWriter osw_norm = new OutputStreamWriter(bout_norm);
+		//write down the transformation matrix to file
+		printResult(tm.getFrequencyMatrix(), tools.getFeaturesLabel("f", tm.getHeader()), "output/frequency-transformation-matrix.csv");
+		printResult(tm.getDensityMatrix(), tools.getFeaturesLabel("density", tm.getHeader()), "output/density-transformation-matrix.csv");
+		printResult(tm.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", tm.getHeader()), "output/normalized-transformation-matrix.csv");
+	}
+	
+	public static void printResult(ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+		OutputStreamWriter osw = new OutputStreamWriter(bout);
         try {
-            CSVPrinter csv_freq = new CSVPrinter(osw_freq, CSVFormat.DEFAULT);
-            CSVPrinter csv_dens = new CSVPrinter(osw_dens, CSVFormat.DEFAULT);
-            CSVPrinter csv_norm = new CSVPrinter(osw_norm, CSVFormat.DEFAULT);
-		
-            // write the header of the matrix
-            ArrayList<String> featureFreq=tools.getFeaturesLabel("f", tm.getHeader());
-            ArrayList<String> featureDens=tools.getFeaturesLabel("density", tm.getHeader());
-            ArrayList<String> featureNorm=tools.getFeaturesLabel("normalized_density", tm.getHeader());
-            for(int i=0;i<featureFreq.size();i++) {
-            	csv_freq.print(featureFreq.get(i));
-            	csv_dens.print(featureDens.get(i));
-            	csv_norm.print(featureNorm.get(i));
-            }
-            csv_freq.println();
-            csv_dens.println();
-            csv_norm.println();
+            CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
             
-            // iterate per each row of the matrix
-            ArrayList<ArrayList<Double>> mFreq=tm.getFrequencyMatrix();
-            for(ArrayList<Double> a: mFreq) {
-            	for(Double d: a) {
-            		csv_freq.print(d);
-            	}
-            	csv_freq.println();
+            //print the header of the matrix
+            for(int i=0;i<features.size();i++) {
+            	csv.print(features.get(i));
             }
-            csv_freq.flush();
-            csv_freq.close();
+            csv.println();
             
-            ArrayList<ArrayList<Double>> mDens=tm.getDensityMatrix();
-            for(ArrayList<Double> a: mDens) {
+            //iterate per each row of the matrix
+            for(ArrayList<Double> a: matrix) {
             	for(Double d: a) {
-            		csv_dens.print(d);
+            		csv.print(d);
             	}
-            	csv_dens.println();
+            	csv.println();
             }
-            csv_dens.flush();
-            csv_dens.close();
-            
-            ArrayList<ArrayList<Double>> mNorm=tm.getNormalizedMatrix();
-            for(ArrayList<Double> a: mNorm) {
-            	for(Double d: a) {
-            		csv_norm.print(d);
-            	}
-            	csv_norm.println();
-            }
-            csv_norm.flush();
-            csv_norm.close();
+            csv.flush();
+            csv.close();
         } catch (IOException e1) {
-            e1.printStackTrace();
+    		e1.printStackTrace();
         }
-		
-		OutputStream outputStream_freq;
-		OutputStream outputStream_dens;
-		OutputStream outputStream_norm;
+        OutputStream outputStream;
         try {
-            outputStream_freq = new FileOutputStream ("output/frequency-transformation-matrix.csv");
-            bout_freq.writeTo(outputStream_freq);
-            outputStream_dens = new FileOutputStream ("output/density-transformation-matrix.csv");
-            bout_dens.writeTo(outputStream_dens);
-            outputStream_norm = new FileOutputStream ("output/normalized-transformation-matrix.csv");
-            bout_norm.writeTo(outputStream_norm);
+            outputStream = new FileOutputStream (output);
+            bout.writeTo(outputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-		
-		//Print JSON files (just for debug)
-    	/*DBCursor cursorDocJSON = coll.find();
-    	while (cursorDocJSON.hasNext()) {
-    		System.out.println(cursorDocJSON.next());
-    	}*/
 	}
 }

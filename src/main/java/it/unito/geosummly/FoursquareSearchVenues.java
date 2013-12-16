@@ -28,7 +28,6 @@ public class FoursquareSearchVenues {
 	
 	public static Logger logger = Logger.getLogger(FoursquareSearchVenues.class.toString());
 	
-	//Constructor method
 	public FoursquareSearchVenues() {
 		//Initialize FoursquareApi
 		foursquareApi = new FoursquareApi(
@@ -37,47 +36,26 @@ public class FoursquareSearchVenues {
 		        "http://www.foursquare.com");
 	}
 	
-	//Search venue informations (row and column informations included)
+	/**Search venues informations. Row and column informations are included*/
 	public ArrayList<FoursquareDataObject> searchVenues(int row, int column, double north, double south, double west, double east) throws FoursquareApiException, UnknownHostException {
-		
-		//Initialize parameters for venues search
 		String ne=north+","+east;
 		String sw=south+","+west;
 		Map<String, String> searchParams = new HashMap<String, String>(); 
 		searchParams.put("intent", "browse");
 		searchParams.put("ne", ne); 
 		searchParams.put("sw", sw);
-		
-		//Array to return
 		ArrayList<FoursquareDataObject> doclist=new ArrayList<FoursquareDataObject>(); 
 	    
 	    //After client has been initialized we can make queries.
 	    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
-	    if(result.getMeta().getCode() == 200) {
-	    	   	
-    		//Declare a FoursquareDataObject
+	    if(result.getMeta().getCode() == 200) {  	
     		FoursquareDataObject dataobj;
-	    	
-	    	//For each point: create a FoursquareDataObject)
 	    	for(CompactVenue venue : result.getResult().getVenues()) {
-	    		//Initialize the FoursquareDataObject and fill it with the venue informations
-	    		dataobj=new FoursquareDataObject();
-	    		dataobj.setRow(row);
-	    		dataobj.setColumn(column);
-	    		dataobj.setVenueId(venue.getId());
-	    		dataobj.setVenueName(venue.getName());
-	    		dataobj.setLatitude(venue.getLocation().getLat());
-	    		dataobj.setLongitude(venue.getLocation().getLng());
-	    		dataobj.setCategories(venue.getCategories());
-	    		dataobj.setEmail(venue.getContact().getEmail());
-	    		dataobj.setPhone(venue.getContact().getPhone());
-	    		dataobj.setFacebook(venue.getContact().getFacebook());
-	    		dataobj.setTwitter(venue.getContact().getTwitter());
-	    		dataobj.setVerified(venue.getVerified());
-	    		dataobj.setCheckinsCount(venue.getStats().getCheckinsCount());
-	    		dataobj.setUsersCount(venue.getStats().getUsersCount());
-	    		dataobj.setUrl(venue.getUrl());
-	    		dataobj.setHereNow(venue.getHereNow().getCount());
+	    		dataobj=new FoursquareDataObject(row, column, venue.getId(), venue.getName(), venue.getLocation().getLat(),
+	    				venue.getLocation().getLng(), venue.getCategories(), venue.getContact().getEmail(),
+	    				venue.getContact().getPhone(), venue.getContact().getFacebook(), venue.getContact().getTwitter(), 
+	    				venue.getVerified(), venue.getStats().getCheckinsCount(), venue.getStats().getUsersCount(), 
+	    				venue.getUrl(), venue.getHereNow().getCount());
 	    		doclist.add(dataobj);
 	    	}
 	    	return doclist;
@@ -88,45 +66,26 @@ public class FoursquareSearchVenues {
 	    }
 	}
 	
-	//Search venue informations (without row and column informations)
+	/**Search venues informations. Row and column informations are not included*/
 	public ArrayList<FoursquareDataObject> searchVenues(double north, double south, double west, double east) throws FoursquareApiException, UnknownHostException {
-		
-		//Initialize parameters for venues search
 		String ne=north+","+east;
 		String sw=south+","+west;
 		Map<String, String> searchParams = new HashMap<String, String>(); 
 		searchParams.put("intent", "browse");
 		searchParams.put("ne", ne); 
 		searchParams.put("sw", sw);
-		
-		//Array to return
 		ArrayList<FoursquareDataObject> doclist=new ArrayList<FoursquareDataObject>(); 
 	    
 	    //After client has been initialized we can make queries.
 	    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
-	    if(result.getMeta().getCode() == 200) {
-	    	   	
-    		//Declare a FoursquareDataObject
+	    if(result.getMeta().getCode() == 200) {  	
     		FoursquareDataObject dataobj;
-	    	
-	    	//For each point: create a FoursquareDataObject)
 	    	for(CompactVenue venue : result.getResult().getVenues()) {
-	    		//Initialize the FoursquareDataObject and fill it with the venue informations
-	    		dataobj=new FoursquareDataObject();
-	    		dataobj.setVenueId(venue.getId());
-	    		dataobj.setVenueName(venue.getName());
-	    		dataobj.setLatitude(venue.getLocation().getLat());
-	    		dataobj.setLongitude(venue.getLocation().getLng());
-	    		dataobj.setCategories(venue.getCategories());
-	    		dataobj.setEmail(venue.getContact().getEmail());
-	    		dataobj.setPhone(venue.getContact().getPhone());
-	    		dataobj.setFacebook(venue.getContact().getFacebook());
-	    		dataobj.setTwitter(venue.getContact().getTwitter());
-	    		dataobj.setVerified(venue.getVerified());
-	    		dataobj.setCheckinsCount(venue.getStats().getCheckinsCount());
-	    		dataobj.setUsersCount(venue.getStats().getUsersCount());
-	    		dataobj.setUrl(venue.getUrl());
-	    		dataobj.setHereNow(venue.getHereNow().getCount());
+	    		dataobj=new FoursquareDataObject(venue.getId(), venue.getName(), venue.getLocation().getLat(),
+	    				venue.getLocation().getLng(), venue.getCategories(), venue.getContact().getEmail(),
+	    				venue.getContact().getPhone(), venue.getContact().getFacebook(), venue.getContact().getTwitter(), 
+	    				venue.getVerified(), venue.getStats().getCheckinsCount(), venue.getStats().getUsersCount(), 
+	    				venue.getUrl(), venue.getHereNow().getCount());
 	    		doclist.add(dataobj);
 	    	}
 	    	return doclist;
@@ -174,7 +133,7 @@ public class FoursquareSearchVenues {
 		
 	//Create a list with the number of occurrences for each distinct category
 	public ArrayList<Integer> getCategoryOccurences(ArrayList<FoursquareDataObject> array, ArrayList<String> cat_list) {
-		int n=0;
+		int n;
 		ArrayList<Integer> occurrences=new ArrayList<Integer>();
 		for(String s: cat_list) {
 			n=0;

@@ -1,10 +1,10 @@
 package it.unito.geosummly;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 /**
  * @author Giacomo Falcone
@@ -14,6 +14,8 @@ import java.util.Iterator;
  */
 
 public class TransformationTools {
+	
+	public static Logger logger = Logger.getLogger(TransformationMatrix.class.toString());
 	
 	public TransformationTools() {}
 	
@@ -47,11 +49,6 @@ public class TransformationTools {
 		row.set(1, lng);
 		Iterator<String> iterD=distincts.iterator();
 		Iterator<Integer> iterO=occurrences.iterator();
-		/*for(int i=0;i<distincts.size();i++) {
-			index=map.get(distincts.get(i));
-			value=(double) occurrences.get(i);
-			row.set(index, value); //put the occurrence value in the "right" position
-		}*/
 		while(iterD.hasNext() && iterO.hasNext()) {
 			index=map.get(iterD.next()); //get the category corresponding to its occurrence value
 			value=(double) iterO.next();
@@ -255,7 +252,7 @@ public class TransformationTools {
 		return sortedFeatures;
 	}
 	
-	/**get the feature labeled either for frequency, density or normalized density*/
+	/**Get the feature labeled either for frequency, density or normalized density*/
 	public ArrayList<String> getFeaturesLabel(String s, ArrayList<String> features) {
 		String label="";
 		ArrayList<String> featuresLabel=new ArrayList<String>();
