@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+import fi.foyt.foursquare.api.entities.Category;
+
 /**
  * @author Giacomo Falcone
  *
@@ -14,11 +16,32 @@ import java.util.logging.Logger;
  */
 
 public class TransformationTools {
+	private int total;
+	private HashMap<String, Integer> map;
 	
 	public static Logger logger = Logger.getLogger(TransformationMatrix.class.toString());
 	
-	public TransformationTools() {}
+	public TransformationTools() {
+		this.total=0;
+		this.map=new HashMap<String, Integer>();
+	}
 	
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public HashMap<String, Integer> getMap() {
+		return map;
+	}
+
+	public void setMap(HashMap<String, Integer> map) {
+		this.map = map;
+	}
+
 	/**Get a list with all elements equal to zero*/
 	public ArrayList<Double> buildListZero(int size) {
 		ArrayList<Double> toRet=new ArrayList<Double>();
@@ -30,17 +53,25 @@ public class TransformationTools {
 		return toRet;
 	}
 	
-	/**Update the hash map given as parameter with new string values*/
-	public HashMap<String, Integer> updateMap(HashMap<String, Integer> map, ArrayList<String> categories) {
-		for(String s: categories)
+	/**Update the hash map given as parameter with new string values from a cell*/
+	public HashMap<String, Integer> updateMapWithCell(HashMap<String, Integer> map, ArrayList<String> categories) {
+		for(String s: categories) {
 			if(!map.containsKey(s)) {
 				map.put(s, map.size()+2); //first value in the map has to be 2
+			}
 		}
 		return map;
 	}
 	
-	/**Get a row of the matrix with latitude, longitude and occurrence values*/
-	public ArrayList<Double> fillRow(HashMap<String, Integer> map, ArrayList<Integer> occurrences, ArrayList<String> distincts, double lat, double lng) {
+	/**Update the hash map given as parameter with new string value*/
+	public HashMap<String, Integer> updateMapWithSingle(HashMap<String, Integer> map, String category) {
+		if(!map.containsKey(category))
+			map.put(category, map.size()+2); //first value in the map has to be 2
+		return map;
+	}
+	
+	/**Get a row of the matrix with latitude, longitude and occurrence values for a cell*/
+	public ArrayList<Double> fillRowWithCell(HashMap<String, Integer> map, ArrayList<Integer> occurrences, ArrayList<String> distincts, double lat, double lng) {
 		int index=0;
 		double value=0;
 		int size=map.size()+2;
@@ -54,6 +85,17 @@ public class TransformationTools {
 			value=(double) iterO.next();
 			row.set(index, value); //put the occurrence value in the "right" position
 		}
+		return row;
+	}
+	
+	/**Get a row of the matrix with latitude, longitude and occurrence value of a single venue*/
+	public ArrayList<Double> fillRowWithSingle(HashMap<String, Integer> map, String category, double lat, double lng) {
+		int size=map.size()+2;
+		ArrayList<Double> row=buildListZero(size);
+		row.set(0, lat); //lat, lng and area are in position 0 and 1
+		row.set(1, lng);
+		int index=map.get(category);
+		row.set(index, 1.0);
 		return row;
 	}
 	
@@ -161,18 +203,30 @@ public class TransformationTools {
 	}
 	
 	/**Normalize the values of a row in [0,1] with respect to their own  min and max values*/
-	public ArrayList<Double> normalizeRow(ArrayList<Double> array, ArrayList<Double> minArray, ArrayList<Double> maxArray) {
+	public ArrayList<Double> normalizeRow(CoordinatesNormalizationType type, ArrayList<Double> array, ArrayList<Double> minArray, ArrayList<Double> maxArray) {
 		ArrayList<Double> normalizedArray=new ArrayList<Double>();
 		double normalizedValue;
 		double min;
 		double max;
-		Iterator<Double> iterMin=minArray.iterator();
-		Iterator<Double> iterMax=maxArray.iterator();
-		for(Double d: array) {
-			min=iterMin.next();
-			max=iterMax.next();
-			normalizedValue=normalizeValues(min, max, d);
-			normalizedArray.add(normalizedValue);
+		switch (type) {
+			case NORM:
+				for(int i=0;i<array.size();i++) {
+					min=minArray.get(i);
+					max=maxArray.get(i);
+					normalizedValue=normalizeValues(min, max, array.get(i));
+					normalizedArray.add(normalizedValue);
+				}
+			break;
+			case NOTNORM:
+				normalizedArray.add(array.get(0)); //latitude
+				normalizedArray.add(array.get(1)); //longitude
+				for(int i=2;i<array.size();i++) {
+					min=minArray.get(i);
+					max=maxArray.get(i);
+					normalizedValue=normalizeValues(min, max, array.get(i));
+					normalizedArray.add(normalizedValue);
+				}
+			break;
 		}
 		return normalizedArray;
 	}
@@ -214,12 +268,12 @@ public class TransformationTools {
 	}
 	
 	/**Get a matrix normalized in [0,1]. Before normalization, densities are intra-feature normalized*/
-	public ArrayList<ArrayList<Double>> buildNormalizedMatrix(ArrayList<ArrayList<Double>> matrix) {
+	public ArrayList<ArrayList<Double>> buildNormalizedMatrix(CoordinatesNormalizationType type, ArrayList<ArrayList<Double>> matrix) {
 		ArrayList<ArrayList<Double>> intraFeatureMatrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> normalizedMatrix=new ArrayList<ArrayList<Double>>();
 		
 		//get all the sums of the features values per column
-		ArrayList<Double> sumArray=getSumArray(2, matrix); // it starts from index two because first two are for lat and lng
+		ArrayList<Double> sumArray=getSumArray(2, matrix); // it starts from index 2 because first two are for lat and lng
 		
 		//get an intra-feature normalized matrix except for the first two columns (lat and lng)
 		for(ArrayList<Double> record: matrix) {
@@ -233,7 +287,7 @@ public class TransformationTools {
 		
 		//Shift all the values in [0,1] according to each min and max value of the column
 		for(ArrayList<Double> record: intraFeatureMatrix) {
-			ArrayList<Double> normalizedRecord=normalizeRow(record, minArray, maxArray);
+			ArrayList<Double> normalizedRecord=normalizeRow(type, record, minArray, maxArray);
 			normalizedMatrix.add(normalizedRecord);
 			
 		}
@@ -263,5 +317,98 @@ public class TransformationTools {
 			featuresLabel.add(label);
 		}
 		return featuresLabel;
+	}
+	
+	/**Return the total number of categories for a bounding box cell*/
+	public int getCategoriesNumber(ArrayList<FoursquareDataObject> array) {
+		int n=0;
+		for(FoursquareDataObject fdo: array) {
+			n+=fdo.getCategories().length;
+		}
+		return n;
+	}
+	
+	/**Create a list with distinct categories for a bounding box cell*/
+	public ArrayList<String> createCategoryList(ArrayList<FoursquareDataObject> array) {
+		ArrayList<String> categories=new ArrayList<String>();
+		for(FoursquareDataObject venue: array) {
+			Category[] catArray=venue.getCategories();
+			for(int j=0; j<catArray.length;j++){
+				String c;
+				if(catArray[j].getParents().length>0)
+					c=catArray[j].getParents()[0]; //take the parent category name only if it is set
+				else
+					c=catArray[j].getName();
+				int k=0;
+				boolean found=false;
+				while(k<categories.size() && !found) {
+					String s=categories.get(k);
+					if(c.equals((String) s))
+						found=true;
+					k++;
+				}
+				if(!found)
+					categories.add(c);
+			}
+		}
+		return categories;
+	}
+	
+	/**Create a list with the number of occurrences for each distinct category*/
+	public ArrayList<Integer> getCategoryOccurences(ArrayList<FoursquareDataObject> array, ArrayList<String> categories) {
+		int n;
+		ArrayList<Integer> occurrences=new ArrayList<Integer>();
+		for(String s: categories) {
+			n=0;
+			for(FoursquareDataObject fdo: array)
+				for(Category c: fdo.getCategories()) {
+					String str;
+					if(c.getParents().length>0)
+						str=c.getParents()[0]; //take the parent category name only if it is set
+					else
+						str=c.getName();
+					if(str.equals((String) s))
+						n++;
+				}
+			occurrences.add(n);
+		}
+		return occurrences;
+	}
+	
+	/**Get the informations either of a bounding box cell or of single venues of a cell*/
+	public ArrayList<ArrayList<Double>> getInformations(InformationType type, double lat, double lng, ArrayList<ArrayList<Double>> matrix, ArrayList<FoursquareDataObject> cell) {
+		ArrayList<Double> rowOfMatrix=new ArrayList<Double>();
+		switch (type) {
+		//If we consider single venues
+		case SINGLE:
+			for(FoursquareDataObject venue: cell) {
+				String category="";
+				for(Category c: venue.getCategories()) {
+					if(c.getParents().length>0)
+						category=c.getParents()[0]; //take the parent category name only if it is set
+					else
+						category=c.getName();
+				}
+				updateMapWithSingle(this.map, category);//update the hash map
+				rowOfMatrix=fillRowWithSingle(this.map, category, venue.getLatitude(), venue.getLongitude()); //create a consistent row (related to the categories) //row of the transformation matrix (one for each cell);
+				if(this.total<rowOfMatrix.size())
+					this.total=rowOfMatrix.size(); //update the overall number of categories
+				matrix.add(rowOfMatrix);
+			}
+			break;
+		//If we consider a cell of venues
+		case CELL:
+			ArrayList<String> distinctList; //list of all the distinct categories for the cell
+			ArrayList<Integer> occurrencesList; //list of the occurrences of the distinct categories for the cell
+			distinctList=createCategoryList(cell);
+			occurrencesList=getCategoryOccurences(cell, distinctList);
+			updateMapWithCell(this.map, distinctList);//update the hash map
+			rowOfMatrix=fillRowWithCell(this.map, occurrencesList, distinctList, lat, lng); //create a consistent row (related to the categories) //row of the transformation matrix (one for each cell);
+			if(this.total<rowOfMatrix.size())
+				this.total=rowOfMatrix.size(); //update the overall number of categories
+			matrix.add(rowOfMatrix);
+			break;
+		}
+		return matrix;
 	}
 }

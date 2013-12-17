@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,7 +46,7 @@ public class Main {
 		grid.setStructure(data);
 		grid.createCells();
 		
-		/***********COLLECT ALL THE GEOPOINTS AND CREATE THE TRANSFORMATION MATRIX************/
+		/*******************************COLLECT ALL THE GEOPOINTS********************************/
 		//Initialize a MongoDB instance
     	MongoClient mongoClient=new MongoClient("localhost");
     	DB db=mongoClient.getDB("VenueDB");
@@ -60,16 +59,11 @@ public class Main {
 		//Get the tools class and its support variables
 		TransformationTools tools=new TransformationTools();
 		ArrayList<ArrayList<Double>> supportMatrix=new ArrayList<ArrayList<Double>>();
-		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
-		ArrayList<Double> rowOfMatrix; //row of the transformation matrix (one for each cell);
-		ArrayList<String> distinctList; //list of all the distinct categories for a single cell
-		ArrayList<Integer> occurrencesList; //list of the occurrences of the distinct categories for a single cell
 		ArrayList<Double> bboxArea=new ArrayList<Double>();
-		int total=0; //overall number of categories
-		
-		//Download venues informations
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> cellVenue;
+		
+		//Download venues informations
 		for(BoundingBox b: data){
 		    logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
 			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
@@ -79,28 +73,22 @@ public class Main {
 				doc=(BasicDBObject) JSON.parse(obj); //initialize the document with the JSON result parsed for MongoDB
 				coll.insert(doc); //insert the document into MongoDB collection
 			}
-			
-			//put the values in a matrix
-			distinctList=fsv.createCategoryList(cellVenue);
-			occurrencesList=fsv.getCategoryOccurences(cellVenue, distinctList); 
-			map=tools.updateMap(map, distinctList);//update the hash map
-			rowOfMatrix=tools.fillRow(map, occurrencesList, distinctList, b.getCenterLat(), b.getCenterLng()); //create a consistent row (related to the categories)
-			if(total<rowOfMatrix.size())
-				total=rowOfMatrix.size(); //update the overall number of categories
-			supportMatrix.add(rowOfMatrix);
+			//Generate a matrix with geopoints informations
+			supportMatrix=tools.getInformations(InformationType.CELL, b.getCenterLat(), b.getCenterLng(), supportMatrix, cellVenue);
 			bboxArea.add(b.getArea());
 		}
-		supportMatrix=tools.fixRowsLength(total, supportMatrix); //update rows length for consistency
+		supportMatrix=tools.fixRowsLength(tools.getTotal(), supportMatrix); //update rows length for consistency
 		
+		/****************CREATE THE TRANSFORMATION MATRIX AND SERIALIZE IT TO FILE******************/
 		//Build the transformation matrix
-		ArrayList<ArrayList<Double>> frequencyMatrix=tools.sortMatrix(supportMatrix, map);
+		ArrayList<ArrayList<Double>> frequencyMatrix=tools.sortMatrix(supportMatrix, tools.getMap());
 		ArrayList<ArrayList<Double>> densityMatrix=tools.buildDensityMatrix(frequencyMatrix, bboxArea);
-		ArrayList<ArrayList<Double>> normalizedMatrix=tools.buildNormalizedMatrix(densityMatrix);
+		ArrayList<ArrayList<Double>> normalizedMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, densityMatrix);
 		TransformationMatrix tm=new TransformationMatrix();
 		tm.setFrequencyMatrix(frequencyMatrix);
 		tm.setDensityMatrix(densityMatrix);
 		tm.setNormalizedMatrix(normalizedMatrix);
-		tm.setHeader(tools.sortFeatures(map));
+		tm.setHeader(tools.sortFeatures(tools.getMap()));
 		
 		//write down the transformation matrix to file
 		printResult(tm.getFrequencyMatrix(), tools.getFeaturesLabel("f", tm.getHeader()), "output/frequency-transformation-matrix.csv");
@@ -115,8 +103,8 @@ public class Main {
             CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
             
             //print the header of the matrix
-            for(int i=0;i<features.size();i++) {
-            	csv.print(features.get(i));
+            for(String f: features) {
+            	csv.print(f);
             }
             csv.println();
             

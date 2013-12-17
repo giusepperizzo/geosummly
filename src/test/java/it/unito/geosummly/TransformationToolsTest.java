@@ -39,12 +39,12 @@ public class TransformationToolsTest extends TestCase {
 		a.add("Cat 5");
 		a.add("Cat 2");
 		a.add("Cat 5");
-		actual=tm.updateMap(actual,a);
+		actual=tm.updateMapWithCell(actual,a);
 		a.add("Cat 5");
 		a.add("Cat 6");
 		a.add("Cat 2");
 		a.add("Cat 6");
-		actual=tm.updateMap(actual,a);
+		actual=tm.updateMapWithCell(actual,a);
 		
 		//Construct the test case
 		HashMap<String, Integer> expected=new HashMap<String, Integer>();
@@ -83,7 +83,7 @@ public class TransformationToolsTest extends TestCase {
 		distincts.add("Cat 2");
 		double lat=10.0;
 		double lng=20.0;
-		ArrayList<Double> actual=tm.fillRow(map, occurrences, distincts, lat, lng);
+		ArrayList<Double> actual=tm.fillRowWithCell(map, occurrences, distincts, lat, lng);
 		
 		//Construct the test case
 		ArrayList<Double> expected = new ArrayList<Double>();
@@ -347,7 +347,7 @@ public class TransformationToolsTest extends TestCase {
 		ArrayList<Double> maxArray=new ArrayList<Double>();
 		maxArray.add(8.0);
 		maxArray.add(32.0);
-		ArrayList<Double> actual=tm.normalizeRow(record, minArray, maxArray);
+		ArrayList<Double> actual=tm.normalizeRow(CoordinatesNormalizationType.NORM, record, minArray, maxArray);
 		
 		ArrayList<Double> expected=new ArrayList<Double>();
 		expected.add(0.5);
@@ -486,7 +486,7 @@ public class TransformationToolsTest extends TestCase {
 		matrix.add(a);
 		matrix.add(b);
 		matrix.add(c);
-		ArrayList<ArrayList<Double>> actual=tm.buildNormalizedMatrix(matrix);
+		ArrayList<ArrayList<Double>> actual=tm.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, matrix);
 		
 		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> exp1=new ArrayList<Double>();
