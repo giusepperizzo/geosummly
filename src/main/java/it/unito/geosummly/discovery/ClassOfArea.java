@@ -165,7 +165,7 @@ public class ClassOfArea {
 	//Get pair density values with E-1.96*std/radix(N)
 	//E=E(d_m, cat1)E(d_m, cat2)
 	//std = radix( sum( (XiYi - E(d_m,cat1)E(d_m,cat2))^2 ) / N ), Xi and Yi are the individual values of the cell of the categories
-	//N = |observation cat_1|*|observation cat_2|
+	//N = |observation|
 	public ArrayList<Double> getPairDensities(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> meanDens, double n) {
 		ArrayList<Double> pairDensities=new ArrayList<Double>();
 		double sum=0;
@@ -234,6 +234,102 @@ public class ClassOfArea {
 		return tripleDensities;
 	}
 	
+	//Get quadruple density values with E-1.96*std/radix(N)
+	//E=E(d_m, cat1)E(d_m, cat2)E(d_m, cat3)E(d_m, cat4)
+	//std = radix( sum( (XiYiZiWi - E(d_m,cat1)E(d_m,cat2)E(d_m, cat3)E(d_m, cat4) )^2 ) / N ), Xi, Yi, Zi and Wi are the individual values of the cell of the categories
+	//N = |observation|
+	public ArrayList<Double> getQuadrupleDensities(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> meanDens, double n) {
+		ArrayList<Double> quadrupleDensities=new ArrayList<Double>();
+		double sum=0;
+		double mF_1=0;
+		double mF_2=0;
+		double mF_3=0;
+		double mF_4=0;
+		double value_1=0;
+		double value_2=0;
+		double value_3=0;
+		double value_4=0;
+		double difference=0;
+		double sD=0;
+		double density=0;
+		for(int i=0;i<meanDens.size()-3;i++) {
+			for(int j=i+1;j<meanDens.size()-2;j++) {
+				for(int k=j+1;k<meanDens.size()-1;k++) {
+					for(int l=k+1;l<meanDens.size();l++) {
+						sum=0;
+						mF_1=meanDens.get(i);
+						mF_2=meanDens.get(j);
+						mF_3=meanDens.get(k);
+						mF_4=meanDens.get(l);
+						for(int z=0;z<matrix.size();z++) {
+							value_1=matrix.get(z).get(i);
+							value_2=matrix.get(z).get(j);
+							value_3=matrix.get(z).get(k);
+							value_4=matrix.get(z).get(l);
+							difference=(value_1*value_2*value_3*value_4)-(mF_1*mF_2*mF_3*mF_4);
+							sum+=Math.pow(difference,2);
+						}
+						sD=Math.sqrt(sum/n);
+						density=(mF_1*mF_2*mF_3*mF_4)-(1.96* (sD/Math.sqrt(n)) );
+						quadrupleDensities.add(density);
+					}
+				}
+			}
+		}
+		return quadrupleDensities;
+	}
+	
+	//Get quintuple density values with E-1.96*std/radix(N)
+	//E=E(d_m, cat1)E(d_m, cat2)E(d_m, cat3)E(d_m, cat4)E(d_m, cat5)
+	//std = radix( sum( (XiYiZiWiKi - E(d_m,cat1)E(d_m,cat2)E(d_m, cat3)E(d_m, cat4)E(d_m, cat5) )^2 ) / N ), Xi, Yi, Zi, Wi and Ki are the individual values of the cell of the categories
+	//N = |observation|
+	public ArrayList<Double> getQuintupleDensities(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> meanDens, double n) {
+		ArrayList<Double> quintupleDensities=new ArrayList<Double>();
+		double sum=0;
+		double mF_1=0;
+		double mF_2=0;
+		double mF_3=0;
+		double mF_4=0;
+		double mF_5=0;
+		double value_1=0;
+		double value_2=0;
+		double value_3=0;
+		double value_4=0;
+		double value_5=0;
+		double difference=0;
+		double sD=0;
+		double density=0;
+		for(int i=0;i<meanDens.size()-4;i++) {
+			for(int j=i+1;j<meanDens.size()-3;j++) {
+				for(int k=j+1;k<meanDens.size()-2;k++) {
+					for(int l=k+1;l<meanDens.size()-1;l++) {
+						for(int m=l+1;m<meanDens.size();m++) {
+							sum=0;
+							mF_1=meanDens.get(i);
+							mF_2=meanDens.get(j);
+							mF_3=meanDens.get(k);
+							mF_4=meanDens.get(l);
+							mF_5=meanDens.get(m);
+							for(int z=0;z<matrix.size();z++) {
+								value_1=matrix.get(z).get(i);
+								value_2=matrix.get(z).get(j);
+								value_3=matrix.get(z).get(k);
+								value_4=matrix.get(z).get(l);
+								value_5=matrix.get(z).get(m);
+								difference=(value_1*value_2*value_3*value_4*value_5)-(mF_1*mF_2*mF_3*mF_4*mF_5);
+								sum+=Math.pow(difference,2);
+							}
+							sD=Math.sqrt(sum/n);
+							density=(mF_1*mF_2*mF_3*mF_4*mF_5)-(1.96* (sD/Math.sqrt(n)) );
+							quintupleDensities.add(density);
+						}
+					}
+				}
+			}
+		}
+		return quintupleDensities;
+	}
+	
 	//get the feature labeled either for frequency, density, standard deviation or singles' deltad
 	public ArrayList<String> getFeaturesLabel(String s, ArrayList<String> features) {
 		String label="";
@@ -271,5 +367,41 @@ public class ClassOfArea {
 			}
 		}
 		return tripleFeatures;
+	}
+	
+	//get the feature labeled for quadruples' deltad
+	public ArrayList<String> getFeaturesForQuadruples(ArrayList<String> features) {
+		String combination="";
+		ArrayList<String> quadrupleFeatures=new ArrayList<String>();
+		for(int i=0;i<features.size()-3;i++) {
+			for(int j=i+1;j<features.size()-2;j++) {
+				for(int k=j+1;k<features.size()-1;k++) {
+					for(int l=k+1;l<features.size();l++) {
+						combination="deltad("+features.get(i)+" AND "+features.get(j)+" AND "+features.get(k)+" AND "+features.get(l)+")";
+						quadrupleFeatures.add(combination);
+					}
+				}
+			}
+		}
+		return quadrupleFeatures;
+	}
+	
+	//get the feature labeled for quadruples' deltad
+	public ArrayList<String> getFeaturesForQuintuples(ArrayList<String> features) {
+		String combination="";
+		ArrayList<String> quintupleFeatures=new ArrayList<String>();
+		for(int i=0;i<features.size()-4;i++) {
+			for(int j=i+1;j<features.size()-3;j++) {
+				for(int k=j+1;k<features.size()-2;k++) {
+					for(int l=k+1;l<features.size()-1;l++) {
+						for(int m=l+1;m<features.size();m++) {
+							combination="deltad("+features.get(i)+" AND "+features.get(j)+" AND "+features.get(k)+" AND "+features.get(l)+" AND "+features.get(m)+")";
+							quintupleFeatures.add(combination);
+						}
+					}
+				}
+			}
+		}
+		return quintupleFeatures;
 	}
 }

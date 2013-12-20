@@ -1,0 +1,641 @@
+deltad(Arts & Entertainment),-0.21310926966044297
+deltad(College & University),-0.33949986106875385
+deltad(Event),0.0
+deltad(Food),2.872849148326503
+deltad(Nightlife Spot),-0.027680827120204254
+deltad(Outdoors & Recreation),0.3968107722770333
+deltad(Professional & Other Places),0.76769790022998
+deltad(Residence),1.464449217320404
+deltad(Shop & Service),2.2746533042670833
+deltad(Travel & Transport),-0.14948948531273842
+
+deltad(Arts & Entertainment AND College & University),0.2760961549923323
+deltad(Arts & Entertainment AND Event),0.0
+deltad(Arts & Entertainment AND Food),-66.12232574265944
+deltad(Arts & Entertainment AND Nightlife Spot),-2.0561766225477345
+deltad(Arts & Entertainment AND Outdoors & Recreation),-0.9936113159176672
+deltad(Arts & Entertainment AND Professional & Other Places),-4.360370227146102
+deltad(Arts & Entertainment AND Residence),-2.5764890083027545
+deltad(Arts & Entertainment AND Shop & Service),-11.352892756984799
+deltad(Arts & Entertainment AND Travel & Transport),0.4012481258751773
+deltad(College & University AND Event),0.0
+deltad(College & University AND Food),2.684659750805263
+deltad(College & University AND Nightlife Spot),0.09610853293919723
+deltad(College & University AND Outdoors & Recreation),0.7962522873305975
+deltad(College & University AND Professional & Other Places),1.708419841421531
+deltad(College & University AND Residence),1.5406616631936565
+deltad(College & University AND Shop & Service),3.552561683424541
+deltad(College & University AND Travel & Transport),0.30813233263873124
+deltad(Event AND Food),0.0
+deltad(Event AND Nightlife Spot),0.0
+deltad(Event AND Outdoors & Recreation),0.0
+deltad(Event AND Professional & Other Places),0.0
+deltad(Event AND Residence),0.0
+deltad(Event AND Shop & Service),0.0
+deltad(Event AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot),-19.228639047308324
+deltad(Food AND Outdoors & Recreation),-185.8147105809485
+deltad(Food AND Professional & Other Places),-478.0531103962032
+deltad(Food AND Residence),-57.49240853830227
+deltad(Food AND Shop & Service),-891.7181179568045
+deltad(Food AND Travel & Transport),-14.109718969172992
+deltad(Nightlife Spot AND Outdoors & Recreation),-2.6909492038956517
+deltad(Nightlife Spot AND Professional & Other Places),-8.169241393548957
+deltad(Nightlife Spot AND Residence),-4.573180522706657
+deltad(Nightlife Spot AND Shop & Service),-20.018323696515807
+deltad(Nightlife Spot AND Travel & Transport),-2.950911997675583
+deltad(Outdoors & Recreation AND Professional & Other Places),-243.27020732640287
+deltad(Outdoors & Recreation AND Residence),-10.369053509748497
+deltad(Outdoors & Recreation AND Shop & Service),-451.04314567538466
+deltad(Outdoors & Recreation AND Travel & Transport),-1.7587751106764924
+deltad(Professional & Other Places AND Residence),-7.684263298019127
+deltad(Professional & Other Places AND Shop & Service),-1013.060291140924
+deltad(Professional & Other Places AND Travel & Transport),-3.690995071980211
+deltad(Residence AND Shop & Service),-4.955703310001095
+deltad(Residence AND Travel & Transport),-66.97532025640841
+deltad(Shop & Service AND Travel & Transport),-9.521514002720332
+
+deltad(Arts & Entertainment AND College & University AND Event),0.0
+deltad(Arts & Entertainment AND College & University AND Food),1.7344152662343313
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot),0.0620905895784855
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation),0.514416071722293
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places),1.1037188057854839
+deltad(Arts & Entertainment AND College & University AND Residence),0.9953392074893447
+deltad(Arts & Entertainment AND College & University AND Shop & Service),2.295120346674278
+deltad(Arts & Entertainment AND College & University AND Travel & Transport),0.199067841497869
+deltad(Arts & Entertainment AND Event AND Food),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot),-131.18017694796072
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation),-58.42350351162865
+deltad(Arts & Entertainment AND Food AND Professional & Other Places),-385.3711890751917
+deltad(Arts & Entertainment AND Food AND Residence),-257.5375785743561
+deltad(Arts & Entertainment AND Food AND Shop & Service),-911.5868966746573
+deltad(Arts & Entertainment AND Food AND Travel & Transport),2.5206105281877242
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation),0.23318030354911662
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places),-98.48985091584572
+deltad(Arts & Entertainment AND Nightlife Spot AND Residence),-65.52201162661773
+deltad(Arts & Entertainment AND Nightlife Spot AND Shop & Service),-229.95854137390495
+deltad(Arts & Entertainment AND Nightlife Spot AND Travel & Transport),0.09023571046668154
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places),-28.173094738258488
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Residence),-28.64897545523489
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Shop & Service),-88.98185750774286
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Travel & Transport),0.7475963752714094
+deltad(Arts & Entertainment AND Professional & Other Places AND Residence),-191.47451561131695
+deltad(Arts & Entertainment AND Professional & Other Places AND Shop & Service),-678.874798651727
+deltad(Arts & Entertainment AND Professional & Other Places AND Travel & Transport),1.604024881574006
+deltad(Arts & Entertainment AND Residence AND Shop & Service),-453.27394482859376
+deltad(Arts & Entertainment AND Residence AND Travel & Transport),1.4465177598227528
+deltad(Arts & Entertainment AND Shop & Service AND Travel & Transport),3.3354783147437055
+deltad(College & University AND Event AND Food),0.0
+deltad(College & University AND Event AND Nightlife Spot),0.0
+deltad(College & University AND Event AND Outdoors & Recreation),0.0
+deltad(College & University AND Event AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Residence),0.0
+deltad(College & University AND Event AND Shop & Service),0.0
+deltad(College & University AND Event AND Travel & Transport),0.0
+deltad(College & University AND Food AND Nightlife Spot),0.6037465706458613
+deltad(College & University AND Food AND Outdoors & Recreation),5.001996941821043
+deltad(College & University AND Food AND Professional & Other Places),10.732164865466645
+deltad(College & University AND Food AND Residence),9.67832061558143
+deltad(College & University AND Food AND Shop & Service),22.31692512393655
+deltad(College & University AND Food AND Travel & Transport),1.9356641231162857
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation),0.1790672310338675
+deltad(College & University AND Nightlife Spot AND Professional & Other Places),0.38420236313827566
+deltad(College & University AND Nightlife Spot AND Residence),0.3464756364003726
+deltad(College & University AND Nightlife Spot AND Shop & Service),0.7989269153128653
+deltad(College & University AND Nightlife Spot AND Travel & Transport),0.06929512728007452
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places),3.1830889629770263
+deltad(College & University AND Outdoors & Recreation AND Residence),2.870525743667912
+deltad(College & University AND Outdoors & Recreation AND Shop & Service),6.61905206825188
+deltad(College & University AND Outdoors & Recreation AND Travel & Transport),0.5741051487335822
+deltad(College & University AND Professional & Other Places AND Residence),6.158931300824545
+deltad(College & University AND Professional & Other Places AND Shop & Service),14.201679624323262
+deltad(College & University AND Professional & Other Places AND Travel & Transport),1.2317862601649088
+deltad(College & University AND Residence AND Shop & Service),12.807146592226172
+deltad(College & University AND Residence AND Travel & Transport),1.1108310862894692
+deltad(College & University AND Shop & Service AND Travel & Transport),2.5614293184452337
+deltad(Event AND Food AND Nightlife Spot),0.0
+deltad(Event AND Food AND Outdoors & Recreation),0.0
+deltad(Event AND Food AND Professional & Other Places),0.0
+deltad(Event AND Food AND Residence),0.0
+deltad(Event AND Food AND Shop & Service),0.0
+deltad(Event AND Food AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Event AND Nightlife Spot AND Residence),0.0
+deltad(Event AND Nightlife Spot AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Event AND Outdoors & Recreation AND Residence),0.0
+deltad(Event AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Event AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Event AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Residence AND Shop & Service),0.0
+deltad(Event AND Residence AND Travel & Transport),0.0
+deltad(Event AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation),-277.56172103959864
+deltad(Food AND Nightlife Spot AND Professional & Other Places),-680.6778978111342
+deltad(Food AND Nightlife Spot AND Residence),-379.96156668873675
+deltad(Food AND Nightlife Spot AND Shop & Service),-1666.841915635141
+deltad(Food AND Nightlife Spot AND Travel & Transport),-279.1974555244566
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places),-42189.8420660599
+deltad(Food AND Outdoors & Recreation AND Residence),-505.64938179281313
+deltad(Food AND Outdoors & Recreation AND Shop & Service),-78490.27690691744
+deltad(Food AND Outdoors & Recreation AND Travel & Transport),-271.67665054541635
+deltad(Food AND Professional & Other Places AND Residence),-986.919295348036
+deltad(Food AND Professional & Other Places AND Shop & Service),-175534.23725923768
+deltad(Food AND Professional & Other Places AND Travel & Transport),-542.1084975473602
+deltad(Food AND Residence AND Shop & Service),-2137.3993948594734
+deltad(Food AND Residence AND Travel & Transport),-263.6844563569282
+deltad(Food AND Shop & Service AND Travel & Transport),-1362.9872555791046
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),-91.71210214110724
+deltad(Nightlife Spot AND Outdoors & Recreation AND Residence),-45.17401733331922
+deltad(Nightlife Spot AND Outdoors & Recreation AND Shop & Service),-229.99423590671034
+deltad(Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),-46.398745914840084
+deltad(Nightlife Spot AND Professional & Other Places AND Residence),-215.77757536644566
+deltad(Nightlife Spot AND Professional & Other Places AND Shop & Service),-828.5460799702607
+deltad(Nightlife Spot AND Professional & Other Places AND Travel & Transport),-92.75290841188746
+deltad(Nightlife Spot AND Residence AND Shop & Service),-511.1441094690856
+deltad(Nightlife Spot AND Residence AND Travel & Transport),-46.11244559654426
+deltad(Nightlife Spot AND Shop & Service AND Travel & Transport),-232.15861820410356
+deltad(Outdoors & Recreation AND Professional & Other Places AND Residence),-242.8878669701532
+deltad(Outdoors & Recreation AND Professional & Other Places AND Shop & Service),-87789.31780330195
+deltad(Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),-87.9683207480672
+deltad(Outdoors & Recreation AND Residence AND Shop & Service),-197.02839435768342
+deltad(Outdoors & Recreation AND Residence AND Travel & Transport),-41.799781116209836
+deltad(Outdoors & Recreation AND Shop & Service AND Travel & Transport),-222.20832751211938
+deltad(Professional & Other Places AND Residence AND Shop & Service),-1345.515036549454
+deltad(Professional & Other Places AND Residence AND Travel & Transport),-82.88622451937216
+deltad(Professional & Other Places AND Shop & Service AND Travel & Transport),-442.7699971933253
+deltad(Residence AND Shop & Service AND Travel & Transport),-211.6375717225765
+
+deltad(Arts & Entertainment AND College & University AND Event AND Food),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot),0.39004841069737584
+deltad(Arts & Entertainment AND College & University AND Food AND Outdoors & Recreation),3.2315230468030918
+deltad(Arts & Entertainment AND College & University AND Food AND Professional & Other Places),6.933478470344628
+deltad(Arts & Entertainment AND College & University AND Food AND Residence),6.252645990665984
+deltad(Arts & Entertainment AND College & University AND Food AND Shop & Service),14.417773283468769
+deltad(Arts & Entertainment AND College & University AND Food AND Travel & Transport),1.2505291981331974
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Outdoors & Recreation),0.11568577325089051
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Professional & Other Places),0.24821262498923918
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Residence),0.2238394019841105
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Shop & Service),0.5161440059987134
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Travel & Transport),0.04476788039682213
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Professional & Other Places),2.0564237570565127
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Residence),1.8544933563528574
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Shop & Service),4.2762159903997174
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Travel & Transport),0.37089867127057163
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Residence),3.9789565395147184
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Shop & Service),9.174946634934672
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Travel & Transport),0.7957913079029437
+deltad(Arts & Entertainment AND College & University AND Residence AND Shop & Service),8.274013330663333
+deltad(Arts & Entertainment AND College & University AND Residence AND Travel & Transport),0.717648630777224
+deltad(Arts & Entertainment AND College & University AND Shop & Service AND Travel & Transport),1.6548026661326674
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Outdoors & Recreation),1.4648211173820045
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Professional & Other Places),-5937.923586438281
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Residence),-3957.7494148363267
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Shop & Service),-13856.090433868674
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Travel & Transport),0.5668539418713022
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Professional & Other Places),-959.752605552928
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Residence),-962.748279395169
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Shop & Service),-2907.3433274371146
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Travel & Transport),4.696344164185095
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Residence),-11865.301640091766
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Shop & Service),-41560.94676099065
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Travel & Transport),10.07636358463209
+deltad(Arts & Entertainment AND Food AND Residence AND Shop & Service),-27763.270351910964
+deltad(Arts & Entertainment AND Food AND Residence AND Travel & Transport),9.086915700022494
+deltad(Arts & Entertainment AND Food AND Shop & Service AND Travel & Transport),20.953223739916666
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.9321588928794577
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.8406256093756477
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),1.9383712863879787
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.16812512187512962
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Residence),-2968.6896151715223
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Shop & Service),-10392.938419323955
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.3607252357362834
+deltad(Arts & Entertainment AND Nightlife Spot AND Residence AND Shop & Service),-6927.479237429282
+deltad(Arts & Entertainment AND Nightlife Spot AND Residence AND Travel & Transport),0.3253038440381002
+deltad(Arts & Entertainment AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.750107567033817
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Residence),-477.62269876292356
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),-1445.0201513053114
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),2.9885826499359704
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Residence AND Shop & Service),-1448.9845292175044
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Residence AND Travel & Transport),2.6951189657285064
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),6.214587276787697
+deltad(Arts & Entertainment AND Professional & Other Places AND Residence AND Shop & Service),-20770.40640144661
+deltad(Arts & Entertainment AND Professional & Other Places AND Residence AND Travel & Transport),5.782582718196135
+deltad(Arts & Entertainment AND Professional & Other Places AND Shop & Service AND Travel & Transport),13.33386965267424
+deltad(Arts & Entertainment AND Residence AND Shop & Service AND Travel & Transport),12.024551165832419
+deltad(College & University AND Event AND Food AND Nightlife Spot),0.0
+deltad(College & University AND Event AND Food AND Outdoors & Recreation),0.0
+deltad(College & University AND Event AND Food AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Food AND Residence),0.0
+deltad(College & University AND Event AND Food AND Shop & Service),0.0
+deltad(College & University AND Event AND Food AND Travel & Transport),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Residence),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Shop & Service),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Travel & Transport),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Residence),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Event AND Residence AND Shop & Service),0.0
+deltad(College & University AND Event AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Event AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Outdoors & Recreation),1.124886868475497
+deltad(College & University AND Food AND Nightlife Spot AND Professional & Other Places),2.4135303295652126
+deltad(College & University AND Food AND Nightlife Spot AND Residence),2.176533871570037
+deltad(College & University AND Food AND Nightlife Spot AND Shop & Service),5.018798753508971
+deltad(College & University AND Food AND Nightlife Spot AND Travel & Transport),0.4353067743140072
+deltad(College & University AND Food AND Outdoors & Recreation AND Professional & Other Places),19.995925301178804
+deltad(College & University AND Food AND Outdoors & Recreation AND Residence),18.032426681474615
+deltad(College & University AND Food AND Outdoors & Recreation AND Shop & Service),41.58038693256997
+deltad(College & University AND Food AND Outdoors & Recreation AND Travel & Transport),3.6064853362949236
+deltad(College & University AND Food AND Professional & Other Places AND Residence),38.68994290099848
+deltad(College & University AND Food AND Professional & Other Places AND Shop & Service),89.21388255942716
+deltad(College & University AND Food AND Professional & Other Places AND Travel & Transport),7.737988580199698
+deltad(College & University AND Food AND Residence AND Shop & Service),80.4535310065255
+deltad(College & University AND Food AND Residence AND Travel & Transport),6.978157281189334
+deltad(College & University AND Food AND Shop & Service AND Travel & Transport),16.0907062013051
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.7158370981207703
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.6455455195654971
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),1.4885424441346058
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.1291091039130995
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Residence),1.3850670091809325
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Shop & Service),3.1937810249602547
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.27701340183618656
+deltad(College & University AND Nightlife Spot AND Residence AND Shop & Service),2.880167899301237
+deltad(College & University AND Nightlife Spot AND Residence AND Travel & Transport),0.24981208837094504
+deltad(College & University AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.5760335798602475
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Residence),11.47518061548385
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),26.460246229817272
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),2.2950361230967697
+deltad(College & University AND Outdoors & Recreation AND Residence AND Shop & Service),23.86198402555626
+deltad(College & University AND Outdoors & Recreation AND Residence AND Travel & Transport),2.069675196208025
+deltad(College & University AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),4.772396805111254
+deltad(College & University AND Professional & Other Places AND Residence AND Shop & Service),51.197701549607125
+deltad(College & University AND Professional & Other Places AND Residence AND Travel & Transport),4.440645542575032
+deltad(College & University AND Professional & Other Places AND Shop & Service AND Travel & Transport),10.239540309921427
+deltad(College & University AND Residence AND Shop & Service AND Travel & Transport),9.234069297097083
+deltad(Event AND Food AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Event AND Food AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Event AND Food AND Nightlife Spot AND Residence),0.0
+deltad(Event AND Food AND Nightlife Spot AND Shop & Service),0.0
+deltad(Event AND Food AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Residence),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Event AND Food AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Food AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Food AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Food AND Residence AND Shop & Service),0.0
+deltad(Event AND Food AND Residence AND Travel & Transport),0.0
+deltad(Event AND Food AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Event AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Event AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Event AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),-8392.034430793494
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Residence),-4191.730849907353
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),-20984.572535078754
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),-4199.427109565422
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Residence),-14533.22248606622
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Shop & Service),-59070.5198477406
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),-8398.574116690921
+deltad(Food AND Nightlife Spot AND Residence AND Shop & Service),-34743.445453794804
+deltad(Food AND Nightlife Spot AND Residence AND Travel & Transport),-4197.62829456209
+deltad(Food AND Nightlife Spot AND Shop & Service AND Travel & Transport),-20998.171476415744
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Residence),-10810.52243862191
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),-1.4799327011029849E7
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),-8368.500779941149
+deltad(Food AND Outdoors & Recreation AND Residence AND Shop & Service),-20859.789978425106
+deltad(Food AND Outdoors & Recreation AND Residence AND Travel & Transport),-4170.508927009935
+deltad(Food AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),-20935.635242810764
+deltad(Food AND Professional & Other Places AND Residence AND Shop & Service),-92473.79230430949
+deltad(Food AND Professional & Other Places AND Residence AND Travel & Transport),-8336.528282555068
+deltad(Food AND Professional & Other Places AND Shop & Service AND Travel & Transport),-41860.91734316064
+deltad(Food AND Residence AND Shop & Service AND Travel & Transport),-20869.149020566572
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence),-1394.3284723103745
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),-6988.135351875201
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),-1399.2259789128996
+deltad(Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service),-3488.3957158364215
+deltad(Nightlife Spot AND Outdoors & Recreation AND Residence AND Travel & Transport),-699.121015999901
+deltad(Nightlife Spot AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),-3498.5798848109953
+deltad(Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service),-21915.562196899693
+deltad(Nightlife Spot AND Professional & Other Places AND Residence AND Travel & Transport),-1398.081291394863
+deltad(Nightlife Spot AND Professional & Other Places AND Shop & Service AND Travel & Transport),-6996.789117043808
+deltad(Nightlife Spot AND Residence AND Shop & Service AND Travel & Transport),-3496.1995628575482
+deltad(Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),-6931.447842835743
+deltad(Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),-1380.824706476749
+deltad(Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),-6956.994601988071
+deltad(Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),-3460.3146006311063
+deltad(Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),-6914.688724482396
+
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot AND Outdoors & Recreation),0.72672932087026
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot AND Professional & Other Places),1.5592530293128846
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot AND Residence),1.4061422767614666
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot AND Shop & Service),3.2423777998805314
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot AND Travel & Transport),0.28122845535229335
+deltad(Arts & Entertainment AND College & University AND Food AND Outdoors & Recreation AND Professional & Other Places),12.918299272167813
+deltad(Arts & Entertainment AND College & University AND Food AND Outdoors & Recreation AND Residence),11.649787692544546
+deltad(Arts & Entertainment AND College & University AND Food AND Outdoors & Recreation AND Shop & Service),26.86286701700214
+deltad(Arts & Entertainment AND College & University AND Food AND Outdoors & Recreation AND Travel & Transport),2.3299575385089084
+deltad(Arts & Entertainment AND College & University AND Food AND Professional & Other Places AND Residence),24.99550551875277
+deltad(Arts & Entertainment AND College & University AND Food AND Professional & Other Places AND Shop & Service),57.63632423985747
+deltad(Arts & Entertainment AND College & University AND Food AND Professional & Other Places AND Travel & Transport),4.999101103750552
+deltad(Arts & Entertainment AND College & University AND Food AND Residence AND Shop & Service),51.976729028071404
+deltad(Arts & Entertainment AND College & University AND Food AND Residence AND Travel & Transport),4.50821468718661
+deltad(Arts & Entertainment AND College & University AND Food AND Shop & Service AND Travel & Transport),10.39534580561428
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.46246411328107484
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.4170524789399233
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.9616677639579575
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.08341049578798466
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Professional & Other Places AND Residence),0.8948178124845694
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Professional & Other Places AND Shop & Service),2.0633313271967024
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.17896356249691392
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Residence AND Shop & Service),1.8607226380802104
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Residence AND Travel & Transport),0.16139024680147473
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.372144527616042
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Professional & Other Places AND Residence),7.413501258891981
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),17.09455173809227
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),1.482700251778396
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Residence AND Shop & Service),15.41595331183052
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Residence AND Travel & Transport),1.3371065943730893
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),3.083190662366106
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Residence AND Shop & Service),33.07610029059091
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Residence AND Travel & Transport),2.8688638918460243
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Shop & Service AND Travel & Transport),6.615220058118178
+deltad(Arts & Entertainment AND College & University AND Residence AND Shop & Service AND Travel & Transport),5.965638943090267
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),5.8557520093357525
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Outdoors & Recreation AND Residence),5.2807468113025795
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),12.176702536241253
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),1.0561493622605167
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Professional & Other Places AND Residence),-178145.87441431012
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Professional & Other Places AND Shop & Service),-623526.4209985853
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),2.266048782151144
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Residence AND Shop & Service),-415677.0791547491
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Residence AND Travel & Transport),2.0435342653723763
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Shop & Service AND Travel & Transport),4.7121192818403275
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Professional & Other Places AND Residence),-14736.562914152768
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),-44286.062462717266
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),18.774051281503557
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Residence AND Shop & Service),-44310.97593624763
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Residence AND Travel & Transport),16.93053450384712
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),39.039569553243396
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Residence AND Shop & Service),-1247418.070389578
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Residence AND Travel & Transport),36.32574942950848
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Shop & Service AND Travel & Transport),83.76236563026075
+deltad(Arts & Entertainment AND Food AND Residence AND Shop & Service AND Travel & Transport),75.53732543727308
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence),3.3604752435561887
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),7.748810704880802
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.672095048711238
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service),6.987916728022144
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Travel & Transport),0.606098717929949
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),1.3975833456044293
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service),-311760.94792322005
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Residence AND Travel & Transport),1.3004308961460571
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Shop & Service AND Travel & Transport),2.9986213611711188
+deltad(Arts & Entertainment AND Nightlife Spot AND Residence AND Shop & Service AND Travel & Transport),2.7041719263491184
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),-22124.288082305644
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),10.77397650244817
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),24.843362442973064
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),22.40387003985268
+deltad(Arts & Entertainment AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),48.069207096446505
+deltad(College & University AND Event AND Food AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(College & University AND Event AND Food AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Food AND Nightlife Spot AND Residence),0.0
+deltad(College & University AND Event AND Food AND Nightlife Spot AND Shop & Service),0.0
+deltad(College & University AND Event AND Food AND Nightlife Spot AND Travel & Transport),0.0
+deltad(College & University AND Event AND Food AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Food AND Outdoors & Recreation AND Residence),0.0
+deltad(College & University AND Event AND Food AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(College & University AND Event AND Food AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(College & University AND Event AND Food AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Event AND Food AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Event AND Food AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Event AND Food AND Residence AND Shop & Service),0.0
+deltad(College & University AND Event AND Food AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Event AND Food AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Event AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),4.496834775377546
+deltad(College & University AND Food AND Nightlife Spot AND Outdoors & Recreation AND Residence),4.055268369147215
+deltad(College & University AND Food AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),9.350911604026233
+deltad(College & University AND Food AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.8110536738294429
+deltad(College & University AND Food AND Nightlife Spot AND Professional & Other Places AND Residence),8.700886709369975
+deltad(College & University AND Food AND Nightlife Spot AND Professional & Other Places AND Shop & Service),20.063092029856172
+deltad(College & University AND Food AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),1.7401773418739952
+deltad(College & University AND Food AND Nightlife Spot AND Residence AND Shop & Service),18.09299797747949
+deltad(College & University AND Food AND Nightlife Spot AND Residence AND Travel & Transport),1.5693007378986503
+deltad(College & University AND Food AND Nightlife Spot AND Shop & Service AND Travel & Transport),3.6185995954959003
+deltad(College & University AND Food AND Outdoors & Recreation AND Professional & Other Places AND Residence),72.08622098646826
+deltad(College & University AND Food AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),166.2212753762871
+deltad(College & University AND Food AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),14.417244197293655
+deltad(College & University AND Food AND Outdoors & Recreation AND Residence AND Shop & Service),149.89918775838768
+deltad(College & University AND Food AND Outdoors & Recreation AND Residence AND Travel & Transport),13.001543815593614
+deltad(College & University AND Food AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),29.97983755167755
+deltad(College & University AND Food AND Professional & Other Places AND Residence AND Shop & Service),321.62010791571424
+deltad(College & University AND Food AND Professional & Other Places AND Residence AND Travel & Transport),27.895801088542747
+deltad(College & University AND Food AND Professional & Other Places AND Shop & Service AND Travel & Transport),64.32402158314288
+deltad(College & University AND Food AND Residence AND Shop & Service AND Travel & Transport),58.00772835389793
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence),2.5806253258209546
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),5.950580111653058
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.5161250651641911
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service),5.3662632741131
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Travel & Transport),0.46544419704828144
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),1.0732526548226202
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service),11.513725985668767
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Residence AND Travel & Transport),0.9986459241173236
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Shop & Service AND Travel & Transport),2.3027451971337545
+deltad(College & University AND Nightlife Spot AND Residence AND Shop & Service AND Travel & Transport),2.076627278207739
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),95.3903922098831
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),8.2737097008323
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),19.078078441976622
+deltad(College & University AND Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),17.2047077365349
+deltad(College & University AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),36.91400895248049
+deltad(Event AND Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Event AND Food AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(Event AND Food AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Event AND Food AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Event AND Food AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Food AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Food AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Food AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(Event AND Food AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(Event AND Food AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Food AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Event AND Food AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Event AND Food AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Food AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence),-125939.08871570106
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),-629799.056997278
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),-125969.85587235203
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service),-314863.8959392021
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Travel & Transport),-62981.83733076583
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),-314927.8745242548
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service),-1396986.810282445
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Residence AND Travel & Transport),-125962.66487274824
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Shop & Service AND Travel & Transport),-629853.420606708
+deltad(Food AND Nightlife Spot AND Residence AND Shop & Service AND Travel & Transport),-314912.9212462853
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),-630037.9993708982
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),-125854.24564969524
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),-629603.418875283
+deltad(Food AND Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),-314687.4692668251
+deltad(Food AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),-629337.613143248
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),-104930.39776449843
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),-20991.84380802408
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),-104971.11130520962
+deltad(Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),-52481.4659141808
+deltad(Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),-104961.59559479257
+deltad(Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),-104818.1272540815

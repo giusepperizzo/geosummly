@@ -1,0 +1,641 @@
+deltad(Arts & Entertainment),0.0
+deltad(College & University),0.0
+deltad(Event),0.0
+deltad(Food),0.0
+deltad(Nightlife Spot),0.0
+deltad(Outdoors & Recreation),-0.02222223446782342
+deltad(Professional & Other Places),0.0
+deltad(Residence),0.0
+deltad(Shop & Service),-0.16296105666842342
+deltad(Travel & Transport),0.0
+
+deltad(Arts & Entertainment AND College & University),0.0
+deltad(Arts & Entertainment AND Event),0.0
+deltad(Arts & Entertainment AND Food),0.0
+deltad(Arts & Entertainment AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Residence),0.0
+deltad(Arts & Entertainment AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Travel & Transport),0.0
+deltad(College & University AND Event),0.0
+deltad(College & University AND Food),0.0
+deltad(College & University AND Nightlife Spot),0.0
+deltad(College & University AND Outdoors & Recreation),0.0
+deltad(College & University AND Professional & Other Places),0.0
+deltad(College & University AND Residence),0.0
+deltad(College & University AND Shop & Service),0.0
+deltad(College & University AND Travel & Transport),0.0
+deltad(Event AND Food),0.0
+deltad(Event AND Nightlife Spot),0.0
+deltad(Event AND Outdoors & Recreation),0.0
+deltad(Event AND Professional & Other Places),0.0
+deltad(Event AND Residence),0.0
+deltad(Event AND Shop & Service),0.0
+deltad(Event AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot),0.0
+deltad(Food AND Outdoors & Recreation),0.0
+deltad(Food AND Professional & Other Places),0.0
+deltad(Food AND Residence),0.0
+deltad(Food AND Shop & Service),0.0
+deltad(Food AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Nightlife Spot AND Professional & Other Places),0.0
+deltad(Nightlife Spot AND Residence),0.0
+deltad(Nightlife Spot AND Shop & Service),0.0
+deltad(Nightlife Spot AND Travel & Transport),0.0
+deltad(Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Outdoors & Recreation AND Residence),0.0
+deltad(Outdoors & Recreation AND Shop & Service),0.008618170586352928
+deltad(Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Professional & Other Places AND Residence),0.0
+deltad(Professional & Other Places AND Shop & Service),0.0
+deltad(Professional & Other Places AND Travel & Transport),0.0
+deltad(Residence AND Shop & Service),0.0
+deltad(Residence AND Travel & Transport),0.0
+deltad(Shop & Service AND Travel & Transport),0.0
+
+deltad(Arts & Entertainment AND College & University AND Event),0.0
+deltad(Arts & Entertainment AND College & University AND Food),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Food),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Food AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Food AND Residence),0.0
+deltad(Arts & Entertainment AND Food AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Food AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Residence),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Event AND Food),0.0
+deltad(College & University AND Event AND Nightlife Spot),0.0
+deltad(College & University AND Event AND Outdoors & Recreation),0.0
+deltad(College & University AND Event AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Residence),0.0
+deltad(College & University AND Event AND Shop & Service),0.0
+deltad(College & University AND Event AND Travel & Transport),0.0
+deltad(College & University AND Food AND Nightlife Spot),0.0
+deltad(College & University AND Food AND Outdoors & Recreation),0.0
+deltad(College & University AND Food AND Professional & Other Places),0.0
+deltad(College & University AND Food AND Residence),0.0
+deltad(College & University AND Food AND Shop & Service),0.0
+deltad(College & University AND Food AND Travel & Transport),0.0
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(College & University AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(College & University AND Nightlife Spot AND Residence),0.0
+deltad(College & University AND Nightlife Spot AND Shop & Service),0.0
+deltad(College & University AND Nightlife Spot AND Travel & Transport),0.0
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(College & University AND Outdoors & Recreation AND Residence),0.0
+deltad(College & University AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(College & University AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(College & University AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Residence AND Shop & Service),0.0
+deltad(College & University AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Food AND Nightlife Spot),0.0
+deltad(Event AND Food AND Outdoors & Recreation),0.0
+deltad(Event AND Food AND Professional & Other Places),0.0
+deltad(Event AND Food AND Residence),0.0
+deltad(Event AND Food AND Shop & Service),0.0
+deltad(Event AND Food AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Event AND Nightlife Spot AND Residence),0.0
+deltad(Event AND Nightlife Spot AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Event AND Outdoors & Recreation AND Residence),0.0
+deltad(Event AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Event AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Event AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Residence AND Shop & Service),0.0
+deltad(Event AND Residence AND Travel & Transport),0.0
+deltad(Event AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Food AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Food AND Nightlife Spot AND Residence),0.0
+deltad(Food AND Nightlife Spot AND Shop & Service),0.0
+deltad(Food AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Food AND Outdoors & Recreation AND Residence),0.0
+deltad(Food AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Food AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Food AND Professional & Other Places AND Residence),0.0
+deltad(Food AND Professional & Other Places AND Shop & Service),0.0
+deltad(Food AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Food AND Residence AND Shop & Service),0.0
+deltad(Food AND Residence AND Travel & Transport),0.0
+deltad(Food AND Shop & Service AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Residence AND Shop & Service AND Travel & Transport),0.0
+
+deltad(Arts & Entertainment AND College & University AND Event AND Food),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Residence),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Food AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Event AND Food AND Nightlife Spot),0.0
+deltad(College & University AND Event AND Food AND Outdoors & Recreation),0.0
+deltad(College & University AND Event AND Food AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Food AND Residence),0.0
+deltad(College & University AND Event AND Food AND Shop & Service),0.0
+deltad(College & University AND Event AND Food AND Travel & Transport),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Residence),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Shop & Service),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Travel & Transport),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Residence),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Event AND Residence AND Shop & Service),0.0
+deltad(College & University AND Event AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Event AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Residence),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Shop & Service),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Travel & Transport),0.0
+deltad(College & University AND Food AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(College & University AND Food AND Outdoors & Recreation AND Residence),0.0
+deltad(College & University AND Food AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(College & University AND Food AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(College & University AND Food AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Food AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Food AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Food AND Residence AND Shop & Service),0.0
+deltad(College & University AND Food AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Food AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(College & University AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(College & University AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(College & University AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Food AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Event AND Food AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Event AND Food AND Nightlife Spot AND Residence),0.0
+deltad(Event AND Food AND Nightlife Spot AND Shop & Service),0.0
+deltad(Event AND Food AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Residence),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Event AND Food AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Food AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Food AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Food AND Residence AND Shop & Service),0.0
+deltad(Event AND Food AND Residence AND Travel & Transport),0.0
+deltad(Event AND Food AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Event AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Event AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Event AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(Food AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Food AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Food AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Food AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Food AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Food AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Nightlife Spot AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),0.0
+
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Nightlife Spot),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Food AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Event AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Food AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND College & University AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Nightlife Spot AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Food AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Event AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Food AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Nightlife Spot AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Arts & Entertainment AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Event AND Food AND Nightlife Spot AND Outdoors & Recreation),0.0
+deltad(College & University AND Event AND Food AND Nightlife Spot AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Food AND Nightlife Spot AND Residence),0.0
+deltad(College & University AND Event AND Food AND Nightlife Spot AND Shop & Service),0.0
+deltad(College & University AND Event AND Food AND Nightlife Spot AND Travel & Transport),0.0
+deltad(College & University AND Event AND Food AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Food AND Outdoors & Recreation AND Residence),0.0
+deltad(College & University AND Event AND Food AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(College & University AND Event AND Food AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(College & University AND Event AND Food AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Event AND Food AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Event AND Food AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Event AND Food AND Residence AND Shop & Service),0.0
+deltad(College & University AND Event AND Food AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Event AND Food AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Event AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Event AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Event AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Event AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Food AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Food AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Food AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Food AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Food AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(College & University AND Food AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Food AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Food AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(College & University AND Food AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Food AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Food AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Nightlife Spot AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Nightlife Spot AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(College & University AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(College & University AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places),0.0
+deltad(Event AND Food AND Nightlife Spot AND Outdoors & Recreation AND Residence),0.0
+deltad(Event AND Food AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service),0.0
+deltad(Event AND Food AND Nightlife Spot AND Outdoors & Recreation AND Travel & Transport),0.0
+deltad(Event AND Food AND Nightlife Spot AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Food AND Nightlife Spot AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Food AND Nightlife Spot AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Food AND Nightlife Spot AND Residence AND Shop & Service),0.0
+deltad(Event AND Food AND Nightlife Spot AND Residence AND Travel & Transport),0.0
+deltad(Event AND Food AND Nightlife Spot AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Event AND Food AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Food AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Event AND Food AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Event AND Food AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Food AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Nightlife Spot AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Event AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Residence AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Outdoors & Recreation AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Nightlife Spot AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Food AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Food AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Residence AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Professional & Other Places AND Shop & Service AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Outdoors & Recreation AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Nightlife Spot AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),0.0
+deltad(Outdoors & Recreation AND Professional & Other Places AND Residence AND Shop & Service AND Travel & Transport),0.0
