@@ -329,6 +329,26 @@ public class TransformationToolsTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
+	public void testGetIntraFeatureNormalizationNoCoord() {
+		TransformationTools tm=new TransformationTools();
+		ArrayList<Double> record=new ArrayList<Double>();
+		record.add(2.0);
+		record.add(4.0);
+		record.add(8.0);
+		ArrayList<Double> sumArray=new ArrayList<Double>();
+		sumArray.add(20.0);
+		sumArray.add(40.0);
+		sumArray.add(80.0);
+		ArrayList<Double> actual=tm.getIntraFeatureNormalizationNoCoord(record, sumArray);
+		
+		ArrayList<Double> expected=new ArrayList<Double>();
+		expected.add(0.1);
+		expected.add(0.1);
+		expected.add(0.1);
+		
+		assertEquals(expected, actual);
+	}
+	
 	public void testNormalizeValues() {
 		TransformationTools tm=new TransformationTools();
 		double actual=tm.normalizeValues(-90, 90, 45);
@@ -405,6 +425,45 @@ public class TransformationToolsTest extends TestCase {
 		exp3.add(23.0);
 		exp3.add(21.0);
 		exp3.add(22.0);
+		expected.add(exp1);
+		expected.add(exp2);
+		expected.add(exp3);
+		
+		//Start the test
+		assertEquals(expected, actual);
+	}
+	
+	public void testBuildDensityMatrixNoCoord() {
+		TransformationTools tm=new TransformationTools();
+		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> a=new ArrayList<Double>();
+		ArrayList<Double> b=new ArrayList<Double>();
+		ArrayList<Double> c=new ArrayList<Double>();
+		a.add(2.0);
+		a.add(4.0);
+		b.add(8.0);
+		b.add(16.0);
+		c.add(32.0);
+		c.add(64.0);
+		matrix.add(a);
+		matrix.add(b);
+		matrix.add(c);
+		ArrayList<Double> area=new ArrayList<Double>();
+		area.add(10.0);
+		area.add(10.0);
+		area.add(10.0);
+		ArrayList<ArrayList<Double>> actual=tm.buildDensityMatrixNoCoord(matrix, area);
+		
+		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> exp1=new ArrayList<Double>();
+		ArrayList<Double> exp2=new ArrayList<Double>();
+		ArrayList<Double> exp3=new ArrayList<Double>();
+		exp1.add(0.2);
+		exp1.add(0.4);
+		exp2.add(0.8);
+		exp2.add(1.6);
+		exp3.add(3.2);
+		exp3.add(6.4);
 		expected.add(exp1);
 		expected.add(exp2);
 		expected.add(exp3);
@@ -546,6 +605,23 @@ public class TransformationToolsTest extends TestCase {
 		ArrayList<String> expected=new ArrayList<String>();
 		expected.add("Latitude");
 		expected.add("Longitude");
+		expected.add("d(A)");
+		expected.add("d(B)");
+		expected.add("d(C)");
+		
+		//Start the test
+		assertEquals(expected, actual);
+	}
+	
+	public void testGetFeaturesLabelNoCoord() {
+		TransformationTools tm=new TransformationTools();
+		ArrayList<String> a=new ArrayList<String>();
+		a.add("A");
+		a.add("B");
+		a.add("C");
+		ArrayList<String> actual=tm.getFeaturesLabelNoCoord("d", a);
+		
+		ArrayList<String> expected=new ArrayList<String>();
 		expected.add("d(A)");
 		expected.add("d(B)");
 		expected.add("d(C)");

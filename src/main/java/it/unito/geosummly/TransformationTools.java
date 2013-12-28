@@ -196,6 +196,24 @@ public class TransformationTools {
 		return normalizedRecord;
 	}
 	
+	/**Get an intra-feature normalized row of the matrix without considering lat and lng coordinates*/
+	public ArrayList<Double> getIntraFeatureNormalizationNoCoord(ArrayList<Double> record, ArrayList<Double> sumArray) {
+		ArrayList<Double> normalizedRecord=new ArrayList<Double>();
+		double currentValue;
+		double denominator;
+		double normalizedValue;
+		for(int j=0;j<record.size();j++) {
+			currentValue=record.get(j); //get the value
+			denominator=sumArray.get(j);
+			if(denominator>0) //check if denominator is bigger than 0
+				normalizedValue=(currentValue/denominator); //intra-feature normalized value
+			else
+				normalizedValue=0.0;
+			normalizedRecord.add(normalizedValue);
+		}
+		return normalizedRecord;
+	}
+	
 	/**Normalize a value in [0,1]*/
 	public double normalizeValues(double min, double max, double c) {
 		double norm_c=(c-min)/(max-min);
@@ -221,6 +239,14 @@ public class TransformationTools {
 				normalizedArray.add(array.get(0)); //latitude
 				normalizedArray.add(array.get(1)); //longitude
 				for(int i=2;i<array.size();i++) {
+					min=minArray.get(i);
+					max=maxArray.get(i);
+					normalizedValue=normalizeValues(min, max, array.get(i));
+					normalizedArray.add(normalizedValue);
+				}
+			break;
+			case MISSING:
+				for(int i=0;i<array.size();i++) {
 					min=minArray.get(i);
 					max=maxArray.get(i);
 					normalizedValue=normalizeValues(min, max, array.get(i));
@@ -267,20 +293,57 @@ public class TransformationTools {
 		return densMatrix;
 	}
 	
+	/**Get a matrix with density values without considering lat and lng coordinates*/
+	public ArrayList<ArrayList<Double>> buildDensityMatrixNoCoord(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> area) {
+		ArrayList<ArrayList<Double>> densMatrix=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> densRecord;
+		for(int i=0;i<matrix.size();i++) {
+			densRecord=new ArrayList<Double>();
+			for(int j=0;j<matrix.get(i).size();j++) {
+				densRecord.add(matrix.get(i).get(j)/area.get(i));
+			}
+			densMatrix.add(densRecord);
+		}
+		return densMatrix;
+	}
+	
 	/**Get a matrix normalized in [0,1]. Before normalization, densities are intra-feature normalized*/
 	public ArrayList<ArrayList<Double>> buildNormalizedMatrix(CoordinatesNormalizationType type, ArrayList<ArrayList<Double>> matrix) {
 		ArrayList<ArrayList<Double>> intraFeatureMatrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> normalizedMatrix=new ArrayList<ArrayList<Double>>();
-		
-		//get all the sums of the features values per column
-		ArrayList<Double> sumArray=getSumArray(2, matrix); // it starts from index 2 because first two are for lat and lng
-		
-		//get an intra-feature normalized matrix except for the first two columns (lat and lng)
-		for(ArrayList<Double> record: matrix) {
-			ArrayList<Double> intraFeatureRecord=getIntraFeatureNormalization(record, sumArray);
-			intraFeatureMatrix.add(intraFeatureRecord);
+		ArrayList<Double> sumArray;
+		switch (type) {
+			case MISSING:
+				//get all the sums of the features values per column
+				sumArray=getSumArray(0, matrix);
+				
+				//get an intra-feature normalized matrix
+				for(ArrayList<Double> record: matrix) {
+					ArrayList<Double> intraFeatureRecord=getIntraFeatureNormalizationNoCoord(record, sumArray);
+					intraFeatureMatrix.add(intraFeatureRecord);
+				}
+			break;
+			case NORM:
+				//get all the sums of the features values per column
+				sumArray=getSumArray(2, matrix); // it starts from index 2 because first two are for lat and lng
+				
+				//get an intra-feature normalized matrix except for the first two columns (lat and lng)
+				for(ArrayList<Double> record: matrix) {
+					ArrayList<Double> intraFeatureRecord=getIntraFeatureNormalization(record, sumArray);
+					intraFeatureMatrix.add(intraFeatureRecord);
+				}
+			break;
+			case NOTNORM:
+				//get all the sums of the features values per column
+				sumArray=getSumArray(2, matrix); // it starts from index 2 because first two are for lat and lng
+				
+				//get an intra-feature normalized matrix except for the first two columns (lat and lng)
+				for(ArrayList<Double> record: matrix) {
+					ArrayList<Double> intraFeatureRecord=getIntraFeatureNormalization(record, sumArray);
+					intraFeatureMatrix.add(intraFeatureRecord);
+				}
+			break;
 		}
-		
 		//get the arrays of min and max values
 		ArrayList<Double> minArray=getMinArray(intraFeatureMatrix);
 		ArrayList<Double> maxArray=getMaxArray(intraFeatureMatrix);
@@ -288,8 +351,7 @@ public class TransformationTools {
 		//Shift all the values in [0,1] according to each min and max value of the column
 		for(ArrayList<Double> record: intraFeatureMatrix) {
 			ArrayList<Double> normalizedRecord=normalizeRow(type, record, minArray, maxArray);
-			normalizedMatrix.add(normalizedRecord);
-			
+			normalizedMatrix.add(normalizedRecord);	
 		}
 		return normalizedMatrix;
 	}
@@ -313,6 +375,17 @@ public class TransformationTools {
 		featuresLabel.add(features.get(0)); //Latitude
 		featuresLabel.add(features.get(1)); //Longitude
 		for(int i=2;i<features.size();i++) {
+			label=s+"("+features.get(i)+")";
+			featuresLabel.add(label);
+		}
+		return featuresLabel;
+	}
+	
+	/**Get the feature labeled either for frequency, density or normalized density, without considering lat and lng coordinates*/
+	public ArrayList<String> getFeaturesLabelNoCoord(String s, ArrayList<String> features) {
+		String label="";
+		ArrayList<String> featuresLabel=new ArrayList<String>();
+		for(int i=0;i<features.size();i++) {
 			label=s+"("+features.get(i)+")";
 			featuresLabel.add(label);
 		}

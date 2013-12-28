@@ -79,7 +79,8 @@ public class AreaDiscovery {
 		/*********************************VENUES OF AREA 2**************************************/
 		/***************************************************************************************/
 
-		double north_1= 42.54296310520118; //coordinates of Gran Sasso
+
+		double north_1= 42.54296310520118; //coordinates of Gran Sasso National Park
 		double south_1= 42.45588764197166;
 		double west_1= 13.43353271484375;
 		double east_1= 13.542022705078125;
@@ -160,21 +161,25 @@ public class AreaDiscovery {
 		ArrayList<ArrayList<Double>> bigAreaOcc=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> bigAreaDens=new ArrayList<ArrayList<Double>>();
 		//ClassOfArea metropolitan=new ClassOfArea("Local discovery", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA.getDensityStructure());
-		//ClassOfArea metropolitan=new ClassOfArea("Residential", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA_1.getOccurrenceStructure(), sA_2.getOccurrenceStructure(), sA.getDensityStructure(), sA_1.getDensityStructure(), sA_2.getDensityStructure());
+		//ClassOfArea metropolitan=new ClassOfArea("Metropolitan", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA_1.getOccurrenceStructure(), sA_2.getOccurrenceStructure(), sA.getDensityStructure(), sA_1.getDensityStructure(), sA_2.getDensityStructure());
 		ClassOfArea metropolitan=new ClassOfArea("Natural", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA_1.getOccurrenceStructure(), sA.getDensityStructure(), sA_1.getDensityStructure());
 		ArrayList<Double> meanDensities=metropolitan.getMeanArray(metropolitan.getBigAreaDens());
 		ArrayList<ArrayList<Double>> stdMatrix=metropolitan.getStdMatrix(metropolitan.getBigAreaDens());
 		ArrayList<Double> stdSingles=new ArrayList<Double>(stdMatrix.get(0));
 		double n=metropolitan.getBigAreaDens().size();
 		ArrayList<Double> singleDensities=metropolitan.getSingleDensities(meanDensities, stdSingles, n);
-		ArrayList<Double> pairDensities=metropolitan.getPairDensities(metropolitan.getBigAreaDens(), meanDensities, n+n); //n*n
-		ArrayList<Double> tripleDensities=metropolitan.getTripleDensities(metropolitan.getBigAreaDens(), meanDensities, n+n+n); //n*n*n
+		ArrayList<Double> pairDensities=metropolitan.getPairDensities(metropolitan.getBigAreaDens(), meanDensities, n); //n*n
+		ArrayList<Double> tripleDensities=metropolitan.getTripleDensities(metropolitan.getBigAreaDens(), meanDensities, n); //n*n*n
+		ArrayList<Double> quadrupleDensities=metropolitan.getQuadrupleDensities(metropolitan.getBigAreaDens(), meanDensities, n); //n*n*n*n
+		ArrayList<Double> quintupleDensities=metropolitan.getQuintupleDensities(metropolitan.getBigAreaDens(), meanDensities, n); //n*n*n*n*n
 		ArrayList<String> featureFreq=metropolitan.getFeaturesLabel("f",features);
 		ArrayList<String> featureDens=metropolitan.getFeaturesLabel("density",features);
 		ArrayList<String> featureStd=metropolitan.getFeaturesLabel("std", features);
 		ArrayList<String> singleFeatures=metropolitan.getFeaturesLabel("deltad", features);
 		ArrayList<String> pairFeatures= metropolitan.getFeaturesForPairs(features);
 		ArrayList<String> tripleFeatures= metropolitan.getFeaturesForTriples(features);
+		ArrayList<String> quadrupleFeatures= metropolitan.getFeaturesForQuadruples(features);
+		ArrayList<String> quintupleFeatures= metropolitan.getFeaturesForQuintuples(features);
 		
 		/***************************************************************************************/
 		/******************************WRITE OUTPUT TO CSV**********************************/
@@ -231,7 +236,7 @@ public class AreaDiscovery {
             }
             csv_std.flush();
             
-            //write down values for density of singles, pairs, triples
+            //write down values for density of singles, pairs, triples, quadruples, quintuples
             for(int i=0;i<singleDensities.size();i++) {
             	csv_deltad.print(singleFeatures.get(i));
         		csv_deltad.print(singleDensities.get(i));
@@ -244,9 +249,21 @@ public class AreaDiscovery {
 	        	csv_deltad.println();
 	        }
 	        csv_deltad.println();
-	        for(int i=0;i<pairDensities.size();i++) {
+	        for(int i=0;i<tripleDensities.size();i++) {
 	        	csv_deltad.print(tripleFeatures.get(i));
 	    		csv_deltad.print(tripleDensities.get(i));
+	        	csv_deltad.println();
+	        }
+	        csv_deltad.println();
+	        for(int i=0;i<quadrupleDensities.size();i++) {
+	        	csv_deltad.print(quadrupleFeatures.get(i));
+	    		csv_deltad.print(quadrupleDensities.get(i));
+	        	csv_deltad.println();
+	        }
+	        csv_deltad.println();
+	        for(int i=0;i<quintupleDensities.size();i++) {
+	        	csv_deltad.print(quintupleFeatures.get(i));
+	    		csv_deltad.print(quintupleDensities.get(i));
 	        	csv_deltad.println();
 	        }
 	        csv_deltad.flush();
@@ -260,10 +277,14 @@ public class AreaDiscovery {
 		OutputStream outputStream_std;
 		OutputStream outputStream_deltad;
         try {
-            outputStream_freq = new FileOutputStream ("output/discovery/natural/20131211-frequencyNaturalArea.csv");
-            outputStream_dens = new FileOutputStream ("output/discovery/natural/20131211-densityNaturalArea.csv");
-            outputStream_std = new FileOutputStream ("output/discovery/natural/20131211-stdNaturalArea.csv");
-            outputStream_deltad = new FileOutputStream ("output/discovery/natural/20131211-deltadNaturalArea.csv");
+        	outputStream_freq = new FileOutputStream ("output/discovery/natural/20131220-frequencyNaturalArea.csv");
+            outputStream_dens = new FileOutputStream ("output/discovery/natural/20131220-densityNaturalArea.csv");
+            outputStream_std = new FileOutputStream ("output/discovery/natural/20131220-stdNaturalArea.csv");
+            outputStream_deltad = new FileOutputStream ("output/discovery/natural/20131220-deltadNaturalArea.csv");
+        	/*outputStream_freq = new FileOutputStream ("output/discovery/metropolitan/local discovery/20131220-frequencyMetropolitanTurin.csv");
+            outputStream_dens = new FileOutputStream ("output/discovery/metropolitan/local discovery/20131220-densityMetropolitanTurin.csv");
+            outputStream_std = new FileOutputStream ("output/discovery/metropolitan/local discovery/20131220-stdMetropolitanTurin.csv");
+            outputStream_deltad = new FileOutputStream ("output/discovery/metropolitan/local discovery/20131220-deltadMetropolitanTurin.csv");*/
             bout_freq.writeTo(outputStream_freq);
             bout_dens.writeTo(outputStream_dens);
             bout_std.writeTo(outputStream_std);

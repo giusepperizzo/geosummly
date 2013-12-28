@@ -21,7 +21,7 @@ import org.glassfish.jersey.message.internal.ReaderWriter;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**
- * Main class.
+ * ClusteringCorrectness class.
  *
  */
 public class Server {

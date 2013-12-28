@@ -62,6 +62,7 @@ public class Main {
 		ArrayList<Double> bboxArea=new ArrayList<Double>();
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> cellVenue;
+		InformationType infoType=InformationType.CELL;
 		
 		//Download venues informations
 		for(BoundingBox b: data){
@@ -74,26 +75,30 @@ public class Main {
 				coll.insert(doc); //insert the document into MongoDB collection
 			}
 			//Generate a matrix with geopoints informations
-			supportMatrix=tools.getInformations(InformationType.CELL, b.getCenterLat(), b.getCenterLng(), supportMatrix, cellVenue);
+			supportMatrix=tools.getInformations(infoType, b.getCenterLat(), b.getCenterLng(), supportMatrix, cellVenue);
 			bboxArea.add(b.getArea());
 		}
 		supportMatrix=tools.fixRowsLength(tools.getTotal(), supportMatrix); //update rows length for consistency
 		
 		/****************CREATE THE TRANSFORMATION MATRIX AND SERIALIZE IT TO FILE******************/
 		//Build the transformation matrix
-		ArrayList<ArrayList<Double>> frequencyMatrix=tools.sortMatrix(supportMatrix, tools.getMap());
-		ArrayList<ArrayList<Double>> densityMatrix=tools.buildDensityMatrix(frequencyMatrix, bboxArea);
-		ArrayList<ArrayList<Double>> normalizedMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, densityMatrix);
 		TransformationMatrix tm=new TransformationMatrix();
+		ArrayList<ArrayList<Double>> frequencyMatrix=tools.sortMatrix(supportMatrix, tools.getMap());
 		tm.setFrequencyMatrix(frequencyMatrix);
-		tm.setDensityMatrix(densityMatrix);
-		tm.setNormalizedMatrix(normalizedMatrix);
+		if(infoType.equals(InformationType.CELL)) {
+			ArrayList<ArrayList<Double>> densityMatrix=tools.buildDensityMatrix(frequencyMatrix, bboxArea);
+			tm.setDensityMatrix(densityMatrix);
+			ArrayList<ArrayList<Double>> normalizedMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, densityMatrix);
+			tm.setNormalizedMatrix(normalizedMatrix);
+		}
 		tm.setHeader(tools.sortFeatures(tools.getMap()));
 		
 		//write down the transformation matrix to file
 		printResult(tm.getFrequencyMatrix(), tools.getFeaturesLabel("f", tm.getHeader()), "output/frequency-transformation-matrix.csv");
-		printResult(tm.getDensityMatrix(), tools.getFeaturesLabel("density", tm.getHeader()), "output/density-transformation-matrix.csv");
-		printResult(tm.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", tm.getHeader()), "output/normalized-transformation-matrix.csv");
+		if(infoType.equals(InformationType.CELL)) {
+			printResult(tm.getDensityMatrix(), tools.getFeaturesLabel("density", tm.getHeader()), "output/density-transformation-matrix.csv");
+			printResult(tm.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", tm.getHeader()), "output/normalized-transformation-matrix.csv");
+		}
 	}
 	
 	public static void printResult(ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
