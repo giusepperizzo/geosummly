@@ -484,4 +484,51 @@ public class TransformationTools {
 		}
 		return matrix;
 	}
+	
+	/**Get the informations of single venues of a cell considering the focal points of the cell instead of venue's lat and lng*/
+	public ArrayList<ArrayList<Double>> getInformationsWithFocalPts(InformationType type, double lat, double lng, ArrayList<ArrayList<Double>> matrix, ArrayList<FoursquareDataObject> cell) {
+		if(type.equals(InformationType.SINGLE)) {
+			ArrayList<Double> rowOfMatrix=new ArrayList<Double>();
+			for(FoursquareDataObject venue: cell) {
+				String category="";
+				for(Category c: venue.getCategories()) {
+					if(c.getParents().length>0)
+						category=c.getParents()[0]; //take the parent category name only if it is set
+					else
+						category=c.getName();
+				}
+				if(category.length()>0) { //update the matrix only if the category has a name
+					updateMapWithSingle(this.map, category);//update the hash map
+					rowOfMatrix=fillRowWithSingle(this.map, category, lat, lng); //create a consistent row (related to the categories) //row of the transformation matrix (one for each cell);
+					if(this.total<rowOfMatrix.size())
+						this.total=rowOfMatrix.size(); //update the overall number of categories
+					rowOfMatrix.add(0, venue.getLatitude());
+					rowOfMatrix.add(1, venue.getLongitude());
+					matrix.add(rowOfMatrix);
+				}
+			}
+		}
+		return matrix;
+	}
+	
+	/**Group venues occurrences belonging to the same focal points*/
+	public ArrayList<Double> groupSinglesToCell(BoundingBox b, ArrayList<ArrayList<Double>> matrix) {
+		double value;
+		double cLat=b.getCenterLat(); //focal coordinates of the cell
+		double cLng=b.getCenterLng();
+		ArrayList<Double> toRet=buildListZero(matrix.get(0).size()-2);
+		toRet.set(0, cLat); //center latitude and longitude of the cell
+		toRet.set(1, cLng);
+		//Grouping in cells
+		for(ArrayList<Double> record: matrix) {
+			//venues of the same cell
+			if(record.get(2)==cLat && record.get(3)==cLng) {
+				for(int i=4;i<record.size();i++) {
+					value=toRet.get(i-2)+record.get(i); //grouping by summing the occurrences
+					toRet.set(i-2, value);
+				}
+			}
+		}
+		return toRet;
+	}
 }

@@ -219,6 +219,7 @@ public class AreaDiscovery {
             	csv_freq.println();
             }
             csv_freq.flush();
+            csv_freq.close();
             
             for(ArrayList<Double> a: metropolitan.getBigAreaDens()) {
             	for(Double d: a) {
@@ -227,6 +228,7 @@ public class AreaDiscovery {
             	csv_dens.println();
             }
             csv_dens.flush();
+            csv_dens.close();
             
             for(ArrayList<Double> a: stdMatrix) {
             	for(Double d: a) {
@@ -235,6 +237,7 @@ public class AreaDiscovery {
             	csv_std.println();
             }
             csv_std.flush();
+            csv_std.close();
             
             //write down values for density of singles, pairs, triples, quadruples, quintuples
             for(int i=0;i<singleDensities.size();i++) {
@@ -267,6 +270,7 @@ public class AreaDiscovery {
 	        	csv_deltad.println();
 	        }
 	        csv_deltad.flush();
+	        csv_deltad.close();
             
         } catch (IOException e1) {
             e1.printStackTrace();

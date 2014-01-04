@@ -629,4 +629,50 @@ public class TransformationToolsTest extends TestCase {
 		//Start the test
 		assertEquals(expected, actual);
 	}
+	
+	public void testGroupSinglesToCell() {
+		TransformationTools tm=new TransformationTools();
+		BoundingBox b=new BoundingBox();
+		b.setCenterLat(45.0);
+		b.setCenterLng(7.0);
+		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> rec1=new ArrayList<Double>();
+		rec1.add(40.0);
+		rec1.add(30.0);
+		rec1.add(45.0);
+		rec1.add(7.0);
+		rec1.add(1.0);
+		rec1.add(0.0);
+		rec1.add(0.0);
+		matrix.add(rec1);
+		ArrayList<Double> rec2=new ArrayList<Double>();
+		rec2.add(40.5);
+		rec2.add(30.5);
+		rec2.add(25.0);
+		rec2.add(27.0);
+		rec2.add(1.0);
+		rec2.add(1.0);
+		rec2.add(0.0);
+		matrix.add(rec2);
+		ArrayList<Double> rec3=new ArrayList<Double>();
+		rec3.add(40.8);
+		rec3.add(30.8);
+		rec3.add(45.0);
+		rec3.add(7.0);
+		rec3.add(1.0);
+		rec3.add(0.0);
+		rec3.add(1.0);
+		matrix.add(rec3);
+		ArrayList<Double> actual=tm.groupSinglesToCell(b, matrix);
+		
+		ArrayList<Double> expected=new ArrayList<Double>();
+		expected.add(45.0);
+		expected.add(7.0);
+		expected.add(2.0);
+		expected.add(0.0);
+		expected.add(1.0);
+		
+		//Start the test
+		assertEquals(expected, actual);
+	}
 }
