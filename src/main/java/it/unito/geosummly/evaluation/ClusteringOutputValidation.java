@@ -71,70 +71,69 @@ public class ClusteringOutputValidation  {
 		//write down the matrix to file
 		printResult(supportMatrix, tools.getFeaturesForSinglesEvaluation(tools.sortFeatures(tools.getMap())), "output/evaluation/clustering output validation/singles-matrix.csv");
 			
-		/***********CREATE MATRICES A AND B WITH N/2 RANDOM VENUES FOR EACH MATRIX*************/
-		ArrayList<ArrayList<Double>> matrixA=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> matrixB=new ArrayList<ArrayList<Double>>(supportMatrix);
-		int dimension=supportMatrix.size()/2;
-		int randomValue=0;
+		/***********CREATE K MATRICES WITH N/K RANDOM VENUES FOR EACH MATRIX*************/
+		int k=10; //fold number
+		ArrayList<ArrayList<ArrayList<Double>>> allMatrices=new ArrayList<ArrayList<ArrayList<Double>>>();
+		ArrayList<ArrayList<Double>> lastMatrix=new ArrayList<ArrayList<Double>>(supportMatrix);
+		ArrayList<ArrayList<Double>> ithMatrix;
+		int dimension=supportMatrix.size()/k;
+		int randomValue;
 		Random random = new Random();
-		for(int i=0;i<dimension;i++) {
-			randomValue=random.nextInt(supportMatrix.size()); //random number between 0 (included) and matrix.size() (excluded)
-			matrixA.add(supportMatrix.get(randomValue));
+		for(int i=0;i<k-1;i++) {
+			ithMatrix=new ArrayList<ArrayList<Double>>();
+			for(int j=0;j<dimension;j++) {
+				randomValue=random.nextInt(lastMatrix.size()); //random number between 0 (included) and lastFold.size() (excluded)
+				ithMatrix.add(lastMatrix.get(randomValue));
+			}
+			allMatrices.add(ithMatrix);
+			lastMatrix.removeAll(ithMatrix);
 		}
+		allMatrices.add(lastMatrix);
 		
-		matrixB.removeAll(matrixA);
-		logger.log(Level.INFO, "A AND B MATRICES CREATED");
+		logger.log(Level.INFO, "ALL K MATRICES CREATED");
 		
-		/***********DIVIDE A AND B IN 400 CELLS AND GROUP THE VENUES*************/
-		ArrayList<ArrayList<Double>> groupedA=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> groupedB=new ArrayList<ArrayList<Double>>();
+		/***********DIVIDE ALL THE MATRICES IN 400 CELLS AND GROUP THE VENUES*************/
+		ArrayList<ArrayList<ArrayList<Double>>> allGrouped=new ArrayList<ArrayList<ArrayList<Double>>>();
+		ArrayList<ArrayList<Double>> ithGrouped;
 		
-		for(BoundingBox b: data) {
-			groupedA.add(tools.groupSinglesToCell(b, matrixA));
-			groupedB.add(tools.groupSinglesToCell(b, matrixB));
+		for(ArrayList<ArrayList<Double>> matrix: allMatrices) {
+			ithGrouped=new ArrayList<ArrayList<Double>>();
+			for(BoundingBox b: data) {
+				ithGrouped.add(tools.groupSinglesToCell(b, matrix));
+			}
+			allGrouped.add(ithGrouped);
 		}
-		logger.log(Level.INFO, "A AND B MATRICES GROUPED");
+		logger.log(Level.INFO, "ALL K MATRICES GROUPED");
 		
 		/****************CREATE THE TRANSFORMATION MATRICES AND SERIALIZE THEM TO FILE******************/
 		infoType=InformationType.CELL;
 		
-		//Build the transformation matrix for A
-		TransformationMatrix tmA=new TransformationMatrix();
-		ArrayList<ArrayList<Double>> frequencyA=tools.sortMatrix(groupedA, tools.getMap());
-		tmA.setFrequencyMatrix(frequencyA);
-		if(infoType.equals(InformationType.CELL)) {
-			ArrayList<ArrayList<Double>> densityA=tools.buildDensityMatrix(frequencyA, bboxArea);
-			tmA.setDensityMatrix(densityA);
-			ArrayList<ArrayList<Double>> normalizedA=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, densityA);
-			tmA.setNormalizedMatrix(normalizedA);
+		TransformationMatrix ithTm;
+		ArrayList<ArrayList<Double>> ithFrequency;
+		ArrayList<ArrayList<Double>> ithDensity;
+		ArrayList<ArrayList<Double>> ithNormalized;
+		int index=0; //used for file name
+		for(ArrayList<ArrayList<Double>> grouped: allGrouped) {
+			ithTm=new TransformationMatrix();
+			ithFrequency=tools.sortMatrix(grouped, tools.getMap());
+			ithTm.setFrequencyMatrix(ithFrequency);
+			if(infoType.equals(InformationType.CELL)) {
+				ithDensity=tools.buildDensityMatrix(ithFrequency, bboxArea);
+				ithTm.setDensityMatrix(ithDensity);
+				ithNormalized=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, ithDensity);
+				ithTm.setNormalizedMatrix(ithNormalized);
+			}
+			ithTm.setHeader(tools.sortFeatures(tools.getMap()));
+			
+			//write down the transformation matrices to file
+			index++; //just for file name
+			printResult(ithTm.getFrequencyMatrix(), tools.getFeaturesLabel("f", ithTm.getHeader()), "output/evaluation/clustering output validation/frequency-transformation-matrix-fold"+index+".csv");
+			if(infoType.equals(InformationType.CELL)) {
+				printResult(ithTm.getDensityMatrix(), tools.getFeaturesLabel("density", ithTm.getHeader()), "output/evaluation/clustering output validation/density-transformation-matrix-fold"+index+".csv");
+				printResult(ithTm.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", ithTm.getHeader()), "output/evaluation/clustering output validation/normalized-transformation-matrix-fold"+index+".csv");
+			}
 		}
-		tmA.setHeader(tools.sortFeatures(tools.getMap()));
-		
-		//Build the transformation matrix for B
-		TransformationMatrix tmB=new TransformationMatrix();
-		ArrayList<ArrayList<Double>> frequencyB=tools.sortMatrix(groupedB, tools.getMap());
-		tmB.setFrequencyMatrix(frequencyB);
-		if(infoType.equals(InformationType.CELL)) {
-			ArrayList<ArrayList<Double>> densityB=tools.buildDensityMatrix(frequencyB, bboxArea);
-			tmB.setDensityMatrix(densityB);
-			ArrayList<ArrayList<Double>> normalizedB=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, densityB);
-			tmB.setNormalizedMatrix(normalizedB);
-		}
-		tmB.setHeader(tools.sortFeatures(tools.getMap()));
-		logger.log(Level.INFO, "TRANSFORMATION MATRICES OF A AND B CREATED");
-		
-		//write down the transformation matrices to file
-		printResult(tmA.getFrequencyMatrix(), tools.getFeaturesLabel("f", tmA.getHeader()), "output/evaluation/clustering output validation/frequency-transformation-matrix-A.csv");
-		if(infoType.equals(InformationType.CELL)) {
-			printResult(tmA.getDensityMatrix(), tools.getFeaturesLabel("density", tmA.getHeader()), "output/evaluation/clustering output validation/density-transformation-matrix-A.csv");
-			printResult(tmA.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", tmA.getHeader()), "output/evaluation/clustering output validation/normalized-transformation-matrix-A.csv");
-		}
-		printResult(tmB.getFrequencyMatrix(), tools.getFeaturesLabel("f", tmB.getHeader()), "output/evaluation/clustering output validation/frequency-transformation-matrix-B.csv");
-		if(infoType.equals(InformationType.CELL)) {
-			printResult(tmB.getDensityMatrix(), tools.getFeaturesLabel("density", tmB.getHeader()), "output/evaluation/clustering output validation/density-transformation-matrix-B.csv");
-			printResult(tmB.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", tmB.getHeader()), "output/evaluation/clustering output validation/normalized-transformation-matrix-B.csv");
-		}
-		logger.log(Level.INFO, "TRANSFORMATION MATRICES FOR A AND B PRINTED");
+		logger.log(Level.INFO, "TRANSFORMATION MATRICES PRINTED");
 	}
 	
 	public static void printResult(ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
