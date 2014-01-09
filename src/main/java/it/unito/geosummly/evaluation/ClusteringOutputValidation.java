@@ -67,6 +67,9 @@ public class ClusteringOutputValidation  {
 		}
 		supportMatrix=tools.fixRowsLength(tools.getTotal()+2, supportMatrix); //update rows length for consistency (+2 because of venue lat and lng)
 		logger.log(Level.INFO, "GEOPOINTS COLLECTED");
+		
+		//write down the matrix to file
+		printResult(supportMatrix, tools.getFeaturesForSinglesEvaluation(tools.sortFeatures(tools.getMap())), "output/evaluation/clustering output validation/singles-matrix.csv");
 			
 		/***********CREATE MATRICES A AND B WITH N/2 RANDOM VENUES FOR EACH MATRIX*************/
 		ArrayList<ArrayList<Double>> matrixA=new ArrayList<ArrayList<Double>>();

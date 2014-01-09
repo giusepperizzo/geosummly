@@ -368,6 +368,15 @@ public class TransformationTools {
 		return sortedFeatures;
 	}
 	
+	/**Get the features list for the dataset of single venues, used in the second step of evaluation*/
+	public ArrayList<String> getFeaturesForSinglesEvaluation(ArrayList<String> features) {
+		features.add(0, "Venue Latitude");
+		features.add(1, "Venue Longitude");
+		features.set(2, "Focal Latitude");
+		features.set(3, "Focal Longitude");
+		return features;
+	}
+	
 	/**Get the feature labeled either for frequency, density or normalized density*/
 	public ArrayList<String> getFeaturesLabel(String s, ArrayList<String> features) {
 		String label="";
