@@ -592,6 +592,29 @@ public class TransformationToolsTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
+	public void testGetFeaturesForSinglesEvaluation() {
+		TransformationTools tm=new TransformationTools();
+		ArrayList<String> a=new ArrayList<String>();
+		a.add("Latitude");
+		a.add("Longitude");
+		a.add("A");
+		a.add("B");
+		a.add("C");
+		ArrayList<String> actual=tm.getFeaturesForSinglesEvaluation(a);
+		
+		ArrayList<String> expected=new ArrayList<String>();
+		expected.add("Venue Latitude");
+		expected.add("Venue Longitude");
+		expected.add("Focal Latitude");
+		expected.add("Focal Longitude");
+		expected.add("A");
+		expected.add("B");
+		expected.add("C");
+		
+		//Start the test
+		assertEquals(expected, actual);
+	}
+	
 	public void testGetFeaturesLabel() {
 		TransformationTools tm=new TransformationTools();
 		ArrayList<String> a=new ArrayList<String>();
