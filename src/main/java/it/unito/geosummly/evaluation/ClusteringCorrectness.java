@@ -127,6 +127,7 @@ public class ClusteringCorrectness {
 			if(infoType.equals(InformationType.CELL)) {
 				densityRandomMatrix=tools.buildDensityMatrixNoCoord(frequencyRandomMatrix, bboxArea);
 				normalizedRandomMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.MISSING, densityRandomMatrix);
+				printResult(densityRandomMatrix, tools.getFeaturesLabelNoCoord("density_rnd", hdr), "output/evaluation/clustering correctness/random-density-transformation-matrix-"+i+".csv");
 				printResult(normalizedRandomMatrix, tools.getFeaturesLabelNoCoord("normalized_density_rnd", hdr), "output/evaluation/clustering correctness/random-normalized-transformation-matrix-"+i+".csv");
 				logger.log(Level.INFO, "RANDOM MATRIX "+i+" PRINTED");
 			}
