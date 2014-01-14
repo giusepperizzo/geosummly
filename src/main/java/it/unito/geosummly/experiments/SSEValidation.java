@@ -28,7 +28,12 @@ public class SSEValidation {
 				if(i<lines.size()-1) sb.append(",");
 			}
 			sb.append(");\n");
-			sb.append("hist(x)");
+			sb.append("bins=seq(65,115,by=0.5);\n");
+			sb.append("hist(x,"
+							+ "breaks=bins,"
+							+ "xlab=\"SSE\",ylab=\"count\","
+							+ "main=\"Histogram of SSE for 500 random data sets\")");
+			
 			System.out.println(sb.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
