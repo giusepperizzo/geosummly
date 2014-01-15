@@ -116,7 +116,7 @@ public class TransformationTools {
 	public double getSum(ArrayList<ArrayList<Double>> matrix, int index) {
 		double sum=0;
 		for(ArrayList<Double> record: matrix) {
-			sum+=record.get(index);
+				sum+=record.get(index);
 		}
 		return sum;
 	}
@@ -124,7 +124,7 @@ public class TransformationTools {
 	/**Get the total number of elements of all the categories*/
 	public ArrayList<Double> getSumArray(int start, ArrayList<ArrayList<Double>> matrix) {
 		ArrayList<Double> sumArray=new ArrayList<Double>();
-		double sum;
+		double sum=0;
 		for(int j=start; j<matrix.get(0).size(); j++) {
 			sum=getSum(matrix, j);
 			sumArray.add(sum);
@@ -179,18 +179,21 @@ public class TransformationTools {
 	/**Get an intra-feature normalized row of the matrix*/
 	public ArrayList<Double> getIntraFeatureNormalization(ArrayList<Double> record, ArrayList<Double> sumArray) {
 		ArrayList<Double> normalizedRecord=new ArrayList<Double>();
-		double currentValue;
-		double denominator;
-		double normalizedValue;
+		double currentValue=0;
+		double denominator=0;
+		double normalizedValue=0;
 		normalizedRecord.add(record.get(0)); //latitude
 		normalizedRecord.add(record.get(1)); //longitude
 		for(int j=2;j<record.size();j++) {
-			currentValue=record.get(j); //get the value
+			currentValue=record.get(j);
 			denominator=sumArray.get(j-2);
-			if(denominator>0) //check if denominator is bigger than 0
-				normalizedValue=(currentValue/denominator); //intra-feature normalized value
-			else
-				normalizedValue=0.0;
+			
+			if(denominator > 0) { //check if denominator is bigger than 0
+				normalizedValue=currentValue/denominator; //intra-feature normalized value
+			}
+			else {
+				normalizedValue=0;
+			}
 			normalizedRecord.add(normalizedValue);
 		}
 		return normalizedRecord;
@@ -199,16 +202,18 @@ public class TransformationTools {
 	/**Get an intra-feature normalized row of the matrix without considering lat and lng coordinates*/
 	public ArrayList<Double> getIntraFeatureNormalizationNoCoord(ArrayList<Double> record, ArrayList<Double> sumArray) {
 		ArrayList<Double> normalizedRecord=new ArrayList<Double>();
-		double currentValue;
-		double denominator;
-		double normalizedValue;
+		double currentValue=0.0;
+		double normalizedValue=0.0;
+		double denominator=0.0;
 		for(int j=0;j<record.size();j++) {
 			currentValue=record.get(j); //get the value
 			denominator=sumArray.get(j);
-			if(denominator>0) //check if denominator is bigger than 0
+			if(denominator>0.0) {//check if denominator is bigger than 0
 				normalizedValue=(currentValue/denominator); //intra-feature normalized value
-			else
+			}
+			else {
 				normalizedValue=0.0;
+			}
 			normalizedRecord.add(normalizedValue);
 		}
 		return normalizedRecord;
@@ -216,7 +221,9 @@ public class TransformationTools {
 	
 	/**Normalize a value in [0,1]*/
 	public double normalizeValues(double min, double max, double c) {
-		double norm_c=(c-min)/(max-min);
+		double norm_c=0;
+		if(max!=0 || min!=0)
+			norm_c=(c-min)/(max-min);
 		return norm_c;
 	}
 	
@@ -224,8 +231,8 @@ public class TransformationTools {
 	public ArrayList<Double> normalizeRow(CoordinatesNormalizationType type, ArrayList<Double> array, ArrayList<Double> minArray, ArrayList<Double> maxArray) {
 		ArrayList<Double> normalizedArray=new ArrayList<Double>();
 		double normalizedValue;
-		double min;
-		double max;
+		double min=0;
+		double max=0;
 		switch (type) {
 			case NORM:
 				for(int i=0;i<array.size();i++) {

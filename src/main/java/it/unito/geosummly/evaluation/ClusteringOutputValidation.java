@@ -82,7 +82,7 @@ public class ClusteringOutputValidation  {
 		for(int i=0;i<k-1;i++) {
 			ithMatrix=new ArrayList<ArrayList<Double>>();
 			for(int j=0;j<dimension;j++) {
-				randomValue=random.nextInt(lastMatrix.size()); //random number between 0 (included) and lastFold.size() (excluded)
+				randomValue=random.nextInt(lastMatrix.size()); //random number between 0 (included) and lastMatrix.size() (excluded)
 				ithMatrix.add(lastMatrix.get(randomValue));
 			}
 			allMatrices.add(ithMatrix);
@@ -118,19 +118,19 @@ public class ClusteringOutputValidation  {
 			ithFrequency=tools.sortMatrix(grouped, tools.getMap());
 			ithTm.setFrequencyMatrix(ithFrequency);
 			if(infoType.equals(InformationType.CELL)) {
-				ithDensity=tools.buildDensityMatrix(ithFrequency, bboxArea);
+				ithDensity=tools.buildDensityMatrix(ithTm.getFrequencyMatrix(), bboxArea);
 				ithTm.setDensityMatrix(ithDensity);
-				ithNormalized=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, ithDensity);
+				ithNormalized=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, ithTm.getDensityMatrix());
 				ithTm.setNormalizedMatrix(ithNormalized);
 			}
 			ithTm.setHeader(tools.sortFeatures(tools.getMap()));
 			
 			//write down the transformation matrices to file
 			index++; //just for file name
-			printResult(ithTm.getFrequencyMatrix(), tools.getFeaturesLabel("f", ithTm.getHeader()), "output/evaluation/clustering output validation/frequency-transformation-matrix-fold"+index+".csv");
+			printResult(ithTm.getFrequencyMatrix(), tools.getFeaturesLabel("f", ithTm.getHeader()), "output/evaluation/clustering output validation/10-holdout/cross_fold_validation/frequency-transformation-matrix-fold"+index+".csv");
 			if(infoType.equals(InformationType.CELL)) {
-				printResult(ithTm.getDensityMatrix(), tools.getFeaturesLabel("density", ithTm.getHeader()), "output/evaluation/clustering output validation/density-transformation-matrix-fold"+index+".csv");
-				printResult(ithTm.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", ithTm.getHeader()), "output/evaluation/clustering output validation/normalized-transformation-matrix-fold"+index+".csv");
+				printResult(ithTm.getDensityMatrix(), tools.getFeaturesLabel("density", ithTm.getHeader()), "output/evaluation/clustering output validation/10-holdout/cross_fold_validation/density-transformation-matrix-fold"+index+".csv");
+				printResult(ithTm.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", ithTm.getHeader()), "output/evaluation/clustering output validation/10-holdout/cross_fold_validation/normalized-transformation-matrix-fold"+index+".csv");
 			}
 		}
 		logger.log(Level.INFO, "TRANSFORMATION MATRICES PRINTED");
