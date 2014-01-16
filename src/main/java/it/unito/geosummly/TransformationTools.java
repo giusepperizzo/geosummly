@@ -76,7 +76,7 @@ public class TransformationTools {
 		double value=0;
 		int size=map.size()+2;
 		ArrayList<Double> row=buildListZero(size);
-		row.set(0, lat); //lat, lng and area are in position 0 and 1
+		row.set(0, lat); //lat and lng are in position 0 and 1
 		row.set(1, lng);
 		Iterator<String> iterD=distincts.iterator();
 		Iterator<Integer> iterO=occurrences.iterator();
