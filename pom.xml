@@ -104,5 +104,12 @@
             <scope>system</scope>
             <systemPath>${system.libs}/commons-csv-1.0-20131011.114144-243.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>jp.ndca.similarity.distance</groupId>
+            <artifactId>simjoin</artifactId>
+            <version>0.0.1</version>    
+            <scope>system</scope>
+            <systemPath>${system.libs}/simjoin.jar</systemPath>
+        </dependency>
 	</dependencies>
 </project>
