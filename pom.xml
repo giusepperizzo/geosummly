@@ -111,5 +111,10 @@
             <scope>system</scope>
             <systemPath>${system.libs}/simjoin.jar</systemPath>
         </dependency>
+        <dependency>
+			<groupId>org.mapfish.geo</groupId>
+			<artifactId>mapfish-geo-lib</artifactId>
+			<version>1.2.0</version>
+		</dependency>
 	</dependencies>
 </project>
