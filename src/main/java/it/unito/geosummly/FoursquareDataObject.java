@@ -29,14 +29,16 @@ public class FoursquareDataObject {
 	private Integer usersCount;
 	private String url;
 	private Long hereNow;
+	private Long timestamp;
 	
 	public static Logger logger = Logger.getLogger(FoursquareDataObject.class.toString());
 	
 
 	public FoursquareDataObject(){}
 	
+	/**constructor without row and column informations*/
 	public FoursquareDataObject(String vId, String vName, double lat, double lng, Category[] cat, String email, 
-			String phone, String fb, String tw, boolean ver, int chkCount, int usrCount, String url, long hn) {
+			String phone, String fb, String tw, boolean ver, int chkCount, int usrCount, String url, long hn, long timestamp) {
 		this.venueId=vId;
 		this.venueName=vName;
 		this.latitude=lat;
@@ -51,10 +53,12 @@ public class FoursquareDataObject {
 		this.usersCount=usrCount;
 		this.url=url;
 		this.hereNow=hn;
+		this.timestamp=timestamp;
 	}
 	
+	/**Constructor with row and column informations*/
 	public FoursquareDataObject(int row, int col, String vId, String vName, double lat, double lng, Category[] cat, String email, 
-			String phone, String fb, String tw, boolean ver, int chkCount, int usrCount, String url, long hn) {
+			String phone, String fb, String tw, boolean ver, int chkCount, int usrCount, String url, long hn, long timestamp) {
 		this.row=row; 
 		this.column=col;
 		this.venueId=vId;
@@ -71,8 +75,9 @@ public class FoursquareDataObject {
 		this.usersCount=usrCount;
 		this.url=url;
 		this.hereNow=hn;
+		this.timestamp=timestamp;
 	}
-
+	
 	public int getRow() {
 		return row;
 	}
@@ -201,6 +206,14 @@ public class FoursquareDataObject {
 		this.hereNow = hereNow;
 	}
 	
+	public Long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Long timestamp) {
+		this.timestamp = timestamp;
+	}
+	
 	public String toString() {
 		return "FoursquareDataObject [row=" + row + ", column=" + column
 				+ ", venueId=" + venueId + ", venueName=" + venueName
@@ -209,6 +222,6 @@ public class FoursquareDataObject {
 				+ email + ", phone=" + phone + ", facebook=" + facebook
 				+ ", twitter=" + twitter + ", verified=" + verified
 				+ ", checkinsCount=" + checkinsCount + ", usersCount="
-				+ usersCount + ", url=" + url + ", hereNow=" + hereNow + "]";
+				+ usersCount + ", url=" + url + ", hereNow=" + hereNow +", timestamp= "+ timestamp+ "]";
 	}
 }

@@ -55,7 +55,7 @@ public class FoursquareSearchVenues {
 	    				venue.getLocation().getLng(), venue.getCategories(), venue.getContact().getEmail(),
 	    				venue.getContact().getPhone(), venue.getContact().getFacebook(), venue.getContact().getTwitter(), 
 	    				venue.getVerified(), venue.getStats().getCheckinsCount(), venue.getStats().getUsersCount(), 
-	    				venue.getUrl(), venue.getHereNow().getCount());
+	    				venue.getUrl(), venue.getHereNow().getCount(), System.currentTimeMillis());
 	    		doclist.add(dataobj);
 	    	}
 	    	return doclist;
@@ -85,7 +85,7 @@ public class FoursquareSearchVenues {
 	    				venue.getLocation().getLng(), venue.getCategories(), venue.getContact().getEmail(),
 	    				venue.getContact().getPhone(), venue.getContact().getFacebook(), venue.getContact().getTwitter(), 
 	    				venue.getVerified(), venue.getStats().getCheckinsCount(), venue.getStats().getUsersCount(), 
-	    				venue.getUrl(), venue.getHereNow().getCount());
+	    				venue.getUrl(), venue.getHereNow().getCount(), System.currentTimeMillis());
 	    		doclist.add(dataobj);
 	    	}
 	    	return doclist;
