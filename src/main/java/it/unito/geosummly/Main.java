@@ -1,18 +1,10 @@
 package it.unito.geosummly;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
@@ -94,45 +86,11 @@ public class Main {
 		tm.setHeader(tools.sortFeatures(tools.getMap()));
 		
 		//write down the transformation matrix to file
-		printResult(tm.getFrequencyMatrix(), tools.getFeaturesLabel("f", tm.getHeader()), "output/frequency-transformation-matrix.csv");
+		DataPrinter dp=new DataPrinter();
+		dp.printResult(tm.getFrequencyMatrix(), tools.getFeaturesLabel("f", tm.getHeader()), "output/frequency-transformation-matrix.csv");
 		if(infoType.equals(InformationType.CELL)) {
-			printResult(tm.getDensityMatrix(), tools.getFeaturesLabel("density", tm.getHeader()), "output/density-transformation-matrix.csv");
-			printResult(tm.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", tm.getHeader()), "output/normalized-transformation-matrix.csv");
+			dp.printResult(tm.getDensityMatrix(), tools.getFeaturesLabel("density", tm.getHeader()), "output/density-transformation-matrix.csv");
+			dp.printResult(tm.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", tm.getHeader()), "output/normalized-transformation-matrix.csv");
 		}
-	}
-	
-	public static void printResult(ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
-		ByteArrayOutputStream bout = new ByteArrayOutputStream();
-		OutputStreamWriter osw = new OutputStreamWriter(bout);
-        try {
-            CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
-            
-            //print the header of the matrix
-            for(String f: features) {
-            	csv.print(f);
-            }
-            csv.println();
-            
-            //iterate per each row of the matrix
-            for(ArrayList<Double> a: matrix) {
-            	for(Double d: a) {
-            		csv.print(d);
-            	}
-            	csv.println();
-            }
-            csv.flush();
-            csv.close();
-        } catch (IOException e1) {
-    		e1.printStackTrace();
-        }
-        OutputStream outputStream;
-        try {
-            outputStream = new FileOutputStream (output);
-            bout.writeTo(outputStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 	}
 }
