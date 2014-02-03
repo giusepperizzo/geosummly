@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import fi.foyt.foursquare.api.FoursquareApi;
 import fi.foyt.foursquare.api.FoursquareApiException;
 import fi.foyt.foursquare.api.Result;
-import fi.foyt.foursquare.api.entities.Category;
 import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 
@@ -50,12 +49,13 @@ public class FoursquareSearchVenues {
 	    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
 	    if(result.getMeta().getCode() == 200) {  	
     		FoursquareDataObject dataobj;
+    		long timestamp=System.currentTimeMillis();
 	    	for(CompactVenue venue : result.getResult().getVenues()) {
 	    		dataobj=new FoursquareDataObject(row, column, venue.getId(), venue.getName(), venue.getLocation().getLat(),
 	    				venue.getLocation().getLng(), venue.getCategories(), venue.getContact().getEmail(),
 	    				venue.getContact().getPhone(), venue.getContact().getFacebook(), venue.getContact().getTwitter(), 
 	    				venue.getVerified(), venue.getStats().getCheckinsCount(), venue.getStats().getUsersCount(), 
-	    				venue.getUrl(), venue.getHereNow().getCount(), System.currentTimeMillis());
+	    				venue.getUrl(), venue.getHereNow().getCount(), timestamp);
 	    		doclist.add(dataobj);
 	    	}
 	    	return doclist;
@@ -80,12 +80,13 @@ public class FoursquareSearchVenues {
 	    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
 	    if(result.getMeta().getCode() == 200) {  	
     		FoursquareDataObject dataobj;
+    		long timestamp=System.currentTimeMillis();
 	    	for(CompactVenue venue : result.getResult().getVenues()) {
 	    		dataobj=new FoursquareDataObject(venue.getId(), venue.getName(), venue.getLocation().getLat(),
 	    				venue.getLocation().getLng(), venue.getCategories(), venue.getContact().getEmail(),
 	    				venue.getContact().getPhone(), venue.getContact().getFacebook(), venue.getContact().getTwitter(), 
 	    				venue.getVerified(), venue.getStats().getCheckinsCount(), venue.getStats().getUsersCount(), 
-	    				venue.getUrl(), venue.getHereNow().getCount(), System.currentTimeMillis());
+	    				venue.getUrl(), venue.getHereNow().getCount(), timestamp);
 	    		doclist.add(dataobj);
 	    	}
 	    	return doclist;
@@ -94,61 +95,5 @@ public class FoursquareSearchVenues {
     			logger.log(Level.INFO, "Error occurred:\ncode: "+result.getMeta().getCode()+"\ntype: "+result.getMeta().getErrorType()+"\ndetail: "+result.getMeta().getErrorDetail());
     			return doclist;
 	    }
-	}
-	
-	//Return the total number of categories for a bounding box cell
-	public int getCategoriesNumber(ArrayList<FoursquareDataObject> array) {
-		int n=0;
-		for(FoursquareDataObject fdo: array) {
-			n+=fdo.getCategories().length;
-		}
-		return n;
-	}
-	
-	//Create a list with distinct categories for a bounding box cell
-	public ArrayList<String> createCategoryList(ArrayList<FoursquareDataObject> array) {
-		ArrayList<String> categories=new ArrayList<String>();
-		for(int i=0; i<array.size();i++){
-			Category[] cat_array=array.get(i).getCategories();
-			for(int j=0; j<cat_array.length;j++){
-				String c;
-				if(cat_array[j].getParents().length>0)
-					c=cat_array[j].getParents()[0]; //take the parent category name only if it is set
-				else
-					c=cat_array[j].getName();
-				int k=0;
-				boolean found=false;
-				while(k<categories.size() && !found) {
-					String s=categories.get(k);
-					if(c.equals((String) s))
-						found=true;
-					k++;
-				}
-				if(!found)
-					categories.add(c);
-			}
-		}
-		return categories;
-	}
-		
-	//Create a list with the number of occurrences for each distinct category
-	public ArrayList<Integer> getCategoryOccurences(ArrayList<FoursquareDataObject> array, ArrayList<String> cat_list) {
-		int n;
-		ArrayList<Integer> occurrences=new ArrayList<Integer>();
-		for(String s: cat_list) {
-			n=0;
-			for(FoursquareDataObject fdo: array)
-				for(Category c: fdo.getCategories()) {
-					String str;
-					if(c.getParents().length>0)
-						str=c.getParents()[0]; //take the parent category name only if it is set
-					else
-						str=c.getName();
-					if(str.equals((String) s))
-						n++;
-				}
-			occurrences.add(n);
-		}
-		return occurrences;
 	}
  }

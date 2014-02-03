@@ -49,4 +49,32 @@ public class DataPrinter {
             e.printStackTrace();
         }
 	}
+	
+	public void printResultForDiscovery(ArrayList<Double> deltadValues, ArrayList<String> features, String output) {
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+		OutputStreamWriter osw = new OutputStreamWriter(bout);
+        try {
+            CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
+            
+            //iterate per each element of the list
+        	for(int i=0;i<deltadValues.size();i++) {
+        		csv.print(features.get(i));
+        		csv.print(deltadValues.get(i));
+        		csv.println();
+            }
+            csv.flush();
+            csv.close();
+        } catch (IOException e1) {
+    		e1.printStackTrace();
+        }
+        OutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream (output);
+            bout.writeTo(outputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 }

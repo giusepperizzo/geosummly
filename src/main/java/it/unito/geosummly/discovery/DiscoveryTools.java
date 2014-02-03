@@ -2,77 +2,9 @@ package it.unito.geosummly.discovery;
 
 import java.util.ArrayList;
 
-public class ClassOfArea {
-	private String type;
-	private ArrayList<ArrayList<Double>> bigAreaOcc;
-	private ArrayList<ArrayList<Double>> bigAreaDens;
+public class DiscoveryTools {
 	
-	
-	public ClassOfArea(String type, ArrayList<ArrayList<Double>> bigAreaOcc, ArrayList<ArrayList<Double>> bigAreaDens, ArrayList<ArrayList<Double>> area_1_occ, ArrayList<ArrayList<Double>> area_1_dens) {
-		this.type=type;
-		this.bigAreaOcc=bigAreaOcc;
-		this.bigAreaDens=bigAreaDens;
-		for(ArrayList<Double> record: area_1_occ)
-			this.bigAreaOcc.add(record);
-		for(ArrayList<Double> record: area_1_dens)
-			this.bigAreaDens.add(record);
-	}
-	
-	public ClassOfArea(String type, ArrayList<ArrayList<Double>> bigAreaOcc, ArrayList<ArrayList<Double>> bigAreaDens, ArrayList<ArrayList<Double>> area_1_occ, ArrayList<ArrayList<Double>> area_2_occ, ArrayList<ArrayList<Double>> area_1_dens, ArrayList<ArrayList<Double>> area_2_dens) {
-		this.type=type;
-		this.bigAreaOcc=bigAreaOcc;
-		this.bigAreaDens=bigAreaDens;
-		for(ArrayList<Double> record: area_1_occ)
-			this.bigAreaOcc.add(record);
-		for(ArrayList<Double> record: area_2_occ)
-			this.bigAreaOcc.add(record);
-		for(ArrayList<Double> record: area_1_dens)
-			this.bigAreaDens.add(record);
-		for(ArrayList<Double> record: area_2_dens)
-			this.bigAreaDens.add(record);
-	}
-	
-	public ClassOfArea(String type, ArrayList<ArrayList<Double>> bigAreaOcc, ArrayList<ArrayList<Double>> bigAreaDens, ArrayList<ArrayList<Double>> area_1_occ, ArrayList<ArrayList<Double>> area_2_occ, ArrayList<ArrayList<Double>> area_3_occ, ArrayList<ArrayList<Double>> area_1_dens, ArrayList<ArrayList<Double>> area_2_dens, ArrayList<ArrayList<Double>> area_3_dens ) {
-		this.type=type;
-		this.bigAreaOcc=bigAreaOcc;
-		this.bigAreaDens=bigAreaDens;
-		for(ArrayList<Double> record: area_1_occ)
-			this.bigAreaOcc.add(record);
-		for(ArrayList<Double> record: area_2_occ)
-			this.bigAreaOcc.add(record);
-		for(ArrayList<Double> record: area_3_occ)
-			this.bigAreaOcc.add(record);
-		for(ArrayList<Double> record: area_1_dens)
-			this.bigAreaDens.add(record);
-		for(ArrayList<Double> record: area_2_dens)
-			this.bigAreaDens.add(record);
-		for(ArrayList<Double> record: area_3_dens)
-			this.bigAreaDens.add(record);
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public ArrayList<ArrayList<Double>> getBigAreaOcc() {
-		return bigAreaOcc;
-	}
-
-	public void setBigAreaOcc(ArrayList<ArrayList<Double>> bigAreaOcc) {
-		this.bigAreaOcc = bigAreaOcc;
-	}
-	
-	public ArrayList<ArrayList<Double>> getBigAreaDens() {
-		return bigAreaDens;
-	}
-
-	public void setBigAreaDens(ArrayList<ArrayList<Double>> bigAreaDens) {
-		this.bigAreaDens = bigAreaDens;
-	}
+	public DiscoveryTools() {}
 	
 	//get an array with the mean for each category
 	public ArrayList<Double> getMeanArray(ArrayList<ArrayList<Double>> matrix) {

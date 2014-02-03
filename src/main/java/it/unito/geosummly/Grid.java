@@ -23,7 +23,6 @@ public class Grid {
 		return bbox;
 	}
 	
-	//Create the bounding box and define its coordinates
 	public void setBbox(BoundingBox bbox){
 		this.bbox=bbox;
 	}
@@ -87,6 +86,33 @@ public class Grid {
 			//update the row index
 			northSingleCell=southSingleCell;
 			row++;
+		}
+	}
+	
+	//Create a grid with randomNumber random cells with coordinates belonging to the bounding box coordinates interval (this method is useful for the discovery step)
+	public void createRandomCells(int randomNumber) {
+		BoundingBox b=this.bbox;
+		BoundingBox singleCell;
+		int num=this.cellsNumber;
+		double cellWidth=(b.getEast()-b.getWest())/num; //Width of a single cell
+		double cellHeight=(b.getNorth()-b.getSouth())/num;
+		double northSingleCell;
+		double southSingleCell;
+		double westSingleCell;
+		double eastSingleCell;
+		int randomEastFactor;
+		int randomSouthFactor;
+		int i=0;
+		while(i<randomNumber) {
+			randomSouthFactor=((int) (Math.random()*(num-1)))+1;
+			randomEastFactor=((int) (Math.random()*(num-1)))+1; //integer number in [1, cellnum-1] in order to not exceed the grid coordinate values
+			southSingleCell=b.getNorth()-(cellHeight*randomSouthFactor);
+			northSingleCell=southSingleCell+cellHeight;
+			eastSingleCell=b.getWest()+(cellWidth*randomEastFactor);
+			westSingleCell=eastSingleCell-cellWidth;
+			singleCell=new BoundingBox(northSingleCell, southSingleCell, westSingleCell, eastSingleCell);
+			structure.add(singleCell);
+			i++;
 		}
 	}
 	

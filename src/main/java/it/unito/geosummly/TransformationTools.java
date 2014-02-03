@@ -284,6 +284,24 @@ public class TransformationTools {
 		return sortedMatrix;
 	}
 	
+	/**Sort matrix in alphabetical order for columns without considering lat and lng coordinates*/
+	public ArrayList<ArrayList<Double>> sortMatrixNoCoord(ArrayList<ArrayList<Double>> matrix, HashMap<String,Integer> map) {
+		ArrayList<ArrayList<Double>> sortedMatrix=new ArrayList<ArrayList<Double>>();
+		int value;
+		ArrayList<Double> sortedRecord;
+		ArrayList<String> keys=new ArrayList<String>(map.keySet());
+		
+		for(ArrayList<Double> row: matrix) {
+			sortedRecord=new ArrayList<Double>();
+			for(String k: keys) {
+				value=map.get(k);
+				sortedRecord.add(row.get(value));
+			}
+			sortedMatrix.add(sortedRecord);
+		}
+		return sortedMatrix;
+	}
+	
 	/**Get a matrix with density values*/
 	public ArrayList<ArrayList<Double>> buildDensityMatrix(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> area) {
 		ArrayList<ArrayList<Double>> densMatrix=new ArrayList<ArrayList<Double>>();
@@ -479,7 +497,7 @@ public class TransformationTools {
 						category=c.getName();
 				}
 				updateMapWithSingle(this.map, category);//update the hash map
-				rowOfMatrix=fillRowWithSingle(this.map, category, venue.getLatitude(), venue.getLongitude()); //create a consistent row (related to the categories) //row of the transformation matrix (one for each cell);
+				rowOfMatrix=fillRowWithSingle(this.map, category, venue.getLatitude(), venue.getLongitude()); //create a consistent row (related to the categories). row of the transformation matrix (one for each venue);
 				if(this.total<rowOfMatrix.size())
 					this.total=rowOfMatrix.size(); //update the overall number of categories
 				matrix.add(rowOfMatrix);
@@ -492,7 +510,7 @@ public class TransformationTools {
 			distinctList=createCategoryList(cell);
 			occurrencesList=getCategoryOccurences(cell, distinctList);
 			updateMapWithCell(this.map, distinctList);//update the hash map
-			rowOfMatrix=fillRowWithCell(this.map, occurrencesList, distinctList, lat, lng); //create a consistent row (related to the categories) //row of the transformation matrix (one for each cell);
+			rowOfMatrix=fillRowWithCell(this.map, occurrencesList, distinctList, lat, lng); //create a consistent row (related to the categories). row of the transformation matrix (one for each cell);
 			if(this.total<rowOfMatrix.size())
 				this.total=rowOfMatrix.size(); //update the overall number of categories
 			matrix.add(rowOfMatrix);
@@ -515,7 +533,7 @@ public class TransformationTools {
 				}
 				if(category.length()>0) { //update the matrix only if the category has a name
 					updateMapWithSingle(this.map, category);//update the hash map
-					rowOfMatrix=fillRowWithSingle(this.map, category, lat, lng); //create a consistent row (related to the categories) //row of the transformation matrix (one for each cell);
+					rowOfMatrix=fillRowWithSingle(this.map, category, lat, lng); //create a consistent row (related to the categories). row of the transformation matrix (one for each venue);
 					if(this.total<rowOfMatrix.size())
 						this.total=rowOfMatrix.size(); //update the overall number of categories
 					rowOfMatrix.add(0, venue.getLatitude());

@@ -2,22 +2,17 @@ package it.unito.geosummly.discovery;
 
 import fi.foyt.foursquare.api.FoursquareApiException;
 import it.unito.geosummly.BoundingBox;
+import it.unito.geosummly.DataPrinter;
 import it.unito.geosummly.FoursquareDataObject;
 import it.unito.geosummly.FoursquareSearchVenues;
+import it.unito.geosummly.Grid;
+import it.unito.geosummly.InformationType;
+import it.unito.geosummly.TransformationTools;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 
 public class AreaDiscovery {
 	
@@ -36,6 +31,9 @@ public class AreaDiscovery {
 		features.add("Shop & Service");
 		features.add("Travel & Transport");
 		
+		InformationType infoType=InformationType.CELL;
+		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
+		
 		/***************************************************************************************/
 		/*********************************VENUES OF AREA 1**************************************/
 		/***************************************************************************************/
@@ -47,33 +45,33 @@ public class AreaDiscovery {
 		
 		int cellsNumber=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber=100; //number of samples of the sample area
-		ArrayList<BoundingBox> gridStructure=new ArrayList<BoundingBox>();
-		ArrayList<ArrayList<Double>> occurrenceStructure=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> densityStructure=new ArrayList<ArrayList<Double>>();
+		
+		BoundingBox bbox=new BoundingBox(north, south, west, east); //Initialize the bounding box
+		ArrayList<BoundingBox> data=new ArrayList<BoundingBox>(); //Data structure
+		
+		//Create the grid
+		Grid grid=new Grid();
+		grid.setCellsNumber(cellsNumber);
+		grid.setBbox(bbox); //I need the bounding box in order to get the initial coordinates 
+		grid.setStructure(data);
+		grid.createRandomCells(sampleNumber);
+		
+		//Get the tools class and its support variables
+		TransformationTools tools=new TransformationTools();
 		HashMap<String, Integer> map=new HashMap<String, Integer>(); //HashMap of all the distinct categories
-		SampleArea sA=new SampleArea(north, south, west, east);
-		sA.setGridStructure(gridStructure);
-		sA.setOccurrenceStructure(occurrenceStructure);
-		sA.setDensityStructure(densityStructure);
-		sA.setCellsNumber(cellsNumber);
-		sA.setSampleNumber(sampleNumber);
-		sA.setMap(map);
-		sA.updateMap(features);
-		sA.setFeatures(features);
-		sA.createSampleGrid(); //fill the gridStructure with 'sampleNumber' samples
+		tools.setMap(tools.updateMapWithCell(map, features));
+		ArrayList<ArrayList<Double>> supportMatrix=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> bboxArea=new ArrayList<Double>();
+		ArrayList<FoursquareDataObject> cellVenue;
 		
-		ArrayList<String> distinct_list; //list of all the distinct categories for a single cell
-		ArrayList<Integer> occurrences_list; //list of the occurrences of the distinct categories for a single cell
-		
-		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
-		ArrayList<FoursquareDataObject> venueInfo;
-		for(BoundingBox b: sA.getGridStructure()){
+		for(BoundingBox b: data){
 			//Venues of a single cell
-			venueInfo=fsv.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
-			distinct_list=fsv.createCategoryList(venueInfo); 
-			occurrences_list=fsv.getCategoryOccurences(venueInfo, distinct_list);
-			sA.fillRecord(occurrences_list, distinct_list, b.getArea()); //create a consistent row (related to the categories)
+			cellVenue=fsv.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
+			//Generate a matrix with geopoints informations
+			supportMatrix=tools.getInformations(infoType, b.getCenterLat(), b.getCenterLng(), supportMatrix, cellVenue);
+			bboxArea.add(b.getArea());
 		}
+		supportMatrix=tools.fixRowsLength(tools.getTotal(), supportMatrix); //update rows length for consistency
 		
 		/***************************************************************************************/
 		/*********************************VENUES OF AREA 2**************************************/
@@ -87,216 +85,127 @@ public class AreaDiscovery {
 		
 		int cellsNumber_1=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber_1=100; //number of samples of the sample area
-		ArrayList<BoundingBox> gridStructure_1=new ArrayList<BoundingBox>();
-		ArrayList<ArrayList<Double>> occurrenceStructure_1=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> densityStructure_1=new ArrayList<ArrayList<Double>>();
+		
+		BoundingBox bbox_1=new BoundingBox(north_1, south_1, west_1, east_1); //Initialize the bounding box
+		ArrayList<BoundingBox> data_1=new ArrayList<BoundingBox>(); //Data structure
+		
+		//Create the grid
+		Grid grid_1=new Grid();
+		grid_1.setCellsNumber(cellsNumber_1);
+		grid_1.setBbox(bbox_1); //I need the bounding box in order to get the initial coordinates 
+		grid_1.setStructure(data_1);
+		grid_1.createRandomCells(sampleNumber_1);
+		
+		//Get the tools class and its support variables
+		TransformationTools tools_1=new TransformationTools();
 		HashMap<String, Integer> map_1=new HashMap<String, Integer>(); //HashMap of all the distinct categories
-		SampleArea sA_1=new SampleArea(north_1, south_1, west_1, east_1);
-		sA_1.setGridStructure(gridStructure_1);
-		sA_1.setOccurrenceStructure(occurrenceStructure_1);
-		sA_1.setDensityStructure(densityStructure_1);
-		sA_1.setCellsNumber(cellsNumber_1);
-		sA_1.setSampleNumber(sampleNumber_1);
-		sA_1.setMap(map_1);
-		sA_1.updateMap(features);
-		sA_1.setFeatures(features);
-		sA_1.createSampleGrid(); //fill the gridStructure with 'sampleNumber' samples
+		tools_1.setMap(tools_1.updateMapWithCell(map_1, features));
+		ArrayList<ArrayList<Double>> supportMatrix_1=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> bboxArea_1=new ArrayList<Double>();
+		ArrayList<FoursquareDataObject> cellVenue_1;
 		
-		ArrayList<String> distinct_list_1; //list of all the distinct categories for a single cell
-		ArrayList<Integer> occurrences_list_1; //list of the occurrences of the distinct categories for a single cell
-		
-		FoursquareSearchVenues fsv_1=new FoursquareSearchVenues();
-		ArrayList<FoursquareDataObject> venueInfo_1;
-		for(BoundingBox b: sA_1.getGridStructure()){
+		for(BoundingBox b: data_1){
 			//Venues of a single cell
-			venueInfo_1=fsv_1.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
-			distinct_list_1=fsv_1.createCategoryList(venueInfo_1); 
-			occurrences_list_1=fsv_1.getCategoryOccurences(venueInfo_1, distinct_list_1);
-			sA_1.fillRecord(occurrences_list_1, distinct_list_1, b.getArea()); //create a consistent row (related to the categories)
+			cellVenue_1=fsv.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
+			//Generate a matrix with geopoints informations
+			supportMatrix_1=tools_1.getInformations(infoType, b.getCenterLat(), b.getCenterLng(), supportMatrix_1, cellVenue_1);
+			bboxArea_1.add(b.getArea());
 		}
+		supportMatrix_1=tools_1.fixRowsLength(tools_1.getTotal(), supportMatrix_1); //update rows length for consistency
 		
 		/***************************************************************************************/
 		/*********************************VENUES OF AREA 3**************************************/
 		/***************************************************************************************/
 		
-		/*double north_2= 41.91875659707589; //coordinates of Rome city center
-		double south_2= 41.87409864599624;
-		double west_2= 12.451157569885254;
-		double east_2= 12.518448829650879;
+		double north_2= 42.54296310520118; //coordinates of Gran Sasso National Park
+		double south_2= 42.45588764197166;
+		double west_2= 13.43353271484375;
+		double east_2= 13.542022705078125;
 		
 		int cellsNumber_2=20; //it corresponds to cellsNumber of class grid
 		int sampleNumber_2=100; //number of samples of the sample area
-		ArrayList<BoundingBox> gridStructure_2=new ArrayList<BoundingBox>();
-		ArrayList<ArrayList<Double>> occurrenceStructure_2=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> densityStructure_2=new ArrayList<ArrayList<Double>>();
+		
+		BoundingBox bbox_2=new BoundingBox(north_2, south_2, west_2, east_2); //Initialize the bounding box
+		ArrayList<BoundingBox> data_2=new ArrayList<BoundingBox>(); //Data structure
+		
+		//Create the grid
+		Grid grid_2=new Grid();
+		grid_2.setCellsNumber(cellsNumber_2);
+		grid_2.setBbox(bbox_2); //I need the bounding box in order to get the initial coordinates 
+		grid_2.setStructure(data_2);
+		grid_2.createRandomCells(sampleNumber_2);
+		
+		//Get the tools class and its support variables
+		TransformationTools tools_2=new TransformationTools();
 		HashMap<String, Integer> map_2=new HashMap<String, Integer>(); //HashMap of all the distinct categories
-		SampleArea sA_2=new SampleArea(north_2, south_2, west_2, east_2);
-		sA_2.setGridStructure(gridStructure_2);
-		sA_2.setOccurrenceStructure(occurrenceStructure_2);
-		sA_2.setDensityStructure(densityStructure_2);
-		sA_2.setCellsNumber(cellsNumber_2);
-		sA_2.setSampleNumber(sampleNumber_2);
-		sA_2.setMap(map_2);
-		sA_2.updateMap(features);
-		sA_2.setFeatures(features);
-		sA_2.createSampleGrid(); //fill the gridStructure with 'sampleNumber' samples
+		tools_2.setMap(tools_2.updateMapWithCell(map_2, features));
+		ArrayList<ArrayList<Double>> supportMatrix_2=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> bboxArea_2=new ArrayList<Double>();
+		ArrayList<FoursquareDataObject> cellVenue_2;
 		
-		ArrayList<String> distinct_list_2; //list of all the distinct categories for a single cell
-		ArrayList<Integer> occurrences_list_2; //list of the occurrences of the distinct categories for a single cell
-		
-		FoursquareSearchVenues fsv_2=new FoursquareSearchVenues();
-		ArrayList<FoursquareDataObject> venueInfo_2;
-		for(BoundingBox b: sA_2.getGridStructure()){
+		for(BoundingBox b: data_2){
 			//Venues of a single cell
-			venueInfo_2=fsv_2.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
-			distinct_list_2=fsv_2.createCategoryList(venueInfo_2); 
-			occurrences_list_2=fsv_2.getCategoryOccurences(venueInfo_2, distinct_list_2);
-			sA_2.fillRecord(occurrences_list_2, distinct_list_2, b.getArea()); //create a consistent row (related to the categories)
+			cellVenue_2=fsv.searchVenues(b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
+			//Generate a matrix with geopoints informations
+			supportMatrix_2=tools_2.getInformations(infoType, b.getCenterLat(), b.getCenterLng(), supportMatrix_2, cellVenue_2);
+			bboxArea_2.add(b.getArea());
 		}
+		supportMatrix_2=tools_2.fixRowsLength(tools_2.getTotal(), supportMatrix_2); //update rows length for consistency
 		
 		/***************************************************************************************/
 		/******************************CREATE THE BIG MATRIX**********************************/
 		/***************************************************************************************/
 		
-		ArrayList<ArrayList<Double>> bigAreaOcc=new ArrayList<ArrayList<Double>>();
+		//get the frequency and density matrices
+		ArrayList<ArrayList<Double>> frequencyMatrix=tools.sortMatrixNoCoord(supportMatrix, tools.getMap());
+		ArrayList<ArrayList<Double>> densityMatrix=tools.buildDensityMatrixNoCoord(frequencyMatrix, bboxArea);
+		ArrayList<ArrayList<Double>> frequencyMatrix_1=tools_1.sortMatrixNoCoord(supportMatrix_1, tools_1.getMap());
+		ArrayList<ArrayList<Double>> densityMatrix_1=tools_1.buildDensityMatrixNoCoord(frequencyMatrix_1, bboxArea_1);
+		ArrayList<ArrayList<Double>> frequencyMatrix_2=tools_2.sortMatrixNoCoord(supportMatrix_2, tools_2.getMap());
+		ArrayList<ArrayList<Double>> densityMatrix_2=tools_2.buildDensityMatrixNoCoord(frequencyMatrix_2, bboxArea_2);
+		
+		//aggregate the matrices
+		ArrayList<ArrayList<Double>> bigAreaFreq=new ArrayList<ArrayList<Double>>();
+		bigAreaFreq.addAll(frequencyMatrix);
+		bigAreaFreq.addAll(frequencyMatrix_1);
+		bigAreaFreq.addAll(frequencyMatrix_2);
 		ArrayList<ArrayList<Double>> bigAreaDens=new ArrayList<ArrayList<Double>>();
-		//ClassOfArea metropolitan=new ClassOfArea("Local discovery", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA.getDensityStructure());
-		//ClassOfArea metropolitan=new ClassOfArea("Metropolitan", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA_1.getOccurrenceStructure(), sA_2.getOccurrenceStructure(), sA.getDensityStructure(), sA_1.getDensityStructure(), sA_2.getDensityStructure());
-		ClassOfArea metropolitan=new ClassOfArea("Natural", bigAreaOcc, bigAreaDens, sA.getOccurrenceStructure(), sA_1.getOccurrenceStructure(), sA.getDensityStructure(), sA_1.getDensityStructure());
-		ArrayList<Double> meanDensities=metropolitan.getMeanArray(metropolitan.getBigAreaDens());
-		ArrayList<ArrayList<Double>> stdMatrix=metropolitan.getStdMatrix(metropolitan.getBigAreaDens());
+		bigAreaDens.addAll(densityMatrix);
+		bigAreaDens.addAll(densityMatrix_1);
+		bigAreaDens.addAll(densityMatrix_2);
+		
+		//get standard deviation values
+		DiscoveryTools dt=new DiscoveryTools();
+		ArrayList<Double> meanDensities=dt.getMeanArray(bigAreaDens);
+		ArrayList<ArrayList<Double>> stdMatrix=dt.getStdMatrix(bigAreaDens);
 		ArrayList<Double> stdSingles=new ArrayList<Double>(stdMatrix.get(0));
-		double n=metropolitan.getBigAreaDens().size();
-		ArrayList<Double> singleDensities=metropolitan.getSingleDensities(meanDensities, stdSingles, n);
-		ArrayList<Double> pairDensities=metropolitan.getPairDensities(metropolitan.getBigAreaDens(), meanDensities, n); //n*n
-		ArrayList<Double> tripleDensities=metropolitan.getTripleDensities(metropolitan.getBigAreaDens(), meanDensities, n); //n*n*n
-		ArrayList<Double> quadrupleDensities=metropolitan.getQuadrupleDensities(metropolitan.getBigAreaDens(), meanDensities, n); //n*n*n*n
-		ArrayList<Double> quintupleDensities=metropolitan.getQuintupleDensities(metropolitan.getBigAreaDens(), meanDensities, n); //n*n*n*n*n
-		ArrayList<String> featureFreq=metropolitan.getFeaturesLabel("f",features);
-		ArrayList<String> featureDens=metropolitan.getFeaturesLabel("density",features);
-		ArrayList<String> featureStd=metropolitan.getFeaturesLabel("std", features);
-		ArrayList<String> singleFeatures=metropolitan.getFeaturesLabel("deltad", features);
-		ArrayList<String> pairFeatures= metropolitan.getFeaturesForPairs(features);
-		ArrayList<String> tripleFeatures= metropolitan.getFeaturesForTriples(features);
-		ArrayList<String> quadrupleFeatures= metropolitan.getFeaturesForQuadruples(features);
-		ArrayList<String> quintupleFeatures= metropolitan.getFeaturesForQuintuples(features);
-		
+		double n=bigAreaDens.size();
+		ArrayList<Double> deltadValues=new ArrayList<Double>();
+		deltadValues.addAll(dt.getSingleDensities(meanDensities, stdSingles, n)); //add deltad values of singles
+		deltadValues.addAll(dt.getPairDensities(bigAreaDens, meanDensities, n)); //add deltad values of couples
+		deltadValues.addAll(dt.getTripleDensities(bigAreaDens, meanDensities, n)); //n*n*n
+		deltadValues.addAll(dt.getQuadrupleDensities(bigAreaDens, meanDensities, n)); //n*n*n*n
+		deltadValues.addAll(dt.getQuintupleDensities(bigAreaDens, meanDensities, n)); //n*n*n*n*n
+
 		/***************************************************************************************/
-		/******************************WRITE OUTPUT TO CSV**********************************/
+		/******************************WRITE OUTPUT TO FILE**********************************/
 		/***************************************************************************************/
 		
-		// write down the matrices of densities and standard deviation values to a file		
-		ByteArrayOutputStream bout_freq = new ByteArrayOutputStream();
-		OutputStreamWriter osw_freq = new OutputStreamWriter(bout_freq);
-		ByteArrayOutputStream bout_dens = new ByteArrayOutputStream();
-		OutputStreamWriter osw_dens = new OutputStreamWriter(bout_dens);
-		ByteArrayOutputStream bout_std = new ByteArrayOutputStream();
-		OutputStreamWriter osw_std = new OutputStreamWriter(bout_std);
-		ByteArrayOutputStream bout_deltad = new ByteArrayOutputStream();
-		OutputStreamWriter osw_deltad = new OutputStreamWriter(bout_deltad);
-        try {
-            CSVPrinter csv_freq = new CSVPrinter(osw_freq, CSVFormat.DEFAULT);
-            CSVPrinter csv_dens = new CSVPrinter(osw_dens, CSVFormat.DEFAULT);
-            CSVPrinter csv_std = new CSVPrinter(osw_std, CSVFormat.DEFAULT);
-            CSVPrinter csv_deltad = new CSVPrinter(osw_deltad, CSVFormat.DEFAULT);
+		ArrayList<String> featureFreq=dt.getFeaturesLabel("f",features);
+		ArrayList<String> featureDens=dt.getFeaturesLabel("density",features);
+		ArrayList<String> featureStd=dt.getFeaturesLabel("std", features);
+		ArrayList<String> featuresDeltad=new ArrayList<String>();
+		featuresDeltad.addAll(dt.getFeaturesLabel("deltad", features)); //add features of singles
+		featuresDeltad.addAll(dt.getFeaturesForPairs(features)); //add features of pairs
+		featuresDeltad.addAll(dt.getFeaturesForTriples(features));
+		featuresDeltad.addAll(dt.getFeaturesForQuadruples(features));
+		featuresDeltad.addAll(dt.getFeaturesForQuintuples(features)); //QUESTA VARIABILE FEATURES CORRISPONDE ALLA PRIMA VARIABILE DICHIARATA NEL METODO
 		
-            // write the header of the matrix for frequency, density and standard deviation
-            for(int i=0;i<features.size();i++) {
-            	csv_freq.print(featureFreq.get(i));
-            	csv_dens.print(featureDens.get(i));
-            	csv_std.print(featureStd.get(i));
-            }
-            csv_freq.println();
-            csv_dens.println();
-            csv_std.println();
-            
-            
-            // write the values of the matrix for frequency, density and standard deviation
-            for(ArrayList<Double> a: metropolitan.getBigAreaOcc()) {
-            	for(Double d: a) {
-            		csv_freq.print(d);
-            	}
-            	csv_freq.println();
-            }
-            csv_freq.flush();
-            csv_freq.close();
-            
-            for(ArrayList<Double> a: metropolitan.getBigAreaDens()) {
-            	for(Double d: a) {
-            		csv_dens.print(d);
-            	}
-            	csv_dens.println();
-            }
-            csv_dens.flush();
-            csv_dens.close();
-            
-            for(ArrayList<Double> a: stdMatrix) {
-            	for(Double d: a) {
-            		csv_std.print(d);
-            	}
-            	csv_std.println();
-            }
-            csv_std.flush();
-            csv_std.close();
-            
-            //write down values for density of singles, pairs, triples, quadruples, quintuples
-            for(int i=0;i<singleDensities.size();i++) {
-            	csv_deltad.print(singleFeatures.get(i));
-        		csv_deltad.print(singleDensities.get(i));
-            	csv_deltad.println();
-            }
-            csv_deltad.println();
-	        for(int i=0;i<pairDensities.size();i++) {
-	        	csv_deltad.print(pairFeatures.get(i));
-	    		csv_deltad.print(pairDensities.get(i));
-	        	csv_deltad.println();
-	        }
-	        csv_deltad.println();
-	        for(int i=0;i<tripleDensities.size();i++) {
-	        	csv_deltad.print(tripleFeatures.get(i));
-	    		csv_deltad.print(tripleDensities.get(i));
-	        	csv_deltad.println();
-	        }
-	        csv_deltad.println();
-	        for(int i=0;i<quadrupleDensities.size();i++) {
-	        	csv_deltad.print(quadrupleFeatures.get(i));
-	    		csv_deltad.print(quadrupleDensities.get(i));
-	        	csv_deltad.println();
-	        }
-	        csv_deltad.println();
-	        for(int i=0;i<quintupleDensities.size();i++) {
-	        	csv_deltad.print(quintupleFeatures.get(i));
-	    		csv_deltad.print(quintupleDensities.get(i));
-	        	csv_deltad.println();
-	        }
-	        csv_deltad.flush();
-	        csv_deltad.close();
-            
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-		
-		OutputStream outputStream_freq;
-		OutputStream outputStream_dens;
-		OutputStream outputStream_std;
-		OutputStream outputStream_deltad;
-        try {
-        	outputStream_freq = new FileOutputStream ("output/discovery/natural/20131220-frequencyNaturalArea.csv");
-            outputStream_dens = new FileOutputStream ("output/discovery/natural/20131220-densityNaturalArea.csv");
-            outputStream_std = new FileOutputStream ("output/discovery/natural/20131220-stdNaturalArea.csv");
-            outputStream_deltad = new FileOutputStream ("output/discovery/natural/20131220-deltadNaturalArea.csv");
-        	/*outputStream_freq = new FileOutputStream ("output/discovery/metropolitan/local discovery/20131220-frequencyMetropolitanTurin.csv");
-            outputStream_dens = new FileOutputStream ("output/discovery/metropolitan/local discovery/20131220-densityMetropolitanTurin.csv");
-            outputStream_std = new FileOutputStream ("output/discovery/metropolitan/local discovery/20131220-stdMetropolitanTurin.csv");
-            outputStream_deltad = new FileOutputStream ("output/discovery/metropolitan/local discovery/20131220-deltadMetropolitanTurin.csv");*/
-            bout_freq.writeTo(outputStream_freq);
-            bout_dens.writeTo(outputStream_dens);
-            bout_std.writeTo(outputStream_std);
-            bout_deltad.writeTo(outputStream_deltad);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		// write down the matrices to file
+		DataPrinter dp=new DataPrinter();
+		dp.printResult(bigAreaFreq, featureFreq, "output/discovery/metropolitan/20140203-frequencyMetropolitanArea.csv");
+		dp.printResult(bigAreaDens, featureDens, ""); //SELECT THE OUTPUT!
+		dp.printResult(stdMatrix, featureStd, "");
+		dp.printResultForDiscovery(deltadValues, featuresDeltad, "");
 	}
 }
