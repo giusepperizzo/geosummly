@@ -15,8 +15,8 @@ geosummly can be viewed as a 4-states application, respectively in this order:
 
 #####sampling
 ```sh
-–input   <path/to/file>  set the geojson input file
 –coord   <n,s,w,e>       set the input grid coordinates
+–input   <path/to/file>  set the geojson input file
 –output  <path/to/dir>   set the output directory
 -vtype   <arg>           set the type of venue grouping. Allowed values: single, cell. Default single.
 –ctype   <arg>           set the type of coordinates normalization. Allowed values: norm, notnorm, missing. Default norm.
@@ -25,7 +25,7 @@ geosummly can be viewed as a 4-states application, respectively in this order:
 –social  <arg>           set the social network for meta-data collection. Default fourquare.
 –cache                   cache activation. Default deactivated.
 ```
-The options *input*, *coord*, *output* are mandatory. The options *input* and *cnum* are mutually exclusive. The options *input* and *snum* are mutually exclusive.
+The options *coord*, *input* (only if *coord* is not specified), *output* are mandatory. The options *input* and *coord* are mutually exclusive. The options *input* and *cnum* are mutually exclusive. The options *input* and *snum* are mutually exclusive.
 The output consist of a file of single venues, a file of grid-shaped aggregated venues, a file of density values of the previous aggregates, a file with intra-feature normalized density values shifted in [0,1]. 
 
 #####discovery
