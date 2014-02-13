@@ -19,13 +19,13 @@ geosummly can be viewed as a 4-states application, respectively in this order:
 -I –input   <path/to/file>  set the geojson input file
 -O –output  <path/to/dir>   set the output directory
 -v -vtype   <arg>           set the type of venue grouping. Allowed values: single, cell. Default single.
--l –ctype   <arg>           set the type of coordinates normalization. Allowed values: norm, notnorm, missing. Default norm.
--g –cnum    <arg>           set the number of cells of a side of the squared grid. Default 20.
--s –snum    <arg>           set the number of cells, taken randomly, chosen for the sampling.
--S –social  <arg>           set the social network for meta-data collection. So far only foursquare is activable. Default fourquare.
+-l –ltype   <arg>           set the type of coordinates (latitude and langitude) normalization. Allowed values: norm, notnorm, missing. Default norm.
+-g –gnum    <arg>           set the number of cells of a side of the squared grid. Default 20.
+-r –rnum    <arg>           set the number of cells, taken randomly, chosen for the sampling.
+-s –social  <arg>           set the social network for meta-data collection. So far only foursquare is activable. Default fourquare.
 -C –cache                   cache activation. Default deactivated.
 ```
-The options *coord*, *input* (only if *coord* is not specified), *output* are mandatory. The options *input* and *coord* are mutually exclusive. The options *input* and *cnum* are mutually exclusive. The options *input* and *snum* are mutually exclusive.
+The options *coord*, *input* (only if *coord* is not specified), *output* are mandatory. The options *input* and *coord* are mutually exclusive. The options *input* and *gnum* are mutually exclusive. The options *input* and *rnum* are mutually exclusive.
 The output consist of a file of single venues, a file of grid-shaped aggregated venues, a file of density values of the previous aggregates, a file with intra-feature normalized density values shifted in [0,1]. 
 
 #####discovery
@@ -40,7 +40,7 @@ The options *input*, *output* are mandatory. Input file has to be a .csv either 
 ```sh
 -I –input   <path/to/file>  set the csv input file
 -O –output  <path/to/dir>   set the output directory
--A -method  <arg>           set the clustering algorithm. So far only geosubclu is activable. Default geosubclu.
+-M -method  <arg>           set the clustering algorithm. So far only geosubclu is activable. Default geosubclu.
 ```
 The options *input*, *output* are mandatory. Input file has to be a .csv of grid-shaped normalized density values. The output consist of a list of triples (latitude, longitude, membership category).
 
