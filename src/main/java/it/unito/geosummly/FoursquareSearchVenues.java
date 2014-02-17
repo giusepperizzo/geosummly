@@ -24,6 +24,7 @@ import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 
 public class FoursquareSearchVenues {
 	private FoursquareApi foursquareApi;
+	private long timestamp;
 	
 	public static Logger logger = Logger.getLogger(FoursquareSearchVenues.class.toString());
 	
@@ -33,6 +34,7 @@ public class FoursquareSearchVenues {
 		        PropFactory.config.getProperty("it.unito.geosummly.foursquare.clientID"), 
 		        PropFactory.config.getProperty("it.unito.geosummly.foursquare.clientSecret"), 
 		        "http://www.foursquare.com");
+		timestamp=System.currentTimeMillis();
 	}
 	
 	/**Search venues informations. Row and column informations are included*/
@@ -49,13 +51,12 @@ public class FoursquareSearchVenues {
 	    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
 	    if(result.getMeta().getCode() == 200) {  	
     		FoursquareDataObject dataobj;
-    		long timestamp=System.currentTimeMillis();
 	    	for(CompactVenue venue : result.getResult().getVenues()) {
 	    		dataobj=new FoursquareDataObject(row, column, venue.getId(), venue.getName(), venue.getLocation().getLat(),
 	    				venue.getLocation().getLng(), venue.getCategories(), venue.getContact().getEmail(),
 	    				venue.getContact().getPhone(), venue.getContact().getFacebook(), venue.getContact().getTwitter(), 
 	    				venue.getVerified(), venue.getStats().getCheckinsCount(), venue.getStats().getUsersCount(), 
-	    				venue.getUrl(), venue.getHereNow().getCount(), timestamp);
+	    				venue.getUrl(), venue.getHereNow().getCount(), this.timestamp);
 	    		doclist.add(dataobj);
 	    	}
 	    	return doclist;
@@ -80,13 +81,12 @@ public class FoursquareSearchVenues {
 	    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
 	    if(result.getMeta().getCode() == 200) {  	
     		FoursquareDataObject dataobj;
-    		long timestamp=System.currentTimeMillis();
 	    	for(CompactVenue venue : result.getResult().getVenues()) {
 	    		dataobj=new FoursquareDataObject(venue.getId(), venue.getName(), venue.getLocation().getLat(),
 	    				venue.getLocation().getLng(), venue.getCategories(), venue.getContact().getEmail(),
 	    				venue.getContact().getPhone(), venue.getContact().getFacebook(), venue.getContact().getTwitter(), 
 	    				venue.getVerified(), venue.getStats().getCheckinsCount(), venue.getStats().getUsersCount(), 
-	    				venue.getUrl(), venue.getHereNow().getCount(), timestamp);
+	    				venue.getUrl(), venue.getHereNow().getCount(), this.timestamp);
 	    		doclist.add(dataobj);
 	    	}
 	    	return doclist;

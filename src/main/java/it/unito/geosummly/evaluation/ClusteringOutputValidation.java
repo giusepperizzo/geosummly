@@ -2,6 +2,7 @@ package it.unito.geosummly.evaluation;
 
 import it.unito.geosummly.BoundingBox;
 import it.unito.geosummly.CoordinatesNormalizationType;
+import it.unito.geosummly.DataPrinter;
 import it.unito.geosummly.FoursquareDataObject;
 import it.unito.geosummly.FoursquareSearchVenues;
 import it.unito.geosummly.Grid;
@@ -9,20 +10,11 @@ import it.unito.geosummly.InformationType;
 import it.unito.geosummly.TransformationMatrix;
 import it.unito.geosummly.TransformationTools;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 
 import fi.foyt.foursquare.api.FoursquareApiException;
 
@@ -62,14 +54,15 @@ public class ClusteringOutputValidation  {
 		//Download venues informations
 		for(BoundingBox b: data){
 			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
-			supportMatrix=tools.getInformationsWithFocalPts(infoType, b.getCenterLat(), b.getCenterLng(), supportMatrix, cellVenue);
+			supportMatrix=tools.getInformations(infoType, b.getCenterLat(), b.getCenterLng(), supportMatrix, cellVenue);
 			bboxArea.add(b.getArea());
 		}
 		supportMatrix=tools.fixRowsLength(tools.getTotal()+2, supportMatrix); //update rows length for consistency (+2 because of venue lat and lng)
 		logger.log(Level.INFO, "GEOPOINTS COLLECTED");
 		
 		//write down the matrix to file
-		printResult(supportMatrix, tools.getFeaturesForSinglesEvaluation(tools.sortFeatures(tools.getMap())), "output/evaluation/clustering output validation/singles-matrix.csv");
+		DataPrinter dp=new DataPrinter();
+		dp.printResultHorizontal(supportMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), "output/evaluation/clustering output validation/singles-matrix.csv");
 			
 		/***********CREATE K MATRICES WITH N/K RANDOM VENUES FOR EACH MATRIX*************/
 		int k=10; //fold number
@@ -115,10 +108,10 @@ public class ClusteringOutputValidation  {
 		int index=0; //used for file name
 		for(ArrayList<ArrayList<Double>> grouped: allGrouped) {
 			ithTm=new TransformationMatrix();
-			ithFrequency=tools.sortMatrix(grouped, tools.getMap());
+			ithFrequency=tools.sortMatrix(CoordinatesNormalizationType.NORM, grouped, tools.getMap());
 			ithTm.setFrequencyMatrix(ithFrequency);
 			if(infoType.equals(InformationType.CELL)) {
-				ithDensity=tools.buildDensityMatrix(ithTm.getFrequencyMatrix(), bboxArea);
+				ithDensity=tools.buildDensityMatrix(CoordinatesNormalizationType.NORM, ithTm.getFrequencyMatrix(), bboxArea);
 				ithTm.setDensityMatrix(ithDensity);
 				ithNormalized=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, ithTm.getDensityMatrix());
 				ithTm.setNormalizedMatrix(ithNormalized);
@@ -127,47 +120,12 @@ public class ClusteringOutputValidation  {
 			
 			//write down the transformation matrices to file
 			index++; //just for file name
-			printResult(ithTm.getFrequencyMatrix(), tools.getFeaturesLabel("f", ithTm.getHeader()), "output/evaluation/clustering output validation/10-holdout/cross_fold_validation/frequency-transformation-matrix-fold"+index+".csv");
+			dp.printResultHorizontal(ithTm.getFrequencyMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "f", ithTm.getHeader()), "output/evaluation/clustering output validation/10-holdout/cross_fold_validation/frequency-transformation-matrix-fold"+index+".csv");
 			if(infoType.equals(InformationType.CELL)) {
-				printResult(ithTm.getDensityMatrix(), tools.getFeaturesLabel("density", ithTm.getHeader()), "output/evaluation/clustering output validation/10-holdout/cross_fold_validation/density-transformation-matrix-fold"+index+".csv");
-				printResult(ithTm.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", ithTm.getHeader()), "output/evaluation/clustering output validation/10-holdout/cross_fold_validation/normalized-transformation-matrix-fold"+index+".csv");
+				dp.printResultHorizontal(ithTm.getDensityMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "density", ithTm.getHeader()), "output/evaluation/clustering output validation/10-holdout/cross_fold_validation/density-transformation-matrix-fold"+index+".csv");
+				dp.printResultHorizontal(ithTm.getNormalizedMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "normalized_density", ithTm.getHeader()), "output/evaluation/clustering output validation/10-holdout/cross_fold_validation/normalized-transformation-matrix-fold"+index+".csv");
 			}
 		}
 		logger.log(Level.INFO, "TRANSFORMATION MATRICES PRINTED");
-	}
-	
-	public static void printResult(ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
-		ByteArrayOutputStream bout = new ByteArrayOutputStream();
-		OutputStreamWriter osw = new OutputStreamWriter(bout);
-        try {
-            CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
-            
-            //print the header of the matrix
-            for(String f: features) {
-            	csv.print(f);
-            }
-            csv.println();
-            
-            //iterate per each row of the matrix
-            for(ArrayList<Double> a: matrix) {
-            	for(Double d: a) {
-            		csv.print(d);
-            	}
-            	csv.println();
-            }
-            csv.flush();
-            csv.close();
-        } catch (IOException e1) {
-    		e1.printStackTrace();
-        }
-        OutputStream outputStream;
-        try {
-            outputStream = new FileOutputStream (output);
-            bout.writeTo(outputStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 	}
 }

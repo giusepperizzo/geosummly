@@ -2,6 +2,7 @@ package it.unito.geosummly.evaluation;
 
 import it.unito.geosummly.BoundingBox;
 import it.unito.geosummly.CoordinatesNormalizationType;
+import it.unito.geosummly.DataPrinter;
 import it.unito.geosummly.FoursquareDataObject;
 import it.unito.geosummly.FoursquareSearchVenues;
 import it.unito.geosummly.Grid;
@@ -9,19 +10,10 @@ import it.unito.geosummly.InformationType;
 import it.unito.geosummly.TransformationMatrix;
 import it.unito.geosummly.TransformationTools;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 
 import fi.foyt.foursquare.api.FoursquareApiException;
 
@@ -71,10 +63,10 @@ public class ClusteringCorrectness {
 		/****************CREATE THE TRANSFORMATION MATRIX AND SERIALIZE IT TO FILE******************/
 		//Build the transformation matrix
 		TransformationMatrix tm=new TransformationMatrix();
-		ArrayList<ArrayList<Double>> frequencyMatrix=tools.sortMatrix(supportMatrix, tools.getMap());
+		ArrayList<ArrayList<Double>> frequencyMatrix=tools.sortMatrix(CoordinatesNormalizationType.NORM, supportMatrix, tools.getMap());
 		tm.setFrequencyMatrix(frequencyMatrix);
 		if(infoType.equals(InformationType.CELL)) {
-			ArrayList<ArrayList<Double>> densityMatrix=tools.buildDensityMatrix(frequencyMatrix, bboxArea);
+			ArrayList<ArrayList<Double>> densityMatrix=tools.buildDensityMatrix(CoordinatesNormalizationType.NORM, frequencyMatrix, bboxArea);
 			tm.setDensityMatrix(densityMatrix);
 			ArrayList<ArrayList<Double>> normalizedMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, densityMatrix);
 			tm.setNormalizedMatrix(normalizedMatrix);
@@ -83,15 +75,16 @@ public class ClusteringCorrectness {
 		logger.log(Level.INFO, "TRANSFORMATION MATRIX CREATED");
 		
 		//write down the transformation matrix to file
-		printResult(tm.getFrequencyMatrix(), tools.getFeaturesLabel("f", tm.getHeader()), "output/evaluation/clustering correctness/frequency-transformation-matrix.csv");
+		DataPrinter dp=new DataPrinter();
+		dp.printResultHorizontal(tm.getFrequencyMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "f", tm.getHeader()), "output/evaluation/clustering correctness/frequency-transformation-matrix.csv");
 		if(infoType.equals(InformationType.CELL)) {
-			printResult(tm.getDensityMatrix(), tools.getFeaturesLabel("density", tm.getHeader()), "output/evaluation/clustering correctness/density-transformation-matrix.csv");
-			printResult(tm.getNormalizedMatrix(), tools.getFeaturesLabel("normalized_density", tm.getHeader()), "output/evaluation/clustering correctness/normalized-transformation-matrix.csv");
+			dp.printResultHorizontal(tm.getDensityMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "density", tm.getHeader()), "output/evaluation/clustering correctness/density-transformation-matrix.csv");
+			dp.printResultHorizontal(tm.getNormalizedMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "normalized_density", tm.getHeader()), "output/evaluation/clustering correctness/normalized-transformation-matrix.csv");
 		}
 		logger.log(Level.INFO, "TRANSFORMATION MATRIX PRINTED");
 		
 		/******CREATE 500 RANDOM MATRICES RELATED TO THE TRANSFORMATION MATRIX AND SERIALIZE THEM TO FILE******/
-		int recordNum=400;
+		int recordNum=tm.getFrequencyMatrix().size();
 		int matrixNum=500;
 		ArrayList<ArrayList<Double>> frequencyRandomMatrix;
 		ArrayList<ArrayList<Double>> densityRandomMatrix;
@@ -125,47 +118,12 @@ public class ClusteringCorrectness {
 			}
 			logger.log(Level.INFO, "RANDOM MATRIX "+i+" CREATED");
 			if(infoType.equals(InformationType.CELL)) {
-				densityRandomMatrix=tools.buildDensityMatrixNoCoord(frequencyRandomMatrix, bboxArea);
+				densityRandomMatrix=tools.buildDensityMatrix(CoordinatesNormalizationType.MISSING, frequencyRandomMatrix, bboxArea);
 				normalizedRandomMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.MISSING, densityRandomMatrix);
-				printResult(densityRandomMatrix, tools.getFeaturesLabelNoCoord("density_rnd", hdr), "output/evaluation/clustering correctness/random-density-transformation-matrix-"+i+".csv");
-				printResult(normalizedRandomMatrix, tools.getFeaturesLabelNoCoord("normalized_density_rnd", hdr), "output/evaluation/clustering correctness/random-normalized-transformation-matrix-"+i+".csv");
+				dp.printResultHorizontal(densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", hdr), "output/evaluation/clustering correctness/random-density-transformation-matrix-"+i+".csv");
+				dp.printResultHorizontal(normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", hdr), "output/evaluation/clustering correctness/random-normalized-transformation-matrix-"+i+".csv");
 				logger.log(Level.INFO, "RANDOM MATRIX "+i+" PRINTED");
 			}
 		}
-	}
-	
-	public static void printResult(ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
-		ByteArrayOutputStream bout = new ByteArrayOutputStream();
-		OutputStreamWriter osw = new OutputStreamWriter(bout);
-        try {
-            CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
-            
-            //print the header of the matrix
-            for(String f: features) {
-            	csv.print(f);
-            }
-            csv.println();
-            
-            //iterate per each row of the matrix
-            for(ArrayList<Double> a: matrix) {
-            	for(Double d: a) {
-            		csv.print(d);
-            	}
-            	csv.println();
-            }
-            csv.flush();
-            csv.close();
-        } catch (IOException e1) {
-    		e1.printStackTrace();
-        }
-        OutputStream outputStream;
-        try {
-            outputStream = new FileOutputStream (output);
-            bout.writeTo(outputStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 	}
 }

@@ -53,20 +53,19 @@ public class TransformationTools {
 		return toRet;
 	}
 	
-	/**Update the hash map given as parameter with new string values from a cell*/
-	public HashMap<String, Integer> updateMapWithCell(HashMap<String, Integer> map, ArrayList<String> categories) {
-		for(String s: categories) {
-			if(!map.containsKey(s)) {
-				map.put(s, map.size()+2); //first value in the map has to be 2
-			}
+	/**Update the hash map given as parameter with new string values either from a cell or a single venue*/
+	public HashMap<String, Integer> updateMap(InformationType type, HashMap<String, Integer> map, ArrayList<String> categories) {
+		switch (type) {
+		case SINGLE:
+			if(!map.containsKey(categories.get(0)))
+				map.put(categories.get(0), map.size()+2); //first value in the map has to be 2
+			break;
+		case CELL:
+			for(String s: categories)
+				if(!map.containsKey(s))
+					map.put(s, map.size()+2); //first value in the map has to be 2
+			break;
 		}
-		return map;
-	}
-	
-	/**Update the hash map given as parameter with new string value*/
-	public HashMap<String, Integer> updateMapWithSingle(HashMap<String, Integer> map, String category) {
-		if(!map.containsKey(category))
-			map.put(category, map.size()+2); //first value in the map has to be 2
 		return map;
 	}
 	
@@ -99,7 +98,7 @@ public class TransformationTools {
 		return row;
 	}
 	
-	/**Get the same length for all the matrix rows*/
+	/**Fix the matrix rows giving them the same size*/
 	public ArrayList<ArrayList<Double>> fixRowsLength(int totElem, ArrayList<ArrayList<Double>> matrix) {
 		int i;
 		for(ArrayList<Double> row: matrix) {
@@ -264,70 +263,66 @@ public class TransformationTools {
 		return normalizedArray;
 	}
 	
-	/**Sort matrix in alphabetical order for columns*/
-	public ArrayList<ArrayList<Double>> sortMatrix(ArrayList<ArrayList<Double>> matrix, HashMap<String,Integer> map) {
+	/**Sort matrix in alphabetical order (column names)*/
+	public ArrayList<ArrayList<Double>> sortMatrix(CoordinatesNormalizationType type, ArrayList<ArrayList<Double>> matrix, HashMap<String,Integer> map) {
 		ArrayList<ArrayList<Double>> sortedMatrix=new ArrayList<ArrayList<Double>>();
-		int value;
-		ArrayList<Double> sortedRecord;
-		ArrayList<String> keys=new ArrayList<String>(map.keySet());
-		
-		for(ArrayList<Double> row: matrix) {
-			sortedRecord=new ArrayList<Double>();
-			sortedRecord.add(row.get(0));
-			sortedRecord.add(row.get(1));
-			for(String k: keys) {
-				value=map.get(k);
-				sortedRecord.add(row.get(value));
+		if(type.equals(CoordinatesNormalizationType.NORM) || type.equals(CoordinatesNormalizationType.NOTNORM)) {
+			int value;
+			ArrayList<Double> sortedRecord;
+			ArrayList<String> keys=new ArrayList<String>(map.keySet());
+			
+			for(ArrayList<Double> row: matrix) {
+				sortedRecord=new ArrayList<Double>();
+				sortedRecord.add(row.get(0));
+				sortedRecord.add(row.get(1));
+				for(String k: keys) {
+					value=map.get(k);
+					sortedRecord.add(row.get(value));
+				}
+				sortedMatrix.add(sortedRecord);
 			}
-			sortedMatrix.add(sortedRecord);
+		}
+		else if(type.equals(CoordinatesNormalizationType.MISSING)) {
+			int value;
+			ArrayList<Double> sortedRecord;
+			ArrayList<String> keys=new ArrayList<String>(map.keySet());
+			
+			for(ArrayList<Double> row: matrix) {
+				sortedRecord=new ArrayList<Double>();
+				for(String k: keys) {
+					value=map.get(k);
+					sortedRecord.add(row.get(value));
+				}
+				sortedMatrix.add(sortedRecord);
+			}
 		}
 		return sortedMatrix;
 	}
 	
-	/**Sort matrix in alphabetical order for columns without considering lat and lng coordinates*/
-	public ArrayList<ArrayList<Double>> sortMatrixNoCoord(ArrayList<ArrayList<Double>> matrix, HashMap<String,Integer> map) {
-		ArrayList<ArrayList<Double>> sortedMatrix=new ArrayList<ArrayList<Double>>();
-		int value;
-		ArrayList<Double> sortedRecord;
-		ArrayList<String> keys=new ArrayList<String>(map.keySet());
-		
-		for(ArrayList<Double> row: matrix) {
-			sortedRecord=new ArrayList<Double>();
-			for(String k: keys) {
-				value=map.get(k);
-				sortedRecord.add(row.get(value));
-			}
-			sortedMatrix.add(sortedRecord);
-		}
-		return sortedMatrix;
-	}
-	
-	/**Get a matrix with density values*/
-	public ArrayList<ArrayList<Double>> buildDensityMatrix(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> area) {
+	/**Get a matrix with density values */
+	public ArrayList<ArrayList<Double>> buildDensityMatrix(CoordinatesNormalizationType type, ArrayList<ArrayList<Double>> matrix, ArrayList<Double> area) {
 		ArrayList<ArrayList<Double>> densMatrix=new ArrayList<ArrayList<Double>>();
-		ArrayList<Double> densRecord;
-		for(int i=0;i<matrix.size();i++) {
-			densRecord=new ArrayList<Double>();
-			densRecord.add(matrix.get(i).get(0)); //latitude
-			densRecord.add(matrix.get(i).get(1)); //longitude
-			for(int j=2;j<matrix.get(i).size();j++) {
-				densRecord.add(matrix.get(i).get(j)/area.get(i));
+		if(type.equals(CoordinatesNormalizationType.NORM) || type.equals(CoordinatesNormalizationType.NOTNORM)) {
+			ArrayList<Double> densRecord;
+			for(int i=0;i<matrix.size();i++) {
+				densRecord=new ArrayList<Double>();
+				densRecord.add(matrix.get(i).get(0)); //latitude
+				densRecord.add(matrix.get(i).get(1)); //longitude
+				for(int j=2;j<matrix.get(i).size();j++) {
+					densRecord.add(matrix.get(i).get(j)/area.get(i));
+				}
+				densMatrix.add(densRecord);
 			}
-			densMatrix.add(densRecord);
 		}
-		return densMatrix;
-	}
-	
-	/**Get a matrix with density values without considering lat and lng coordinates*/
-	public ArrayList<ArrayList<Double>> buildDensityMatrixNoCoord(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> area) {
-		ArrayList<ArrayList<Double>> densMatrix=new ArrayList<ArrayList<Double>>();
-		ArrayList<Double> densRecord;
-		for(int i=0;i<matrix.size();i++) {
-			densRecord=new ArrayList<Double>();
-			for(int j=0;j<matrix.get(i).size();j++) {
-				densRecord.add(matrix.get(i).get(j)/area.get(i));
+		else if(type.equals(CoordinatesNormalizationType.MISSING)) {
+			ArrayList<Double> densRecord;
+			for(int i=0;i<matrix.size();i++) {
+				densRecord=new ArrayList<Double>();
+				for(int j=0;j<matrix.get(i).size();j++) {
+					densRecord.add(matrix.get(i).get(j)/area.get(i));
+				}
+				densMatrix.add(densRecord);
 			}
-			densMatrix.add(densRecord);
 		}
 		return densMatrix;
 	}
@@ -380,52 +375,7 @@ public class TransformationTools {
 		}
 		return normalizedMatrix;
 	}
-	
-	/**Sort the features in alphabetical order*/
-	public ArrayList<String> sortFeatures(HashMap<String,Integer> map) {
-		ArrayList<String> sortedFeatures=new ArrayList<String>();
-		ArrayList<String> keys= new ArrayList<String>(map.keySet());
-		Collections.sort(keys);
-		sortedFeatures.add("Latitude");
-		sortedFeatures.add("Longitude");
-		for(String s: keys)
-			sortedFeatures.add(s);
-		return sortedFeatures;
-	}
-	
-	/**Get the features list for the dataset of single venues, used in the second step of evaluation*/
-	public ArrayList<String> getFeaturesForSinglesEvaluation(ArrayList<String> features) {
-		features.add(0, "Venue Latitude");
-		features.add(1, "Venue Longitude");
-		features.set(2, "Focal Latitude");
-		features.set(3, "Focal Longitude");
-		return features;
-	}
-	
-	/**Get the feature labeled either for frequency, density or normalized density*/
-	public ArrayList<String> getFeaturesLabel(String s, ArrayList<String> features) {
-		String label="";
-		ArrayList<String> featuresLabel=new ArrayList<String>();
-		featuresLabel.add(features.get(0)); //Latitude
-		featuresLabel.add(features.get(1)); //Longitude
-		for(int i=2;i<features.size();i++) {
-			label=s+"("+features.get(i)+")";
-			featuresLabel.add(label);
-		}
-		return featuresLabel;
-	}
-	
-	/**Get the feature labeled either for frequency, density or normalized density, without considering lat and lng coordinates*/
-	public ArrayList<String> getFeaturesLabelNoCoord(String s, ArrayList<String> features) {
-		String label="";
-		ArrayList<String> featuresLabel=new ArrayList<String>();
-		for(int i=0;i<features.size();i++) {
-			label=s+"("+features.get(i)+")";
-			featuresLabel.add(label);
-		}
-		return featuresLabel;
-	}
-	
+
 	/**Return the total number of categories for a bounding box cell*/
 	public int getCategoriesNumber(ArrayList<FoursquareDataObject> array) {
 		int n=0;
@@ -486,7 +436,7 @@ public class TransformationTools {
 	public ArrayList<ArrayList<Double>> getInformations(InformationType type, double lat, double lng, ArrayList<ArrayList<Double>> matrix, ArrayList<FoursquareDataObject> cell) {
 		ArrayList<Double> rowOfMatrix=new ArrayList<Double>();
 		switch (type) {
-		//If we consider single venues
+		//If we consider single venues (coordinates both of venue and focal points are considered)
 		case SINGLE:
 			for(FoursquareDataObject venue: cell) {
 				String category="";
@@ -496,43 +446,10 @@ public class TransformationTools {
 					else
 						category=c.getName();
 				}
-				updateMapWithSingle(this.map, category);//update the hash map
-				rowOfMatrix=fillRowWithSingle(this.map, category, venue.getLatitude(), venue.getLongitude()); //create a consistent row (related to the categories). row of the transformation matrix (one for each venue);
-				if(this.total<rowOfMatrix.size())
-					this.total=rowOfMatrix.size(); //update the overall number of categories
-				matrix.add(rowOfMatrix);
-			}
-			break;
-		//If we consider a cell of venues
-		case CELL:
-			ArrayList<String> distinctList; //list of all the distinct categories for the cell
-			ArrayList<Integer> occurrencesList; //list of the occurrences of the distinct categories for the cell
-			distinctList=createCategoryList(cell);
-			occurrencesList=getCategoryOccurences(cell, distinctList);
-			updateMapWithCell(this.map, distinctList);//update the hash map
-			rowOfMatrix=fillRowWithCell(this.map, occurrencesList, distinctList, lat, lng); //create a consistent row (related to the categories). row of the transformation matrix (one for each cell);
-			if(this.total<rowOfMatrix.size())
-				this.total=rowOfMatrix.size(); //update the overall number of categories
-			matrix.add(rowOfMatrix);
-			break;
-		}
-		return matrix;
-	}
-	
-	/**Get the informations of single venues of a cell considering the focal points of the cell instead of venue's lat and lng*/
-	public ArrayList<ArrayList<Double>> getInformationsWithFocalPts(InformationType type, double lat, double lng, ArrayList<ArrayList<Double>> matrix, ArrayList<FoursquareDataObject> cell) {
-		if(type.equals(InformationType.SINGLE)) {
-			ArrayList<Double> rowOfMatrix=new ArrayList<Double>();
-			for(FoursquareDataObject venue: cell) {
-				String category="";
-				for(Category c: venue.getCategories()) {
-					if(c.getParents().length>0)
-						category=c.getParents()[0]; //take the parent category name only if it is set
-					else
-						category=c.getName();
-				}
 				if(category.length()>0) { //update the matrix only if the category has a name
-					updateMapWithSingle(this.map, category);//update the hash map
+					ArrayList<String>aux=new ArrayList<String>();
+					aux.add(category);
+					updateMap(type, this.map, aux);//update the hash map
 					rowOfMatrix=fillRowWithSingle(this.map, category, lat, lng); //create a consistent row (related to the categories). row of the transformation matrix (one for each venue);
 					if(this.total<rowOfMatrix.size())
 						this.total=rowOfMatrix.size(); //update the overall number of categories
@@ -541,6 +458,19 @@ public class TransformationTools {
 					matrix.add(rowOfMatrix);
 				}
 			}
+			break;
+		//If we consider a cell of venues
+		case CELL:
+			ArrayList<String> distinctList; //list of all the distinct categories for the cell
+			ArrayList<Integer> occurrencesList; //list of the occurrences of the distinct categories for the cell
+			distinctList=createCategoryList(cell);
+			occurrencesList=getCategoryOccurences(cell, distinctList);
+			updateMap(type, this.map, distinctList);//update the hash map
+			rowOfMatrix=fillRowWithCell(this.map, occurrencesList, distinctList, lat, lng); //create a consistent row (related to the categories). row of the transformation matrix (one for each cell);
+			if(this.total<rowOfMatrix.size())
+				this.total=rowOfMatrix.size(); //update the overall number of categories
+			matrix.add(rowOfMatrix);
+			break;
 		}
 		return matrix;
 	}
@@ -564,5 +494,48 @@ public class TransformationTools {
 			}
 		}
 		return toRet;
+	}
+	
+	/**Sort the features in alphabetical order*/
+	public ArrayList<String> sortFeatures(HashMap<String,Integer> map) {
+		ArrayList<String> sortedFeatures=new ArrayList<String>();
+		ArrayList<String> keys= new ArrayList<String>(map.keySet());
+		Collections.sort(keys);
+		sortedFeatures.add("Latitude");
+		sortedFeatures.add("Longitude");
+		for(String s: keys)
+			sortedFeatures.add(s);
+		return sortedFeatures;
+	}
+	
+	/**Get the features list for the dataset of single venues*/
+	public ArrayList<String> getFeaturesForSingles(ArrayList<String> features) {
+		features.add(0, "Venue Latitude");
+		features.add(1, "Venue Longitude");
+		features.set(2, "Focal Latitude");
+		features.set(3, "Focal Longitude");
+		return features;
+	}
+	
+	/**Get the feature labeled either for frequency, density or normalized density*/
+	public ArrayList<String> getFeaturesLabel(CoordinatesNormalizationType type, String s, ArrayList<String> features) {
+		ArrayList<String> featuresLabel=new ArrayList<String>();
+		if(type.equals(CoordinatesNormalizationType.NORM) || type.equals(CoordinatesNormalizationType.NOTNORM)) {
+			String label="";
+			featuresLabel.add(features.get(0)); //Latitude
+			featuresLabel.add(features.get(1)); //Longitude
+			for(int i=2;i<features.size();i++) {
+				label=s+"("+features.get(i)+")";
+				featuresLabel.add(label);
+			}
+		}
+		else if(type.equals(CoordinatesNormalizationType.MISSING)) {
+			String label="";
+			for(int i=2;i<features.size();i++) {
+				label=s+"("+features.get(i)+")";
+				featuresLabel.add(label);
+			}
+		}
+		return featuresLabel;
 	}
 }

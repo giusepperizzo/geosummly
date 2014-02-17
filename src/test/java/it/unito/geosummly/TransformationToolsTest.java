@@ -39,12 +39,12 @@ public class TransformationToolsTest extends TestCase {
 		a.add("Cat 5");
 		a.add("Cat 2");
 		a.add("Cat 5");
-		actual=tm.updateMapWithCell(actual,a);
+		actual=tm.updateMap(InformationType.CELL, actual,a);
 		a.add("Cat 5");
 		a.add("Cat 6");
 		a.add("Cat 2");
 		a.add("Cat 6");
-		actual=tm.updateMapWithCell(actual,a);
+		actual=tm.updateMap(InformationType.CELL, actual,a);
 		
 		//Construct the test case
 		HashMap<String, Integer> expected=new HashMap<String, Integer>();
@@ -404,7 +404,7 @@ public class TransformationToolsTest extends TestCase {
 		map.put("B", 2);
 		map.put("C", 3);
 		map.put("A", 4);
-		ArrayList<ArrayList<Double>> actual=tm.sortMatrix(matrix, map);
+		ArrayList<ArrayList<Double>> actual=tm.sortMatrix(CoordinatesNormalizationType.NORM, matrix, map);
 		
 		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> exp1=new ArrayList<Double>();
@@ -425,45 +425,6 @@ public class TransformationToolsTest extends TestCase {
 		exp3.add(23.0);
 		exp3.add(21.0);
 		exp3.add(22.0);
-		expected.add(exp1);
-		expected.add(exp2);
-		expected.add(exp3);
-		
-		//Start the test
-		assertEquals(expected, actual);
-	}
-	
-	public void testBuildDensityMatrixNoCoord() {
-		TransformationTools tm=new TransformationTools();
-		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
-		ArrayList<Double> a=new ArrayList<Double>();
-		ArrayList<Double> b=new ArrayList<Double>();
-		ArrayList<Double> c=new ArrayList<Double>();
-		a.add(2.0);
-		a.add(4.0);
-		b.add(8.0);
-		b.add(16.0);
-		c.add(32.0);
-		c.add(64.0);
-		matrix.add(a);
-		matrix.add(b);
-		matrix.add(c);
-		ArrayList<Double> area=new ArrayList<Double>();
-		area.add(10.0);
-		area.add(10.0);
-		area.add(10.0);
-		ArrayList<ArrayList<Double>> actual=tm.buildDensityMatrixNoCoord(matrix, area);
-		
-		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
-		ArrayList<Double> exp1=new ArrayList<Double>();
-		ArrayList<Double> exp2=new ArrayList<Double>();
-		ArrayList<Double> exp3=new ArrayList<Double>();
-		exp1.add(0.2);
-		exp1.add(0.4);
-		exp2.add(0.8);
-		exp2.add(1.6);
-		exp3.add(3.2);
-		exp3.add(6.4);
 		expected.add(exp1);
 		expected.add(exp2);
 		expected.add(exp3);
@@ -497,7 +458,7 @@ public class TransformationToolsTest extends TestCase {
 		area.add(10.0);
 		area.add(10.0);
 		area.add(10.0);
-		ArrayList<ArrayList<Double>> actual=tm.buildDensityMatrix(matrix, area);
+		ArrayList<ArrayList<Double>> actual=tm.buildDensityMatrix(CoordinatesNormalizationType.NORM, matrix, area);
 		
 		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> exp1=new ArrayList<Double>();
@@ -521,6 +482,43 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected, actual);
+		
+		TransformationTools tm1=new TransformationTools();
+		ArrayList<ArrayList<Double>> matrix1=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> a1=new ArrayList<Double>();
+		ArrayList<Double> b1=new ArrayList<Double>();
+		ArrayList<Double> c1=new ArrayList<Double>();
+		a1.add(2.0);
+		a1.add(4.0);
+		b1.add(8.0);
+		b1.add(16.0);
+		c1.add(32.0);
+		c1.add(64.0);
+		matrix1.add(a1);
+		matrix1.add(b1);
+		matrix1.add(c1);
+		ArrayList<Double> area1=new ArrayList<Double>();
+		area1.add(10.0);
+		area1.add(10.0);
+		area1.add(10.0);
+		ArrayList<ArrayList<Double>> actual1=tm1.buildDensityMatrix(CoordinatesNormalizationType.MISSING, matrix1, area1);
+		
+		ArrayList<ArrayList<Double>> expected1=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> exp11=new ArrayList<Double>();
+		ArrayList<Double> exp21=new ArrayList<Double>();
+		ArrayList<Double> exp31=new ArrayList<Double>();
+		exp11.add(0.2);
+		exp11.add(0.4);
+		exp21.add(0.8);
+		exp21.add(1.6);
+		exp31.add(3.2);
+		exp31.add(6.4);
+		expected1.add(exp11);
+		expected1.add(exp21);
+		expected1.add(exp31);
+		
+		//Start the test
+		assertEquals(expected1, actual1);
 	}
 	
 	public void testBuildNormalizedMatrix() {
@@ -600,7 +598,7 @@ public class TransformationToolsTest extends TestCase {
 		a.add("A");
 		a.add("B");
 		a.add("C");
-		ArrayList<String> actual=tm.getFeaturesForSinglesEvaluation(a);
+		ArrayList<String> actual=tm.getFeaturesForSingles(a);
 		
 		ArrayList<String> expected=new ArrayList<String>();
 		expected.add("Venue Latitude");
@@ -623,7 +621,7 @@ public class TransformationToolsTest extends TestCase {
 		a.add("A");
 		a.add("B");
 		a.add("C");
-		ArrayList<String> actual=tm.getFeaturesLabel("d", a);
+		ArrayList<String> actual=tm.getFeaturesLabel(CoordinatesNormalizationType.NORM, "d", a);
 		
 		ArrayList<String> expected=new ArrayList<String>();
 		expected.add("Latitude");
@@ -634,23 +632,21 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected, actual);
-	}
-	
-	public void testGetFeaturesLabelNoCoord() {
-		TransformationTools tm=new TransformationTools();
-		ArrayList<String> a=new ArrayList<String>();
-		a.add("A");
-		a.add("B");
-		a.add("C");
-		ArrayList<String> actual=tm.getFeaturesLabelNoCoord("d", a);
 		
-		ArrayList<String> expected=new ArrayList<String>();
-		expected.add("d(A)");
-		expected.add("d(B)");
-		expected.add("d(C)");
+		TransformationTools tm1=new TransformationTools();
+		ArrayList<String> a1=new ArrayList<String>();
+		a1.add("A");
+		a1.add("B");
+		a1.add("C");
+		ArrayList<String> actual1=tm1.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "d", a1);
+		
+		ArrayList<String> expected1=new ArrayList<String>();
+		expected1.add("d(A)");
+		expected1.add("d(B)");
+		expected1.add("d(C)");
 		
 		//Start the test
-		assertEquals(expected, actual);
+		assertEquals(expected1, actual1);
 	}
 	
 	public void testGroupSinglesToCell() {

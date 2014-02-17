@@ -15,7 +15,7 @@ public class DataPrinter {
 	
 	public DataPrinter() {}
 	
-	public void printResult(ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
+	public void printResultHorizontal(ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(bout);
         try {
@@ -50,7 +50,7 @@ public class DataPrinter {
         }
 	}
 	
-	public void printResultForDiscovery(ArrayList<Double> deltadValues, ArrayList<String> features, String output) {
+	public void printResultVertical(ArrayList<Double> deltadValues, ArrayList<String> features, String output) {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(bout);
         try {

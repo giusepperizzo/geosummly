@@ -174,7 +174,7 @@ public class FoursquareDataObject {
 		this.verified = verified;
 	}
 
-	public Integer getCheckins_count() {
+	public Integer getCheckinsCount() {
 		return checkinsCount;
 	}
 

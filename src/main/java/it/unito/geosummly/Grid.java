@@ -43,7 +43,7 @@ public class Grid {
 		this.structure = structure;
 	}
 	
-	//Create all the cells of the bounding box and set their coordinates
+	/**Create all the cells of the bounding box and set their coordinates*/
 	public void createCells() {
 		BoundingBox b=this.bbox;
 		int num=this.cellsNumber;
@@ -89,7 +89,7 @@ public class Grid {
 		}
 	}
 	
-	//Create a grid with randomNumber random cells with coordinates belonging to the bounding box coordinates interval (this method is useful for the discovery step)
+	/**Create a grid with randomNumber random cells with coordinates belonging to the bounding box coordinates interval (useful for the discovery step)*/
 	public void createRandomCells(int randomNumber) {
 		BoundingBox b=this.bbox;
 		BoundingBox singleCell;

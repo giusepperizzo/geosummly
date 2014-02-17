@@ -1,4 +1,4 @@
-package it.unito.challenge;
+package it.unito.geosummly;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package it.unito.challenge;
+package it.unito.geosummly;
 
 import it.unito.geosummly.BoundingBox;
 
