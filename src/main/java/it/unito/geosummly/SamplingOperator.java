@@ -81,7 +81,7 @@ public class SamplingOperator {
 			
 			venuesMatrix=tools.getInformations(vtype, b.getCenterLat(), b.getCenterLng(), venuesMatrix, cellVenue);
 			bboxArea.add(b.getArea());
-			Thread.sleep(1000);
+			//Thread.sleep(1000);
 		}
 		
 		//Group single venues to cells if necessary
@@ -89,7 +89,7 @@ public class SamplingOperator {
 		case SINGLE:
 			//two more columns if I've to build singles matrix
 			venuesMatrix=tools.fixRowsLength(tools.getTotal()+2, venuesMatrix); //update rows length for consistency
-			dp.printResultHorizontal(venuesMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), out+"/singles-matrix.csv");
+			dp.printResultSingles(tools.getSinglesId(), venuesMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), out+"/singles-matrix.csv");
 			ArrayList<ArrayList<Double>> auxMatrix=new ArrayList<ArrayList<Double>>();
 			for(BoundingBox b: data)
 				auxMatrix.add(tools.groupSinglesToCell(b, venuesMatrix));

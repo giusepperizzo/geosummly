@@ -77,4 +77,40 @@ public class DataPrinter {
             e.printStackTrace();
         }
 	}
+	
+	public void printResultSingles(ArrayList<String> singlesId, ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+		OutputStreamWriter osw = new OutputStreamWriter(bout);
+        try {
+            CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
+            
+            //print the header of the matrix
+            for(String f: features) {
+            	csv.print(f);
+            }
+            csv.println();
+            
+            //iterate per each row of the matrix
+            for(int i=0; i<matrix.size();i++) {
+            	csv.print(singlesId.get(i));
+            	for(int j=0;j<matrix.get(i).size();j++) {
+            		csv.print(matrix.get(i).get(j));
+            	}
+            	csv.println();
+            }
+            csv.flush();
+            csv.close();
+        } catch (IOException e1) {
+    		e1.printStackTrace();
+        }
+        OutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream (output);
+            bout.writeTo(outputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 }
