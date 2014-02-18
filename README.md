@@ -52,7 +52,7 @@ The options *input*, *output* are mandatory. Input file has to be a .csv of grid
 -m –mnum    <arg>           set the random matrix number to create. Default 500.
 -f –fnum    <arg>           set the fold number to create for the cross-validation. Default 10.
 ```
-The options *etype*, *input*, *output* are mandatory. If *etype* argument is equal to correctness, the input file has to be a .csv of grid-shaped aggregates, and the output is a set of random grid-shaped aggregates. Moreover *fnum* option cannot be used.
+The options *etype*, *input*, *output* are mandatory. If *etype* argument is equal to correctness, the input file has to be a .csv of grid-shaped aggregates with coordinates values included, and the output is a set of random grid-shaped aggregates. Moreover *fnum* option cannot be used.
 If *etype* argument is equal to validation, the input file has to be a .csv of single venues, and, for each fold, the output is the same as the one returned by the sampling state. Moreover *mnum* option cannot be used.
 
 #####more options
