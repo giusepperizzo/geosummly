@@ -19,6 +19,7 @@ public class TransformationTools {
 	private int total;
 	private ArrayList<String> singlesId;
 	private ArrayList<Long> timestamps;
+	private ArrayList<Integer> beenHere;
 	private HashMap<String, Integer> map;
 	
 	public static Logger logger = Logger.getLogger(TransformationMatrix.class.toString());
@@ -27,6 +28,7 @@ public class TransformationTools {
 		this.total=0;
 		this.singlesId=new ArrayList<String>();
 		this.timestamps=new ArrayList<Long>();
+		this.beenHere=new ArrayList<Integer>();
 		this.map=new HashMap<String, Integer>();
 	}
 	
@@ -60,6 +62,14 @@ public class TransformationTools {
 	
 	public void setTimestamps(ArrayList<Long> timestamps) {
 		this.timestamps=timestamps;
+	}
+	
+	public ArrayList<Integer> getBeenHere() {
+		return beenHere;
+	}
+	
+	public void setBeenHere(ArrayList<Integer> beenHere) {
+		this.beenHere=beenHere;
 	}
 
 	/**Get a list with all elements equal to zero*/
@@ -476,7 +486,8 @@ public class TransformationTools {
 					rowOfMatrix.add(0, venue.getLatitude());
 					rowOfMatrix.add(1, venue.getLongitude());
 					singlesId.add(venue.getVenueId()); //memorize venue id
-					timestamps.add(venue.getTimestamp());
+					timestamps.add(venue.getTimestamp()); //memorize timestamp
+					beenHere.add(venue.getCheckinsCount()); //memorize check-ins count
 					matrix.add(rowOfMatrix);
 				}
 			}
@@ -533,11 +544,12 @@ public class TransformationTools {
 	/**Get the features list for the dataset of single venues*/
 	public ArrayList<String> getFeaturesForSingles(ArrayList<String> features) {
 		features.add(0, "Timestamp (ms)");
-		features.add(1, "Venue Id");
-		features.add(2, "Venue Latitude");
-		features.add(3, "Venue Longitude");
-		features.set(4, "Focal Latitude");
-		features.set(5, "Focal Longitude");
+		features.add(1, "Been Here");
+		features.add(2, "Venue Id");
+		features.add(3, "Venue Latitude");
+		features.add(4, "Venue Longitude");
+		features.set(5, "Focal Latitude");
+		features.set(6, "Focal Longitude");
 		return features;
 	}
 	

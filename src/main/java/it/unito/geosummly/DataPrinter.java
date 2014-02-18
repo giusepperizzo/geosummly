@@ -78,7 +78,7 @@ public class DataPrinter {
         }
 	}
 	
-	public void printResultSingles(ArrayList<Long> timestamps, ArrayList<String> singlesId, ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
+	public void printResultSingles(ArrayList<Long> timestamps, ArrayList<Integer> beenHere, ArrayList<String> singlesId, ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(bout);
         try {
@@ -93,6 +93,7 @@ public class DataPrinter {
             //iterate per each row of the matrix
             for(int i=0; i<matrix.size();i++) {
             	csv.print(timestamps.get(i));
+            	csv.print(beenHere.get(i));
             	csv.print(singlesId.get(i));
             	for(int j=0;j<matrix.get(i).size();j++) {
             		csv.print(matrix.get(i).get(j));
