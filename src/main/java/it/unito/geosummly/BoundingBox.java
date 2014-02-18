@@ -111,8 +111,8 @@ public class BoundingBox {
 		return "Row: "+row+" Column:"+column+" N:"+north+" S:"+south+" W:"+west+" E:"+east+" C_Lat:"+centerLat+" C_Lng:"+centerLng+" Area:"+area;
 	}
 	
-	/* Haversine formula implementation. It returns the distance between 
-	 * two points given latitude and longitude values 
+	/** Haversine formula implementation. It returns the distance between 
+	 * two points given latitude and longitude values in meters
 	 */
 	public double getDistance(double lat1, double lng1, double lat2, double lng2){
 		double earthRadius = 6371; //in km

@@ -529,6 +529,45 @@ public class TransformationTools {
 		return toRet;
 	}
 	
+	/**Get (as bounding boxes) all the distinct focal coordinates of singles*/
+	public ArrayList<BoundingBox> getBoxes(ArrayList<ArrayList<Double>> matrix) {
+		ArrayList<BoundingBox> bbox=new ArrayList<BoundingBox>();
+		BoundingBox b=new BoundingBox();
+		b.setCenterLat(matrix.get(0).get(2));
+		b.setCenterLng(matrix.get(0).get(3));
+		bbox.add(b);
+		double lat;
+		double lng;
+		
+		for(int i=1;i<matrix.size();i++) {
+			lat=matrix.get(i).get(2);
+			lng=matrix.get(i).get(3);
+			if((matrix.get(i-1).get(2)!=lat) || (matrix.get(i-1).get(3)!=lng)) {
+				b=new BoundingBox();
+				b.setCenterLat(lat);
+				b.setCenterLng(lng);
+				bbox.add(b);
+			}
+		}
+		return bbox;
+	}
+	
+	/** Haversine formula implementation. It returns the distance between 
+	 * two points given latitude and longitude values in meters
+	 */
+	public double getDistance(double lat1, double lng1, double lat2, double lng2){
+		double earthRadius = 6371; //in km
+	    double dLat = Math.toRadians(lat2-lat1);
+	    double dLng = Math.toRadians(lng2-lng1);
+	    double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+	               Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+	               Math.sin(dLng/2) * Math.sin(dLng/2);
+	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	    double dist = earthRadius * c;
+
+	    return Math.floor(dist*1000)/1000;
+	}
+	
 	/**Sort the features in alphabetical order*/
 	public ArrayList<String> sortFeatures(HashMap<String,Integer> map) {
 		ArrayList<String> sortedFeatures=new ArrayList<String>();
@@ -571,6 +610,17 @@ public class TransformationTools {
 				label=s+"("+features.get(i)+")";
 				featuresLabel.add(label);
 			}
+		}
+		return featuresLabel;
+	}
+	
+	/**Change the feature label by replacing 'old' with 'last'*/
+	public ArrayList<String> changeFeaturesLabel(String old, String last, ArrayList<String> features) {
+		String label="";
+		ArrayList<String> featuresLabel=new ArrayList<String>();
+		for(int i=0;i<features.size();i++) {
+			label=features.get(i).replace(old, last);
+			featuresLabel.add(label);
 		}
 		return featuresLabel;
 	}

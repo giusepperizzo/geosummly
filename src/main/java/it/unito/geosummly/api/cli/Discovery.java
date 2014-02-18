@@ -85,8 +85,8 @@ public class Discovery {
 					.hasArg().withArgName("path/to/dir").create("O"));
 		 
 		 //option combination
-		 options.addOption(OptionBuilder.withLongOpt("c").withDescription("set the number of categories combinations for minpts estimation. Default 5")
-					.hasArg().withArgName("arg").create("combination"));
+		 options.addOption(OptionBuilder.withLongOpt("combination").withDescription("set the number of categories combinations for minpts estimation. Default 5")
+					.hasArg().withArgName("arg").create("c"));
 		 
 		//more options
 		options.addOption("H", "help", false, "print the command list");
