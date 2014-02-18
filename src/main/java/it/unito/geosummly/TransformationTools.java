@@ -18,13 +18,15 @@ import fi.foyt.foursquare.api.entities.Category;
 public class TransformationTools {
 	private int total;
 	private ArrayList<String> singlesId;
+	private ArrayList<Long> timestamps;
 	private HashMap<String, Integer> map;
 	
 	public static Logger logger = Logger.getLogger(TransformationMatrix.class.toString());
 	
 	public TransformationTools() {
 		this.total=0;
-		singlesId=new ArrayList<String>();
+		this.singlesId=new ArrayList<String>();
+		this.timestamps=new ArrayList<Long>();
 		this.map=new HashMap<String, Integer>();
 	}
 	
@@ -50,6 +52,14 @@ public class TransformationTools {
 	
 	public void setSinglesId(ArrayList<String> singlesId) {
 		this.singlesId=singlesId;
+	}
+	
+	public ArrayList<Long> getTimestamps() {
+		return timestamps;
+	}
+	
+	public void setTimestamps(ArrayList<Long> timestamps) {
+		this.timestamps=timestamps;
 	}
 
 	/**Get a list with all elements equal to zero*/
@@ -466,6 +476,7 @@ public class TransformationTools {
 					rowOfMatrix.add(0, venue.getLatitude());
 					rowOfMatrix.add(1, venue.getLongitude());
 					singlesId.add(venue.getVenueId()); //memorize venue id
+					timestamps.add(venue.getTimestamp());
 					matrix.add(rowOfMatrix);
 				}
 			}
@@ -521,11 +532,12 @@ public class TransformationTools {
 	
 	/**Get the features list for the dataset of single venues*/
 	public ArrayList<String> getFeaturesForSingles(ArrayList<String> features) {
-		features.add(0, "Venue Id");
-		features.add(1, "Venue Latitude");
-		features.add(2, "Venue Longitude");
-		features.set(3, "Focal Latitude");
-		features.set(4, "Focal Longitude");
+		features.add(0, "Timestamp (ms)");
+		features.add(1, "Venue Id");
+		features.add(2, "Venue Latitude");
+		features.add(3, "Venue Longitude");
+		features.set(4, "Focal Latitude");
+		features.set(5, "Focal Longitude");
 		return features;
 	}
 	
