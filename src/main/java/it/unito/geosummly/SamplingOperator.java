@@ -62,6 +62,7 @@ public class SamplingOperator {
     	//Get the tools class and its support variables
 		TransformationTools tools=new TransformationTools();
 		ArrayList<ArrayList<Double>> venuesMatrix=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> venuesMatrixSecondLevel=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> bboxArea=new ArrayList<Double>();
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> cellVenue;
@@ -89,14 +90,21 @@ public class SamplingOperator {
 		case SINGLE:
 			//two more columns if I've to build singles matrix
 			venuesMatrix=tools.fixRowsLength(tools.getTotal()+2, venuesMatrix); //update rows length for consistency
+			venuesMatrixSecondLevel=tools.fixRowsLength(tools.getTotalSecondLevel()+2, tools.getMatrixSecondLevel());
 			dp.printResultSingles(tools.getTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), out+"/singles-matrix.csv");
+			dp.printResultSingles(tools.getTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrixSecondLevel, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMapSecondLevel())), out+"/singles-matrix-2nd.csv");
 			ArrayList<ArrayList<Double>> auxMatrix=new ArrayList<ArrayList<Double>>();
-			for(BoundingBox b: data)
+			ArrayList<ArrayList<Double>> auxMatrixSecondLevel=new ArrayList<ArrayList<Double>>();
+			for(BoundingBox b: data) {
 				auxMatrix.add(tools.groupSinglesToCell(b, venuesMatrix));
+				auxMatrixSecondLevel.add(tools.groupSinglesToCell(b, venuesMatrixSecondLevel));
+			}
 			venuesMatrix=new ArrayList<ArrayList<Double>>(auxMatrix);
+			venuesMatrixSecondLevel=new ArrayList<ArrayList<Double>>(auxMatrixSecondLevel);
 			break;
 		case CELL:
 			venuesMatrix=tools.fixRowsLength(tools.getTotal(), venuesMatrix); //update rows length for consistency
+			venuesMatrixSecondLevel=tools.fixRowsLength(tools.getTotalSecondLevel(), venuesMatrixSecondLevel);
 			break;
 		}
 		
@@ -110,9 +118,22 @@ public class SamplingOperator {
 		tm.setNormalizedMatrix(normalizedMatrix);
 		tm.setHeader(tools.sortFeatures(tools.getMap()));
 		
+		TransformationMatrix tmSecondLevel=new TransformationMatrix();
+		ArrayList<ArrayList<Double>> frequencyMatrixSecondLevel=tools.sortMatrix(ltype, venuesMatrixSecondLevel, tools.getMapSecondLevel());
+		tmSecondLevel.setFrequencyMatrix(frequencyMatrixSecondLevel);
+		ArrayList<ArrayList<Double>> densityMatrixSecondLevel=tools.buildDensityMatrix(ltype, frequencyMatrixSecondLevel, bboxArea);
+		tmSecondLevel.setDensityMatrix(densityMatrixSecondLevel);
+		ArrayList<ArrayList<Double>> normalizedMatrixSecondLevel=tools.buildNormalizedMatrix(ltype, densityMatrixSecondLevel);
+		tmSecondLevel.setNormalizedMatrix(normalizedMatrixSecondLevel);
+		tmSecondLevel.setHeader(tools.sortFeatures(tools.getMapSecondLevel()));
+		
 		//Write down the transformation matrix to file
 		dp.printResultHorizontal(tm.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tm.getHeader()), out+"/frequency-transformation-matrix.csv");
 		dp.printResultHorizontal(tm.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tm.getHeader()), out+"/density-transformation-matrix.csv");
 		dp.printResultHorizontal(tm.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tm.getHeader()), out+"/normalized-transformation-matrix.csv");
+		
+		dp.printResultHorizontal(tmSecondLevel.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tmSecondLevel.getHeader()), out+"/frequency-transformation-matrix-2nd.csv");
+		dp.printResultHorizontal(tmSecondLevel.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tmSecondLevel.getHeader()), out+"/density-transformation-matrix-2nd.csv");
+		dp.printResultHorizontal(tmSecondLevel.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tmSecondLevel.getHeader()), out+"/normalized-transformation-matrix-2nd.csv");
     }
 }
