@@ -23,6 +23,7 @@ geosummly can be viewed as a 4-states application, respectively in this order:
 -g –gnum    <arg>           set the number of cells of a side of the squared grid. Default 20.
 -r –rnum    <arg>           set the number of cells, taken randomly, chosen for the sampling.
 -s –social  <arg>           set the social network for meta-data collection. So far only foursquare is activable. Default fourquare.
+-z -sleep   <arg>           set the milliseconds between two calls to social media server. Default 0.
 -C –cache                   cache activation. Default deactivated.
 ```
 The options *coord*, *input* (only if *coord* is not specified), *output* are mandatory. The options *input* and *coord* are mutually exclusive. The options *input* and *gnum* are mutually exclusive. The options *input* and *rnum* are mutually exclusive.
