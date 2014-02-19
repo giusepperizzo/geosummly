@@ -104,7 +104,7 @@ public class SamplingOperator {
 			break;
 		case CELL:
 			venuesMatrix=tools.fixRowsLength(tools.getTotal(), venuesMatrix); //update rows length for consistency
-			venuesMatrixSecondLevel=tools.fixRowsLength(tools.getTotalSecondLevel(), venuesMatrixSecondLevel);
+			venuesMatrixSecondLevel=tools.fixRowsLength(tools.getTotalSecondLevel(), tools.getMatrixSecondLevel());
 			break;
 		}
 		
