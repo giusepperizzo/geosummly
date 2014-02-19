@@ -32,6 +32,7 @@ public class Sampling {
 	private ArrayList<Double> coordinates=new ArrayList<Double>();
 	private int gridCells=20;
 	private int randomCells=-1;
+	private long sleepMs=0;
 	private InformationType venueType=InformationType.SINGLE;
 	private CoordinatesNormalizationType coordType=CoordinatesNormalizationType.NORM;
 	//private String socNet="foursquare";
@@ -124,15 +125,23 @@ public class Sampling {
 				//manage cache
 			}*/
 			
+			if(line.hasOption("sleep")) {
+				sleepMs=Long.parseLong(line.getOptionValue("sleep"));
+				if(sleepMs<0) {
+					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					System.exit(-1);
+				}
+			}
+			
 			if (line.hasOption("help") || !mandatory) {
                 formatter.printHelp(150, helpUsage,"\ncommands list:", options, helpFooter);
                 System.exit(-1);
             }
 			SamplingOperator so=new SamplingOperator();
 			if(inputFlag)
-				so.executeWithInput(inFile, outDir, venueType, coordType);
+				so.executeWithInput(inFile, outDir, venueType, coordType, sleepMs);
 			else
-				so.executeWithCoord(coordinates, outDir, gridCells, randomCells, venueType, coordType);
+				so.executeWithCoord(coordinates, outDir, gridCells, randomCells, venueType, coordType, sleepMs);
 			
 		}
 		catch(ParseException | NumberFormatException | FoursquareApiException | IOException | JSONException | InterruptedException e) {
