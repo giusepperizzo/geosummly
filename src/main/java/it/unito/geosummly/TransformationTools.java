@@ -18,7 +18,8 @@ import fi.foyt.foursquare.api.entities.Category;
 public class TransformationTools {
 	private int total;
 	private ArrayList<String> singlesId;
-	private ArrayList<Long> timestamps;
+	private ArrayList<Long> singlesTimestamps;
+	private ArrayList<Long> cellsTimestamps;
 	private ArrayList<Integer> beenHere;
 	private HashMap<String, Integer> map;
 	private int totalSecondLevel;
@@ -30,7 +31,8 @@ public class TransformationTools {
 	public TransformationTools() {
 		this.total=0;
 		this.singlesId=new ArrayList<String>();
-		this.timestamps=new ArrayList<Long>();
+		this.singlesTimestamps=new ArrayList<Long>();
+		this.cellsTimestamps=new ArrayList<Long>();
 		this.beenHere=new ArrayList<Integer>();
 		this.map=new HashMap<String, Integer>();
 		this.totalSecondLevel=0;
@@ -78,12 +80,20 @@ public class TransformationTools {
 		this.singlesId=singlesId;
 	}
 	
-	public ArrayList<Long> getTimestamps() {
-		return timestamps;
+	public ArrayList<Long> getSinglesTimestamps() {
+		return singlesTimestamps;
 	}
 	
-	public void setTimestamps(ArrayList<Long> timestamps) {
-		this.timestamps=timestamps;
+	public void setSinglesTimestamps(ArrayList<Long> singlesTimestamps) {
+		this.singlesTimestamps=singlesTimestamps;
+	}
+	
+	public ArrayList<Long> getCellsTimestamps() {
+		return cellsTimestamps;
+	}
+	
+	public void setCellsTimestamps(ArrayList<Long> cellsTimestamps) {
+		this.cellsTimestamps=cellsTimestamps;
 	}
 	
 	public ArrayList<Integer> getBeenHere() {
@@ -552,9 +562,9 @@ public class TransformationTools {
 					rowOfMatrix.add(1, venue.getLongitude());
 					rowOfMatrixSecondLevel.add(0, venue.getLatitude());
 					rowOfMatrixSecondLevel.add(1, venue.getLongitude());
-					singlesId.add(venue.getVenueId()); //memorize venue id
-					timestamps.add(venue.getTimestamp()); //memorize timestamp
-					beenHere.add(venue.getCheckinsCount()); //memorize check-ins count
+					this.singlesId.add(venue.getVenueId()); //memorize venue id
+					this.singlesTimestamps.add(venue.getTimestamp()); //memorize timestamp
+					this.beenHere.add(venue.getCheckinsCount()); //memorize check-ins count
 					matrix.add(rowOfMatrix);
 					this.matrixSecondLevel.add(rowOfMatrixSecondLevel);
 				}
@@ -578,6 +588,7 @@ public class TransformationTools {
 				this.total=rowOfMatrix.size(); //update the overall number of categories
 			if(this.totalSecondLevel<rowOfMatrixSecondLevel.size())
 				this.totalSecondLevel=rowOfMatrixSecondLevel.size(); //update the overall number of categories
+			this.cellsTimestamps.add(cell.get(0).getTimestamp());
 			matrix.add(rowOfMatrix);
 			this.matrixSecondLevel.add(rowOfMatrixSecondLevel);
 			break;
@@ -587,6 +598,7 @@ public class TransformationTools {
 	
 	/**Group venues occurrences belonging to the same focal points*/
 	public ArrayList<Double> groupSinglesToCell(BoundingBox b, ArrayList<ArrayList<Double>> matrix) {
+		boolean assigned=false;
 		double value;
 		double cLat=b.getCenterLat(); //focal coordinates of the cell
 		double cLng=b.getCenterLng();
@@ -594,12 +606,17 @@ public class TransformationTools {
 		toRet.set(0, cLat); //center latitude and longitude of the cell
 		toRet.set(1, cLng);
 		//Grouping in cells
-		for(ArrayList<Double> record: matrix) {
+		for(int i=0;i<matrix.size();i++) {
+			ArrayList<Double> record=matrix.get(i);
 			//venues of the same cell
 			if(record.get(2)==cLat && record.get(3)==cLng) {
-				for(int i=4;i<record.size();i++) {
-					value=toRet.get(i-2)+record.get(i); //grouping by summing the occurrences
-					toRet.set(i-2, value);
+				for(int j=4;j<record.size();j++) {
+					value=toRet.get(j-2)+record.get(j); //grouping by summing the occurrences
+					toRet.set(j-2, value);
+				}
+				if(!assigned) {
+					this.cellsTimestamps.add(this.singlesTimestamps.get(i));
+					assigned=true;
 				}
 			}
 		}
@@ -674,6 +691,7 @@ public class TransformationTools {
 		ArrayList<String> featuresLabel=new ArrayList<String>();
 		if(type.equals(CoordinatesNormalizationType.NORM) || type.equals(CoordinatesNormalizationType.NOTNORM)) {
 			String label="";
+			featuresLabel.add("Timestamps(ms)"); //Timestamps
 			featuresLabel.add(features.get(0)); //Latitude
 			featuresLabel.add(features.get(1)); //Longitude
 			for(int i=2;i<features.size();i++) {

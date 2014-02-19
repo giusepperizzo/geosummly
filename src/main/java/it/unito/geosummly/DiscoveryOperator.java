@@ -23,9 +23,9 @@ public class DiscoveryOperator {
 		CSVParser parser = new CSVParser(reader, CSVFormat.EXCEL);
 		List<CSVRecord> list = parser.getRecords();
 		parser.close();
-		int index=0;
-		if(list.get(0).get(0).contains("Latitude") || list.get(0).get(0).contains("Longitude"))
-			index=2;
+		int index=1;
+		if(list.get(0).get(1).contains("Latitude") || list.get(0).get(1).contains("Longitude"))
+			index=3;
 		
 		for(int k=index;k<list.get(0).size();k++) {
 			features.add(list.get(0).get(k));
@@ -74,7 +74,7 @@ public class DiscoveryOperator {
 		
 		//Write down the matrices to file
 		DataPrinter dp=new DataPrinter();
-		dp.printResultHorizontal(stdMatrix, dt.getFeaturesLabel("std", feat), out+ "/std-values.csv");
+		dp.printResultHorizontal(null, stdMatrix, dt.getFeaturesLabel("std", feat), out+ "/std-values.csv");
 		dp.printResultVertical(deltadValues, featuresDeltad, out+ "/deltad-values.csv");
 	}
 }

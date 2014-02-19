@@ -15,7 +15,7 @@ public class DataPrinter {
 	
 	public DataPrinter() {}
 	
-	public void printResultHorizontal(ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
+	public void printResultHorizontal(ArrayList<Long> timestamps, ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(bout);
         try {
@@ -28,9 +28,11 @@ public class DataPrinter {
             csv.println();
             
             //iterate per each row of the matrix
-            for(ArrayList<Double> a: matrix) {
-            	for(Double d: a) {
-            		csv.print(d);
+            for(int i=0; i<matrix.size();i++) {
+            	if(timestamps!=null)
+            		csv.print(timestamps.get(i));
+            	for(int j=0; j<matrix.get(i).size();j++) {
+            		csv.print(matrix.get(i).get(j));
             	}
             	csv.println();
             }

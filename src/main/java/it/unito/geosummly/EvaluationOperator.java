@@ -25,14 +25,14 @@ public class EvaluationOperator {
 		List<CSVRecord> list = parser.getRecords();
 		parser.close();
 		
-		//Remove coordinates
-		for(int k=2;k<list.get(0).size();k++) {
+		//Remove timestamp and coordinates
+		for(int k=3;k<list.get(0).size();k++) {
 			features.add(list.get(0).get(k));
 		}
 		
 		for(int k=1;k<list.size();k++) {
 			ArrayList<Double> rec=new ArrayList<Double>();
-			for(int j=2;j<list.get(k).size();j++)
+			for(int j=3;j<list.get(k).size();j++)
 				rec.add(Double.parseDouble(list.get(k).get(j)));
 			matrix.add(rec);
 		}
@@ -76,8 +76,8 @@ public class EvaluationOperator {
 			densityRandomMatrix=tools.buildDensityMatrix(CoordinatesNormalizationType.MISSING, frequencyRandomMatrix, bboxArea);
 			normalizedRandomMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.MISSING, densityRandomMatrix);
 			ArrayList<String >feat=tools.changeFeaturesLabel("f", "", features);
-			dp.printResultHorizontal(densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", feat), out+"/random-density-transformation-matrix-"+i+".csv");
-			dp.printResultHorizontal(normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", feat), out+"/random-normalized-transformation-matrix-"+i+".csv");
+			dp.printResultHorizontal(null, densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", feat), out+"/random-density-transformation-matrix-"+i+".csv");
+			dp.printResultHorizontal(null, normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", feat), out+"/random-normalized-transformation-matrix-"+i+".csv");
 		}
 	}
 	
@@ -170,9 +170,9 @@ public class EvaluationOperator {
 			
 			//write down the transformation matrices to file
 			index++; //just for file name
-			dp.printResultHorizontal(ithTm.getFrequencyMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "f", ithTm.getHeader()), out+"/frequency-transformation-matrix-fold"+index+".csv");
-			dp.printResultHorizontal(ithTm.getDensityMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "density", ithTm.getHeader()), out+"/density-transformation-matrix-fold"+index+".csv");
-			dp.printResultHorizontal(ithTm.getNormalizedMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "normalized_density", ithTm.getHeader()), out+"/normalized-transformation-matrix-fold"+index+".csv");
+			dp.printResultHorizontal(null, ithTm.getFrequencyMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "f", ithTm.getHeader()), out+"/frequency-transformation-matrix-fold"+index+".csv");
+			dp.printResultHorizontal(null, ithTm.getDensityMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "density", ithTm.getHeader()), out+"/density-transformation-matrix-fold"+index+".csv");
+			dp.printResultHorizontal(null, ithTm.getNormalizedMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "normalized_density", ithTm.getHeader()), out+"/normalized-transformation-matrix-fold"+index+".csv");
 		}
 	}
 }

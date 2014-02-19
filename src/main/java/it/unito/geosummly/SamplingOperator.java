@@ -16,7 +16,7 @@ public class SamplingOperator {
     
     public SamplingOperator() {}
        
-    public void executeWithInput(String in, String out, InformationType vtype, CoordinatesNormalizationType ltype) throws IOException, JSONException, FoursquareApiException, InterruptedException {
+    public void executeWithInput(String in, String out, InformationType vtype, CoordinatesNormalizationType ltype, long sleep) throws IOException, JSONException, FoursquareApiException, InterruptedException {
     	
     	//Create the grid
     	GeoJSONDecoder gjd=new GeoJSONDecoder();
@@ -31,10 +31,10 @@ public class SamplingOperator {
 		grid.setBbox(global);
 		grid.setStructure(data);
 		
-		collectAndTransform(data, out, vtype, ltype);
+		collectAndTransform(data, out, vtype, ltype, sleep);
     }
     
-    public void executeWithCoord(ArrayList<Double> coord, String out, int gnum, int rnum, InformationType vtype, CoordinatesNormalizationType ltype) throws IOException, FoursquareApiException, InterruptedException {
+    public void executeWithCoord(ArrayList<Double> coord, String out, int gnum, int rnum, InformationType vtype, CoordinatesNormalizationType ltype, long sleep) throws IOException, FoursquareApiException, InterruptedException {
     	
     	//Create the grid
     	BoundingBox bbox=new BoundingBox(coord.get(0), coord.get(1), coord.get(2), coord.get(3));
@@ -48,10 +48,10 @@ public class SamplingOperator {
     	else
     		grid.createCells();
     	
-    	collectAndTransform(data, out, vtype, ltype);
+    	collectAndTransform(data, out, vtype, ltype, sleep);
     }
     
-    public void collectAndTransform(ArrayList<BoundingBox> data, String out, InformationType vtype, CoordinatesNormalizationType ltype) throws UnknownHostException, FoursquareApiException, InterruptedException {
+    public void collectAndTransform(ArrayList<BoundingBox> data, String out, InformationType vtype, CoordinatesNormalizationType ltype, long sleep) throws UnknownHostException, FoursquareApiException, InterruptedException {
     	//Cache system
 		/*MongoClient mongoClient=new MongoClient("localhost"); //MongoDB instance
 		DB db=mongoClient.getDB("VenueDB");
@@ -82,7 +82,7 @@ public class SamplingOperator {
 			
 			venuesMatrix=tools.getInformations(vtype, b.getCenterLat(), b.getCenterLng(), venuesMatrix, cellVenue);
 			bboxArea.add(b.getArea());
-			//Thread.sleep(1000);
+			Thread.sleep(sleep);
 		}
 		
 		//Group single venues to cells if necessary
@@ -91,16 +91,18 @@ public class SamplingOperator {
 			//two more columns if I've to build singles matrix
 			venuesMatrix=tools.fixRowsLength(tools.getTotal()+2, venuesMatrix); //update rows length for consistency
 			venuesMatrixSecondLevel=tools.fixRowsLength(tools.getTotalSecondLevel()+2, tools.getMatrixSecondLevel());
-			dp.printResultSingles(tools.getTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), out+"/singles-matrix.csv");
-			dp.printResultSingles(tools.getTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrixSecondLevel, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMapSecondLevel())), out+"/singles-matrix-2nd.csv");
+			dp.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), out+"/singles-matrix.csv");
+			dp.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrixSecondLevel, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMapSecondLevel())), out+"/singles-matrix-2nd.csv");
 			ArrayList<ArrayList<Double>> auxMatrix=new ArrayList<ArrayList<Double>>();
 			ArrayList<ArrayList<Double>> auxMatrixSecondLevel=new ArrayList<ArrayList<Double>>();
 			for(BoundingBox b: data) {
 				auxMatrix.add(tools.groupSinglesToCell(b, venuesMatrix));
 				auxMatrixSecondLevel.add(tools.groupSinglesToCell(b, venuesMatrixSecondLevel));
 			}
+			
 			venuesMatrix=new ArrayList<ArrayList<Double>>(auxMatrix);
 			venuesMatrixSecondLevel=new ArrayList<ArrayList<Double>>(auxMatrixSecondLevel);
+			
 			break;
 		case CELL:
 			venuesMatrix=tools.fixRowsLength(tools.getTotal(), venuesMatrix); //update rows length for consistency
@@ -128,12 +130,12 @@ public class SamplingOperator {
 		tmSecondLevel.setHeader(tools.sortFeatures(tools.getMapSecondLevel()));
 		
 		//Write down the transformation matrix to file
-		dp.printResultHorizontal(tm.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tm.getHeader()), out+"/frequency-transformation-matrix.csv");
-		dp.printResultHorizontal(tm.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tm.getHeader()), out+"/density-transformation-matrix.csv");
-		dp.printResultHorizontal(tm.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tm.getHeader()), out+"/normalized-transformation-matrix.csv");
+		dp.printResultHorizontal(tools.getCellsTimestamps(), tm.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tm.getHeader()), out+"/frequency-transformation-matrix.csv");
+		dp.printResultHorizontal(tools.getCellsTimestamps(), tm.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tm.getHeader()), out+"/density-transformation-matrix.csv");
+		dp.printResultHorizontal(tools.getCellsTimestamps(), tm.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tm.getHeader()), out+"/normalized-transformation-matrix.csv");
 		
-		dp.printResultHorizontal(tmSecondLevel.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tmSecondLevel.getHeader()), out+"/frequency-transformation-matrix-2nd.csv");
-		dp.printResultHorizontal(tmSecondLevel.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tmSecondLevel.getHeader()), out+"/density-transformation-matrix-2nd.csv");
-		dp.printResultHorizontal(tmSecondLevel.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tmSecondLevel.getHeader()), out+"/normalized-transformation-matrix-2nd.csv");
+		dp.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tmSecondLevel.getHeader()), out+"/frequency-transformation-matrix-2nd.csv");
+		dp.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tmSecondLevel.getHeader()), out+"/density-transformation-matrix-2nd.csv");
+		dp.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tmSecondLevel.getHeader()), out+"/normalized-transformation-matrix-2nd.csv");
     }
 }
