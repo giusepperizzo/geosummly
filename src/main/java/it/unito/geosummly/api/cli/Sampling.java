@@ -59,8 +59,7 @@ public class Sampling {
 			if(line.hasOption("input") && line.hasOption("output")) {
 				inFile=line.getOptionValue("input");
 				//file extension has to be geojson
-				String[] i=inFile.split(".");
-				if(!i[i.length-1].equals("geojson")) {
+				if(!inFile.endsWith("geojson")) {
 					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
@@ -189,8 +188,10 @@ public class Sampling {
 							.hasArg().withArgName("arg").create("v"));
 		 options.addOption(OptionBuilder.withLongOpt( "ltype" ).withDescription("set the type of coordinates (latitude and langitude) normalization. Allowed values: norm, notnorm, missing. Default norm")
 							.hasArg().withArgName("arg").create("l"));
-		 options.addOption(OptionBuilder.withLongOpt( "social" ).withDescription("set the social network for meta-data collection. So far only foursquare is activable. Default fourquare")
+		 options.addOption(OptionBuilder.withLongOpt("social").withDescription("set the social network for meta-data collection. So far only foursquare is activable. Default fourquare")
 							.hasArg().withArgName("arg").create("s"));
+		 options.addOption(OptionBuilder.withLongOpt( "sleep" ).withDescription("set the milliseconds between two calls to social media server. Default 0")
+					.hasArg().withArgName("arg").create("z"));
 		 options.addOption("C", "cache", false, "cache activation. Default deactivated");
 		 
 		//more options
