@@ -3,12 +3,12 @@ geosummly
 
 ####Geo Summarization Based on Crowd Sensors
 
-geosummly can be viewed as a 4-states application, respectively in this order:
-
-* sampling: foursquare venues meta-data collection and transformation into a grid in order to obtain density values of venues categories with respect to geospatial coordinates.
-* discovery: minpts parameter estimation.
-* clustering: clustering algorithm application.
-* evaluation: algorithm correctness evaluation and output validation.
+geosummly is as a 4-states application, respectively:
+* sampling: it performs the sampling of foursquare venues that are surrounded by a bounding box, and it generates a multidimensional tensor matrix where each dimension reports the magnitude of the Fourquare category vanue, and each object shapes a portion (cell) of the original 
+bounding box;
+* discovery: it estimates the parameter minpts;
+* clustering: it performs the clustering algorithm;
+* evaluation: it computes the SSE and the Jaccard as evaluation means of the obtained clustering output.
 
 
 ###CLI commands
@@ -27,7 +27,7 @@ geosummly can be viewed as a 4-states application, respectively in this order:
 -C –cache                   cache activation. Default deactivated.
 ```
 The options *coord*, *input* (only if *coord* is not specified), *output* are mandatory. The options *input* and *coord* are mutually exclusive. The options *input* and *gnum* are mutually exclusive. The options *input* and *rnum* are mutually exclusive.
-The output consist of a file of single venues, a file of grid-shaped aggregated venues, a file of density values of the previous aggregates, a file with intra-feature normalized density values shifted in [0,1]. 
+The output consists of a file of single venues, a file of grid-shaped aggregated venues, a file of density values of the previous aggregates, a file with intra-feature normalized density values shifted in [0,1]. 
 
 #####discovery
 ```sh
