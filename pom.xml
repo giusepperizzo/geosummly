@@ -95,20 +95,24 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency> 
-
+        <dependency>
+            <groupId>org.mapfish.geo</groupId>
+            <artifactId>mapfish-geo-lib</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+            <version>1.2</version>
+        </dependency>
+        
         <dependency>
             <groupId>org.apache.commons.csv</groupId>
             <artifactId>csv</artifactId>
             <version>1.0</version>    
             <scope>system</scope>
             <systemPath>${system.libs}/commons-csv-1.0-20131011.114144-243.jar</systemPath>
-        </dependency>
-        <dependency>
-			<groupId>commons-cli</groupId>
-			<artifactId>commons-cli</artifactId>
-			<version>1.2</version>
-		</dependency>
-            
+        </dependency>           
         <dependency>
             <groupId>jp.ndca.similarity.distance</groupId>
             <artifactId>simjoin</artifactId>
@@ -117,9 +121,11 @@
             <systemPath>${system.libs}/simjoin.jar</systemPath>
         </dependency>
         <dependency>
-			<groupId>org.mapfish.geo</groupId>
-			<artifactId>mapfish-geo-lib</artifactId>
-			<version>1.2.0</version>
-		</dependency>
+            <groupId>de.lmu.ifi.dbs.elki</groupId>
+            <artifactId>elki</artifactId>
+            <version>0.6</version>    
+            <scope>system</scope>
+            <systemPath>${system.libs}/elki-v0.6.jar</systemPath>
+        </dependency>
 	</dependencies>
 </project>
