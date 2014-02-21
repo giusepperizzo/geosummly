@@ -25,7 +25,7 @@ public class Discovery {
 		Boolean mandatory=false; //check the presence of mandatory options
 		String helpUsage="geosummly discovery -input<path/to/file.csv> -output<path/to/dir> [options]";
 		String helpFooter="\nThe options input, output are mandatory. Input file has to be a .csv either of singles or"
-							+ " grid-shaped venues. The output consist of a file of standard deviation values for"
+							+ " grid-shaped venues. The output consists of a file of standard deviation values for"
 							+ " the categories combinations.";
 		
 		try {

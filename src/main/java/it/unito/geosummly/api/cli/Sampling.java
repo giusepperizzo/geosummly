@@ -43,7 +43,7 @@ public class Sampling {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		Boolean inputFlag=false; //check the presence either of input or coord;
-		String helpUsage="geosummly sampling -input<path/to/file.geojson> -output<path/to/dir> [options]\ngeosummly sampling -coord <n,s,w,e> -output<path/to/dir> [options]";
+		String helpUsage="\ngeosummly sampling -input<path/to/file.geojson> -output<path/to/dir> [options]\ngeosummly sampling -coord <n,s,w,e> -output<path/to/dir> [options]";
 		String helpFooter="\nThe options coord, input (only if coord is not specified), output are mandatory. The options input and coord are mutually exclusive. The options input and gnum are mutually exclusive. "
 				 + "The options input and rnum are mutually exclusive. The output consist of a file of single venues, a file of grid-shaped aggregated venues, a file of density values of the previous "
 				 + "aggregates, a file with intra-feature normalized density values shifted in [0,1].";

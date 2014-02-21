@@ -26,7 +26,7 @@ public class Evaluation {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		
-		String helpUsage="geosummly evaluation –etype validation –input path/to/file.csv –output path/to/dir [options]\ngeosummly evaluation –etype correctness –input path/to/file.csv –output path/to/dir [options]";
+		String helpUsage="\ngeosummly evaluation –etype validation –input path/to/file.csv –output path/to/dir [options]\ngeosummly evaluation –etype correctness –input path/to/file.csv –output path/to/dir [options]";
 		String helpFooter="\nThe options etype, input, output are mandatory. If etype argument is equal to correctness, "
 							+ "the input file has to be a .csv of grid-shaped aggregates, and the output is a set of"
 							+ " random grid-shaped aggregates. Moreover fnum option cannot be used. If etype argument "
