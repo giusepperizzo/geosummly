@@ -35,7 +35,7 @@ The output consists of a file of single venues, a file of grid-shaped aggregated
 -O –output       <path/to/dir>   set the output directory
 -c -combination  <arg>           set the number of categories combinations for minpts estimation. Default 5.                             
 ```
-The options *input*, *output* are mandatory. Input file has to be a .csv of grid-shaped density values. The output consist of a file of standard deviation values for the categories combinations.
+The options *input*, *output* are mandatory. Input file has to be a .csv of grid-shaped density values. The output consists of a file of standard deviation values for the categories combinations.
 
 #####clustering
 ```sh
@@ -43,7 +43,7 @@ The options *input*, *output* are mandatory. Input file has to be a .csv of grid
 -O –output  <path/to/dir>   set the output directory
 -M -method  <arg>           set the clustering algorithm. So far only geosubclu is activable. Default geosubclu.
 ```
-The options *input*, *output* are mandatory. Input file has to be a .csv of grid-shaped normalized density values. The output consist of a list of triples (latitude, longitude, membership category).
+The options *input*, *output* are mandatory. Input file has to be a .csv of grid-shaped normalized density values. The output consists of a list of triples (latitude, longitude, membership category).
 
 #####evaluation
 ```sh
