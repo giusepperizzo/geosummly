@@ -36,13 +36,8 @@ public class Sampling {
 	private InformationType venueType=InformationType.SINGLE;
 	private CoordinatesNormalizationType coordType=CoordinatesNormalizationType.NORM;
 	//private String socNet="foursquare";
-
-	public static void main(String[] args) {
-		Sampling sampling = new Sampling();
-        sampling.run(args);
-	}
 	
-	private void run (String[] args) {
+	public void run (String[] args) {
 		Options options= initOptions(); //define list of options
 		CommandLineParser parser=new PosixParser(); //create the command line parser
 		HelpFormatter formatter = new HelpFormatter();
@@ -147,10 +142,9 @@ public class Sampling {
 			System.out.println("Unexpected exception: " + e.getMessage());
 		}
 	}
-	 
-	 
+	
 	@SuppressWarnings("static-access")
-	private static Options initOptions() {
+	private Options initOptions() {
 			 
 		 Options options = new Options(); //define list of options
 		 

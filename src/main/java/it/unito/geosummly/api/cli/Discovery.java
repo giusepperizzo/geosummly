@@ -18,12 +18,7 @@ public class Discovery {
 	private String outDir=null;
 	private int comb=5;
 	
-	public static void main(String[] args) throws IOException {
-		Discovery discovery = new Discovery();
-		discovery.run(args);
-	}
-	
-	private void run (String[] args) throws IOException {
+	public void run (String[] args) throws IOException {
 		Options options= initOptions(); //define list of options
 		CommandLineParser parser=new PosixParser(); //create the command line parser
 		HelpFormatter formatter = new HelpFormatter();
@@ -72,7 +67,7 @@ public class Discovery {
 	 
 	 
 	@SuppressWarnings("static-access")
-	private static Options initOptions() {
+	private Options initOptions() {
 			 
 		 Options options = new Options(); //define list of options
 		 

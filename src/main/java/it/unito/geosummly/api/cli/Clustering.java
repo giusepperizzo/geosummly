@@ -2,9 +2,10 @@ package it.unito.geosummly.api.cli;
 
 public class Clustering {
 
-	public static void main(String[] args) {
+	public void run(String[] args) {
 		// TODO Auto-generated method stub
 
 	}
+	
 
 }

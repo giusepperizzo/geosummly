@@ -19,11 +19,6 @@ public class Evaluation {
 	private String outDir=null;
 	private int mnum=500;
 	private int fnum=10;
-
-	public static void main(String[] args) {
-		Evaluation evaluation=new Evaluation();
-		evaluation.run(args);
-	}
 	
 	public void run(String[] args) {
 		Options options= initOptions(); //define list of options
@@ -101,7 +96,7 @@ public class Evaluation {
 	}
 	
 	@SuppressWarnings("static-access")
-	private static Options initOptions() {
+	private Options initOptions() {
 			 
 		 Options options = new Options(); //define list of options
 		 
