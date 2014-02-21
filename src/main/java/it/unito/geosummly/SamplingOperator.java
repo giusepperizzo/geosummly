@@ -72,7 +72,6 @@ public class SamplingOperator {
 		for(BoundingBox b: data){
 		    logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
 			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
-			
 			//Copy to cache
 			/*for(FoursquareDataObject fdo: cellVenue){
 				String obj=gson.toJson(fdo); //Serialize with Gson

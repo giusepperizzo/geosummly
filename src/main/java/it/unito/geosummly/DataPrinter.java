@@ -30,7 +30,7 @@ public class DataPrinter {
             //iterate per each row of the matrix
             for(int i=0; i<matrix.size();i++) {
             	if(timestamps!=null)
-            		csv.print(timestamps.get(i));
+            		csv.print(timestamps.get(0));
             	for(int j=0; j<matrix.get(i).size();j++) {
             		csv.print(matrix.get(i).get(j));
             	}
@@ -94,7 +94,7 @@ public class DataPrinter {
             
             //iterate per each row of the matrix
             for(int i=0; i<matrix.size();i++) {
-            	csv.print(timestamps.get(i));
+            	csv.print(timestamps.get(0));
             	csv.print(beenHere.get(i));
             	csv.print(singlesId.get(i));
             	for(int j=0;j<matrix.get(i).size();j++) {
