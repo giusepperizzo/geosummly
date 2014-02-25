@@ -55,7 +55,7 @@ public class DiscoveryOperator {
 		
 		//Deltad values of feature combinations
 		for(int j=2;j<=comb;j++) {
-			int[] combinations=new int[j]; //array wich will contain the indices of the values to combine
+			int[] combinations=new int[j]; //array which will contain the indices of the values to combine
 			Arrays.fill(combinations, -1);
 			deltadValues.addAll(dt.getCombinations(matrix, new ArrayList<Double>(), meanDensities, combinations, 0, 0, n));
 		}
@@ -67,9 +67,10 @@ public class DiscoveryOperator {
 		
 		//Label of feature combinations
 		for(int j=2;j<=comb;j++) {
-			int[] combinations=new int[j]; //array wich will contain the indices of the features to combine
+			int[] combinations=new int[j]; //array which will contain the indices of the features to combine
 			Arrays.fill(combinations, -1);
 			featuresDeltad.addAll(dt.getFeaturesForCombinations(new ArrayList<String>(), feat, combinations, 0, 0));
+			System.out.println("combination="+j+" eseguita");
 		}
 		
 		//Write down the matrices to file
