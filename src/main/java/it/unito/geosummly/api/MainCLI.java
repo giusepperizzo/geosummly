@@ -16,7 +16,7 @@ import org.apache.commons.cli.PosixParser;
 
 public class MainCLI {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		MainCLI mainCLI=new MainCLI();
 		mainCLI.run(args);
 	}
