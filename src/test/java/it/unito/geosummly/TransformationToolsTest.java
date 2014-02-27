@@ -601,6 +601,9 @@ public class TransformationToolsTest extends TestCase {
 		ArrayList<String> actual=tm.getFeaturesForSingles(a);
 		
 		ArrayList<String> expected=new ArrayList<String>();
+		expected.add("Timestamp (ms)");
+		expected.add("Been Here");
+		expected.add("Venue Id");
 		expected.add("Venue Latitude");
 		expected.add("Venue Longitude");
 		expected.add("Focal Latitude");
@@ -624,6 +627,7 @@ public class TransformationToolsTest extends TestCase {
 		ArrayList<String> actual=tm.getFeaturesLabel(CoordinatesNormalizationType.NORM, "d", a);
 		
 		ArrayList<String> expected=new ArrayList<String>();
+		expected.add("Timestamps(ms)");
 		expected.add("Latitude");
 		expected.add("Longitude");
 		expected.add("d(A)");
@@ -635,6 +639,8 @@ public class TransformationToolsTest extends TestCase {
 		
 		TransformationTools tm1=new TransformationTools();
 		ArrayList<String> a1=new ArrayList<String>();
+		a1.add("Latitude");
+		a1.add("Longitude");
 		a1.add("A");
 		a1.add("B");
 		a1.add("C");
@@ -651,6 +657,9 @@ public class TransformationToolsTest extends TestCase {
 	
 	public void testGroupSinglesToCell() {
 		TransformationTools tm=new TransformationTools();
+		ArrayList<Long> singlesTimestamp=new ArrayList<>();
+		singlesTimestamp.add((long) 0); singlesTimestamp.add((long) 0); singlesTimestamp.add((long) 0);
+		tm.setSinglesTimestamps(singlesTimestamp);
 		BoundingBox b=new BoundingBox();
 		b.setCenterLat(45.0);
 		b.setCenterLng(7.0);
