@@ -1,20 +1,12 @@
 package it.unito.geosummly.clustering.subspace;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
-import java.util.Vector;
-
-import org.apache.commons.io.FileUtils;
 
 import de.lmu.ifi.dbs.elki.algorithm.AbstractAlgorithm;
 import de.lmu.ifi.dbs.elki.algorithm.clustering.DBSCAN;
@@ -28,8 +20,6 @@ import de.lmu.ifi.dbs.elki.data.model.SubspaceModel;
 import de.lmu.ifi.dbs.elki.data.type.TypeInformation;
 import de.lmu.ifi.dbs.elki.data.type.TypeUtil;
 import de.lmu.ifi.dbs.elki.database.ProxyDatabase;
-import de.lmu.ifi.dbs.elki.database.ids.DBIDIter;
-import de.lmu.ifi.dbs.elki.database.ids.DBIDUtil;
 import de.lmu.ifi.dbs.elki.database.ids.DBIDs;
 import de.lmu.ifi.dbs.elki.database.relation.Relation;
 import de.lmu.ifi.dbs.elki.database.relation.RelationUtil;
@@ -303,20 +293,20 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
     //int numClusters = 1;
     result = new Clustering<>("GEOSUBCLU clustering", "geosubclu");
     
-    StringBuilder sb = new StringBuilder();
-    List<String> dataset = new ArrayList<>(); 
-    Map<String,Vector<Integer>> sets = new HashMap<>();
-    List<Entry<String,Double>> SSEs = new LinkedList<>();
+//    StringBuilder sb = new StringBuilder();
+//    List<String> dataset = new ArrayList<>(); 
+//    Map<String,Vector<Integer>> sets = new HashMap<>();
+//    List<Entry<String,Double>> SSEs = new LinkedList<>();
     
-    try {
-		String input_dataset = FileUtils.readFileToString(new File("/home/rizzo/Workspace/geosummly/output/evaluation/clustering correctness/density-transformation-matrix.csv"), "utf8");
-		String[] rows = input_dataset.split("\n");
-		for(String row : rows)
-			dataset.add(row);
-    } catch (IOException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
-	}
+//    try {
+//		String input_dataset = FileUtils.readFileToString(new File("/home/rizzo/Workspace/geosummly/output/evaluation/clustering correctness/density-transformation-matrix.csv"), "utf8");
+//		String[] rows = input_dataset.split("\n");
+//		for(String row : rows)
+//			dataset.add(row);
+//    } catch (IOException e1) {
+//		// TODO Auto-generated catch block
+//		e1.printStackTrace();
+//	}
     
     for (Subspace subspace : clusterMap.descendingKeySet()) 
     {
@@ -348,94 +338,94 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
         System.out.println(newCluster.getName() + 
         		" has been generated from " + subspace.toString());
         
-        Vector<Integer> ids_sorted = new Vector<Integer>();
-        
-        for (DBIDIter iter = cluster.getIDs().iter(); iter.valid(); iter.advance()) 
-        {
-        	ids_sorted.add(DBIDUtil.asInteger(iter));
-//            V o = relation.get(iter);
-//            o.getValue(dimension);
-        }
-        Collections.sort(ids_sorted);        
-               
-        double sse = 0.0;
-        double sum_distance = 0.0;
-        int total_number = 0;
-        for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) 
-        {
-        	V o1 = relation.get(i1);
-        	for (DBIDIter i2 = cluster.getIDs().iter(); i2.valid(); i2.advance()) 
-            {
-        		V o2 = relation.get(i2);
-        		int dimension = o1.getDimensionality();
-        		double sum_squared = 0.0;
-        		for (int i=0; i<dimension; i++) {
-        			double d1 = o1.getValue(i).doubleValue();
-        			double d2 = o2.getValue(i).doubleValue();
-        			sum_squared += (d1-d2)*(d1-d2);
-        		}
-        		sum_distance += sum_squared;
-            	total_number++;
-            }
-        }
-        sse = sum_distance * 1/(2*total_number);
-        Entry<String,Double> entry = new AbstractMap.SimpleEntry<String,Double>(newCluster.getName(),sse);
-        SSEs.add(entry);	
-        
-        System.out.print("\t");
-        for (Integer id : ids_sorted) {
-        	System.out.print(id+" ");
-        	//sb.append(id + "," + newCluster.getName()+"\n");
-        	String record = dataset.get(id-1);
-        	String[] fields = record.split(",");
-        	sb.append(fields[0] + "," + fields[1] + "," + newCluster.getName()+"\n");
-        }
-        System.out.print("\n");
-        
-        if( !sets.containsKey(newCluster.getName()) )
-        	sets.put(newCluster.getName(), ids_sorted);
-        
-        else{
-        	Vector<Integer> temp = sets.get(newCluster.getName());
-        	sets.remove(newCluster.getName());
-        	temp.addAll(ids_sorted);
-        	Collections.sort(temp);
-        	sets.put(newCluster.getName(), temp);
-        }
+//        Vector<Integer> ids_sorted = new Vector<Integer>();
+//        
+//        for (DBIDIter iter = cluster.getIDs().iter(); iter.valid(); iter.advance()) 
+//        {
+//        	ids_sorted.add(DBIDUtil.asInteger(iter));
+////            V o = relation.get(iter);
+////            o.getValue(dimension);
+//        }
+//        Collections.sort(ids_sorted);        
+//               
+//        double sse = 0.0;
+//        double sum_distance = 0.0;
+//        int total_number = 0;
+//        for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) 
+//        {
+//        	V o1 = relation.get(i1);
+//        	for (DBIDIter i2 = cluster.getIDs().iter(); i2.valid(); i2.advance()) 
+//            {
+//        		V o2 = relation.get(i2);
+//        		int dimension = o1.getDimensionality();
+//        		double sum_squared = 0.0;
+//        		for (int i=0; i<dimension; i++) {
+//        			double d1 = o1.getValue(i).doubleValue();
+//        			double d2 = o2.getValue(i).doubleValue();
+//        			sum_squared += (d1-d2)*(d1-d2);
+//        		}
+//        		sum_distance += sum_squared;
+//            	total_number++;
+//            }
+//        }
+//        sse = sum_distance * 1/(2*total_number);
+//        Entry<String,Double> entry = new AbstractMap.SimpleEntry<String,Double>(newCluster.getName(),sse);
+//        SSEs.add(entry);	
+//        
+//        System.out.print("\t");
+//        for (Integer id : ids_sorted) {
+//        	System.out.print(id+" ");
+//        	//sb.append(id + "," + newCluster.getName()+"\n");
+//        	String record = dataset.get(id-1);
+//        	String[] fields = record.split(",");
+//        	sb.append(fields[0] + "," + fields[1] + "," + newCluster.getName()+"\n");
+//        }
+//        System.out.print("\n");
+//        
+//        if( !sets.containsKey(newCluster.getName()) )
+//        	sets.put(newCluster.getName(), ids_sorted);
+//        
+//        else{
+//        	Vector<Integer> temp = sets.get(newCluster.getName());
+//        	sets.remove(newCluster.getName());
+//        	temp.addAll(ids_sorted);
+//        	Collections.sort(temp);
+//        	sets.put(newCluster.getName(), temp);
+//        }
       }
     }
 
     /*
      * 	output serialization 
      */
-    System.out.println("Aggregate Results");
-    for (Entry<String,Vector<Integer>> e :sets.entrySet()) {
-  	  System.out.print(e.getKey());
-  	  System.out.print(";");
-  	  for (Integer i : e.getValue()) 
-  		  System.out.print(i + " ");
-  	  System.out.print("\n");
-    }
-    
-    System.out.println();
-    System.out.println("SSE figures");
-    Double sse = 0.0;
-    for (Entry<String,Double> e : SSEs) {
-    	System.out.printf("SSE(%s)=%s\n", e.getKey(), e.getValue());
-    	sse += e.getValue(); 
-    }
-    System.out.printf("SSE_total=%s\n",sse);
-    
-    try {
-		FileUtils.writeStringToFile(new File("output.csv"), sb.toString());
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-    
-    if (stepprog != null) {
-      stepprog.setCompleted(LOG);
-    }
+//    System.out.println("Aggregate Results");
+//    for (Entry<String,Vector<Integer>> e :sets.entrySet()) {
+//  	  System.out.print(e.getKey());
+//  	  System.out.print(";");
+//  	  for (Integer i : e.getValue()) 
+//  		  System.out.print(i + " ");
+//  	  System.out.print("\n");
+//    }
+//    
+//    System.out.println();
+//    System.out.println("SSE figures");
+//    Double sse = 0.0;
+//    for (Entry<String,Double> e : SSEs) {
+//    	System.out.printf("SSE(%s)=%s\n", e.getKey(), e.getValue());
+//    	sse += e.getValue(); 
+//    }
+//    System.out.printf("SSE_total=%s\n",sse);
+//    
+//    try {
+//		FileUtils.writeStringToFile(new File("output.csv"), sb.toString());
+//	} catch (IOException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+//    
+//    if (stepprog != null) {
+//      stepprog.setCompleted(LOG);
+//    }
     return result;
   }
 
