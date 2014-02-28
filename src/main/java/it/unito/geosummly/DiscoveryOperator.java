@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 public class DiscoveryOperator {
+	public static Logger logger = Logger.getLogger(SamplingOperator.class.toString());
 	
 	public DiscoveryOperator() {}
 	
@@ -58,6 +61,7 @@ public class DiscoveryOperator {
 			int[] combinations=new int[j]; //array which will contain the indices of the values to combine
 			Arrays.fill(combinations, -1);
 			deltadValues.addAll(dt.getCombinations(matrix, new ArrayList<Double>(), meanDensities, combinations, 0, 0, n));
+			logger.log(Level.INFO, "All combinations of "+j+" values executed");
 		}
 		
 		//Label of single features
@@ -70,7 +74,7 @@ public class DiscoveryOperator {
 			int[] combinations=new int[j]; //array which will contain the indices of the features to combine
 			Arrays.fill(combinations, -1);
 			featuresDeltad.addAll(dt.getFeaturesForCombinations(new ArrayList<String>(), feat, combinations, 0, 0));
-			System.out.println("combination="+j+" eseguita");
+			logger.log(Level.INFO, "All combinations of "+j+" features executed");
 		}
 		
 		//Write down the matrices to file
