@@ -60,6 +60,14 @@ public class DiscoveryTools {
 		return sum/size;
 	}
 	
+	/**Get the mean of a given array of values*/
+	public double getMean(ArrayList<Double> record) {
+		double sum=0; //sum of element (of the same category) found
+		for(Double d: record)
+			sum+=d;
+		return sum/record.size();
+	}
+	
 	/**Get the variance of a given array of values*/
 	public double getVariance(ArrayList<ArrayList<Double>> densMatrix, int index, double mean) {
 		double value=0;
@@ -71,6 +79,15 @@ public class DiscoveryTools {
 			size++;
 		}
 		return tmp/size;
+	}
+	
+	/**Get the variance of a given array of values*/
+	public double getVariance(ArrayList<Double> record, double mean) {
+		double value=0;
+		for(Double d: record) {
+			value+=(mean-d)*(mean-d);
+		}
+		return value/record.size();
 	}
 	
 	/**Get the standard deviation given a variance value*/

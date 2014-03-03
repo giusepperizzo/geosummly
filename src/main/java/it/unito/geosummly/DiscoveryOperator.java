@@ -4,7 +4,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +19,7 @@ public class DiscoveryOperator {
 	
 	public DiscoveryOperator() {}
 	
-	public void execute(String in, String out, int comb) throws IOException {
+	public void execute(String in, String out, int comb, int rnum) throws IOException {
 		
 		//Read csv file and create the matrix without coordinate values
 		ArrayList<String> features=new ArrayList<String>();
@@ -40,9 +42,58 @@ public class DiscoveryOperator {
 				rec.add(Double.parseDouble(list.get(k).get(j)));
 			matrix.add(rec);
 		}
-			
-		//Get standard deviation values
+		
+		//Get rnum random cells
+		if(rnum>0) {
+			ArrayList<ArrayList<Double>> matrixRnd = new ArrayList<ArrayList<Double>>();
+			Random r=new Random();
+			int rnd=0;
+			for(int i=0;i<rnum;i++) {
+				rnd=r.nextInt(matrix.size());
+				matrixRnd.add(matrix.get(rnd));
+			}
+			matrix=new ArrayList<ArrayList<Double>>(matrixRnd); //put the random cells in the matrix
+		}
+		
 		DiscoveryTools dt=new DiscoveryTools();
+		
+		/* ***********************5% PROCESS*********************** */
+		//Get standard deviation values
+		/*ArrayList<Double> meanDensities=new ArrayList<Double>();
+		ArrayList<Double> stdSingles=new ArrayList<Double>();
+		
+		//get the 5%
+		int perc= (int) Math.floor((matrix.size()*5)/100);
+		
+		//for each category
+		for(int j=0;j<matrix.get(0).size();j++) {
+			ArrayList<Double> rec=new ArrayList<Double>();
+			//get all the elements of the category
+			for(int i=0;i<matrix.size();i++) {
+				rec.add(matrix.get(i).get(j));
+			}
+			Collections.sort(rec);
+			//remove the last 'perc' outliers
+			for(int i=matrix.size()-1;i>=(matrix.size()-perc);i--) {
+				rec.remove(i);
+			}
+			//remove the first 'perc' outliers
+			for(int i=0;i<perc;i++)
+				rec.remove(0);
+			//get the mean value of the remaining densities
+			double mean=dt.getMean(rec);
+			meanDensities.add(mean);
+			//get the variance
+			double variance=dt.getVariance(rec, mean);
+			//get the std
+			double std=dt.getStdDev(variance);
+			stdSingles.add(std);
+		}
+		//Create the std matrix
+		ArrayList<ArrayList<Double>> stdMatrix=new ArrayList<ArrayList<Double>>();
+		for(int i=0;i<matrix.size();i++)
+			stdMatrix.add(stdSingles);*/
+		
 		ArrayList<Double> meanDensities=dt.getMeanArray(matrix);
 		ArrayList<ArrayList<Double>> stdMatrix=dt.getStdMatrix(matrix);
 		ArrayList<Double> stdSingles=new ArrayList<Double>(stdMatrix.get(0));

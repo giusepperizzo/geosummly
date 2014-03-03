@@ -17,6 +17,7 @@ public class Discovery {
 	private String inFile=null;
 	private String outDir=null;
 	private int comb=5;
+	private int randNum=-1;
 	
 	public void run (String[] args) throws IOException {
 		Options options= initOptions(); //define list of options
@@ -50,13 +51,21 @@ public class Discovery {
 				}		
 			}
 			
+			if(line.hasOption("rnum")) {
+				randNum=Integer.parseInt(line.getOptionValue("rnum"));
+				if(randNum<0) {
+					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					System.exit(-1);
+				}		
+			}
+			
 			if (line.hasOption("help") || !mandatory) {
                 formatter.printHelp(150, helpUsage,"\ncommands list:", options, helpFooter);
                 System.exit(-1);
             }
 			
 			DiscoveryOperator d=new DiscoveryOperator();
-			d.execute(inFile, outDir, comb);
+			d.execute(inFile, outDir, comb, randNum);
 			
 		}
 		catch(ParseException | NumberFormatException e) {
@@ -82,6 +91,10 @@ public class Discovery {
 		 //option combination
 		 options.addOption(OptionBuilder.withLongOpt("combination").withDescription("set the number of categories combinations for minpts estimation. Default 5")
 					.hasArg().withArgName("arg").create("c"));
+		 
+		//option rnum
+		 options.addOption(OptionBuilder.withLongOpt("rnum").withDescription("set the number of cells, taken randomly, chosen for the discovery operation.")
+					.hasArg().withArgName("arg").create("r"));
 		 
 		//more options
 		options.addOption("H", "help", false, "print the command list");
