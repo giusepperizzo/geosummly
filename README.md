@@ -33,7 +33,8 @@ The output consists of a file of single venues, a file of grid-shaped aggregated
 ```sh
 -I –input        <path/to/file>  set the csv input file
 -O –output       <path/to/dir>   set the output directory
--c -combination  <arg>           set the number of categories combinations for minpts estimation. Default 5.                             
+-c -combination  <arg>           set the number of categories combinations for minpts estimation. Default 5.
+-r –rnum         <arg>           set the number of cells, taken randomly, chosen for the discovery operation.
 ```
 The options *input*, *output* are mandatory. Input file has to be a .csv of grid-shaped density values. The output consists of a file of standard deviation values for the categories combinations.
 
