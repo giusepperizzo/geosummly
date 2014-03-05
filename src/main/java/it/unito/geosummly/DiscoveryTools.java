@@ -151,12 +151,13 @@ public class DiscoveryTools {
 		return toRet;
 	}
 	
-	/**Change the feature label by replacing 'old' with 'last'*/
+	/**Change the feature label by replacing 'old' with 'last' and by removing parenthesis*/
 	public ArrayList<String> changeFeaturesLabel(String old, String last, ArrayList<String> features) {
 		String label="";
 		ArrayList<String> featuresLabel=new ArrayList<String>();
 		for(int i=0;i<features.size();i++) {
 			label=features.get(i).replace(old, last);
+			label=label.replaceAll("\\(", "").replaceAll("\\)", ""); //remove parenthesis
 			featuresLabel.add(label);
 		}
 		return featuresLabel;
