@@ -122,13 +122,13 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
    * @param epsilon Epsilon value
    * @param minpts Minpts value
    */
-  public GEOSUBCLU( DimensionSelectingSubspaceDistanceFunction<V, DoubleDistance> distanceFunction ) 
+  public GEOSUBCLU( DimensionSelectingSubspaceDistanceFunction<V, DoubleDistance> distanceFunction) 
   {
     super();
-    this.distanceFunction = distanceFunction;
+    this.distanceFunction=distanceFunction;
     
     //init feature mapper
-    FEATUREMAPPER = new HashMap<>();
+    /*FEATUREMAPPER = new HashMap<>();
     FEATUREMAPPER.put(2,"Arts & Entertainment");
     FEATUREMAPPER.put(3,"College & University");
     FEATUREMAPPER.put(4,"Event");
@@ -138,12 +138,12 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
     FEATUREMAPPER.put(8,"Professional & Other Places");
     FEATUREMAPPER.put(9,"Residence");
     FEATUREMAPPER.put(10,"Shop & Service");
-    FEATUREMAPPER.put(11,"Travel & Transport");
+    FEATUREMAPPER.put(11,"Travel & Transport");*/
 
   	/* 
   	 * 		init deltad
   	 */
-    DELTAD = new HashMap<>();
+    /*DELTAD = new HashMap<>();
     DELTAD.put("Arts & Entertainment",Math.floor(4.39827769041815));
     DELTAD.put("College & University", Math.floor(2.8435212153219));
     DELTAD.put("Food", Math.floor(28.9779728367082));
@@ -152,7 +152,7 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
     DELTAD.put("Professional & Other Places", Math.floor(19.5187643664804));
     DELTAD.put("Residence", Math.floor(14.8529298768337));
     DELTAD.put("Shop & Service", Math.floor(22.5399897538332));
-    DELTAD.put("Travel & Transport", Math.floor(10.4789984336736));    
+    DELTAD.put("Travel & Transport", Math.floor(10.4789984336736));*/
     
     // all combinations of pairs
     //DELTAD.put("Arts & Entertainment AND College & University", 20.0);
@@ -186,6 +186,14 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
      * 	init eps
      */
     EPS = new HashMap<>();
+  }
+  
+  public void setFeatureMapper(HashMap<Integer, String> featuremapper) {
+	  this.FEATUREMAPPER=featuremapper;
+  }
+  
+  public void setDeltad(HashMap<String, Double> deltad) {
+	  this.DELTAD=deltad;
   }
   
   /**

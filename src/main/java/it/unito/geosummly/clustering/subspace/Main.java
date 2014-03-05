@@ -150,6 +150,7 @@ public class Main {
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
+            br.readLine();
             while ((line = br.readLine())!=null) {
                 ArrayList<Double> temp = new ArrayList<>();
                 String[] tokens = line.split(",");
