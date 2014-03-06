@@ -45,11 +45,10 @@ public class ClusteringOperator {
 	
     public void execute(String inNorm, String inDeltad, String inSingles, String out, String method) throws IOException {
     	
-    	//Read normalized csv file
-		FileReader readerNorm =new FileReader(inNorm);
-    	CSVParser parserNorm = new CSVParser(readerNorm, CSVFormat.EXCEL);
-		List<CSVRecord> listNorm = parserNorm.getRecords();
-		parserNorm.close();
+    	//Read all the csv files
+    	CSVDataIO dataIO=new CSVDataIO();
+    	List<CSVRecord> listNorm=dataIO.readCSVFile(inNorm);
+    	List<CSVRecord> listDeltad=dataIO.readCSVFile(inDeltad);
 		
 		//fill in the matrix of normalized values
 		ArrayList<ArrayList<Double>> normMatrix=new ArrayList<ArrayList<Double>>();
@@ -66,12 +65,6 @@ public class ClusteringOperator {
     	
     	//build the database from the normalized matrix
 		Database db=buildFromMatrix(normMatrix);
-    	
-    	//Read deltad csv file
-		FileReader readerDeltad =new FileReader(inDeltad);
-    	CSVParser parserDeltad = new CSVParser(readerDeltad, CSVFormat.EXCEL);
-		List<CSVRecord> listDeltad = parserDeltad.getRecords();
-		parserDeltad.close();
 		
 		//fill in the hashmaps and get the value only if it's greater than 0
 		HashMap<Integer, String> featuresMap=new HashMap<Integer, String>();

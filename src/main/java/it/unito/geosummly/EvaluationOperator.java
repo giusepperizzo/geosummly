@@ -1,14 +1,11 @@
 package it.unito.geosummly;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 public class EvaluationOperator {
@@ -18,12 +15,10 @@ public class EvaluationOperator {
 	public void executeCorrectness(String in, String out, int mnum) throws IOException{
 		
 		//Read csv file without considering coordinate values
+		CSVDataIO dataIO=new CSVDataIO();
 		ArrayList<String> features=new ArrayList<String>();
 		ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();
-		FileReader reader =new FileReader(in);
-		CSVParser parser = new CSVParser(reader, CSVFormat.EXCEL);
-		List<CSVRecord> list = parser.getRecords();
-		parser.close();
+		List<CSVRecord> list=dataIO.readCSVFile(in);
 		
 		//Remove timestamp and coordinates
 		for(int k=3;k<list.get(0).size();k++) {
@@ -55,7 +50,6 @@ public class EvaluationOperator {
 		ArrayList<Double> maxArray=tools.getMaxArray(matrix);
 		int min;
 		int max;
-		DataPrinter dp=new DataPrinter();
 		
 		//mnum matrices
 		for(int i=0;i<mnum;i++) {
@@ -76,20 +70,18 @@ public class EvaluationOperator {
 			densityRandomMatrix=tools.buildDensityMatrix(CoordinatesNormalizationType.MISSING, frequencyRandomMatrix, bboxArea);
 			normalizedRandomMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.MISSING, densityRandomMatrix);
 			ArrayList<String >feat=tools.changeFeaturesLabel("f", "", features);
-			dp.printResultHorizontal(null, densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", feat), out+"/random-density-transformation-matrix-"+i+".csv");
-			dp.printResultHorizontal(null, normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", feat), out+"/random-normalized-transformation-matrix-"+i+".csv");
+			dataIO.printResultHorizontal(null, densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", feat), out+"/random-density-transformation-matrix-"+i+".csv");
+			dataIO.printResultHorizontal(null, normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", feat), out+"/random-normalized-transformation-matrix-"+i+".csv");
 		}
 	}
 	
 	public void executeValidation(String in, String out, int fnum) throws IOException {
 		
 		//Read csv file without considering the first three columns: timestamp, beenHere, venueId
+		CSVDataIO dataIO=new CSVDataIO();
 		ArrayList<String> features=new ArrayList<String>();
 		ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();
-		FileReader reader =new FileReader(in);
-		CSVParser parser = new CSVParser(reader, CSVFormat.EXCEL);
-		List<CSVRecord> list = parser.getRecords();
-		parser.close();
+		List<CSVRecord> list=dataIO.readCSVFile(in);
 		
 		//Remove columns
 		for(int k=1;k<list.size();k++) {
@@ -151,7 +143,6 @@ public class EvaluationOperator {
 		}
 		
 		//Transform all the random matrices and write the to file
-		DataPrinter dp=new DataPrinter();
 		TransformationMatrix ithTm;
 		ArrayList<ArrayList<Double>> ithFrequency;
 		ArrayList<ArrayList<Double>> ithDensity;
@@ -170,9 +161,9 @@ public class EvaluationOperator {
 			
 			//write down the transformation matrices to file
 			index++; //just for file name
-			dp.printResultHorizontal(null, ithTm.getFrequencyMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "f", ithTm.getHeader()), out+"/frequency-transformation-matrix-fold"+index+".csv");
-			dp.printResultHorizontal(null, ithTm.getDensityMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "density", ithTm.getHeader()), out+"/density-transformation-matrix-fold"+index+".csv");
-			dp.printResultHorizontal(null, ithTm.getNormalizedMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "normalized_density", ithTm.getHeader()), out+"/normalized-transformation-matrix-fold"+index+".csv");
+			dataIO.printResultHorizontal(null, ithTm.getFrequencyMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "f", ithTm.getHeader()), out+"/frequency-transformation-matrix-fold"+index+".csv");
+			dataIO.printResultHorizontal(null, ithTm.getDensityMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "density", ithTm.getHeader()), out+"/density-transformation-matrix-fold"+index+".csv");
+			dataIO.printResultHorizontal(null, ithTm.getNormalizedMatrix(), tools.getFeaturesLabel(CoordinatesNormalizationType.NORM, "normalized_density", ithTm.getHeader()), out+"/normalized-transformation-matrix-fold"+index+".csv");
 		}
 	}
 }

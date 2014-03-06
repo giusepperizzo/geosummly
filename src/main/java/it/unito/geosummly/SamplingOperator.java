@@ -66,7 +66,7 @@ public class SamplingOperator {
 		ArrayList<Double> bboxArea=new ArrayList<Double>();
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> cellVenue;
-		DataPrinter dp=new DataPrinter();
+		CSVDataIO dataIO=new CSVDataIO();
 		
 		//Collect the geopoints
 		for(BoundingBox b: data){
@@ -90,8 +90,8 @@ public class SamplingOperator {
 			//two more columns if I've to build singles matrix
 			venuesMatrix=tools.fixRowsLength(tools.getTotal()+2, venuesMatrix); //update rows length for consistency
 			venuesMatrixSecondLevel=tools.fixRowsLength(tools.getTotalSecondLevel()+2, tools.getMatrixSecondLevel());
-			dp.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), out+"/singles-matrix.csv");
-			dp.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrixSecondLevel, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMapSecondLevel())), out+"/singles-matrix-2nd.csv");
+			dataIO.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), out+"/singles-matrix.csv");
+			dataIO.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrixSecondLevel, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMapSecondLevel())), out+"/singles-matrix-2nd.csv");
 			ArrayList<ArrayList<Double>> auxMatrix=new ArrayList<ArrayList<Double>>();
 			ArrayList<ArrayList<Double>> auxMatrixSecondLevel=new ArrayList<ArrayList<Double>>();
 			for(BoundingBox b: data) {
@@ -129,12 +129,12 @@ public class SamplingOperator {
 		tmSecondLevel.setHeader(tools.sortFeatures(tools.getMapSecondLevel()));
 		
 		//Write down the transformation matrix to file
-		dp.printResultHorizontal(tools.getCellsTimestamps(), tm.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tm.getHeader()), out+"/frequency-transformation-matrix.csv");
-		dp.printResultHorizontal(tools.getCellsTimestamps(), tm.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tm.getHeader()), out+"/density-transformation-matrix.csv");
-		dp.printResultHorizontal(tools.getCellsTimestamps(), tm.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tm.getHeader()), out+"/normalized-transformation-matrix.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tm.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tm.getHeader()), out+"/frequency-transformation-matrix.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tm.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tm.getHeader()), out+"/density-transformation-matrix.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tm.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tm.getHeader()), out+"/normalized-transformation-matrix.csv");
 		
-		dp.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tmSecondLevel.getHeader()), out+"/frequency-transformation-matrix-2nd.csv");
-		dp.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tmSecondLevel.getHeader()), out+"/density-transformation-matrix-2nd.csv");
-		dp.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tmSecondLevel.getHeader()), out+"/normalized-transformation-matrix-2nd.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tmSecondLevel.getHeader()), out+"/frequency-transformation-matrix-2nd.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tmSecondLevel.getHeader()), out+"/density-transformation-matrix-2nd.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tmSecondLevel.getHeader()), out+"/normalized-transformation-matrix-2nd.csv");
     }
 }

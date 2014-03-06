@@ -1,6 +1,5 @@
 package it.unito.geosummly;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,8 +8,6 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 public class DiscoveryOperator {
@@ -21,12 +18,11 @@ public class DiscoveryOperator {
 	public void execute(String in, String out, int comb, int rnum) throws IOException {
 		
 		//Read csv file and create the matrix without coordinate values
+		CSVDataIO dataIO=new CSVDataIO();
+		List<CSVRecord> list=dataIO.readCSVFile(in);
+		
 		ArrayList<String> features=new ArrayList<String>();
 		ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();
-		FileReader reader =new FileReader(in);
-		CSVParser parser = new CSVParser(reader, CSVFormat.EXCEL);
-		List<CSVRecord> list = parser.getRecords();
-		parser.close();
 		int index=1;
 		if(list.get(0).get(1).contains("Latitude") || list.get(0).get(1).contains("Longitude"))
 			index=3;
@@ -128,8 +124,7 @@ public class DiscoveryOperator {
 		}
 		
 		//Write down the matrices to file
-		DataPrinter dp=new DataPrinter();
-		dp.printResultHorizontal(null, stdMatrix, dt.getFeaturesLabel("std", feat), out+ "/std-values.csv");
-		dp.printResultVertical(deltadValues, featuresDeltad, out+ "/deltad-values.csv");
+		dataIO.printResultHorizontal(null, stdMatrix, dt.getFeaturesLabel("std", feat), out+ "/std-values.csv");
+		dataIO.printResultVertical(deltadValues, featuresDeltad, out+ "/deltad-values.csv");
 	}
 }
