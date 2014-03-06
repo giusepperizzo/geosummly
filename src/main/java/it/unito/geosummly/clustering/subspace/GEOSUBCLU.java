@@ -139,6 +139,7 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
     FEATUREMAPPER.put(9,"Residence");
     FEATUREMAPPER.put(10,"Shop & Service");
     FEATUREMAPPER.put(11,"Travel & Transport");*/
+    
 
   	/* 
   	 * 		init deltad
