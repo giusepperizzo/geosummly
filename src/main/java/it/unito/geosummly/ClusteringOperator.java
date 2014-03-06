@@ -42,37 +42,56 @@ public class ClusteringOperator {
 	
 	private Double SUBCLU_esp = 0.01;
     private int SUBCLU_minpts = 20;
-    private HashMap<Integer, String> map=new HashMap<Integer, String>();
-    private HashMap<String, Double> deltad=new HashMap<String, Double>();
 	
     public void execute(String inNorm, String inDeltad, String inSingles, String out, String method) throws IOException {
     	
-    	//Read deltad csv file
-		FileReader reader =new FileReader(inDeltad);
-    	CSVParser parser = new CSVParser(reader, CSVFormat.EXCEL);
-		List<CSVRecord> list = parser.getRecords();
-		parser.close();
+    	//Read normalized csv file
+		FileReader readerNorm =new FileReader(inNorm);
+    	CSVParser parserNorm = new CSVParser(readerNorm, CSVFormat.EXCEL);
+		List<CSVRecord> listNorm = parserNorm.getRecords();
+		parserNorm.close();
 		
-		//fill in the hashmaps and get the value only if it's greater than 0
-		for(CSVRecord r: list) {
-			double d=Math.floor(Double.parseDouble(r.get(1))); //floor of deltad value
-			if(d > 0) {
-				int mSize=map.size();
-				String feature=(String) r.get(0).replace("deltad", "").replaceAll("\\(", "").replaceAll("\\)", ""); //take only feature name
-				map.put(mSize+2, feature);
-				deltad.put(feature, d);
+		//fill in the matrix of normalized values
+		ArrayList<ArrayList<Double>> normMatrix=new ArrayList<ArrayList<Double>>();
+		for(CSVRecord r: listNorm) {
+			//we exclude the header
+			if(!r.get(0).contains("timestamp")) {
+				ArrayList<Double> record=new ArrayList<Double>();
+				//we don't have to consider timepstamp values, so i=1
+				for(int i=1;i<r.size();i++)
+					record.add(Double.parseDouble(r.get(i)));
+				normMatrix.add(record);
 			}
 		}
+    	
+    	//build the database from the normalized matrix
+		Database db=buildFromMatrix(normMatrix);
+    	
+    	//Read deltad csv file
+		FileReader readerDeltad =new FileReader(inDeltad);
+    	CSVParser parserDeltad = new CSVParser(readerDeltad, CSVFormat.EXCEL);
+		List<CSVRecord> listDeltad = parserDeltad.getRecords();
+		parserDeltad.close();
 		
-		//build the database from the normalized matrix
-		Database db=buildFromMatrix(inNorm);
+		//fill in the hashmaps and get the value only if it's greater than 0
+		HashMap<Integer, String> featuresMap=new HashMap<Integer, String>();
+	    HashMap<String, Double> deltadMap=new HashMap<String, Double>();
+		for(CSVRecord r: listDeltad) {
+			double d=Math.floor(Double.parseDouble(r.get(1))); //floor of deltad value
+			if(d > 0) {
+				int mSize=featuresMap.size();
+				String feature=(String) r.get(0).replace("deltad", "").replaceAll("\\(", "").replaceAll("\\)", ""); //take only feature name
+				featuresMap.put(mSize+2, feature);
+				deltadMap.put(feature, d);
+			}
+		}
         
         Collection<Index> indexes = db.getIndexes();
         for (Index i : indexes) {
             System.out.println(i.getLongName());
         }    
         
-        Clustering<?> result = runGEOSUBCLU(db ,map, deltad);
+        Clustering<?> result = runGEOSUBCLU(db, featuresMap, deltadMap);
                 
         //we do not really need Outliers, since the definition is given here http://elki.dbs.ifi.lmu.de/wiki/Tutorial/Outlier
         ArrayList<OutlierResult> ors = ResultUtil.filterResults(result, OutlierResult.class);
@@ -127,7 +146,8 @@ public class ClusteringOperator {
             
         }        
     }
-       
+    
+    /**Set SUBCLU parameters and run the algorithm*/
     public Clustering<?> runSUBCLU (Database db) 
     {
         ListParameterization params = new ListParameterization();
@@ -142,6 +162,7 @@ public class ClusteringOperator {
         return result;
     }
     
+    /**Set GEOSUBCLU parameters and run the algorithm*/
     public Clustering<?> runGEOSUBCLU (Database db, HashMap<Integer, String> map, HashMap<String, Double>deltad) 
     {
         ListParameterization params = new ListParameterization();
@@ -155,28 +176,10 @@ public class ClusteringOperator {
         Clustering<SubspaceModel<DoubleVector>> result = geosubclu.run(db);
         return result;
     }
-
-    private <T> Database buildFromMatrix (String file) 
-    {
-        List<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();       
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            br.readLine();
-            while ((line = br.readLine())!=null) {
-                ArrayList<Double> temp = new ArrayList<>();
-                String[] tokens = line.split(",");
-                //we have not to consider timestamp so j=1
-                for (int j=1; j < tokens.length; j++ ) {
-                    temp.add(Double.parseDouble(tokens[j]));
-                }
-                matrix.add(temp);
-            }
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
+    
+    /**Build a Database from the matrix of normalized density values*/
+    private <T> Database buildFromMatrix (ArrayList<ArrayList<Double>> matrix) 
+    {       
         double[][] data = new double[matrix.size()][];
         for (int i=0; i<matrix.size(); i++) {
             data[i] = new double[matrix.get(i).size()];
