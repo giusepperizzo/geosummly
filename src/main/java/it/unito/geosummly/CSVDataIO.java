@@ -3,17 +3,29 @@ package it.unito.geosummly;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 
-public class DataPrinter {
+public class CSVDataIO {
 	
-	public DataPrinter() {}
+	public CSVDataIO() {}
+	
+	public List<CSVRecord> readCSVFile(String file) throws IOException {
+		FileReader reader =new FileReader(file);
+    	CSVParser parser = new CSVParser(reader, CSVFormat.EXCEL);
+		List<CSVRecord> list = parser.getRecords();
+		parser.close();
+		return list;
+	}
 	
 	public void printResultHorizontal(ArrayList<Long> timestamps, ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
