@@ -489,7 +489,7 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
 	
 	DoubleDistance epsilon = (EPS.containsKey(feature)) ? 
 			new DoubleDistance (EPS.get(feature).doubleValue()) :
-		    new DoubleDistance (0.12);
+		    new DoubleDistance (0.1);
 			
 	System.out.println(bs.toString() + "." + feature + ".minpts=" + minpts+";eps="+epsilon);
 	
@@ -522,7 +522,7 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
       if (!c.isNoise()) {
     	DBIDs objects = c.getIDs();
     	System.out.println("\tnumber of objects ci=" + objects.size());
-    	if ( objects.size()>1 && objects.size()<350 ) clusters.add(c);
+    	if ( objects.size()>1 && objects.size()<9000 ) clusters.add(c);
     	//if ( objects.size()>1 ) clusters.add(c);
       }
     }
