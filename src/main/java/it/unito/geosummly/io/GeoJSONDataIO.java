@@ -1,4 +1,4 @@
-package it.unito.geosummly;
+package it.unito.geosummly.io;
 
 import it.unito.geosummly.BoundingBox;
 
@@ -22,12 +22,12 @@ import org.mapfish.geo.MfGeometry;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Polygon;
 
-public class GeoJSONDecoder {
+public class GeoJSONDataIO {
 	
 	private MfGeoFactory mfFactory;
     private MfGeoJSONReader reader;
     
-    public GeoJSONDecoder() {
+    public GeoJSONDataIO() {
     	mfFactory = new MfGeoFactory() {
     		public MfFeature createFeature(String id, MfGeometry geometry, JSONObject properties) {
     			return new FeatureTemplate(id, geometry, properties);

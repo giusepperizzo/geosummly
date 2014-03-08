@@ -1,5 +1,8 @@
 package it.unito.geosummly;
 
+import it.unito.geosummly.io.CSVDataIO;
+import it.unito.geosummly.io.GeoJSONDataIO;
+
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ public class SamplingOperator {
     public void executeWithInput(String in, String out, InformationType vtype, CoordinatesNormalizationType ltype, long sleep) throws IOException, JSONException, FoursquareApiException, InterruptedException {
     	
     	//Create the grid
-    	GeoJSONDecoder gjd=new GeoJSONDecoder();
+    	GeoJSONDataIO gjd=new GeoJSONDataIO();
 		ArrayList<BoundingBox> data=gjd.decode(in);
 		double bigNorth=data.get(data.size()-1).getNorth();
 		double bigSouth=data.get(0).getSouth();

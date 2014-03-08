@@ -1,5 +1,7 @@
 package it.unito.geosummly;
 
+import it.unito.geosummly.io.CSVDataIO;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;

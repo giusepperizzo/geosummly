@@ -1,4 +1,4 @@
-package it.unito.geosummly;
+package it.unito.geosummly.io;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;

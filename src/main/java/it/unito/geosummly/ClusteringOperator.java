@@ -2,6 +2,7 @@ package it.unito.geosummly;
 
 import it.unito.geosummly.clustering.subspace.GEOSUBCLU;
 import it.unito.geosummly.clustering.subspace.InMemoryDatabase;
+import it.unito.geosummly.io.CSVDataIO;
 
 import java.io.File;
 import java.io.IOException;
