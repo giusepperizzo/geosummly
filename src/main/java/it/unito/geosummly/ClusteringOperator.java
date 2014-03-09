@@ -3,17 +3,16 @@ package it.unito.geosummly;
 import it.unito.geosummly.clustering.subspace.GEOSUBCLU;
 import it.unito.geosummly.clustering.subspace.InMemoryDatabase;
 import it.unito.geosummly.io.CSVDataIO;
+import it.unito.geosummly.io.GeoJSONDataIO;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.io.FileUtils;
+import org.json.JSONException;
 
 import de.lmu.ifi.dbs.elki.algorithm.clustering.subspace.SUBCLU;
 import de.lmu.ifi.dbs.elki.data.Cluster;
@@ -99,8 +98,8 @@ public class ClusteringOperator {
 	    Clustering<?> result = runGEOSUBCLU(db, featuresMap, deltadMap);
 	    ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
 	    HashMap<Integer, String> clustersName=new HashMap<Integer, String>(); //key, cluster name
-	    HashMap<Integer, ArrayList<Integer>> cellsOfCluster=new HashMap<Integer, ArrayList<Integer>>(); //key, cell_ids 
-	    HashMap<Integer, ArrayList<String>> venuesOfCell=new HashMap<Integer, ArrayList<String>>(); //cell_id, venue_ids
+	    HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster=new HashMap<Integer, ArrayList<ArrayList<Double>>>(); //key, cell_ids + lat + lng 
+	    HashMap<Integer, ArrayList<CSVRecord>> venuesOfCell=new HashMap<Integer, ArrayList<CSVRecord>>(); //cell_id, venue_record
 	    
 	    for(Clustering<?> c: cs) {
 	    	//get all the clusters
@@ -108,12 +107,18 @@ public class ClusteringOperator {
 	    		int index=clustersName.size();
 	    		//put the cluster name in the map
 	    		clustersName.put(index, cluster.getName());
-	    		ArrayList<Integer> cells=new ArrayList<Integer>();
+	    		ArrayList<ArrayList<Double>> cells=new ArrayList<ArrayList<Double>>(); 
 	    		//get all the cell_ids for the selected cluster
 	    		for(DBIDIter iter=cluster.getIDs().iter(); iter.valid(); iter.advance()) {
 	    			int cellId=Integer.parseInt(DBIDUtil.toString(iter));
-	    			cells.add(cellId);
-	    			ArrayList<String> venueIdRec=new ArrayList<String>();
+	    			String cellLat=listDens.get(cellId).get(1); //latitude
+	    			String cellLng=listDens.get(cellId).get(2); //longitude
+	    			ArrayList<Double> cellRecord=new ArrayList<Double>();
+	    			cellRecord.add((double) cellId);
+	    			cellRecord.add(Double.parseDouble(cellLat));
+	    			cellRecord.add(Double.parseDouble(cellLng));
+	    			cells.add(cellRecord); //triple: id, lat, lng
+	    			ArrayList<CSVRecord> venuesInfo=new ArrayList<CSVRecord>();
 	    			boolean found=false;
 	    			boolean added=false;
 	    			//get all the single venues for the selected cell
@@ -121,42 +126,28 @@ public class ClusteringOperator {
 	    				CSVRecord r=listSingles.get(i); //venue information
 	    				//we don't have to consider the header
 	    				if(!r.get(0).contains("Timestamp")) {
-	    					String lat=listDens.get(cellId).get(1); //focal latitude
-	    					String lng=listDens.get(cellId).get(2); //focal longitude
 	    					//check if the venue belong to the cell
-	    					if(r.get(5).equals(lat) && r.get(6).equals(lng)) {
-	    						venueIdRec.add(r.get(2)); //add the id_venue
+	    					if(r.get(5).equals(cellLat) && r.get(6).equals(cellLng)) {
+	    						venuesInfo.add(r); //add the id_venue
 	    						added=true;
 	    					} else if(added) found=true; //since venues of the same cell are consecutive, we stop the loop once we found different coordinate values
 	    				}
 	    			}
 	    			//add venue_id only if the venue exists in the cell
 	    			if(added)
-	    				venuesOfCell.put(cellId, venueIdRec);
+	    				venuesOfCell.put(cellId, venuesInfo);
 	    		}
 	    		cellsOfCluster.put(index, cells);
 	    	}
 	    }
 	    
-	    StringBuffer sb = new StringBuffer();
-	    for(int i=0;i<cellsOfCluster.size(); i++) {
-	    	ArrayList<Integer> i_rec=cellsOfCluster.get(i);
-	    	sb.append(clustersName.get(i)+" ");
-	    	for(Integer integer: i_rec) {
-	    		sb.append(integer+" ");
-	    	}
-	    	sb.append("\n");
-	    }
-	    
-	    Set<Integer> keys=venuesOfCell.keySet();
-	    for(Integer i: keys) {
-	    	sb.append("\nVenues for cell "+i+": \n");
-	    	for(String s: venuesOfCell.get(i))
-	    		sb.append(s+" ");
-	    	sb.append("\n");
-	    }
-	
-	    FileUtils.writeStringToFile(new File("output.txt"), sb.toString());   
+	    //serialize to .geojson file
+	    GeoJSONDataIO geoDataIO=new GeoJSONDataIO();
+	    try {
+			geoDataIO.encode(clustersName, cellsOfCluster, venuesOfCell);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
     
     /**Set SUBCLU parameters and run the algorithm*/
