@@ -93,9 +93,12 @@ public class ClusteringOperator {
 			else if(!excluded)
 				toExclude.add(feature);
 		}
+		
+		//90% of cells
+		Double density=normMatrix.size()*0.9;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
-	    Clustering<?> result = runGEOSUBCLU(db, featuresMap, deltadMap);
+	    Clustering<?> result = runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue());
 	    ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
 	    HashMap<Integer, String> clustersName=new HashMap<Integer, String>(); //key, cluster name
 	    HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster=new HashMap<Integer, ArrayList<ArrayList<Double>>>(); //key, cell_ids + lat + lng 
@@ -179,13 +182,14 @@ public class ClusteringOperator {
     }
     
     /**Set GEOSUBCLU parameters and run the algorithm*/
-    public Clustering<?> runGEOSUBCLU (Database db, HashMap<Integer, String> map, HashMap<String, Double>deltad) {
+    public Clustering<?> runGEOSUBCLU (Database db, HashMap<Integer, String> map, HashMap<String, Double>deltad, int density) {
         ListParameterization params = new ListParameterization();
         
         // setup algorithm
         GEOSUBCLU<DoubleVector> geosubclu = ClassGenericsUtil.parameterizeOrAbort(GEOSUBCLU.class, params);
         geosubclu.setFeatureMapper(map);
         geosubclu.setDeltad(deltad);
+        geosubclu.setDensity(density);
 
         // run GEOSUBCLU on database
         Clustering<SubspaceModel<DoubleVector>> result = geosubclu.run(db);

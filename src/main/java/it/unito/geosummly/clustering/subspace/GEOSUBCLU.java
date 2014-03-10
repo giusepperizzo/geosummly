@@ -115,6 +115,8 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
   
   private Map<String,Double> EPS ;
   
+  private int DENSITY;
+  
   /**
    * Constructor.
    * 
@@ -195,6 +197,10 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
   
   public void setDeltad(HashMap<String, Double> deltad) {
 	  this.DELTAD=deltad;
+  }
+  
+  public void setDensity(int density) {
+	  this.DENSITY=density;
   }
   
   /**
@@ -522,7 +528,7 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
       if (!c.isNoise()) {
     	DBIDs objects = c.getIDs();
     	System.out.println("\tnumber of objects ci=" + objects.size());
-    	if ( objects.size()>1 && objects.size()<9000 ) clusters.add(c);
+    	if ( objects.size()>1 && objects.size()<DENSITY ) clusters.add(c);
     	//if ( objects.size()>1 ) clusters.add(c);
       }
     }
