@@ -40,11 +40,14 @@ The options *input*, *output* are mandatory. Input file has to be a .csv of grid
 
 #####clustering
 ```sh
--I –input   <path/to/file>  set the csv input file
--O –output  <path/to/dir>   set the output directory
--M -method  <arg>           set the clustering algorithm. So far only geosubclu is activable. Default geosubclu.
+-D –density     <path/to/file>  set the input file of density values
+-N –normalized  <path/to/file>  set the input file of normalized density values
+-S –deltad      <path/to/file>  set the input file of deltad values
+-V –venues      <path/to/file>  set the input file of single venues
+-O –output      <path/to/dir>   set the output directory
+-M -method      <arg>           set the clustering algorithm. So far only geosubclu is activable. Default geosubclu.
 ```
-The options *input*, *output* are mandatory. Input file has to be a .csv of grid-shaped normalized density values. The output consists of a list of triples (latitude, longitude, membership category).
+The options *density*, *normalized*, *deltad*, *venues*, *output* are mandatory. Density file has to be a .csv of grid-shaped density values, output the Sampling state. Normalized file has to be a .csv of grid-shaped normalized density values, output the Sampling state. Deltad file has to be a .csv of deltad values, output the Discovery state. Venues file has to be a .csv of single venues, output the Sampling state. The output consists of a .geojson file expressed as a feature collection whose features are the clusters.
 
 #####evaluation
 ```sh
@@ -71,7 +74,7 @@ geosummly sampling –coord 45,44,7,8 –output path/to/dir –cnum 40 –snum 1
 
 geosummly discovery –input path/to/file.csv –output path/to/dir –combination 3
 
-geosummly clustering –input path/to/file.csv –output path/to/dir
+geosummly clustering -density path/to/file1.csv -normalized path/to/file2.csv -deltad path/to/file3.csv -venues path/to/file4.csv -output path/to/dir
 
 geosummly evaluation –etype validation –input path/to/file.csv –output path/to/dir
 
