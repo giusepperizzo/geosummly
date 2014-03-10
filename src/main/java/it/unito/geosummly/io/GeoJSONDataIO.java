@@ -6,10 +6,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -24,6 +24,7 @@ import org.mapfish.geo.MfGeoJSONReader;
 import org.mapfish.geo.MfGeoJSONWriter;
 import org.mapfish.geo.MfGeometry;
 
+import com.google.gson.Gson;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -80,14 +81,14 @@ public class GeoJSONDataIO {
     	return data;
     }
     
-    public void encode(HashMap<Integer, String> labels, HashMap<Integer, ArrayList<ArrayList<Double>>> cells, HashMap<Integer, ArrayList<CSVRecord>> venues) throws JSONException, IOException {
+    public void encode(HashMap<Integer, String> labels, HashMap<Integer, ArrayList<ArrayList<Double>>> cells, HashMap<Integer, ArrayList<ArrayList<String>>> venues) throws JSONException, IOException {
+    	Gson gson=new Gson();
     	ArrayList<Integer> keys=new ArrayList<Integer>(labels.keySet()); //keys of clusters
     	String name; //cluster label
     	int key; //cluster key
     	ArrayList<Coordinate> coordinates; //cells coordinates of a cluster
     	ArrayList<ArrayList<Double>> cellsOfCluster; //cells informations (cell_id, cell_lat, cell_lng) of a cluster
-    	ArrayList<CSVRecord> venuesOfCell; //venues (as CSVRecord) of a cell
-    	ArrayList<String> venuesAsString; //venues (as String) of a cell
+    	ArrayList<ArrayList<String>> venuesOfCell; //venues of a cell
     	MfFeature features; //single feature of geojson file
     	ArrayList<MfFeature> oft=new ArrayList<MfFeature>(); //list of feature of geojson file
     	MfFeatureCollection fc; //feature collection of geojson file (it will contains all the features)
@@ -98,25 +99,37 @@ public class GeoJSONDataIO {
     		key=i;
     		coordinates=new ArrayList<Coordinate>();
     		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i));
-    		venuesAsString=new ArrayList<String>();
+    		ArrayList<VenueObject> vo_array=new ArrayList<VenueObject>();
     		
     		//iterate for each cell of the cluster
     		for(ArrayList<Double> cl: cellsOfCluster) {
-    			coordinates.add(new Coordinate(cl.get(1), cl.get(2)));
+    			DecimalFormat df=new DecimalFormat("#.##");
+    			String s1=df.format(cl.get(1)).replaceAll(",", ".");
+    			String s2=df.format(cl.get(2)).replaceAll(",", ".");
+    			coordinates.add(new Coordinate( Double.parseDouble(s1), Double.parseDouble(s2)));
     			if(venues.containsKey(cl.get(0).intValue())) {
-    				venuesOfCell=new ArrayList<CSVRecord>(venues.get(cl.get(0).intValue()));
+    				venuesOfCell=new ArrayList<ArrayList<String>>(venues.get(cl.get(0).intValue()));
     			}
     			else
-    				venuesOfCell=new ArrayList<CSVRecord>();
+    				venuesOfCell=new ArrayList<ArrayList<String>>();
     			
     			//iterate for each venue of the cell
-    			for(CSVRecord r: venuesOfCell) {
-    				venuesAsString.add(r.toString().replaceAll("\\[", "").replaceAll("\\]", ""));
+    			for(ArrayList<String> r: venuesOfCell) {
+    				String bH="";
+    				if(!r.get(1).equals("0"))
+    					bH=r.get(1);
+    				String vLat=df.format(Double.parseDouble(r.get(3))).replaceAll(",", ".");
+    				String vLng=df.format(Double.parseDouble(r.get(4))).replaceAll(",", ".");
+    				String fLat=df.format(Double.parseDouble(r.get(5))).replaceAll(",", ".");
+    				String fLng=df.format(Double.parseDouble(r.get(6))).replaceAll(",", ".");
+    				VenueObject vo=new VenueObject(r.get(0), bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
+    				vo_array.add(vo);
     			}
     		}
     		
+    		String s=gson.toJson(vo_array.toArray(new VenueObject[vo_array.size()]));
     		//create features
-    		features=new OutputFeatureTemplate(key, name, coordinates.toArray(new Coordinate[coordinates.size()]), venuesAsString.toArray(new String[venuesAsString.size()]));
+    		features=new OutputFeatureTemplate(key, name, coordinates.toArray(new Coordinate[coordinates.size()]), s);
     		oft.add(features);
     	}
     	
@@ -157,9 +170,9 @@ class OutputFeatureTemplate extends MfFeature {
 	private int id;
 	private String name;
 	private Coordinate[] coordinates;
-	private String[] venues;
+	private String venues;
 
-	public OutputFeatureTemplate(int id, String name, Coordinate[] coordinates, String[] venues) {
+	public OutputFeatureTemplate(int id, String name, Coordinate[] coordinates, String venues) {
 		this.id=id;
 		this.coordinates=coordinates;
 		this.name=name;
@@ -185,3 +198,109 @@ class OutputFeatureTemplate extends MfFeature {
 	}
 
 }
+
+class VenueObject {
+	 
+	private String timestamp;
+	private String been_here;
+	private String id;
+	private String venue_latitude;
+	private String venue_longitude;
+	private String focal_latitude;
+	private String focal_longitude;
+	private String category;
+	
+	public VenueObject(String t, String b, String id, String vLat, String vLng, String fLat, String fLng, String c) {
+		this.timestamp=t;
+		if(b.length()>0)
+			this.been_here=b;
+		this.id=id;
+		this.venue_latitude=vLat;
+		this.venue_longitude=vLng;
+		this.focal_latitude=fLat;
+		this.focal_longitude=fLng;
+		this.category=c;
+	}
+
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public String getBeen_here() {
+		return been_here;
+	}
+
+	public void setBeen_here(String been_here) {
+		this.been_here = been_here;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getVenue_latitude() {
+		return venue_latitude;
+	}
+
+	public void setVenue_latitude(String venue_latitude) {
+		this.venue_latitude = venue_latitude;
+	}
+
+	public String getVenue_longitude() {
+		return venue_longitude;
+	}
+
+	public void setVenue_longitude(String venue_longitude) {
+		this.venue_longitude = venue_longitude;
+	}
+
+	public String getFocal_latitude() {
+		return focal_latitude;
+	}
+
+	public void setFocal_latitude(String focal_latitude) {
+		this.focal_latitude = focal_latitude;
+	}
+
+	public String getFocal_longitude() {
+		return focal_longitude;
+	}
+
+	public void setFocal_longitude(String focal_longitude) {
+		this.focal_longitude = focal_longitude;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+}
+
+/*class VenueArray {
+	private VenueObject[] venues;
+	
+	public VenueArray(VenueObject[] venues) {
+		this.venues=venues;
+	}
+
+	public VenueObject[] getVenues() {
+		return venues;
+	}
+
+	public void setVenues(VenueObject[] venues) {
+		this.venues = venues;
+	}
+	
+}*/

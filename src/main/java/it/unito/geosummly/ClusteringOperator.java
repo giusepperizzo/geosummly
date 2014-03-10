@@ -99,7 +99,7 @@ public class ClusteringOperator {
 	    ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
 	    HashMap<Integer, String> clustersName=new HashMap<Integer, String>(); //key, cluster name
 	    HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster=new HashMap<Integer, ArrayList<ArrayList<Double>>>(); //key, cell_ids + lat + lng 
-	    HashMap<Integer, ArrayList<CSVRecord>> venuesOfCell=new HashMap<Integer, ArrayList<CSVRecord>>(); //cell_id, venue_record
+	    HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell=new HashMap<Integer, ArrayList<ArrayList<String>>>(); //cell_id, venue_record
 	    
 	    for(Clustering<?> c: cs) {
 	    	//get all the clusters
@@ -118,7 +118,7 @@ public class ClusteringOperator {
 	    			cellRecord.add(Double.parseDouble(cellLat));
 	    			cellRecord.add(Double.parseDouble(cellLng));
 	    			cells.add(cellRecord); //triple: id, lat, lng
-	    			ArrayList<CSVRecord> venuesInfo=new ArrayList<CSVRecord>();
+	    			ArrayList<ArrayList<String>> venuesInfo=new ArrayList<ArrayList<String>>();
 	    			boolean found=false;
 	    			boolean added=false;
 	    			//get all the single venues for the selected cell
@@ -128,7 +128,21 @@ public class ClusteringOperator {
 	    				if(!r.get(0).contains("Timestamp")) {
 	    					//check if the venue belong to the cell
 	    					if(r.get(5).equals(cellLat) && r.get(6).equals(cellLng)) {
-	    						venuesInfo.add(r); //add the id_venue
+	    						ArrayList<String> venueRecord=new ArrayList<String>();
+	    						venueRecord.add(r.get(0)); //timestamp
+	    						venueRecord.add(r.get(1)); //beenHere
+	    						venueRecord.add(r.get(2)); //venue id
+	    						venueRecord.add(r.get(3)); //venue lat
+	    						venueRecord.add(r.get(4)); //venue lat
+	    						venueRecord.add(r.get(5)); //focal lat
+	    						venueRecord.add(r.get(6)); //focal lng
+	    						boolean catFound=false;
+	    						for(int h=7;h<r.size() && !catFound;h++)
+	    							if(r.get(h).equals("1.0")) {
+	    								venueRecord.add(featuresMap.get(h-7+2));
+	    								catFound=true;
+	    							}
+	    						venuesInfo.add(venueRecord); //add the venue informations
 	    						added=true;
 	    					} else if(added) found=true; //since venues of the same cell are consecutive, we stop the loop once we found different coordinate values
 	    				}
