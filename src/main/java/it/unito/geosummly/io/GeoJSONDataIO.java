@@ -81,7 +81,7 @@ public class GeoJSONDataIO {
     	return data;
     }
     
-    public void encode(HashMap<Integer, String> labels, HashMap<Integer, ArrayList<ArrayList<Double>>> cells, HashMap<Integer, ArrayList<ArrayList<String>>> venues) throws JSONException, IOException {
+    public void encode(HashMap<Integer, String> labels, HashMap<Integer, ArrayList<ArrayList<Double>>> cells, HashMap<Integer, ArrayList<ArrayList<String>>> venues, String out) throws JSONException, IOException {
     	Gson gson=new Gson();
     	ArrayList<Integer> keys=new ArrayList<Integer>(labels.keySet()); //keys of clusters
     	String name; //cluster label
@@ -136,7 +136,7 @@ public class GeoJSONDataIO {
     	//create feature collection with all the feature and serialize the result to file
     	fc=new MfFeatureCollection(oft);
     	writer.encodeFeatureCollection(fc);
-    	FileUtils.writeStringToFile(new File("clustering-output.geojson"), stringer.toString());
+    	FileUtils.writeStringToFile(new File(out+"/clustering-output.geojson"), stringer.toString());
     }
 }
 

@@ -2,14 +2,106 @@ package it.unito.geosummly.api.cli;
 
 import java.io.IOException;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
+
 import it.unito.geosummly.ClusteringOperator;
 
 public class Clustering {
+	
+	private String inDensity=null;
+	private String inNorm=null;
+	private String inDeltad=null;
+	private String inVenues=null;
+	private String outDir=null;
+	//private String method="geosubclu";
 
 	public void run(String[] args) throws IOException {
-		ClusteringOperator co=new ClusteringOperator();
-		co.execute("", "", "", "", "", "");
+		
+		Options options= initOptions(); //define list of options
+		CommandLineParser parser=new PosixParser(); //create the command line parser
+		HelpFormatter formatter = new HelpFormatter();
+		Boolean mandatory=false; //check the presence of mandatory options
+		String helpUsage="geosummly clustering -density <path/to/file.csv> -normalized <path/to/file.csv> -deltad <path/to/file.csv> -venues <path/to/file.csv> -output <path/to/dir> [options]";
+		String helpFooter="\nThe options density, normalized,  deltad, venues, output are mandatory."
+							+ " Density file has to be a .csv of grid-shaped density values, output the Sampling state. "
+							+ " Normalized file has to be a .csv of grid-shaped normalized density values, output the Sampling state. "
+							+ " Deltad file has to be a .csv of deltad values, output the Discovery state. "
+							+ " Venues file has to be a .csv of single venues, output the Sampling state. "
+							+ "The output consists of a .geojson file expressed as a feature collection whose features are the clusters.";
+		
+		try {
+			CommandLine line = parser.parse(options, args);
+			
+			if(line.hasOption("density") && line.hasOption("normalized") && line.hasOption("deltad") && line.hasOption("venues") && line.hasOption("output")) {
+				inDensity=line.getOptionValue("density");
+				inNorm=line.getOptionValue("normalized");
+				inDeltad=line.getOptionValue("deltad");
+				inVenues=line.getOptionValue("venues");
+				//file extension has to be csv
+				if(!inDensity.endsWith("csv") || !inNorm.endsWith("csv") || !inDeltad.endsWith("csv") || !inVenues.endsWith("csv")) {
+					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					System.exit(-1);
+				}
+				outDir=line.getOptionValue("output");
+				mandatory=true;
+			}
+			
+			/*if(line.hasOption("method")) {
+				//manage clustering method
+			}*/
+			
+			if (line.hasOption("help") || !mandatory) {
+                formatter.printHelp(150, helpUsage,"\ncommands list:", options, helpFooter);
+                System.exit(-1);
+            }
+			
+			ClusteringOperator co=new ClusteringOperator();
+			co.execute(inDensity, inNorm, inDeltad, inVenues, outDir, "");
+		}
+		catch(ParseException | NumberFormatException e) {
+			System.out.println("Unexpected exception: " + e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
-
+	@SuppressWarnings("static-access")
+	private Options initOptions() {
+			 
+		 Options options = new Options(); //define list of options
+		 
+		//option density
+		 options.addOption(OptionBuilder.withLongOpt("density").withDescription("set the input file of density values")
+						.hasArg().withArgName("path/to/file").create("D"));
+		 
+		//option normalized
+		 options.addOption(OptionBuilder.withLongOpt("normalized").withDescription("set the input file of normalized density values")
+					.hasArg().withArgName("path/to/file").create("N"));
+		 
+		//option input deltad
+		 options.addOption(OptionBuilder.withLongOpt("deltad").withDescription("set the input file of deltad values")
+					.hasArg().withArgName("path/to/file").create("S"));
+		 
+		//option venues
+		 options.addOption(OptionBuilder.withLongOpt("venues").withDescription("set the input file of single venues")
+					.hasArg().withArgName("path/to/file").create("V"));
+		 
+		 //option output
+		 options.addOption(OptionBuilder.withLongOpt("output").withDescription("set the output directory")
+					.hasArg().withArgName("path/to/dir").create("O"));
+		 
+		 //option method
+		 options.addOption(OptionBuilder.withLongOpt("method").withDescription("set the clustering algorithm. So far only geosubclu is activable. Default geosubclu")
+					.hasArg().withArgName("arg").create("c"));
+		 
+		//more options
+		options.addOption("H", "help", false, "print the command list");
+		
+		return options;
+	}
 }

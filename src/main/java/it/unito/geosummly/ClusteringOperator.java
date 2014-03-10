@@ -140,6 +140,7 @@ public class ClusteringOperator {
 	    						venueRecord.add(r.get(5)); //focal lat
 	    						venueRecord.add(r.get(6)); //focal lng
 	    						boolean catFound=false;
+	    						//venue category
 	    						for(int h=7;h<r.size() && !catFound;h++)
 	    							if(r.get(h).equals("1.0")) {
 	    								venueRecord.add(featuresMap.get(h-7+2));
@@ -147,7 +148,7 @@ public class ClusteringOperator {
 	    							}
 	    						venuesInfo.add(venueRecord); //add the venue informations
 	    						added=true;
-	    					} else if(added) found=true; //since venues of the same cell are consecutive, we stop the loop once we found different coordinate values
+	    					} else if(added) found=true; //since venues of the same cell are consecutive, we stop the loop once we found different focal coordinate values
 	    				}
 	    			}
 	    			//add venue_id only if the venue exists in the cell
@@ -161,7 +162,7 @@ public class ClusteringOperator {
 	    //serialize to .geojson file
 	    GeoJSONDataIO geoDataIO=new GeoJSONDataIO();
 	    try {
-			geoDataIO.encode(clustersName, cellsOfCluster, venuesOfCell);
+			geoDataIO.encode(clustersName, cellsOfCluster, venuesOfCell, out);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
