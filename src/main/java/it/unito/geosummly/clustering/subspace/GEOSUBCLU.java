@@ -117,6 +117,8 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
   
   private int DENSITY;
   
+  private double epsValue;
+  
   /**
    * Constructor.
    * 
@@ -201,6 +203,10 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
   
   public void setDensity(int density) {
 	  this.DENSITY=density;
+  }
+  
+  public void setEpsValue(double epsValue) {
+	  this.epsValue=epsValue;
   }
   
   /**
@@ -495,7 +501,7 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
 	
 	DoubleDistance epsilon = (EPS.containsKey(feature)) ? 
 			new DoubleDistance (EPS.get(feature).doubleValue()) :
-		    new DoubleDistance (0.1);
+		    new DoubleDistance (epsValue);
 			
 	System.out.println(bs.toString() + "." + feature + ".minpts=" + minpts+";eps="+epsilon);
 	

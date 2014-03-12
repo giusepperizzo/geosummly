@@ -3,7 +3,7 @@ package it.unito.geosummly;
 import it.unito.geosummly.clustering.subspace.GEOSUBCLU;
 import it.unito.geosummly.clustering.subspace.InMemoryDatabase;
 import it.unito.geosummly.io.CSVDataIO;
-import it.unito.geosummly.io.GeoJSONDataIO;
+import it.unito.geosummly.io.GeoJSONDataWriter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.apache.commons.csv.CSVRecord;
-import org.json.JSONException;
 
 import de.lmu.ifi.dbs.elki.algorithm.clustering.subspace.SUBCLU;
 import de.lmu.ifi.dbs.elki.data.Cluster;
@@ -96,9 +95,12 @@ public class ClusteringOperator {
 		
 		//90% of cells
 		Double density=normMatrix.size()*0.9;
+		
+		//eps value used for clustering
+		double eps=0.1;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
-	    Clustering<?> result = runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue());
+	    Clustering<?> result = runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);
 	    ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
 	    HashMap<Integer, String> clustersName=new HashMap<Integer, String>(); //key, cluster name
 	    HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster=new HashMap<Integer, ArrayList<ArrayList<Double>>>(); //key, cell_ids + lat + lng 
@@ -160,12 +162,8 @@ public class ClusteringOperator {
 	    }
 	    
 	    //serialize to .geojson file
-	    GeoJSONDataIO geoDataIO=new GeoJSONDataIO();
-	    try {
-			geoDataIO.encode(clustersName, cellsOfCluster, venuesOfCell, out);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+	    GeoJSONDataWriter writer=new GeoJSONDataWriter();
+	    writer.writeJsonStream(clustersName, cellsOfCluster, venuesOfCell, eps, out);
 	}
     
     /**Set SUBCLU parameters and run the algorithm*/
@@ -183,7 +181,7 @@ public class ClusteringOperator {
     }
     
     /**Set GEOSUBCLU parameters and run the algorithm*/
-    public Clustering<?> runGEOSUBCLU (Database db, HashMap<Integer, String> map, HashMap<String, Double>deltad, int density) {
+    public Clustering<?> runGEOSUBCLU (Database db, HashMap<Integer, String> map, HashMap<String, Double>deltad, int density, double eps) {
         ListParameterization params = new ListParameterization();
         
         // setup algorithm
@@ -191,6 +189,7 @@ public class ClusteringOperator {
         geosubclu.setFeatureMapper(map);
         geosubclu.setDeltad(deltad);
         geosubclu.setDensity(density);
+        geosubclu.setEpsValue(eps);
 
         // run GEOSUBCLU on database
         Clustering<SubspaceModel<DoubleVector>> result = geosubclu.run(db);
