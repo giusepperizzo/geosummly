@@ -20,7 +20,7 @@ public class ClusterOutputValidation {
 	{
 		ClusterOutputValidation main = new ClusterOutputValidation();
 		List<HashMap<String, Vector<Integer>>> holdout = 
-				main.computeCrossFoldValidation("output/evaluation/clustering output validation/10-holdout/holdout_results_all_clusters.log");
+				main.computeCrossFoldValidation("output/evaluation/clustering_output_validation/10-holdout/holdout_results_all_clusters.log");
 	
 		Jaccard jacc = new Jaccard();
 		Double jaccOnLabels = 0.0;
