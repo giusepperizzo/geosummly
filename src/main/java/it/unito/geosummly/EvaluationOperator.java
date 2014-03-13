@@ -116,8 +116,14 @@ public class EvaluationOperator {
 		}
 		allMatrices.add(lastMatrix);
 		
+		//Get the list of timestamps (useful to venue grouping)
+		ArrayList<Long> timestamps=new ArrayList<Long>();
+		for(int i=1;i<list.size();i++)
+			timestamps.add(Long.parseLong(list.get(i).get(0)));
+		
 		//Group the venues
 		TransformationTools tools=new TransformationTools();
+		tools.setSinglesTimestamps(timestamps);
 		ArrayList<BoundingBox> data=tools.getBoxes(matrix);
 		ArrayList<ArrayList<ArrayList<Double>>> allGrouped=new ArrayList<ArrayList<ArrayList<Double>>>();
 		ArrayList<ArrayList<Double>> ithGrouped;
