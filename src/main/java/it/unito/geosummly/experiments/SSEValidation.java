@@ -16,7 +16,7 @@ public class SSEValidation {
 			StringBuilder sb = new StringBuilder();
 			sb.append("x=c(");
 			List<String> lines = 
-			 FileUtils.readLines(new File("output/evaluation/clustering correctness/random/sse.log"));
+			 FileUtils.readLines(new File("output/evaluation/clustering_correctness/random/sse.log"));
 			NumberFormat nf= NumberFormat.getInstance();
 			nf.setMaximumFractionDigits(4);
 			nf.setMinimumFractionDigits(4);
