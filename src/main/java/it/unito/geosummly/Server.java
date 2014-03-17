@@ -119,6 +119,7 @@ public class Server {
             EXTENSION_TO_MEDIA_TYPE.put("png", "image/png");
             EXTENSION_TO_MEDIA_TYPE.put("ico", "image/png");
             EXTENSION_TO_MEDIA_TYPE.put("json", "text/json");
+            EXTENSION_TO_MEDIA_TYPE.put("geojson", "text/geojson");
             EXTENSION_TO_MEDIA_TYPE.put("pdf", "application/pdf");
         }
 
