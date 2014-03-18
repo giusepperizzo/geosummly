@@ -687,11 +687,33 @@ public class TransformationTools {
 	}
 	
 	/**Get the feature labeled either for frequency, density or normalized density*/
-	public ArrayList<String> getFeaturesLabel(CoordinatesNormalizationType type, String s, ArrayList<String> features) {
+	public ArrayList<String> getFeaturesLabel( CoordinatesNormalizationType type, String s, ArrayList<String> features) {
 		ArrayList<String> featuresLabel=new ArrayList<String>();
 		if(type.equals(CoordinatesNormalizationType.NORM) || type.equals(CoordinatesNormalizationType.NOTNORM)) {
 			String label="";
 			featuresLabel.add("Timestamps(ms)"); //Timestamps
+			featuresLabel.add(features.get(0)); //Latitude
+			featuresLabel.add(features.get(1)); //Longitude
+			for(int i=2;i<features.size();i++) {
+				label=s+"("+features.get(i)+")";
+				featuresLabel.add(label);
+			}
+		}
+		else if(type.equals(CoordinatesNormalizationType.MISSING)) {
+			String label="";
+			for(int i=2;i<features.size();i++) {
+				label=s+"("+features.get(i)+")";
+				featuresLabel.add(label);
+			}
+		}
+		return featuresLabel;
+	}
+	
+	/**Get the feature labeled either for frequency, density or normalized density without timestamp column*/
+	public ArrayList<String> getFeaturesLabelNoTimestamp(CoordinatesNormalizationType type, String s, ArrayList<String> features) {
+		ArrayList<String> featuresLabel=new ArrayList<String>();
+		if(type.equals(CoordinatesNormalizationType.NORM) || type.equals(CoordinatesNormalizationType.NOTNORM)) {
+			String label="";
 			featuresLabel.add(features.get(0)); //Latitude
 			featuresLabel.add(features.get(1)); //Longitude
 			for(int i=2;i<features.size();i++) {
