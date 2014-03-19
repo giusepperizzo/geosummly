@@ -16,6 +16,7 @@ public class Evaluation {
 	
 	private String evalType=null;
 	private String inFile=null;
+	private String inDeltad=null;
 	private String outDir=null;
 	private int mnum=500;
 	private int fnum=10;
@@ -25,8 +26,10 @@ public class Evaluation {
 		CommandLineParser parser=new PosixParser(); //create the command line parser
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
+		Boolean deltadIsIn=false; //check the presence of deltad option
 		
-		String helpUsage="\ngeosummly evaluation –etype validation –input path/to/file.csv –output path/to/dir [options]\ngeosummly evaluation –etype correctness –input path/to/file.csv –output path/to/dir [options]";
+		String helpUsage="\ngeosummly evaluation -etype validation -input path/to/file.csv -output path/to/dir [options]"
+							+ "\ngeosummly evaluation -etype correctness -input path/to/file.csv -output path/to/dir [options]";
 		String helpFooter="\nThe options etype, input, output are mandatory. If etype argument is equal to correctness, "
 							+ "the input file has to be a .csv of grid-shaped aggregates, and the output is a set of"
 							+ " random grid-shaped aggregates. Moreover fnum option cannot be used. If etype argument "
@@ -42,11 +45,29 @@ public class Evaluation {
 					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
+				if(evalType.equals("validation")) {
+					//if etype is 'validation', deltad option is mandatory
+					if(line.hasOption("deltad")) {
+						deltadIsIn=true;
+					}
+					else {
+						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						System.exit(-1);
+					}
+				}
 				inFile=line.getOptionValue("input");
 				//file extension has to be csv
 				if(!inFile.endsWith("csv")) {
 					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
+				}
+				if(deltadIsIn) {
+					inDeltad=line.getOptionValue("deltad");
+					//file extension has to be csv
+					if(!inDeltad.endsWith("csv")) {
+						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						System.exit(-1);
+					}
 				}
 				outDir=line.getOptionValue("output");
 				mandatory=true;
@@ -86,7 +107,7 @@ public class Evaluation {
 				eo.executeCorrectness(inFile, outDir, mnum);
 			}
 			else if(evalType.equals("validation"))
-			eo.executeValidation(inFile, outDir, fnum);
+			eo.executeValidation(inFile, inDeltad, outDir, fnum);
 			
 		}
 		catch(ParseException | NumberFormatException | IOException e) {
@@ -104,9 +125,13 @@ public class Evaluation {
 		 options.addOption(OptionBuilder.withLongOpt("etype").withDescription("set the operation to do. Allowed values: correctness, validation")
 					.hasArg().withArgName("arg").create("E"));
 		 
-		//option input
+		 //option input
 		 options.addOption(OptionBuilder.withLongOpt("input").withDescription("set the input file")
 						.hasArg().withArgName("path/to/file").create("I"));
+		 
+		 //option deltad
+		 options.addOption(OptionBuilder.withLongOpt("deltad").withDescription("set the input file of deltad values")
+						.hasArg().withArgName("path/to/file").create("S"));
 		 
 		 //option output
 		 options.addOption(OptionBuilder.withLongOpt("output").withDescription("set the output directory")
