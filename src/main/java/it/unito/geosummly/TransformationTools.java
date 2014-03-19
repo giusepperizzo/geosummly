@@ -340,6 +340,7 @@ public class TransformationTools {
 			int value;
 			ArrayList<Double> sortedRecord;
 			ArrayList<String> keys=new ArrayList<String>(map.keySet());
+			Collections.sort(keys);
 			
 			for(ArrayList<Double> row: matrix) {
 				sortedRecord=new ArrayList<Double>();
@@ -365,6 +366,29 @@ public class TransformationTools {
 				}
 				sortedMatrix.add(sortedRecord);
 			}
+		}
+		return sortedMatrix;
+	}
+	
+	/**Sort matrix of single venues in alphabetical order (column names)*/
+	public ArrayList<ArrayList<Double>> sortMatrixSingles(ArrayList<ArrayList<Double>> matrix, HashMap<String,Integer> map) {
+		ArrayList<ArrayList<Double>> sortedMatrix=new ArrayList<ArrayList<Double>>();
+		int value;
+		ArrayList<Double> sortedRecord;
+		ArrayList<String> keys=new ArrayList<String>(map.keySet());
+		Collections.sort(keys);
+		
+		for(ArrayList<Double> row: matrix) {
+			sortedRecord=new ArrayList<Double>();
+			sortedRecord.add(row.get(0));
+			sortedRecord.add(row.get(1));
+			sortedRecord.add(row.get(2));
+			sortedRecord.add(row.get(3));
+			for(String k: keys) {
+				value=map.get(k)+2;
+				sortedRecord.add(row.get(value));
+			}
+			sortedMatrix.add(sortedRecord);
 		}
 		return sortedMatrix;
 	}
@@ -588,7 +612,8 @@ public class TransformationTools {
 				this.total=rowOfMatrix.size(); //update the overall number of categories
 			if(this.totalSecondLevel<rowOfMatrixSecondLevel.size())
 				this.totalSecondLevel=rowOfMatrixSecondLevel.size(); //update the overall number of categories
-			this.cellsTimestamps.add(cell.get(0).getTimestamp());
+			if(cell.size()>0)
+				this.cellsTimestamps.add(cell.get(0).getTimestamp());
 			matrix.add(rowOfMatrix);
 			this.matrixSecondLevel.add(rowOfMatrixSecondLevel);
 			break;
@@ -624,7 +649,7 @@ public class TransformationTools {
 	}
 	
 	/**Get (as bounding boxes) all the distinct focal coordinates of singles*/
-	public ArrayList<BoundingBox> getBoxes(ArrayList<ArrayList<Double>> matrix) {
+	public ArrayList<BoundingBox> getBoxesFromSingles(ArrayList<ArrayList<Double>> matrix) {
 		ArrayList<BoundingBox> bbox=new ArrayList<BoundingBox>();
 		BoundingBox b=new BoundingBox();
 		b.setCenterLat(matrix.get(0).get(2));
@@ -642,6 +667,19 @@ public class TransformationTools {
 				b.setCenterLng(lng);
 				bbox.add(b);
 			}
+		}
+		return bbox;
+	}
+	
+	/**Get (as bounding boxes) all the distinct cells of aggregates (frequencies) matrix*/
+	public ArrayList<BoundingBox> getBoxesFromAggregates(ArrayList<ArrayList<Double>> matrix) {
+		ArrayList<BoundingBox> bbox=new ArrayList<BoundingBox>();
+		BoundingBox b=new BoundingBox();
+		for(ArrayList<Double> array: matrix) {
+			b=new BoundingBox();
+			b.setCenterLat(array.get(0));
+			b.setCenterLng(array.get(1));
+			bbox.add(b);
 		}
 		return bbox;
 	}
@@ -736,7 +774,8 @@ public class TransformationTools {
 		String label="";
 		ArrayList<String> featuresLabel=new ArrayList<String>();
 		for(int i=0;i<features.size();i++) {
-			label=features.get(i).replace(old, last);
+			//remove character and parenthesis
+			label=features.get(i).replaceFirst(old, last).replaceAll("\\(", "").replaceAll("\\)", "");
 			featuresLabel.add(label);
 		}
 		return featuresLabel;

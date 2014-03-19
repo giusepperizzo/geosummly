@@ -29,7 +29,6 @@ public class SamplingOperator {
 		double bigWest=data.get(0).getWest();
 		double bigEast=data.get(data.size()-1).getEast();
 		BoundingBox global=new BoundingBox(bigNorth, bigSouth, bigWest, bigEast);
-		System.out.println(bigNorth+" "+bigSouth+" "+bigWest+" "+bigEast);
 		Grid grid=new Grid();
 		grid.setCellsNumber((int) Math.sqrt(data.size()));
 		grid.setBbox(global);
@@ -94,6 +93,8 @@ public class SamplingOperator {
 			//two more columns if I've to build singles matrix
 			venuesMatrix=tools.fixRowsLength(tools.getTotal()+2, venuesMatrix); //update rows length for consistency
 			venuesMatrixSecondLevel=tools.fixRowsLength(tools.getTotalSecondLevel()+2, tools.getMatrixSecondLevel());
+			venuesMatrix=tools.sortMatrixSingles(venuesMatrix, tools.getMap());
+			venuesMatrixSecondLevel=tools.sortMatrixSingles(venuesMatrixSecondLevel, tools.getMapSecondLevel());
 			dataIO.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), out+"/singles-matrix.csv");
 			dataIO.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrixSecondLevel, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMapSecondLevel())), out+"/singles-matrix-2nd.csv");
 			ArrayList<ArrayList<Double>> auxMatrix=new ArrayList<ArrayList<Double>>();
@@ -105,7 +106,6 @@ public class SamplingOperator {
 			
 			venuesMatrix=new ArrayList<ArrayList<Double>>(auxMatrix);
 			venuesMatrixSecondLevel=new ArrayList<ArrayList<Double>>(auxMatrixSecondLevel);
-			
 			break;
 		case CELL:
 			venuesMatrix=tools.fixRowsLength(tools.getTotal(), venuesMatrix); //update rows length for consistency
@@ -115,7 +115,11 @@ public class SamplingOperator {
 		
 		//Build the transformation matrix
 		TransformationMatrix tm=new TransformationMatrix();
-		ArrayList<ArrayList<Double>> frequencyMatrix=tools.sortMatrix(ltype, venuesMatrix, tools.getMap());
+		ArrayList<ArrayList<Double>> frequencyMatrix;
+		if(vtype.equals(InformationType.SINGLE))
+			frequencyMatrix=new ArrayList<ArrayList<Double>>(venuesMatrix);
+		else
+			frequencyMatrix=tools.sortMatrix(ltype, venuesMatrix, tools.getMap());
 		tm.setFrequencyMatrix(frequencyMatrix);
 		ArrayList<ArrayList<Double>> densityMatrix=tools.buildDensityMatrix(ltype, frequencyMatrix, bboxArea);
 		tm.setDensityMatrix(densityMatrix);
