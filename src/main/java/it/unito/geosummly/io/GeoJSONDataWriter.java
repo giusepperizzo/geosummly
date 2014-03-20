@@ -7,11 +7,12 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import com.google.gson.stream.JsonWriter;
 
-public class GeoJSONDataWriter {
+public class GeoJSONDataWriter implements IGeoWriter{
 	
 	JsonWriter writer;
 	
@@ -117,6 +118,17 @@ public class GeoJSONDataWriter {
         
         writer.close();
     }
+
+	@Override
+	public void writeStream(HashMap<Integer, String> labels,
+			HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
+			HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
+			double eps,
+			String output,
+			Calendar cal) 
+	{
+		//TODO
+	}
 }
 
 /**Venue Object Template*/
