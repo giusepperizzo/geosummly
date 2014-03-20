@@ -152,7 +152,12 @@ public class ClusteringTools {
 	 * Fill in the venues hashmap with the venues of the cells of a cluster.
 	 * Each entry of the map will be a couple: key=cellId, list of lists of venue_info.
 	*/
-	public  HashMap<Integer, ArrayList<ArrayList<String>>> putVenuesOfCells(HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell, ArrayList<ArrayList<Double>> cells, List<CSVRecord> listSingles, HashMap<Integer, String> featuresMap) {
+	public  HashMap<Integer, ArrayList<ArrayList<String>>> putVenuesOfCells(HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell, ArrayList<ArrayList<Double>> cells, List<CSVRecord> listSingles) {
+		//get the header of singles in order to get the correct vanue category name
+		ArrayList<String> features=new ArrayList<String>();
+		for(int i=7;i<listSingles.get(0).size();i++)
+			features.add(listSingles.get(0).get(i));
+		
 		int cellId=0;
 		String cellLat="";
 		String cellLng="";
@@ -186,7 +191,7 @@ public class ClusteringTools {
 						//venue category
 						for(int h=7;h<r.size() && !catFound;h++)
 							if(r.get(h).equals("1.0")) {
-								venueRecord.add(featuresMap.get(h-7+2));
+								venueRecord.add(features.get(h-7));
 								catFound=true;
 							}
 						venuesInfo.add(venueRecord); //add the venue informations

@@ -49,7 +49,7 @@ public class ClusteringOperator {
 		Double density=normMatrix.size()*0.9;
 		
 		//eps value used for clustering
-		double eps=0.1;
+		double eps=0.09;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
 	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);
@@ -65,7 +65,7 @@ public class ClusteringOperator {
 	    		clustersName.put(index, cluster.getName()); //put the cluster name in the map
 	    		cellsOfCluster=tools.putCompleteCellsOfCluster(cellsOfCluster, cluster, index, listDens); //get all the cell_ids for the selected cluster
 	    		cells=cellsOfCluster.get(index);
-	    		venuesOfCell=tools.putVenuesOfCells(venuesOfCell, cells, listSingles, featuresMap);
+	    		venuesOfCell=tools.putVenuesOfCells(venuesOfCell, cells, listSingles);
 	    	}
 	    }
 	    
@@ -95,7 +95,7 @@ public class ClusteringOperator {
 		Double density=normMatrix.size()*0.9;
 		
 		//eps value used for clustering
-		double eps=0.1;
+		double eps=0.09;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
 	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);
