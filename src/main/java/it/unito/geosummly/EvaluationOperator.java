@@ -2,6 +2,9 @@ package it.unito.geosummly;
 
 import it.unito.geosummly.io.CSVDataIO;
 import it.unito.geosummly.io.LogDataWriter;
+import it.unito.geosummly.tools.CoordinatesNormalizationType;
+import it.unito.geosummly.tools.EvaluationTools;
+import it.unito.geosummly.tools.TransformationTools;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,63 +16,39 @@ import org.apache.commons.csv.CSVRecord;
 
 public class EvaluationOperator {
 	
-	public EvaluationOperator() {}
+	private EvaluationTools eTools;
+	
+	public EvaluationOperator() {
+		eTools=new EvaluationTools();
+	}
 	
 	public void executeCorrectness(String in, String out, int mnum) throws IOException{
 		
 		//Read csv file without considering coordinate values
 		CSVDataIO dataIO=new CSVDataIO();
-		ArrayList<String> features=new ArrayList<String>();
-		ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();
 		List<CSVRecord> list=dataIO.readCSVFile(in);
 		
-		//Remove timestamp and coordinates
-		for(int k=3;k<list.get(0).size();k++) {
-			features.add(list.get(0).get(k));
-		}
+		//Fill in the matrix of aggregate (frequency) values
+		ArrayList<ArrayList<Double>> matrix=eTools.buildAggregatesFromList(list);
 		
-		for(int k=1;k<list.size();k++) {
-			ArrayList<Double> rec=new ArrayList<Double>();
-			for(int j=3;j<list.get(k).size();j++)
-				rec.add(Double.parseDouble(list.get(k).get(j)));
-			matrix.add(rec);
-		}
+		//Fill in the list of features
+		ArrayList<String> features=eTools.getFeaturesFormList(list);
 		
 		//Get the areas
 		TransformationTools tools=new TransformationTools();
-		double edgeValue=tools.getDistance(Double.parseDouble(list.get(1).get(0)), Double.parseDouble(list.get(1).get(1)), Double.parseDouble(list.get(2).get(0)), Double.parseDouble(list.get(2).get(1)));
-		double areaValue=Math.pow(edgeValue, 2);
-		ArrayList<Double> bboxArea=new ArrayList<Double>();
-		for(int i=0; i<matrix.size();i++)
-			bboxArea.add(areaValue);
+		ArrayList<BoundingBox> data=tools.getBoxesFromSingles(matrix);
+		ArrayList<Double> bboxArea=eTools.getCellsArea(tools, data, matrix);
 		
 		//Create the random matrices and print them to file
 		ArrayList<ArrayList<Double>> frequencyRandomMatrix;
 		ArrayList<ArrayList<Double>> densityRandomMatrix;
 		ArrayList<ArrayList<Double>> normalizedRandomMatrix;
-		ArrayList<Double> randomRecord;
-		double randomValue;
 		ArrayList<Double> minArray=tools.getMinArray(matrix); //get min and max values of features occurrences
 		ArrayList<Double> maxArray=tools.getMaxArray(matrix);
-		int min;
-		int max;
 		
 		//mnum matrices
 		for(int i=0;i<mnum;i++) {
-			frequencyRandomMatrix=new ArrayList<ArrayList<Double>>();
-			//matrix.size() records per matrix
-			for(int j=0;j<matrix.size();j++) {
-				randomRecord=new ArrayList<Double>();
-				//get randomly the features values
-				for(int k=0;k<minArray.size();k++) {
-					min=minArray.get(k).intValue();
-					max=maxArray.get(k).intValue();
-					randomValue=min + (int) (Math.random()*(max-min+1)); //random number from min to max included
-					randomRecord.add(randomValue);
-				}
-				frequencyRandomMatrix.add(randomRecord);
-			}
-			
+			frequencyRandomMatrix=eTools.buildFrequencyRandomMatrix(matrix, minArray, maxArray);
 			densityRandomMatrix=tools.buildDensityMatrix(CoordinatesNormalizationType.MISSING, frequencyRandomMatrix, bboxArea);
 			normalizedRandomMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.MISSING, densityRandomMatrix);
 			ArrayList<String >feat=tools.changeFeaturesLabel("f", "", features);
@@ -83,7 +62,6 @@ public class EvaluationOperator {
 		//Read csv file without considering the first three columns: timestamp, beenHere, venueId
 		CSVDataIO dataIO=new CSVDataIO();
 		List<CSVRecord> list=dataIO.readCSVFile(in);
-		EvaluationTools eTools=new EvaluationTools();
 		
 		//Fill in the matrix of single venues
 		ArrayList<ArrayList<Double>> matrix = eTools.buildSinglesFromList(list);
@@ -97,7 +75,7 @@ public class EvaluationOperator {
 		//Group the venues and get the value of each cell
 		TransformationTools tools=new TransformationTools();
 		tools.setSinglesTimestamps(timestamps);
-		ArrayList<BoundingBox> data=tools.getBoxes(matrix);
+		ArrayList<BoundingBox> data=tools.getBoxesFromSingles(matrix);
 		ArrayList<ArrayList<ArrayList<Double>>> allGrouped=eTools.groupFolds(tools, data, allMatrices);
 		ArrayList<Double> bboxArea=eTools.getCellsArea(tools, data, matrix);
 		

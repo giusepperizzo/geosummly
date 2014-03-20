@@ -2,6 +2,7 @@ package it.unito.geosummly;
 
 import it.unito.geosummly.io.CSVDataIO;
 import it.unito.geosummly.io.GeoJSONDataWriter;
+import it.unito.geosummly.tools.ClusteringTools;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class ClusteringOperator {
 		Double density=normMatrix.size()*0.9;
 		
 		//eps value used for clustering
-		double eps=0.09;
+		double eps=0.08;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
 	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);

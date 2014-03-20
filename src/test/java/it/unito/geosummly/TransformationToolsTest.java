@@ -1,5 +1,9 @@
 package it.unito.geosummly;
 
+import it.unito.geosummly.tools.CoordinatesNormalizationType;
+import it.unito.geosummly.tools.InformationType;
+import it.unito.geosummly.tools.TransformationTools;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

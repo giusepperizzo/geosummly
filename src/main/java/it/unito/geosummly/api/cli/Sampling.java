@@ -1,9 +1,9 @@
 package it.unito.geosummly.api.cli;
 
 import fi.foyt.foursquare.api.FoursquareApiException;
-import it.unito.geosummly.CoordinatesNormalizationType;
-import it.unito.geosummly.InformationType;
 import it.unito.geosummly.SamplingOperator;
+import it.unito.geosummly.tools.CoordinatesNormalizationType;
+import it.unito.geosummly.tools.InformationType;
 
 import java.io.IOException;
 import java.util.ArrayList;

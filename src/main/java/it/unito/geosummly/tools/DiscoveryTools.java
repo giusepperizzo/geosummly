@@ -1,4 +1,4 @@
-package it.unito.geosummly;
+package it.unito.geosummly.tools;
 
 import java.util.ArrayList;
 

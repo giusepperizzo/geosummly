@@ -1,4 +1,7 @@
-package it.unito.geosummly;
+package it.unito.geosummly.tools;
+
+import it.unito.geosummly.BoundingBox;
+import it.unito.geosummly.TransformationMatrix;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +21,24 @@ public class EvaluationTools {
 	public EvaluationTools() {}
 	
 	/**
+	 * Fill in the matrix of aggregate (frequency) values from a list of CSV records.
+	 * The header won't be considered.
+	 * Timestamp, latitude and longitude columns won't be considered.
+	*/
+	public ArrayList<ArrayList<Double>> buildAggregatesFromList(List<CSVRecord> list) {
+		ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();
+		//remove the header, so i=1
+		for(int k=1;k<list.size();k++) {
+			ArrayList<Double> rec=new ArrayList<Double>();
+			//remove timestamp, latitude and longitude columns, so j=3
+			for(int j=3;j<list.get(k).size();j++)
+				rec.add(Double.parseDouble(list.get(k).get(j)));
+			matrix.add(rec);
+		}
+		return matrix;
+	}
+	
+	/**
 	 * Fill in the matrix of single venues from a list of CSV records.
 	 * The header won't be considered.
 	 * Timestamp, been here and venue id columns won't be considered.
@@ -27,12 +48,55 @@ public class EvaluationTools {
 		//remove the header, so i=1
 		for(int k=1;k<list.size();k++) {
 			ArrayList<Double> rec=new ArrayList<Double>();
-			//remove timestamo, been_here, id_venue columns, so j=3
+			//remove timestamp, been_here, id_venue columns, so j=3
 			for(int j=3;j<list.get(k).size();j++)
 				rec.add(Double.parseDouble(list.get(k).get(j)));
 			matrix.add(rec);
 		}
 		return matrix;
+	}
+	
+	/**
+	 * Fill in the list of features from a list of CSV records.
+	 * Timestamp column won't be considered.
+	*/
+	public ArrayList<String> getFeaturesFormList(List<CSVRecord> list) {
+		ArrayList<String> features=new ArrayList<String>();
+		//remove timestamp column, so i=1
+		for(int i=1;i<list.get(0).size();i++) {
+			features.add(list.get(0).get(i));
+		}
+		return features;
+	}
+	
+	/**
+	 * Fill in the random matrix of aggregate (frequency) values from the original matrix of aggregate (frequency) values.
+	*/
+	public ArrayList<ArrayList<Double>> buildFrequencyRandomMatrix(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> minArray, ArrayList<Double> maxArray) {
+		ArrayList<ArrayList<Double>> frm=new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> randomRecord;
+		double randomValue;
+		int min;
+		int max;
+		int i=0;
+		int j=0;
+		
+		//matrix.size() records per matrix
+		while(i<matrix.size()) {
+			randomRecord=new ArrayList<Double>();
+			//get randomly the feature values
+			while(j<minArray.size()) {
+				min=minArray.get(j).intValue();
+				max=maxArray.get(j).intValue();
+				randomValue=min + (int) (Math.random()*(max-min+1)); //random number from min to max included
+				randomRecord.add(randomValue);
+				j++;
+			}
+			frm.add(randomRecord);
+			j=0;
+			i++;
+		}
+		return frm;
 	}
 	
 	/**

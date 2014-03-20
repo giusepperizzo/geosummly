@@ -1,4 +1,8 @@
-package it.unito.geosummly;
+package it.unito.geosummly.tools;
+
+import it.unito.geosummly.BoundingBox;
+import it.unito.geosummly.FoursquareDataObject;
+import it.unito.geosummly.TransformationMatrix;
 
 import java.util.ArrayList;
 import java.util.Collections;

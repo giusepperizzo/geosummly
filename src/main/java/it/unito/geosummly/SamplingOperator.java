@@ -2,6 +2,9 @@ package it.unito.geosummly;
 
 import it.unito.geosummly.io.CSVDataIO;
 import it.unito.geosummly.io.GeoJSONDataReader;
+import it.unito.geosummly.tools.CoordinatesNormalizationType;
+import it.unito.geosummly.tools.InformationType;
+import it.unito.geosummly.tools.TransformationTools;
 
 import java.io.IOException;
 import java.net.UnknownHostException;

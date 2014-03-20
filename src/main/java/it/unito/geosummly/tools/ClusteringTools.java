@@ -1,4 +1,4 @@
-package it.unito.geosummly;
+package it.unito.geosummly.tools;
 
 import it.unito.geosummly.clustering.subspace.GEOSUBCLU;
 import it.unito.geosummly.clustering.subspace.InMemoryDatabase;
