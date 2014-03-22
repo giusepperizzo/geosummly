@@ -22,12 +22,12 @@ import org.mapfish.geo.MfGeometry;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Polygon;
 
-public class GeoJSONDataReader {
+public class GeoJSONReader {
 	
 	private MfGeoFactory mfFactory;
     private MfGeoJSONReader reader;
     
-    public GeoJSONDataReader() {
+    public GeoJSONReader() {
     	mfFactory = new MfGeoFactory() {
     		public MfFeature createFeature(String id, MfGeometry geometry, JSONObject properties) {
     			return new InputFeatureTemplate(id, geometry, properties);

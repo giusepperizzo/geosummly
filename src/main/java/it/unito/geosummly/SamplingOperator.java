@@ -1,7 +1,7 @@
 package it.unito.geosummly;
 
 import it.unito.geosummly.io.CSVDataIO;
-import it.unito.geosummly.io.GeoJSONDataReader;
+import it.unito.geosummly.io.GeoJSONReader;
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.InformationType;
 import it.unito.geosummly.tools.TransformationTools;
@@ -25,7 +25,7 @@ public class SamplingOperator {
     public void executeWithInput(String in, String out, InformationType vtype, CoordinatesNormalizationType ltype, long sleep) throws IOException, JSONException, FoursquareApiException, InterruptedException {
     	
     	//Create the grid
-    	GeoJSONDataReader gjd=new GeoJSONDataReader();
+    	GeoJSONReader gjd=new GeoJSONReader();
 		ArrayList<BoundingBox> data=gjd.decode(in);
 		double bigNorth=data.get(data.size()-1).getNorth();
 		double bigEast=data.get(data.size()-1).getEast();
