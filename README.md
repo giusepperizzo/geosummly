@@ -19,7 +19,7 @@ bounding box;
 -I –input   <path/to/file>  set the geojson input file
 -O –output  <path/to/dir>   set the output directory
 -v -vtype   <arg>           set the type of venue grouping. Allowed values: single, cell. Default single.
--l –ltype   <arg>           set the type of coordinates (latitude and langitude) normalization. Allowed values: norm, notnorm, missing. Default norm.
+-l –ltype   <arg>           set the type of coordinates (latitude and longitude) normalization. Allowed values: norm, notnorm, missing. Default norm.
 -g –gnum    <arg>           set the number of cells of a side of the squared grid. Default 20.
 -r –rnum    <arg>           set the number of cells, taken randomly, chosen for the sampling.
 -s –social  <arg>           set the social network for meta-data collection. So far only foursquare is activable. Default fourquare.
@@ -46,6 +46,7 @@ The options *input*, *output* are mandatory. Input file has to be a .csv of grid
 -V –venues      <path/to/file>  set the input file of single venues
 -O –output      <path/to/dir>   set the output directory
 -M -method      <arg>           set the clustering algorithm. So far only geosubclu is activable. Default geosubclu.
+-e -eps         <arg>           set the eps value of clustering algorithm. Default 0.1.
 ```
 The options *density*, *normalized*, *deltad*, *venues*, *output* are mandatory. Density file has to be a .csv of grid-shaped density values, output the Sampling state. Normalized file has to be a .csv of grid-shaped normalized density values, output the Sampling state. Deltad file has to be a .csv of deltad values, output the Discovery state. Venues file has to be a .csv of single venues, output the Sampling state. The output consists of a .geojson file expressed as a feature collection whose features are the clusters.
 
