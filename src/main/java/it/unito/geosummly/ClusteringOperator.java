@@ -17,14 +17,13 @@ import org.apache.commons.csv.CSVRecord;
 import de.lmu.ifi.dbs.elki.data.Cluster;
 import de.lmu.ifi.dbs.elki.data.Clustering;
 import de.lmu.ifi.dbs.elki.database.Database;
-import de.lmu.ifi.dbs.elki.database.relation.Relation;
 import de.lmu.ifi.dbs.elki.result.ResultUtil;
 
-public class ClusteringOperator<V> {
+public class ClusteringOperator {
 
 	public static Logger logger = Logger.getLogger(ClusteringOperator.class.toString());
 
-	public void execute(String inDens, String inNorm, String inDeltad, String inSingles, String out, String method) throws IOException {
+	public void execute(String inDens, String inNorm, String inDeltad, String inSingles, String out, double eps, String method) throws IOException {
 		
 		//Read all the csv files
 		CSVDataIO dataIO=new CSVDataIO();
@@ -49,9 +48,6 @@ public class ClusteringOperator<V> {
 		
 		//90% of cells
 		Double density=normMatrix.size()*0.9;
-		
-		//eps value used for clustering
-		double eps=0.08;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
 	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);
@@ -76,7 +72,7 @@ public class ClusteringOperator<V> {
 	    writer.writeJsonStream(clustersName, cellsOfCluster, venuesOfCell, eps, out);
 	}
     
-	public HashMap<String, Vector<Integer>> executeForEvaluation(ArrayList<ArrayList<Double>> normalized, int length, String inDeltad) throws IOException {
+	public HashMap<String, Vector<Integer>> executeForEvaluation(ArrayList<ArrayList<Double>> normalized, int length, String inDeltad, double eps) throws IOException {
 		
 		CSVDataIO dataIO=new CSVDataIO();
 		List<CSVRecord> listDeltad=dataIO.readCSVFile(inDeltad);
@@ -95,9 +91,6 @@ public class ClusteringOperator<V> {
 		
 		//90% of cells
 		Double density=normMatrix.size()*0.9;
-		
-		//eps value used for clustering
-		double eps=0.09;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
 	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);

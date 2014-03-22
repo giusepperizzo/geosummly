@@ -96,7 +96,7 @@ public class EvaluationOperator {
 			ithTm=eTools.transformFold(grouped, tools, map, bboxArea);
 			
 			//create map for the holdout evaluation
-			holdout=co.executeForEvaluation(ithTm.getNormalizedMatrix(), length, inDeltad); //normalized_matrix, last_cellId, deltad_matrix
+			holdout=co.executeForEvaluation(ithTm.getNormalizedMatrix(), length, inDeltad, 0.1); //normalized_matrix, last_cellId, deltad_matrix, eps_value
 			holdoutList.add(holdout);
 			length+=ithTm.getNormalizedMatrix().size(); //update last_cellId value
 			
