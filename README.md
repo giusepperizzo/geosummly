@@ -15,7 +15,7 @@ bounding box;
 
 #####sampling
 ```sh
--L –coord   <n,s,w,e>       set the input grid coordinates
+-L –coord   <n,e,s,w>       set the input grid coordinates
 -I –input   <path/to/file>  set the geojson input file
 -O –output  <path/to/dir>   set the output directory
 -v -vtype   <arg>           set the type of venue grouping. Allowed values: single, cell. Default single.
@@ -71,7 +71,7 @@ If *etype* argument is equal to validation, the input file has to be a .csv of s
 ```sh
 geosummly sampling –input path/to/file.geojson –output path/to/dir –vtype cell –ctype missing 
 
-geosummly sampling –coord 45,44,7,8 –output path/to/dir –cnum 40 –snum 100
+geosummly sampling –coord 45,8,44,7 –output path/to/dir –cnum 40 –snum 100
 
 geosummly discovery –input path/to/file.csv –output path/to/dir –combination 3
 
