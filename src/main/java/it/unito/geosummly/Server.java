@@ -29,7 +29,7 @@ public class Server {
     public static final String BASE_URI = "0.0.0.0";
     public static final String APP_PATH = "/";
     public static final String API_PATH = "/api/";
-    public static final String WEB_ROOT = "/webroot";
+    public static final String WEB_ROOT = "/webroot/app";
     public static final int PORT = 8080;
     private static volatile Boolean running = true;
 

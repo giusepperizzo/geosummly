@@ -19,6 +19,9 @@ public class CSVDataIO {
 	
 	public CSVDataIO() {}
 	
+	/**
+	 * Get a csv file as a List of CSVRecord.
+	*/
 	public List<CSVRecord> readCSVFile(String file) throws IOException {
 		FileReader reader =new FileReader(file);
     	CSVParser parser = new CSVParser(reader, CSVFormat.EXCEL);
@@ -27,6 +30,9 @@ public class CSVDataIO {
 		return list;
 	}
 	
+	/**
+	 * Print result of transformation matrix to csv file.
+	*/
 	public void printResultHorizontal(ArrayList<Long> timestamps, ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(bout);
@@ -64,6 +70,9 @@ public class CSVDataIO {
         }
 	}
 	
+	/**
+	 * Print result of deltad to csv file.
+	*/
 	public void printResultVertical(ArrayList<Double> deltadValues, ArrayList<String> features, String output) {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(bout);
@@ -92,6 +101,9 @@ public class CSVDataIO {
         }
 	}
 	
+	/**
+	 * Print result of single matrix to csv file.
+	*/
 	public void printResultSingles(ArrayList<Long> timestamps, ArrayList<Integer> beenHere, ArrayList<String> singlesId, ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(bout);

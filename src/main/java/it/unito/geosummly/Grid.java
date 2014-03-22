@@ -67,7 +67,7 @@ public class Grid {
 				eastSingleCell=westSingleCell+cellWidth;
 				
 				//set cell coordinates and position
-				singleCell=new BoundingBox(northSingleCell, southSingleCell, westSingleCell, eastSingleCell);
+				singleCell=new BoundingBox(northSingleCell, eastSingleCell, southSingleCell, westSingleCell);
 				singleCell.setRow(row);
 				singleCell.setColumn(column);
 				
@@ -110,7 +110,7 @@ public class Grid {
 			northSingleCell=southSingleCell+cellHeight;
 			eastSingleCell=b.getWest()+(cellWidth*randomEastFactor);
 			westSingleCell=eastSingleCell-cellWidth;
-			singleCell=new BoundingBox(northSingleCell, southSingleCell, westSingleCell, eastSingleCell);
+			singleCell=new BoundingBox(northSingleCell, eastSingleCell, southSingleCell, westSingleCell);
 			structure.add(singleCell);
 			i++;
 		}

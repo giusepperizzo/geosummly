@@ -17,9 +17,10 @@ import org.apache.commons.csv.CSVRecord;
 import de.lmu.ifi.dbs.elki.data.Cluster;
 import de.lmu.ifi.dbs.elki.data.Clustering;
 import de.lmu.ifi.dbs.elki.database.Database;
+import de.lmu.ifi.dbs.elki.database.relation.Relation;
 import de.lmu.ifi.dbs.elki.result.ResultUtil;
 
-public class ClusteringOperator {
+public class ClusteringOperator<V> {
 
 	public static Logger logger = Logger.getLogger(ClusteringOperator.class.toString());
 

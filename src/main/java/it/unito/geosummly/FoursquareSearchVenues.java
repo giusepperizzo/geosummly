@@ -38,7 +38,7 @@ public class FoursquareSearchVenues {
 	}
 	
 	/**Search venues informations. Row and column informations are included*/
-	public ArrayList<FoursquareDataObject> searchVenues(int row, int column, double north, double south, double west, double east) throws FoursquareApiException, UnknownHostException {
+	public ArrayList<FoursquareDataObject> searchVenues(int row, int column, double north, double east, double south, double west) throws FoursquareApiException, UnknownHostException {
 		String ne=north+","+east;
 		String sw=south+","+west;
 		Map<String, String> searchParams = new HashMap<String, String>(); 
@@ -68,7 +68,7 @@ public class FoursquareSearchVenues {
 	}
 	
 	/**Search venues informations. Row and column informations are not included*/
-	public ArrayList<FoursquareDataObject> searchVenues(double north, double south, double west, double east) throws FoursquareApiException, UnknownHostException {
+	public ArrayList<FoursquareDataObject> searchVenues(double north, double east, double south, double west) throws FoursquareApiException, UnknownHostException {
 		String ne=north+","+east;
 		String sw=south+","+west;
 		Map<String, String> searchParams = new HashMap<String, String>(); 
