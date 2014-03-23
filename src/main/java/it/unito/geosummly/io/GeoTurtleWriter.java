@@ -26,6 +26,12 @@ public class GeoTurtleWriter implements IGeoWriter {
 		model.write(System.out,"Turtle");
 	}
 	
+	public void serializeAll() {
+		for (;;) {
+			
+		}
+	}
+	
 	
 	public Model serialize () 
 	{
