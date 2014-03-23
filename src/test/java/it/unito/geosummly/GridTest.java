@@ -9,7 +9,7 @@ public class GridTest extends TestCase {
 	public void testCreateCells() {
 		
 		//Central cell
-		BoundingBox bbox=new BoundingBox(45.057, 45.0390186, 7.6600, 7.6854548);
+		BoundingBox bbox=new BoundingBox(45.057, 7.6854548, 45.0390186, 7.6600);
 		
 		//Create the bounding box
 		Grid grid=new Grid();
@@ -20,16 +20,16 @@ public class GridTest extends TestCase {
 		ArrayList<BoundingBox> lb=grid.getStructure();
 		
 		//Construct the test case
-		BoundingBox b1=new BoundingBox(45.057, 45.048009300000004, 7.66, 7.672727399999999);
+		BoundingBox b1=new BoundingBox(45.057, 7.672727399999999, 45.048009300000004, 7.66);
 		b1.setRow(1);
 		b1.setColumn(1);
-		BoundingBox b2=new BoundingBox(45.057, 45.048009300000004, 7.672727399999999, 7.685454799999999);
+		BoundingBox b2=new BoundingBox(45.057, 7.685454799999999, 45.048009300000004, 7.672727399999999);
 		b2.setRow(1);
 		b2.setColumn(2);
-		BoundingBox b3=new BoundingBox(45.048009300000004, 45.039018600000006, 7.66, 7.672727399999999);
+		BoundingBox b3=new BoundingBox(45.048009300000004, 7.672727399999999, 45.039018600000006, 7.66);
 		b3.setRow(2);
 		b3.setColumn(1);
-		BoundingBox b4=new BoundingBox(45.048009300000004, 45.039018600000006, 7.672727399999999, 7.685454799999999);
+		BoundingBox b4=new BoundingBox(45.048009300000004, 7.685454799999999, 45.039018600000006, 7.672727399999999);
 		b4.setRow(2);
 		b4.setColumn(2);
 		ArrayList<BoundingBox> lb1=new ArrayList<BoundingBox>();

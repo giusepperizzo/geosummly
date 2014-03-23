@@ -1,11 +1,12 @@
 package it.unito.geosummly;
 
 import it.unito.geosummly.io.CSVDataIO;
-import it.unito.geosummly.io.GeoJSONDataWriter;
+import it.unito.geosummly.io.GeoJSONWriter;
 import it.unito.geosummly.tools.ClusteringTools;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
@@ -23,7 +24,7 @@ public class ClusteringOperator {
 
 	public static Logger logger = Logger.getLogger(ClusteringOperator.class.toString());
 
-	public void execute(String inDens, String inNorm, String inDeltad, String inSingles, String out, String method) throws IOException {
+	public void execute(String inDens, String inNorm, String inDeltad, String inSingles, String out, double eps, String method) throws IOException {
 		
 		//Read all the csv files
 		CSVDataIO dataIO=new CSVDataIO();
@@ -45,12 +46,12 @@ public class ClusteringOperator {
 		
 		//fill in the deltad hashmap with that values which are greater than 0 and whose feature is in the features hashmap
 	    HashMap<String, Double> deltadMap=tools.getValuesMapFromDeltad(listDeltad);
+	    
+	    //get the calendar
+	    Calendar cal=tools.getCalendar(listNorm);
 		
 		//90% of cells
 		Double density=normMatrix.size()*0.9;
-		
-		//eps value used for clustering
-		double eps=0.08;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
 	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);
@@ -71,11 +72,11 @@ public class ClusteringOperator {
 	    }
 	    
 	    //serialize to .geojson file
-	    GeoJSONDataWriter writer=new GeoJSONDataWriter();
-	    writer.writeJsonStream(clustersName, cellsOfCluster, venuesOfCell, eps, out);
+	    GeoJSONWriter writer=new GeoJSONWriter();
+	    writer.writeStream(clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
 	}
     
-	public HashMap<String, Vector<Integer>> executeForEvaluation(ArrayList<ArrayList<Double>> normalized, int length, String inDeltad) throws IOException {
+	public HashMap<String, Vector<Integer>> executeForEvaluation(ArrayList<ArrayList<Double>> normalized, int length, String inDeltad, double eps) throws IOException {
 		
 		CSVDataIO dataIO=new CSVDataIO();
 		List<CSVRecord> listDeltad=dataIO.readCSVFile(inDeltad);
@@ -94,9 +95,6 @@ public class ClusteringOperator {
 		
 		//90% of cells
 		Double density=normMatrix.size()*0.9;
-		
-		//eps value used for clustering
-		double eps=0.09;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
 	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);

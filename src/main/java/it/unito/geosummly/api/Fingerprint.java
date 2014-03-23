@@ -23,15 +23,15 @@ public class Fingerprint {
     public Response compute(  
                               @Context Request request,
                               @QueryParam("north") Double north,
+                              @QueryParam("est") Double est,
                               @QueryParam("south") Double south,
-                              @QueryParam("west") Double west,
-                              @QueryParam("est") Double est
+                              @QueryParam("west") Double west
                             ) 
     {       
         
         logger.log(Level.INFO, "Compute fingerprint of the BBox contained within "
                 + "with the following delimiters: "
-                + "north=" + north + ",south=" + south + ",west=" + west + ",est=" + est); 
+                + "north=" + north +",est=" + est +",south=" + south + ",west=" + west); 
         
         //launch process
         

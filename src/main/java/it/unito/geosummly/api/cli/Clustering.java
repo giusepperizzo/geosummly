@@ -19,6 +19,7 @@ public class Clustering {
 	private String inDeltad=null;
 	private String inVenues=null;
 	private String outDir=null;
+	private Double epsValue=0.1;
 	//private String method="geosubclu";
 
 	public void run(String[] args) throws IOException {
@@ -56,17 +57,20 @@ public class Clustering {
 				//manage clustering method
 			}*/
 			
+			if(line.hasOption("eps")) {
+				epsValue=Double.parseDouble("eps");
+			}
+			
 			if (line.hasOption("help") || !mandatory) {
                 formatter.printHelp(150, helpUsage,"\ncommands list:", options, helpFooter);
                 System.exit(-1);
             }
 			
 			ClusteringOperator co=new ClusteringOperator();
-			co.execute(inDensity, inNorm, inDeltad, inVenues, outDir, "");
+			co.execute(inDensity, inNorm, inDeltad, inVenues, outDir, epsValue, "");
 		}
 		catch(ParseException | NumberFormatException e) {
 			System.out.println("Unexpected exception: " + e.getMessage());
-			e.printStackTrace();
 		}
 	}
 	
@@ -98,6 +102,10 @@ public class Clustering {
 		 //option method
 		 options.addOption(OptionBuilder.withLongOpt("method").withDescription("set the clustering algorithm. So far only geosubclu is activable. Default geosubclu")
 					.hasArg().withArgName("arg").create("c"));
+		 
+		 //option eps
+		 options.addOption(OptionBuilder.withLongOpt("eps").withDescription("set the eps value of clustering algorithm. Default 0.1")
+					.hasArg().withArgName("arg").create("e"));
 		 
 		//more options
 		options.addOption("H", "help", false, "print the command list");

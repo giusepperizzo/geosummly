@@ -4,6 +4,9 @@ import it.unito.geosummly.clustering.subspace.GEOSUBCLU;
 import it.unito.geosummly.clustering.subspace.InMemoryDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -206,6 +209,17 @@ public class ClusteringTools {
 		}
 		
 		return venuesOfCell;
+	}
+	
+	/**
+	 * Get the Calendar of a timestamp value from a list of CSV records.  
+	*/
+	public Calendar getCalendar(List<CSVRecord> list) {
+		Calendar cal=GregorianCalendar.getInstance();
+		long timestamp=Long.parseLong(list.get(1).get(0)); //get the timestamp
+		Date d=new Date(timestamp);
+		cal.setTime(d);
+		return cal;
 	}
 	
 	/**

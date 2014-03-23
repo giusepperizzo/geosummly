@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 
 public class BoundingBox {
 	private double north;
+	private double east;
 	private double south;
 	private double west;
-	private double east;
 	private double centerLat; //Latitude of central point
 	private double centerLng; //Longitude of central point
 	private double area; //area of the bbox
@@ -24,11 +24,11 @@ public class BoundingBox {
 	
 	public BoundingBox(){}
 	
-	public BoundingBox(double n, double s, double w, double e){
+	public BoundingBox(double n, double e, double s, double w){
 		this.north=n;
+		this.east=e;
 		this.south=s;
 		this.west=w;
-		this.east=e;
 		this.centerLat=(n+s)/2;
 		this.centerLng=(e+w)/2;
 		this.area=(getDistance(s, w, n, w) * getDistance(n, w, n, e));
@@ -41,6 +41,15 @@ public class BoundingBox {
 	public double getNorth(){
 		return north;
 	}
+	
+	public void setEast(double east){
+		this.east=east;
+	}
+	
+	public double getEast(){
+		return east;
+	}
+	
 
 	public void setSouth(double south){
 		this.south=south;
@@ -49,21 +58,13 @@ public class BoundingBox {
 	public double getSouth(){
 		return south;
 	}
-
+	
 	public void setWest(double west){
 		this.west=west;
 	}
 
 	public double getWest(){
 		return west;
-	}
-
-	public void setEast(double east){
-		this.east=east;
-	}
-
-	public double getEast(){
-		return east;
 	}
 	
 	public void setCenterLat(double centerLat){
@@ -108,7 +109,7 @@ public class BoundingBox {
 	}
 
 	public String toString(){
-		return "Row: "+row+" Column:"+column+" N:"+north+" S:"+south+" W:"+west+" E:"+east+" C_Lat:"+centerLat+" C_Lng:"+centerLng+" Area:"+area;
+		return "Row: "+row+" Column:"+column+" N:"+north+" E:"+east+" S:"+south+" W:"+west+" C_Lat:"+centerLat+" C_Lng:"+centerLng+" Area:"+area;
 	}
 	
 	/** Haversine formula implementation. It returns the distance between 

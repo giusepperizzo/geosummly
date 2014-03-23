@@ -43,7 +43,7 @@ public class Sampling {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		Boolean inputFlag=false; //check the presence either of input or coord;
-		String helpUsage="\ngeosummly sampling -input<path/to/file.geojson> -output<path/to/dir> [options]\ngeosummly sampling -coord <n,s,w,e> -output<path/to/dir> [options]";
+		String helpUsage="\ngeosummly sampling -input<path/to/file.geojson> -output<path/to/dir> [options]\ngeosummly sampling -coord <n,e,s,w> -output<path/to/dir> [options]";
 		String helpFooter="\nThe options coord, input (only if coord is not specified), output are mandatory. The options input and coord are mutually exclusive. The options input and gnum are mutually exclusive. "
 				 + "The options input and rnum are mutually exclusive. The output consist of a file of single venues, a file of grid-shaped aggregated venues, a file of density values of the previous "
 				 + "aggregates, a file with intra-feature normalized density values shifted in [0,1].";
@@ -156,7 +156,7 @@ public class Sampling {
 		 OptionGroup g1=new OptionGroup();
 		 g1.addOption(input);
 		 g1.addOption(OptionBuilder.withLongOpt("coord").withDescription("set the input grid coordinates")
-						.hasArgs(4).withValueSeparator(',').withArgName("n,s,w,e").create("L"));
+						.hasArgs(4).withValueSeparator(',').withArgName("n,e,s,w").create("L"));
 		 
 		 //options input and gnum have to be mutually exclusive
 		 OptionGroup g2=new OptionGroup();
@@ -180,7 +180,7 @@ public class Sampling {
 							.hasArg().withArgName("path/to/dir").create("O"));
 		 options.addOption(OptionBuilder.withLongOpt( "vtype" ).withDescription("set the type of venue grouping. Allowed values: single, cell. Default single")
 							.hasArg().withArgName("arg").create("v"));
-		 options.addOption(OptionBuilder.withLongOpt( "ltype" ).withDescription("set the type of coordinates (latitude and langitude) normalization. Allowed values: norm, notnorm, missing. Default norm")
+		 options.addOption(OptionBuilder.withLongOpt( "ltype" ).withDescription("set the type of coordinates (latitude and longitude) normalization. Allowed values: norm, notnorm, missing. Default norm")
 							.hasArg().withArgName("arg").create("l"));
 		 options.addOption(OptionBuilder.withLongOpt("social").withDescription("set the social network for meta-data collection. So far only foursquare is activable. Default fourquare")
 							.hasArg().withArgName("arg").create("s"));

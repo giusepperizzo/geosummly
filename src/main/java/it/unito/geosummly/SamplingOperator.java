@@ -1,7 +1,7 @@
 package it.unito.geosummly;
 
 import it.unito.geosummly.io.CSVDataIO;
-import it.unito.geosummly.io.GeoJSONDataReader;
+import it.unito.geosummly.io.GeoJSONReader;
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.InformationType;
 import it.unito.geosummly.tools.TransformationTools;
@@ -25,13 +25,13 @@ public class SamplingOperator {
     public void executeWithInput(String in, String out, InformationType vtype, CoordinatesNormalizationType ltype, long sleep) throws IOException, JSONException, FoursquareApiException, InterruptedException {
     	
     	//Create the grid
-    	GeoJSONDataReader gjd=new GeoJSONDataReader();
+    	GeoJSONReader gjd=new GeoJSONReader();
 		ArrayList<BoundingBox> data=gjd.decode(in);
 		double bigNorth=data.get(data.size()-1).getNorth();
+		double bigEast=data.get(data.size()-1).getEast();
 		double bigSouth=data.get(0).getSouth();
 		double bigWest=data.get(0).getWest();
-		double bigEast=data.get(data.size()-1).getEast();
-		BoundingBox global=new BoundingBox(bigNorth, bigSouth, bigWest, bigEast);
+		BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 		Grid grid=new Grid();
 		grid.setCellsNumber((int) Math.sqrt(data.size()));
 		grid.setBbox(global);
@@ -77,7 +77,7 @@ public class SamplingOperator {
 		//Collect the geopoints
 		for(BoundingBox b: data){
 		    logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
-			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getSouth(), b.getWest(), b.getEast());
+			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getEast(), b.getSouth(), b.getWest());
 			//Copy to cache
 			/*for(FoursquareDataObject fdo: cellVenue){
 				String obj=gson.toJson(fdo); //Serialize with Gson

@@ -14,7 +14,7 @@ public class FoursquareSearchVenuesTest extends TestCase {
 		Gson gson=new Gson();
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareDataObject> array;
-		array=fsv.searchVenues(1, 1, 45.057, 45.0561, 7.6600, 7.6613);
+		array=fsv.searchVenues(1, 1, 45.057, 7.6613, 45.0561, 7.6600);
 		String s=gson.toJson(array.get(1));
 		s=s.replace("\"","");
 		s=s.substring(0, 48);
