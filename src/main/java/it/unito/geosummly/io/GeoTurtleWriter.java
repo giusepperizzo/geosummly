@@ -6,6 +6,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.UUID;
 
+import com.hp.hpl.jena.datatypes.RDFDatatype;
+import com.hp.hpl.jena.datatypes.TypeMapper;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
@@ -65,6 +67,9 @@ public class GeoTurtleWriter implements IGeoWriter {
 		model.setNsPrefix("oa", OPEN_ANNOTATION_URI);
 		model.setNsPrefix("prov", PROV_URI);
 		model.setNsPrefix("geosummly", GEOSUMMLY_URI);
+		RDFDatatype wkttype = WKTType.type;
+		TypeMapper.getInstance().registerDatatype(wkttype);
+
 		
 		// some definitions
 		String annotationURI = GEOSUMMLY_URI
@@ -92,9 +97,11 @@ public class GeoTurtleWriter implements IGeoWriter {
 		
 		Resource fingerprint = model.createResource(fingerprintURI);		
 		Resource geometry = model.createResource(geometryURI);
-		Literal wkt = model.createLiteral(
-				"MultiPoint((45.45913473,9.18133672)," +
-				"(45.45068759,9.17229372),(45.45701465,9.18433557))");
+//		Literal wkt = model.createLiteral(
+//				"MultiPoint((45.45913473,9.18133672)," +
+//				"(45.45068759,9.17229372),(45.45701465,9.18433557))");
+		Literal wkt = model.createTypedLiteral("MultiPoint((45.45913473,9.18133672)," +
+				"(45.45068759,9.17229372),(45.45701465,9.18433557))", wkttype);
 		
 		Resource annotation = 
 				model.createResource(annotationURI)
