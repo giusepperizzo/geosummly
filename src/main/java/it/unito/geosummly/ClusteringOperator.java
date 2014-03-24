@@ -2,6 +2,7 @@ package it.unito.geosummly;
 
 import it.unito.geosummly.io.CSVDataIO;
 import it.unito.geosummly.io.GeoJSONWriter;
+import it.unito.geosummly.io.GeoTurtleWriter;
 import it.unito.geosummly.tools.ClusteringTools;
 
 import java.io.IOException;
@@ -51,7 +52,7 @@ public class ClusteringOperator {
 	    Calendar cal=tools.getCalendar(listNorm);
 		
 		//90% of cells
-		Double density=normMatrix.size()*0.9;
+		Double density=normMatrix.size()*0.8;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
 	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);
@@ -71,9 +72,11 @@ public class ClusteringOperator {
 	    	}
 	    }
 	    
-	    //serialize to .geojson file
-	    GeoJSONWriter writer=new GeoJSONWriter();
-	    writer.writeStream(clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
+	    //serialize to geojson and turtle files
+	    GeoJSONWriter jWriter=new GeoJSONWriter();
+	    jWriter.writeStream(clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
+	    GeoTurtleWriter tWriter=new GeoTurtleWriter();
+	    tWriter.writeStream(clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
 	}
     
 	public HashMap<String, Vector<Integer>> executeForEvaluation(ArrayList<ArrayList<Double>> normalized, int length, String inDeltad, double eps) throws IOException {

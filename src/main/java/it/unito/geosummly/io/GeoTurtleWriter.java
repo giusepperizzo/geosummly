@@ -1,8 +1,12 @@
 package it.unito.geosummly.io;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,23 +25,59 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class GeoTurtleWriter implements IGeoWriter {
-
-	public static void main(String[] args) {
+	
+	@Override
+	public void writeStream(HashMap<Integer, String> labels,
+			HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
+			HashMap<Integer, ArrayList<ArrayList<String>>> venues, double eps,
+			String output, Calendar cal) {
 		
-		GeoTurtleWriter geo = new GeoTurtleWriter();
-				
-		String multipoint = "MultiPoint((45.45913473,9.18133672),(45.45068759,9.17229372),(45.45701465,9.18433557))";
-		String clusterLabel = "c(Arts & Entertainment)";
-		Calendar cal = GregorianCalendar.getInstance();
-		
-		List<String> sqrVenues = new LinkedList<>();
-		sqrVenues.add("http://foursquare.com/v/4cbc16c49552b60c676fe38b");
-		sqrVenues.add("http://foursquare.com/v/4bffc482daf9c9b6f4a6faef");
-		sqrVenues.add("http://foursquare.com/v/4bc415bf920eb713295a1e2c");
-		
-		Model model = geo.serialize(multipoint, clusterLabel, sqrVenues, cal);
-		
-		model.write(System.out,"Turtle");
+		try {
+			String multipoint = "MultiPoint(";
+			String clusterLabel = "";
+			//Calendar cal=GregorianCalendar().getInstance();
+			Model model;
+			
+			//Create Turtle
+			OutputStream os;
+	    	ArrayList<Integer> keys=new ArrayList<Integer>(labels.keySet()); //keys of clusters
+	    	ArrayList<ArrayList<Double>> cellsOfCluster; //cells informations (cell_id, cell_lat, cell_lng) of a cluster
+	    	ArrayList<ArrayList<String>> venuesOfCell; //all venues of a cell
+			
+			//iterate for each cluster (get the cluster label)
+	        for(Integer i: keys) {
+	    		clusterLabel=labels.get(i);
+	    		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i));
+	    		List<String> sqrVenues = new LinkedList<>();
+	        	
+	    		//iterate for each cell of the cluster (get all the coordinates for multipoint)
+	    		for(ArrayList<Double> cl: cellsOfCluster) {
+	    			DecimalFormat df=new DecimalFormat("#.########");
+	    			String s1=df.format(cl.get(1)).replaceAll(",", ".");
+	    			String s2=df.format(cl.get(2)).replaceAll(",", ".");
+	    			multipoint=multipoint+"("+s1+","+s2+"),";
+	    			
+	    			//put venue informations to the list (get the venue of the cell)
+			        if(venues.containsKey(cl.get(0).intValue())) {
+	    				venuesOfCell=new ArrayList<ArrayList<String>>(venues.get(cl.get(0).intValue()));
+	    			}
+	    			else
+	    				venuesOfCell=new ArrayList<ArrayList<String>>();
+			        
+	    			//iterate for each venue of the cell (get the venue ids)
+	    			for(ArrayList<String> r: venuesOfCell) {
+	    				sqrVenues.add("http://foursquare.com/v/"+r.get(2));
+	    			}
+	    		}
+	    		multipoint=multipoint.substring(0, multipoint.length()-1); //remove last comma
+	    		multipoint=multipoint+")"; //concatenate parenthesis
+	    		model=serialize(multipoint, clusterLabel, sqrVenues, cal);
+	    		os=new FileOutputStream(new File(output+"/cluster"+(i+1)+".ttl"));
+	    		model.write(os, "Turtle");
+	        }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void serializeAll() {
@@ -46,7 +86,7 @@ public class GeoTurtleWriter implements IGeoWriter {
 		}
 	}
 	
-	
+	@SuppressWarnings("unused")
 	public Model serialize (String multipoint, 
 							String clusterLabel, 
 							List<String> sqrVenues, 
@@ -133,15 +173,6 @@ public class GeoTurtleWriter implements IGeoWriter {
 			fingerprint.addProperty(GeosfContains, model.createResource(sqrVenue));
 	
 		return model;
-	}
-	
-	@Override
-	public void writeStream(HashMap<Integer, String> labels,
-			HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
-			HashMap<Integer, ArrayList<ArrayList<String>>> venues, double eps,
-			String output, Calendar cal) 
-	{
-		
 	}		
 }
 

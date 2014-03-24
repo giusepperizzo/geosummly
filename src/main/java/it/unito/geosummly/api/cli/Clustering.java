@@ -58,7 +58,7 @@ public class Clustering {
 			}*/
 			
 			if(line.hasOption("eps")) {
-				epsValue=Double.parseDouble("eps");
+				epsValue=Double.parseDouble(line.getOptionValue("eps"));
 			}
 			
 			if (line.hasOption("help") || !mandatory) {

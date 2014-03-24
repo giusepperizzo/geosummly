@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 import com.google.gson.stream.JsonWriter;
 
@@ -20,9 +21,10 @@ public class GeoJSONWriter implements IGeoWriter{
 			HashMap<Integer, ArrayList<ArrayList<String>>> venues, double eps, String output, Calendar cal) {
 		try {
 			
-			//Get the current date. Example: 2014-03-19T18:10:57+01:00
-			SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd'T'H:mm:ssXXX");
+			//Get the current date. Example: 2014-03-19T17:10:57.616Z
+			SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd'T'H:mm:ss.SSS'Z'");
 			dateFormat.setLenient(false); //now month index starts from 1
+			dateFormat.setTimeZone(TimeZone.getTimeZone("UTC")); //set UTC time zone
 			String date=dateFormat.format(cal.getTime());
 			
 			//Create GeoJSON
