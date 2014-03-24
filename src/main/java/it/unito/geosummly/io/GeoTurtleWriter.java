@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
 import com.hp.hpl.jena.datatypes.RDFDatatype;
@@ -24,7 +26,17 @@ public class GeoTurtleWriter implements IGeoWriter {
 		
 		GeoTurtleWriter geo = new GeoTurtleWriter();
 				
-		Model model = geo.serialize();
+		String multipoint = "MultiPoint((45.45913473,9.18133672),(45.45068759,9.17229372),(45.45701465,9.18433557))";
+		String clusterLabel = "c(Arts & Entertainment)";
+		Calendar cal = GregorianCalendar.getInstance();
+		
+		List<String> sqrVenues = new LinkedList<>();
+		sqrVenues.add("http://foursquare.com/v/4cbc16c49552b60c676fe38b");
+		sqrVenues.add("http://foursquare.com/v/4bffc482daf9c9b6f4a6faef");
+		sqrVenues.add("http://foursquare.com/v/4bc415bf920eb713295a1e2c");
+		
+		Model model = geo.serialize(multipoint, clusterLabel, sqrVenues, cal);
+		
 		model.write(System.out,"Turtle");
 	}
 	
@@ -35,7 +47,10 @@ public class GeoTurtleWriter implements IGeoWriter {
 	}
 	
 	
-	public Model serialize () 
+	public Model serialize (String multipoint, 
+							String clusterLabel, 
+							List<String> sqrVenues, 
+							Calendar cal) 
 	{
 		// uris definition
 		String OPEN_ANNOTATION_URI = "http://www.w3.org/ns/oa#";
@@ -85,7 +100,6 @@ public class GeoTurtleWriter implements IGeoWriter {
 								.concat(UUID.randomUUID().toString());		
 		// create the resource
 		//   and add the properties cascading style
-		Calendar cal = GregorianCalendar.getInstance();
 		Literal timestamp = model.createTypedLiteral(cal);
 		
 //		Individual tool = model.createIndividual(
@@ -97,11 +111,7 @@ public class GeoTurtleWriter implements IGeoWriter {
 		
 		Resource fingerprint = model.createResource(fingerprintURI);		
 		Resource geometry = model.createResource(geometryURI);
-//		Literal wkt = model.createLiteral(
-//				"MultiPoint((45.45913473,9.18133672)," +
-//				"(45.45068759,9.17229372),(45.45701465,9.18433557))");
-		Literal wkt = model.createTypedLiteral("MultiPoint((45.45913473,9.18133672)," +
-				"(45.45068759,9.17229372),(45.45701465,9.18433557))", wkttype);
+		Literal wkt = model.createTypedLiteral(multipoint, wkttype);
 		
 		Resource annotation = 
 				model.createResource(annotationURI)
@@ -117,10 +127,10 @@ public class GeoTurtleWriter implements IGeoWriter {
 		
 		fingerprint
 			.addProperty(RDF.type, GeoSpatialObject)
-			.addProperty(RDFS.label, "c(Arts & Entertainment)")
-			.addProperty(GeosfContains, model.createResource("http://foursquare.com/v/4cbc16c49552b60c676fe38b"))
-			.addProperty(GeosfContains, model.createResource("http://foursquare.com/v/4bffc482daf9c9b6f4a6faef"))
-			.addProperty(GeosfContains, model.createResource("http://foursquare.com/v/4bc415bf920eb713295a1e2c"));
+			.addProperty(RDFS.label, clusterLabel);
+		// add all sqrVenues in there
+		for (String sqrVenue : sqrVenues)
+			fingerprint.addProperty(GeosfContains, model.createResource(sqrVenue));
 	
 		return model;
 	}
