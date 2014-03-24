@@ -531,12 +531,13 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
     List<Cluster<Model>> clusterAndNoise = dbsres.getAllClusters();
     List<Cluster<Model>> clusters = new ArrayList<>();
     for (Cluster<Model> c : clusterAndNoise) {
-      if (!c.isNoise()) {
-    	DBIDs objects = c.getIDs();
-    	System.out.println("\tnumber of objects ci=" + objects.size());
-    	if ( objects.size()>1 && objects.size()<DENSITY ) clusters.add(c);
-    	//if ( objects.size()>1 ) clusters.add(c);
-      }
+    	if (!c.isNoise()) {
+    		DBIDs objects = c.getIDs();
+    		if ( objects.size()>1 && objects.size()<DENSITY ) {
+    			clusters.add(c);
+    			System.out.println("\tnumber of objects ci=" + objects.size());
+    		}
+    	}
     }
     return clusters;
   }

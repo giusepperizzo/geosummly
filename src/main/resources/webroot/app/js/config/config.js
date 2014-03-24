@@ -1,5 +1,5 @@
 app.Config = function() {
-	
+
 	function Location(params) {
 		this.bounds = params.bounds;
 		this.jsonUrl = params.jsonUrl;

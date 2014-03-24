@@ -52,7 +52,7 @@ public class ClusteringOperator {
 	    Calendar cal=tools.getCalendar(listNorm);
 		
 		//90% of cells
-		Double density=normMatrix.size()*0.8;
+		Double density=normMatrix.size()*0.9;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
 	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);
