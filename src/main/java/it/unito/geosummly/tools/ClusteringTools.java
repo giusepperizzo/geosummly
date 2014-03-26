@@ -19,16 +19,41 @@ import de.lmu.ifi.dbs.elki.algorithm.clustering.subspace.SUBCLU;
 import de.lmu.ifi.dbs.elki.data.Cluster;
 import de.lmu.ifi.dbs.elki.data.Clustering;
 import de.lmu.ifi.dbs.elki.data.DoubleVector;
+import de.lmu.ifi.dbs.elki.data.NumberVector;
 import de.lmu.ifi.dbs.elki.data.model.SubspaceModel;
 import de.lmu.ifi.dbs.elki.database.Database;
 import de.lmu.ifi.dbs.elki.database.ids.DBIDIter;
 import de.lmu.ifi.dbs.elki.database.ids.DBIDUtil;
+import de.lmu.ifi.dbs.elki.database.relation.Relation;
 import de.lmu.ifi.dbs.elki.datasource.ArrayAdapterDatabaseConnection;
 import de.lmu.ifi.dbs.elki.datasource.filter.FixedDBIDsFilter;
 import de.lmu.ifi.dbs.elki.utilities.ClassGenericsUtil;
 import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameterization.ListParameterization;
 
 public class ClusteringTools {
+	
+	private StringBuilder log;
+	
+	/**
+	 * Constructor method 
+	*/
+	public ClusteringTools() {
+		log=new StringBuilder();
+	}
+	
+	/**
+	 * Set the log StringBuilder 
+	*/
+	public void setLog(StringBuilder log) {
+		this.log=log;
+	}
+	
+	/**
+	 * Get the log StringBuilder 
+	*/
+	public StringBuilder getLog() {
+		return log;
+	}
 	
 	/**Fill in the matrix of normalized values from a list of CSV records.
 	 * The header won't be considered.
@@ -293,7 +318,7 @@ public class ClusteringTools {
     }
 	
 	/**Set GEOSUBCLU parameters and run the algorithm*/
-    public Clustering<?> runGEOSUBCLU (Database db, HashMap<Integer, String> map, HashMap<String, Double>deltad, int density, double eps) {
+    public Clustering<?> runGEOSUBCLU (Database db, HashMap<Integer, String> map, HashMap<String, Double>deltad, int density, double eps, StringBuilder sb) {
         ListParameterization params = new ListParameterization();
         
         // setup algorithm
@@ -302,9 +327,12 @@ public class ClusteringTools {
         geosubclu.setDeltad(deltad);
         geosubclu.setDensity(density);
         geosubclu.setEpsValue(eps);
+        geosubclu.setSbLog(sb);
 
         // run GEOSUBCLU on database
         Clustering<SubspaceModel<DoubleVector>> result = geosubclu.run(db);
+        this.log=geosubclu.getSbLog();
+        
         return result;
     }
 	
@@ -323,5 +351,45 @@ public class ClusteringTools {
         Database db = new InMemoryDatabase(new ArrayAdapterDatabaseConnection(data), null);        
         db.initialize();
         return db;
+    }
+    
+    /**
+     * Get the SSE value of the clustering
+    */
+    @SuppressWarnings("unchecked")
+	public <V extends NumberVector<?>> double getClusteringSSE(Database db, ArrayList<Clustering<?>> cs) {
+    	double sse=0.0;
+    	Iterator<Relation<?>> iter=db.getRelations().iterator();
+		iter.next();
+		Relation<V> relation=(Relation<V>) iter.next();
+	    
+	    for(Clustering<?> c: cs) {
+	    	
+	    	for(Cluster<?> cluster: c.getAllClusters()) {
+	    		
+    			double sum_distance = 0.0;
+    			int total_number = 0;
+    			
+    			for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) {
+    				V o1 = relation.get(i1);
+    				
+    				for (DBIDIter i2 = cluster.getIDs().iter(); i2.valid(); i2.advance()) {
+    					V o2 = relation.get(i2);
+    					int dimension = o1.getDimensionality();
+    					double sum_squared = 0.0;
+    					for (int i=0; i<dimension; i++) {
+    						
+    						double d1 = o1.doubleValue(i);
+    						double d2 = o2.doubleValue(i);
+    						sum_squared += (d1-d2)*(d1-d2);
+	    				}
+    					sum_distance += sum_squared;
+	    			}
+    				total_number++; //total number of points in a cluster
+	    		}
+    			sse+= sum_distance * 1/(2*total_number);
+	    	}
+	    }
+    	return sse;
     }
 }

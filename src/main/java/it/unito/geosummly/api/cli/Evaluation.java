@@ -26,7 +26,6 @@ public class Evaluation {
 		CommandLineParser parser=new PosixParser(); //create the command line parser
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
-		Boolean deltadIsIn=false; //check the presence of deltad option
 		
 		String helpUsage="\ngeosummly evaluation -etype validation -input path/to/file.csv -output path/to/dir [options]"
 							+ "\ngeosummly evaluation -etype correctness -input path/to/file.csv -output path/to/dir [options]";
@@ -39,21 +38,11 @@ public class Evaluation {
 		try {
 			CommandLine line = parser.parse(options, args);
 			
-			if(line.hasOption("etype") && line.hasOption("input") && line.hasOption("output")) {
+			if(line.hasOption("etype") && line.hasOption("input") && line.hasOption("deltad") && line.hasOption("output")) {
 				evalType=line.getOptionValue("etype");
 				if(!evalType.equals("correctness") && !evalType.equals("validation")) {
 					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
-				}
-				if(evalType.equals("validation")) {
-					//if etype is 'validation', deltad option is mandatory
-					if(line.hasOption("deltad")) {
-						deltadIsIn=true;
-					}
-					else {
-						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
-						System.exit(-1);
-					}
 				}
 				inFile=line.getOptionValue("input");
 				//file extension has to be csv
@@ -61,13 +50,11 @@ public class Evaluation {
 					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
-				if(deltadIsIn) {
-					inDeltad=line.getOptionValue("deltad");
-					//file extension has to be csv
-					if(!inDeltad.endsWith("csv")) {
-						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
-						System.exit(-1);
-					}
+				inDeltad=line.getOptionValue("deltad");
+				//file extension has to be csv
+				if(!inDeltad.endsWith("csv")) {
+					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					System.exit(-1);
 				}
 				outDir=line.getOptionValue("output");
 				mandatory=true;
@@ -104,7 +91,7 @@ public class Evaluation {
 			
 			EvaluationOperator eo=new EvaluationOperator();
 			if(evalType.equals("correctness")) {
-				eo.executeCorrectness(inFile, outDir, mnum);
+				eo.executeCorrectness(inFile, inDeltad, outDir, mnum);
 			}
 			else if(evalType.equals("validation"))
 			eo.executeValidation(inFile, inDeltad, outDir, fnum);

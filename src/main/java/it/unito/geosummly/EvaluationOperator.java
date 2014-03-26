@@ -1,7 +1,7 @@
 package it.unito.geosummly;
 
 import it.unito.geosummly.io.CSVDataIO;
-import it.unito.geosummly.io.LogDataWriter;
+import it.unito.geosummly.io.LogWriter;
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.EvaluationTools;
 import it.unito.geosummly.tools.TransformationTools;
@@ -22,11 +22,11 @@ public class EvaluationOperator {
 		eTools=new EvaluationTools();
 	}
 	
-	public void executeCorrectness(String in, String out, int mnum) throws IOException{
+	public void executeCorrectness(String inFreq, String inDeltad, String out, int mnum) throws IOException{
 		
 		//Read csv file without considering coordinate values
 		CSVDataIO dataIO=new CSVDataIO();
-		List<CSVRecord> list=dataIO.readCSVFile(in);
+		List<CSVRecord> list=dataIO.readCSVFile(inFreq);
 		
 		//Fill in the matrix of aggregate (frequency) values
 		ArrayList<ArrayList<Double>> matrix=eTools.buildAggregatesFromList(list);
@@ -46,6 +46,9 @@ public class EvaluationOperator {
 		ArrayList<Double> minArray=tools.getMinArray(matrix); //get min and max values of features occurrences
 		ArrayList<Double> maxArray=tools.getMaxArray(matrix);
 		
+		ArrayList<Double> SSEs=new ArrayList<Double>();
+		ClusteringOperator co=new ClusteringOperator();
+		
 		//mnum matrices
 		for(int i=0;i<mnum;i++) {
 			frequencyRandomMatrix=eTools.buildFrequencyRandomMatrix(matrix, minArray, maxArray);
@@ -54,14 +57,21 @@ public class EvaluationOperator {
 			ArrayList<String >feat=tools.changeFeaturesLabel("f", "", features);
 			dataIO.printResultHorizontal(null, densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", feat), out+"/random-density-transformation-matrix-"+i+".csv");
 			dataIO.printResultHorizontal(null, normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", feat), out+"/random-normalized-transformation-matrix-"+i+".csv");
+			
+			SSEs.add(co.executeForCorrectness(normalizedRandomMatrix, inDeltad, 0.1));
 		}
+		
+		//Write down the log file with SSE values
+		LogWriter lWriter=new LogWriter();
+		lWriter.printSSELog(SSEs, out);
+		lWriter.printSSEforR(SSEs, out);
 	}
 	
-	public void executeValidation(String in, String inDeltad, String out, int fnum) throws IOException {
+	public void executeValidation(String inSingles, String inDeltad, String out, int fnum) throws IOException {
 		
 		//Read csv file without considering the first three columns: timestamp, beenHere, venueId
 		CSVDataIO dataIO=new CSVDataIO();
-		List<CSVRecord> list=dataIO.readCSVFile(in);
+		List<CSVRecord> list=dataIO.readCSVFile(inSingles);
 		
 		//Fill in the matrix of single venues
 		ArrayList<ArrayList<Double>> matrix = eTools.buildSinglesFromList(list);
@@ -85,7 +95,7 @@ public class EvaluationOperator {
 		//Transform all the random matrices, prepare map for evaluation and write them to file
 		TransformationMatrix ithTm;
 		ClusteringOperator co=new ClusteringOperator();
-		LogDataWriter ldw=new LogDataWriter();
+		LogWriter ldw=new LogWriter();
 		ArrayList<HashMap<String, Vector<Integer>>> holdoutList=new ArrayList<HashMap<String, Vector<Integer>>>();
 		HashMap<String, Vector<Integer>> holdout;
 		int index=0; //used for file name
@@ -96,7 +106,7 @@ public class EvaluationOperator {
 			ithTm=eTools.transformFold(grouped, tools, map, bboxArea);
 			
 			//create map for the holdout evaluation
-			holdout=co.executeForEvaluation(ithTm.getNormalizedMatrix(), length, inDeltad, 0.1); //normalized_matrix, last_cellId, deltad_matrix, eps_value
+			holdout=co.executeForValidation(ithTm.getNormalizedMatrix(), length, inDeltad, 0.1); //normalized_matrix, last_cellId, deltad_matrix, eps_value
 			holdoutList.add(holdout);
 			length+=ithTm.getNormalizedMatrix().size(); //update last_cellId value
 			
@@ -107,7 +117,7 @@ public class EvaluationOperator {
 			dataIO.printResultHorizontal(null, ithTm.getNormalizedMatrix(), tools.getFeaturesLabelNoTimestamp(CoordinatesNormalizationType.NORM, "normalized_density", ithTm.getHeader()), out+"/normalized-transformation-matrix-fold"+index+".csv");
 		
 			//write down the holdout to file
-		    ldw.printHoldoutLog(holdout, out);
+			ldw.printHoldoutLog(holdout, out);
 		}
 		
 		//Compute jaccard and write the result to file

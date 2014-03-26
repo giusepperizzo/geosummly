@@ -3,6 +3,7 @@ package it.unito.geosummly;
 import it.unito.geosummly.io.CSVDataIO;
 import it.unito.geosummly.io.GeoJSONWriter;
 import it.unito.geosummly.io.GeoTurtleWriter;
+import it.unito.geosummly.io.LogWriter;
 import it.unito.geosummly.tools.ClusteringTools;
 
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class ClusteringOperator {
 		Double density=normMatrix.size()*0.9;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
-	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);
+	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps, new StringBuilder());
 	    ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
 	    HashMap<Integer, String> clustersName=new HashMap<Integer, String>(); //key, cluster name
 	    HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster=new HashMap<Integer, ArrayList<ArrayList<Double>>>(); //key, cell_ids + lat + lng 
@@ -72,14 +73,23 @@ public class ClusteringOperator {
 	    	}
 	    }
 	    
-	    //serialize to geojson and turtle files
+	    //Get the SSE
+		double sse=tools.getClusteringSSE(db, cs);
+	    
+	    //serialize the log
+	    LogWriter lWriter=new LogWriter();
+	    StringBuilder sb=tools.getLog();
+	    lWriter.printClusteringLog(sb, eps, sse, out);
+	    
+	    
+	    //serialize the clustering output to geojson and turtle files
 	    GeoJSONWriter jWriter=new GeoJSONWriter();
 	    jWriter.writeStream(clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
 	    GeoTurtleWriter tWriter=new GeoTurtleWriter();
 	    tWriter.writeStream(clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
 	}
     
-	public HashMap<String, Vector<Integer>> executeForEvaluation(ArrayList<ArrayList<Double>> normalized, int length, String inDeltad, double eps) throws IOException {
+	public HashMap<String, Vector<Integer>> executeForValidation(ArrayList<ArrayList<Double>> normalized, int length, String inDeltad, double eps) throws IOException {
 		
 		CSVDataIO dataIO=new CSVDataIO();
 		List<CSVRecord> listDeltad=dataIO.readCSVFile(inDeltad);
@@ -96,11 +106,11 @@ public class ClusteringOperator {
 		//fill in the deltad hashmap with that values which are greater than 0 and whose feature is in the features hashmap
 	    HashMap<String, Double> deltadMap=tools.getValuesMapFromDeltad(listDeltad);
 		
-		//90% of cells
+		//% of cells
 		Double density=normMatrix.size()*0.9;
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
-	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps);
+	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps, new StringBuilder());
 	    ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
 	    HashMap<Integer, String> clustersName=new HashMap<Integer, String>(); //key, cluster name
 	    HashMap<Integer, ArrayList<Integer>> cellsOfCluster=new HashMap<Integer, ArrayList<Integer>>(); //key, cell_ids
@@ -125,5 +135,33 @@ public class ClusteringOperator {
 	    HashMap<String, Vector<Integer>> holdout=tools.buildHoldoutMap(distinctLabels, allCells, length);
 	    
 	    return holdout;
+	}
+	
+	public double executeForCorrectness(ArrayList<ArrayList<Double>> normalized, String inDeltad, double eps) throws IOException {
+		CSVDataIO dataIO=new CSVDataIO();
+		List<CSVRecord> listDeltad=dataIO.readCSVFile(inDeltad);
+		
+		ClusteringTools tools=new ClusteringTools();
+		
+		//build the database from the normalized matrix without considering timestamp values
+		Database db=tools.buildDatabaseFromMatrix(normalized);
+		
+		//fill in the feature hashmap only with single features and only if the corresponding value is greater than 0
+		HashMap<Integer, String> featuresMap=tools.getFeaturesMapFromDeltad(listDeltad);
+		
+		//fill in the deltad hashmap with that values which are greater than 0 and whose feature is in the features hashmap
+	    HashMap<String, Double> deltadMap=tools.getValuesMapFromDeltad(listDeltad);
+		
+		//% of cells
+		Double density=normalized.size()*0.9;
+		
+		//Run GEOSUBCLU algorithm and get the clustering result
+	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps, new StringBuilder());
+	    ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
+	    
+	    //Get the SSE
+	    double sse=tools.getClusteringSSE(db, cs);
+	    
+	    return sse;
 	}
 }

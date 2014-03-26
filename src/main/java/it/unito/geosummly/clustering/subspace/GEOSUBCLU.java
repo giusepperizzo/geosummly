@@ -119,6 +119,8 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
   
   private double epsValue;
   
+  private StringBuilder sbLog;
+  
   /**
    * Constructor.
    * 
@@ -207,6 +209,14 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
   
   public void setEpsValue(double epsValue) {
 	  this.epsValue=epsValue;
+  }
+  
+  public void setSbLog(StringBuilder sb) {
+	  this.sbLog=sb;
+  }
+  
+  public StringBuilder getSbLog() {
+	  return sbLog;
   }
   
   /**
@@ -356,8 +366,8 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
         
         newCluster.setName(name);
         result.addToplevelCluster(newCluster);
-        System.out.println(newCluster.getName() + 
-        		" has been generated from " + subspace.toString());
+        //System.out.println(newCluster.getName() + " has been generated from " + subspace.toString());
+        sbLog.append("\n"+newCluster.getName() + " has been generated from " + subspace.toString());
         
 //        Vector<Integer> ids_sorted = new Vector<Integer>();
 //        
@@ -503,7 +513,8 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
 			new DoubleDistance (EPS.get(feature).doubleValue()) :
 		    new DoubleDistance (epsValue);
 			
-	System.out.println(bs.toString() + "." + feature + ".minpts=" + minpts+";eps="+epsilon);
+	//System.out.println(bs.toString() + "." + feature + ".minpts=" + minpts+";eps="+epsilon);
+	sbLog.append(bs.toString() + "." + feature + ".minpts=" + minpts+"\n");
 	
 	bs.set(0);
 	bs.set(1);
@@ -535,7 +546,8 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
     		DBIDs objects = c.getIDs();
     		if ( objects.size()>1 && objects.size()<DENSITY ) {
     			clusters.add(c);
-    			System.out.println("\tnumber of objects ci=" + objects.size());
+    			//System.out.println("\tnumber of objects ci=" + objects.size());
+    			sbLog.append("\tnumber of objects ci=" + objects.size()+"\n");
     		}
     	}
     }
