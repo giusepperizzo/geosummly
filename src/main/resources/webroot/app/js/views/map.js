@@ -137,7 +137,7 @@ app.Map = function(params) {
 
 		var venues = [];
 		if (selectedFeature.features.length === 1) {
-			var venues = getVenues(selectedFeature);
+			var venues = getVenues(selectedFeature);	
 		}
 
 
@@ -300,12 +300,20 @@ app.Map = function(params) {
 
 		var feature = selectedFeature.features[0];
 		var categoriesToShow = categoriesFromFeature(feature.properties.name);
+		var venues = selectedFeature.features[0].properties.venues;
+
+		return venues.filter(function(venue) {
+				return (categoriesToShow.indexOf(venue.category) >= 0)
+			})
+			.sort(sortVenue)
+			.slice(0, limit);
 
 
 		function sortVenue(v1, v2) {
-			return v2.beenHere - v1.beenHere;
+			// beenHere is sometimes undefined!
+			// this caused sort to fail, that led to huge circle bug
+			return (v2.beenHere || 0) - (v1.beenHere || 0);
 		}
-
 
 		function categoriesFromFeature(categoryName) {
 			
@@ -317,16 +325,7 @@ app.Map = function(params) {
 			}
 			return null;
 		}
-
-		return selectedFeature.features[0].properties.venues
-			.filter(function(venue) {
-				return (categoriesToShow.indexOf(venue.category) >= 0)
-			})
-			.sort(sortVenue)
-			.slice(0, limit);
 	}
-
-
 
 
 	// function createMarkers(coords, icon) {
