@@ -29,10 +29,6 @@ app.Clusters = function(jsonUrl) {
 				clusterFeature.features.splice(i, 1);
 				i--;
 			}
-
-			// feature.geometry.geometries[1].coordinates = feature.geometry.geometries[1].coordinates.filter(function(coords) {
-			// 	return coords.length > 0;
-			// });
 		}
 
 		// kill if area is zero
@@ -53,9 +49,6 @@ app.Clusters = function(jsonUrl) {
 			type: 'GeometryCollection',
 			geometries: []
 		};
-
-		// console.log('coordinates');
-		// console.log(geometry.coordinates);
 
 		geoCollection.geometries = [
 			geometry,
@@ -88,15 +81,9 @@ app.Clusters = function(jsonUrl) {
 				filteredClusters = clusterFeature.features.filter(function(feature) {
 					return params.clusters.indexOf(feature.properties.clusterId) >= 0;
 				});
-
-				// selectedCategories = [this.templateFeature(filteredClusters, selectedCategories[0].properties)];
-				// 	if (selectedCategories[0].features.length === 0) {
-				// 	throw new Error('router: the cluster is not in the category');
-				// }
 			}
 
 			callback(this.templateFeature(filteredClusters));
-
 		},
 		templateFeature: function(features, properties) {
 		  if (!features || !_(features).isArray()) {
@@ -131,7 +118,6 @@ app.Clusters = function(jsonUrl) {
 					callback(clusterFeature);
 				});
 			}
-
 		},
 		feature: function() {
 			return clusterFeature;
