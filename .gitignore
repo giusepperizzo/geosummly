@@ -6,3 +6,6 @@
 *.war
 *.ear
 /target
+
+# Mac specific #
+.DS_Store
