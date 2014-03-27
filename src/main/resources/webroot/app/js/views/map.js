@@ -301,11 +301,18 @@ app.Map = function(params) {
 		var feature = selectedFeature.features[0];
 		var categoriesToShow = categoriesFromFeature(feature.properties.name);
 		var venues = selectedFeature.features[0].properties.venues;
+		
+		var venuesInCategory = venues.filter(function(venue) {
+			return (categoriesToShow.indexOf(venue.category) >= 0);
+		});
 
-		return venues.filter(function(venue) {
-				return (categoriesToShow.indexOf(venue.category) >= 0)
-			})
-			.sort(sortVenue)
+		// if there are no venues that share the same categories as the cluster
+		// show all the venues
+		if (venuesInCategory.length > 0) {
+			venues = venuesInCategory;
+		}
+
+		return venues.sort(sortVenue)
 			.slice(0, limit);
 
 
