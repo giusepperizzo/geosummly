@@ -9,19 +9,27 @@ app.Clusters = function(jsonUrl) {
 		var feature, i;
 		clusterFeature = data;
 
-		// trentino
-		var badIndex = 35;
-		clusterFeature.features.splice(badIndex, 1);
-
 		for (i = 0; i < clusterFeature.features.length; i++) {
 
 			feature = clusterFeature.features[i];
 			feature.geometry.coordinates = inverseCoords(feature.geometry.coordinates);
-			// console.log('coordinates:', feature.geometry.coordinates.length);
-			// console.log('index:', i);
 
-			feature.geometry = generateHulls(feature.geometry);
-			feature.properties.area = calculateArea(feature.geometry.geometries[1]) || 0;
+			try {
+				feature.geometry = generateHulls(feature.geometry);
+				feature.properties.area = calculateArea(feature.geometry.geometries[1]) || 0;
+			}
+			catch(err) {
+
+				// When one coordinate always has the same value (all the points are in one line)
+				// d3.geom.hull() will raise a TypeError
+				// In that case the cluster is removed from the array
+				// Example:
+				// [[ 11.16370494, 45.91714919 ], [ 11.16874312, 45.91714919 ], [ 11.1888958, 45.91714919 ]]
+
+				clusterFeature.features.splice(i, 1);
+				i--;
+			}
+
 			// feature.geometry.geometries[1].coordinates = feature.geometry.geometries[1].coordinates.filter(function(coords) {
 			// 	return coords.length > 0;
 			// });
