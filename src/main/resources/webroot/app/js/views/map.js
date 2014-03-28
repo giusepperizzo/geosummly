@@ -59,9 +59,10 @@ app.Map = function(params) {
 
 
 	function getAllCoords(feature) {
-		return feature.features.map(function(subfeature) {
+		var groupedCoords = feature.features.map(function(subfeature) {
 			return subfeature.geometry.geometries[1].coordinates[0];
-		})[0];
+		});
+		return _.flatten(groupedCoords, true);
 	}
 
 
@@ -210,6 +211,7 @@ app.Map = function(params) {
 
 		onViewReset();
 
+		// debugger;
 		map.fitBounds(getAllCoords(selectedFeature).map(app.utils.inv));
 	}
 
