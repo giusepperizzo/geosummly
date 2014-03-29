@@ -23,7 +23,7 @@ public class LogWriter {
 		sb.append("\nSSE value: "+sse);
 		
 		try {
-	    	File file=new File(output+"/clustering-eps"+eps+".log");
+	    	File file=new File(output+"/clustering-log-eps"+eps+".log");
 	 
     		//if file doesn't exist, then create it
 			if(!file.exists()){
