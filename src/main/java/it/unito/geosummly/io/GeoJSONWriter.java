@@ -28,6 +28,8 @@ public class GeoJSONWriter implements IGeoWriter{
 			String date=dateFormat.format(cal.getTime());
 			
 			//Create GeoJSON
+			File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
 			OutputStream os= new FileOutputStream(new File(output+"/clustering-output-eps"+eps+""+".geojson"));
 	    	ArrayList<Integer> keys=new ArrayList<Integer>(labels.keySet()); //keys of clusters
 	    	String name; //cluster label

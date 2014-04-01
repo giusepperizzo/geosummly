@@ -72,6 +72,8 @@ public class GeoTurtleWriter implements IGeoWriter {
 	    		multipoint=multipoint.substring(0, multipoint.length()-1); //remove last comma
 	    		multipoint=multipoint+")"; //concatenate parenthesis
 	    		model=serialize(multipoint, clusterLabel, sqrVenues, cal);
+	    		File dir=new File(output); //create the output directory if it doesn't exist
+	        	dir.mkdirs();
 	    		os=new FileOutputStream(new File(output+"/cluster"+(i+1)+".ttl"));
 	    		model.write(os, "Turtle");
 	        }

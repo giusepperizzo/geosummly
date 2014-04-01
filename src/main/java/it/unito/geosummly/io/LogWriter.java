@@ -23,6 +23,8 @@ public class LogWriter {
 		sb.append("\nSSE value: "+sse);
 		
 		try {
+			File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
 	    	File file=new File(output+"/clustering-log-eps"+eps+".log");
 	 
     		//if file doesn't exist, then create it
@@ -46,6 +48,8 @@ public class LogWriter {
 	*/
 	public void printSSELog(ArrayList<Double> SSEs, String output) {
 		try {
+			File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
 	    	File file=new File(output+"/SSEs.log");
 	 
     		//if file doesn't exist, then create it
@@ -81,6 +85,8 @@ public class LogWriter {
 		nf.setRoundingMode(RoundingMode.HALF_UP);
 		
 		try {
+			File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
 	    	File file=new File(output+"/SSE_distribution.R");
 	 
     		//if file doesn't exist, then create it
@@ -115,6 +121,8 @@ public class LogWriter {
 	*/
 	public void printHoldoutLog(HashMap<String, Vector<Integer>> holdout, String output) {
 	    try {
+	    	File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
 	    	File file=new File(output+"/holdout_results.log");
 	 
     		//if file doesn't exist, then create it
@@ -162,6 +170,8 @@ public class LogWriter {
 	*/
 	public void printJaccardLog(StringBuilder builder, String output) {
 		try {
+			File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
 	    	File file=new File(output+"/jaccard_report.log");
 	 
     		//if file doesn't exist, then create it

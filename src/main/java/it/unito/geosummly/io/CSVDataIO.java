@@ -1,6 +1,7 @@
 package it.unito.geosummly.io;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -61,6 +62,8 @@ public class CSVDataIO {
         }
         OutputStream outputStream;
         try {
+        	File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
             outputStream = new FileOutputStream (output);
             bout.writeTo(outputStream);
         } catch (FileNotFoundException e) {
@@ -92,6 +95,8 @@ public class CSVDataIO {
         }
         OutputStream outputStream;
         try {
+        	File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
             outputStream = new FileOutputStream (output);
             bout.writeTo(outputStream);
         } catch (FileNotFoundException e) {
@@ -133,6 +138,8 @@ public class CSVDataIO {
         }
         OutputStream outputStream;
         try {
+        	File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
             outputStream = new FileOutputStream (output);
             bout.writeTo(outputStream);
         } catch (FileNotFoundException e) {
