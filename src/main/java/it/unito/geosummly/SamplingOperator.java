@@ -140,12 +140,12 @@ public class SamplingOperator {
 		tmSecondLevel.setHeader(tools.sortFeatures(tools.getMapSecondLevel()));
 		
 		//Write down the transformation matrix to file
-		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tm.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tm.getHeader()), out+"/frequency-transformation-matrix.csv");
-		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tm.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tm.getHeader()), out+"/density-transformation-matrix.csv");
-		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tm.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tm.getHeader()), out+"/normalized-transformation-matrix.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tm.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tm.getHeader()), out, "/frequency-transformation-matrix.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tm.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tm.getHeader()), out, "/density-transformation-matrix.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tm.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tm.getHeader()), out, "/normalized-transformation-matrix.csv");
 		
-		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tmSecondLevel.getHeader()), out+"/frequency-transformation-matrix-2nd.csv");
-		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tmSecondLevel.getHeader()), out+"/density-transformation-matrix-2nd.csv");
-		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tmSecondLevel.getHeader()), out+"/normalized-transformation-matrix-2nd.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tmSecondLevel.getHeader()), out, "/frequency-transformation-matrix-2nd.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getDensityMatrix(), tools.getFeaturesLabel(ltype, "density", tmSecondLevel.getHeader()), out, "/density-transformation-matrix-2nd.csv");
+		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tmSecondLevel.getNormalizedMatrix(), tools.getFeaturesLabel(ltype, "normalized_density", tmSecondLevel.getHeader()), out, "/normalized-transformation-matrix-2nd.csv");
     }
 }

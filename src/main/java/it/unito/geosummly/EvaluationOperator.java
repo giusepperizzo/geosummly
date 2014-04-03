@@ -55,8 +55,8 @@ public class EvaluationOperator {
 			densityRandomMatrix=tools.buildDensityMatrix(CoordinatesNormalizationType.MISSING, frequencyRandomMatrix, bboxArea);
 			normalizedRandomMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.MISSING, densityRandomMatrix);
 			ArrayList<String >feat=tools.changeFeaturesLabel("f", "", features);
-			dataIO.printResultHorizontal(null, densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", feat), out+"/random-density-transformation-matrix-"+i+".csv");
-			dataIO.printResultHorizontal(null, normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", feat), out+"/random-normalized-transformation-matrix-"+i+".csv");
+			dataIO.printResultHorizontal(null, densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", feat), out, "/random-density-transformation-matrix-"+i+".csv");
+			dataIO.printResultHorizontal(null, normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", feat), out, "/random-normalized-transformation-matrix-"+i+".csv");
 			
 			SSEs.add(co.executeForCorrectness(normalizedRandomMatrix, inDeltad, 0.1));
 		}
@@ -112,9 +112,9 @@ public class EvaluationOperator {
 			
 			//write down the transformation matrices to file
 			index++; //just for file name
-			dataIO.printResultHorizontal(null, ithTm.getFrequencyMatrix(), tools.getFeaturesLabelNoTimestamp(CoordinatesNormalizationType.NORM, "f", ithTm.getHeader()), out+"/frequency-transformation-matrix-fold"+index+".csv");
-			dataIO.printResultHorizontal(null, ithTm.getDensityMatrix(), tools.getFeaturesLabelNoTimestamp(CoordinatesNormalizationType.NORM, "density", ithTm.getHeader()), out+"/density-transformation-matrix-fold"+index+".csv");
-			dataIO.printResultHorizontal(null, ithTm.getNormalizedMatrix(), tools.getFeaturesLabelNoTimestamp(CoordinatesNormalizationType.NORM, "normalized_density", ithTm.getHeader()), out+"/normalized-transformation-matrix-fold"+index+".csv");
+			dataIO.printResultHorizontal(null, ithTm.getFrequencyMatrix(), tools.getFeaturesLabelNoTimestamp(CoordinatesNormalizationType.NORM, "f", ithTm.getHeader()), out, "/frequency-transformation-matrix-fold"+index+".csv");
+			dataIO.printResultHorizontal(null, ithTm.getDensityMatrix(), tools.getFeaturesLabelNoTimestamp(CoordinatesNormalizationType.NORM, "density", ithTm.getHeader()), out, "/density-transformation-matrix-fold"+index+".csv");
+			dataIO.printResultHorizontal(null, ithTm.getNormalizedMatrix(), tools.getFeaturesLabelNoTimestamp(CoordinatesNormalizationType.NORM, "normalized_density", ithTm.getHeader()), out, "/normalized-transformation-matrix-fold"+index+".csv");
 		
 			//write down the holdout to file
 			ldw.printHoldoutLog(holdout, out);

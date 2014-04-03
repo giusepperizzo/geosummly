@@ -33,8 +33,15 @@ public class CSVDataIO {
 	
 	/**
 	 * Print result of transformation matrix to csv file.
+	 * @param string 
 	*/
-	public void printResultHorizontal(ArrayList<Long> timestamps, ArrayList<ArrayList<Double>> matrix, ArrayList<String> features, String output) {
+	public void printResultHorizontal(
+										ArrayList<Long> timestamps, 
+										ArrayList<ArrayList<Double>> matrix,
+										ArrayList<String> features, 
+										String directoryName, 
+										String fileName ) 
+	{
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(bout);
         try {
@@ -62,10 +69,13 @@ public class CSVDataIO {
         }
         OutputStream outputStream;
         try {
-        	File dir=new File(output); //create the output directory if it doesn't exist
+        	File dir=new File(directoryName); //create the output directory if it doesn't exist
         	dir.mkdirs();
-            outputStream = new FileOutputStream (output);
+            outputStream = new FileOutputStream (dir.getPath().concat(fileName));
             bout.writeTo(outputStream);
+            
+            bout.close();
+            outputStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

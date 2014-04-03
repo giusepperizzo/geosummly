@@ -91,7 +91,7 @@ public class DiscoveryOperator {
 		}
 		
 		//Write down the matrices to file
-		dataIO.printResultHorizontal(null, stdMatrix, dt.getFeaturesLabel("std", feat), out+ "/std-values.csv");
+		dataIO.printResultHorizontal(null, stdMatrix, dt.getFeaturesLabel("std", feat), out, "/std-values.csv");
 		dataIO.printResultVertical(deltadValues, featuresDeltad, out+ "/deltad-values.csv");
 	}
 }
