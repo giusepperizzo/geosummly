@@ -6,14 +6,19 @@
 	<artifactId>geosummly</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
 	<name>geosummly</name>
-	<url>http://maven.apache.org</url>
+	<url>http://geosummly.eurecom.fr</url>
 
 	<properties>
         <jersey.version>2.2</jersey.version>
         <system.libs>${basedir}/lib</system.libs>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <system.libs>${basedir}/lib</system.libs>
+        <system.data>${basedir}/data</system.data>
 	</properties>
 
     <dependencyManagement>
@@ -105,22 +110,59 @@
             <groupId>org.apache.commons.csv</groupId>
             <artifactId>csv</artifactId>
             <version>1.0</version>    
-            <scope>system</scope>
-            <systemPath>${system.libs}/commons-csv-1.0-20131011.114144-243.jar</systemPath>
         </dependency>           
         <dependency>
             <groupId>jp.ndca.similarity.distance</groupId>
             <artifactId>simjoin</artifactId>
             <version>0.0.1</version>    
-            <scope>system</scope>
-            <systemPath>${system.libs}/simjoin.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>de.lmu.ifi.dbs.elki</groupId>
             <artifactId>elki</artifactId>
             <version>0.6</version>    
-            <scope>system</scope>
-            <systemPath>${system.libs}/elki-v0.6.jar</systemPath>
         </dependency>
 	</dependencies>
+
+    <build>
+      <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.aksw.fox.MainServer</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <!-- <classpathPrefix>lib/</classpathPrefix> -->
+                        </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+            <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+            <archive>
+                <manifest>
+                    <mainClass>it.unito.geosummly.api.MainCLI</mainClass>
+                    <addClasspath>true</addClasspath>
+                </manifest>
+            </archive>
+            </configuration>
+            <executions>
+                <execution>
+                <phase>package</phase>
+                <goals>
+                    <goal>single</goal>
+                </goals>
+            </execution>
+            </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

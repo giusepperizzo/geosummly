@@ -121,6 +121,7 @@ public class Server {
             EXTENSION_TO_MEDIA_TYPE.put("json", "text/json");
             EXTENSION_TO_MEDIA_TYPE.put("geojson", "text/geojson");
             EXTENSION_TO_MEDIA_TYPE.put("pdf", "application/pdf");
+            EXTENSION_TO_MEDIA_TYPE.put("gif", "image/gif");
         }
 
         private final String webRootPath;
