@@ -54,6 +54,12 @@ public class ClusteringOperator {
 		
 		//90% of cells
 		Double density=normMatrix.size()*0.9;
+		
+		//Get eps value
+		//This means that no eps value has been specified in CLI or the eps specified is negative
+		if(eps <= 0.0) {
+			eps=tools.getEps(normMatrix);
+		}
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
 	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps, new StringBuilder());

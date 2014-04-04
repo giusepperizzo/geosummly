@@ -248,6 +248,15 @@ public class ClusteringTools {
 	}
 	
 	/**
+	 * Get a properly eps value for the given dataset 
+	*/
+	public double getEps(ArrayList<ArrayList<Double>> dataset) {
+		double side=Math.sqrt(dataset.size());
+		double eps=Math.sqrt(2)*(1/side);
+		return eps;
+	}
+	
+	/**
 	 * Get all the distinct cluster labels.
 	 */
 	public TreeSet<String> getClusterLabels(HashMap<Integer, String> clusters) {

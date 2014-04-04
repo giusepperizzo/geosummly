@@ -19,7 +19,7 @@ public class Clustering {
 	private String inDeltad=null;
 	private String inVenues=null;
 	private String outDir=null;
-	private Double epsValue=0.1;
+	private Double epsValue=0.0;
 	//private String method="geosubclu";
 
 	public void run(String[] args) throws IOException {
