@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.math.RoundingMode;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,7 +23,7 @@ public class LogWriter {
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
-	    	File file=new File(output+"/clustering-log-eps"+eps+".log");
+	    	File file=new File(dir.getPath().concat("/clustering-log-eps").concat(eps+"").concat(".log"));
 	 
     		//if file doesn't exist, then create it
 			if(!file.exists()){
@@ -50,7 +48,7 @@ public class LogWriter {
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
-	    	File file=new File(output+"/SSEs.log");
+	    	File file=new File(dir.getPath().concat("/SSEs.log"));
 	 
     		//if file doesn't exist, then create it
 			if(!file.exists()){
@@ -79,15 +77,11 @@ public class LogWriter {
 		int min=Collections.min(SSEs).intValue();
 		int max=Collections.max(SSEs).intValue();
 		StringBuilder sb=new StringBuilder();
-		NumberFormat nf= NumberFormat.getInstance();
-		nf.setMaximumFractionDigits(4);
-		nf.setMinimumFractionDigits(4);
-		nf.setRoundingMode(RoundingMode.HALF_UP);
 		
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
-	    	File file=new File(output+"/SSE_distribution.R");
+	    	File file=new File(dir.getPath().concat("/SSE_distribution.R"));
 	 
     		//if file doesn't exist, then create it
 			if(!file.exists()){
@@ -99,7 +93,6 @@ public class LogWriter {
 	        sb.append("x=c(");
 			for(Double d: SSEs) {
 				sb.append((double) Math.round(d*10000)/10000+","); //keep only 4 decimal digits
-				System.out.println(nf.format(d));
 			}
 			sb=sb.replace(sb.length()-1, sb.length(), "");
 			sb.append(");\n");
@@ -123,7 +116,7 @@ public class LogWriter {
 	    try {
 	    	File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
-	    	File file=new File(output+"/holdout_results.log");
+	    	File file=new File(dir.getPath().concat("/holdout_results.log"));
 	 
     		//if file doesn't exist, then create it
 			if(!file.exists()){
@@ -131,7 +124,7 @@ public class LogWriter {
 			}
 			
 			//get the last line to know the last fold number created
-			BufferedReader br = new BufferedReader(new FileReader(output+"/holdout_results.log"));
+			BufferedReader br = new BufferedReader(new FileReader(dir.getPath().concat("/holdout_results.log")));
 			String currentLine="";
 			String lastLine="";
     		int lastFold=0;
@@ -159,6 +152,7 @@ public class LogWriter {
 	        }
 	        bw.write("_END_HO"+(lastFold+1));
 	        bw.close();
+	        fw.close();
 	 
     	} catch(IOException e){
     		e.printStackTrace();
@@ -172,7 +166,7 @@ public class LogWriter {
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
-	    	File file=new File(output+"/jaccard_report.log");
+	    	File file=new File(dir.getPath().concat("/jaccard_report.log"));
 	 
     		//if file doesn't exist, then create it
 			if(!file.exists()){
@@ -184,6 +178,7 @@ public class LogWriter {
 	        bw.write(builder.toString());
 	        bw.flush();
 	        bw.close();
+	        fw.close();
 	 
     	} catch(IOException e){
     		e.printStackTrace();

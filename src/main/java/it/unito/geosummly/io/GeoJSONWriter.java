@@ -17,8 +17,12 @@ import com.google.gson.stream.JsonWriter;
 public class GeoJSONWriter implements IGeoWriter{
 	
 	@Override
-	public void writeStream(HashMap<Integer, String> labels, HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
-			HashMap<Integer, ArrayList<ArrayList<String>>> venues, double eps, String output, Calendar cal) {
+	public void writeStream(HashMap<Integer, String> labels, 
+							HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
+							HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
+							double eps, 
+							String output, 
+							Calendar cal) {
 		try {
 			
 			//Get the current date. Example: 2014-03-19T17:10:57.616Z
@@ -30,7 +34,7 @@ public class GeoJSONWriter implements IGeoWriter{
 			//Create GeoJSON
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
-			OutputStream os= new FileOutputStream(new File(output+"/clustering-output-eps"+eps+""+".geojson"));
+        	OutputStream os= new FileOutputStream(new File(dir.getPath().concat("/clustering-output-eps").concat(eps+"").concat(".geojson")));
 	    	ArrayList<Integer> keys=new ArrayList<Integer>(labels.keySet()); //keys of clusters
 	    	String name; //cluster label
 	    	int key; //cluster key
@@ -128,6 +132,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	        writer.endObject();
 	        
 	        writer.close();
+	        os.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

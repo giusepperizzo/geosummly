@@ -98,8 +98,8 @@ public class SamplingOperator {
 			venuesMatrixSecondLevel=tools.fixRowsLength(tools.getTotalSecondLevel()+2, tools.getMatrixSecondLevel());
 			venuesMatrix=tools.sortMatrixSingles(venuesMatrix, tools.getMap());
 			venuesMatrixSecondLevel=tools.sortMatrixSingles(venuesMatrixSecondLevel, tools.getMapSecondLevel());
-			dataIO.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), out+"/singles-matrix.csv");
-			dataIO.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrixSecondLevel, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMapSecondLevel())), out+"/singles-matrix-2nd.csv");
+			dataIO.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), out, "/singles-matrix.csv");
+			dataIO.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrixSecondLevel, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMapSecondLevel())), out, "/singles-matrix-2nd.csv");
 			ArrayList<ArrayList<Double>> auxMatrix=new ArrayList<ArrayList<Double>>();
 			ArrayList<ArrayList<Double>> auxMatrixSecondLevel=new ArrayList<ArrayList<Double>>();
 			for(BoundingBox b: data) {

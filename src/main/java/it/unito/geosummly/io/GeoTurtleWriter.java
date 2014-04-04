@@ -28,14 +28,15 @@ public class GeoTurtleWriter implements IGeoWriter {
 	
 	@Override
 	public void writeStream(HashMap<Integer, String> labels,
-			HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
-			HashMap<Integer, ArrayList<ArrayList<String>>> venues, double eps,
-			String output, Calendar cal) {
+							HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
+							HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
+							double eps,
+							String output, 
+							Calendar cal) {
 		
 		try {
 			String multipoint = "MultiPoint(";
 			String clusterLabel = "";
-			//Calendar cal=GregorianCalendar().getInstance();
 			Model model;
 			
 			//Create Turtle
@@ -74,8 +75,11 @@ public class GeoTurtleWriter implements IGeoWriter {
 	    		model=serialize(multipoint, clusterLabel, sqrVenues, cal);
 	    		File dir=new File(output); //create the output directory if it doesn't exist
 	        	dir.mkdirs();
-	    		os=new FileOutputStream(new File(output+"/cluster"+(i+1)+".ttl"));
+	        	int index=i+1;
+	    		os=new FileOutputStream(new File(dir.getPath().concat("/cluster").concat(index+"").concat(".ttl")));
 	    		model.write(os, "Turtle");
+	    		
+	    		os.close();
 	        }
 		} catch (IOException e) {
 			e.printStackTrace();
