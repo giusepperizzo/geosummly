@@ -111,7 +111,7 @@ public class DiscoveryTools {
 	}
 	
 	/**Get density values of categories combinations with 1.57*E-1.96*std/radix(N)
-	* E= [(pi/2^n] * E(d_m, cat1) * E(d_m, cat2) * E(d_m, cat3) * ... * (E(d_m, catn))
+	* E= [(pi/2)^n] * E(d_m, cat1) * E(d_m, cat2) * E(d_m, cat3) * ... * (E(d_m, catn))
 	* std = radix( sum( (XiYiZi...Kn - E(d_m,cat1)E(d_m,cat2)E(d_m, cat3)...(E(d_m, catn) )^2 ) / N ), Xi, Yi, Zi, ..., Ki are the individual values of the cell of the categories
 	* N = |observation_cat1|*|observation_cat2|*|observation_cat3|* ... *|observation_catn| */
 	public ArrayList<Double> getCombinations(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> toRet, ArrayList<Double> meanDens, int[] comb, int startIndex, int combCount, double n) {
