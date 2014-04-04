@@ -22,13 +22,17 @@ public class EvaluationOperator {
 		eTools=new EvaluationTools();
 	}
 	
-	public void executeCorrectness(String inFreq, String inDeltad, String out, int mnum) throws IOException{
+	public void executeCorrectness(String inFreq, String inDens, String inDeltad, String out, int mnum) throws IOException{
 		
-		//Read csv file without considering coordinate values
+		//Read csv files
 		CSVDataIO dataIO=new CSVDataIO();
 		List<CSVRecord> list=dataIO.readCSVFile(inFreq);
+		List<CSVRecord> listDens=dataIO.readCSVFile(inDens);
 		
-		//Fill in the matrix of aggregate (frequency) values
+		//Get the eps value in order to compute the clustering
+		double eps=Math.sqrt(2)*(1/Math.sqrt(listDens.size()-1)); //-1 because we don't consider the header
+		
+		//Fill in the matrix of aggregate (frequency) values without consider timestamp and coordinates
 		ArrayList<ArrayList<Double>> matrix=eTools.buildAggregatesFromList(list);
 		
 		//Fill in the list of features
@@ -58,7 +62,7 @@ public class EvaluationOperator {
 			dataIO.printResultHorizontal(null, densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", feat), out, "/random-density-transformation-matrix-"+i+".csv");
 			dataIO.printResultHorizontal(null, normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", feat), out, "/random-normalized-transformation-matrix-"+i+".csv");
 			
-			SSEs.add(co.executeForCorrectness(normalizedRandomMatrix, inDeltad, 0.1));
+			SSEs.add(co.executeForCorrectness(normalizedRandomMatrix, inDeltad, eps));
 		}
 		
 		//Write down the log file with SSE values
@@ -67,13 +71,17 @@ public class EvaluationOperator {
 		lWriter.printSSEforR(SSEs, out);
 	}
 	
-	public void executeValidation(String inSingles, String inDeltad, String out, int fnum) throws IOException {
+	public void executeValidation(String inSingles, String inDens, String inDeltad, String out, int fnum) throws IOException {
 		
-		//Read csv file without considering the first three columns: timestamp, beenHere, venueId
+		//Read csv file of singles and densities
 		CSVDataIO dataIO=new CSVDataIO();
 		List<CSVRecord> list=dataIO.readCSVFile(inSingles);
+		List<CSVRecord> listDens=dataIO.readCSVFile(inDens);
 		
-		//Fill in the matrix of single venues
+		//Get the eps value in order to compute the clustering
+		double eps=Math.sqrt(2)*(1/Math.sqrt(listDens.size()-1)); //-1 because we don't consider the header
+		
+		//Fill in the matrix of single venues without considering timestamp, been_here, venue_id
 		ArrayList<ArrayList<Double>> matrix = eTools.buildSinglesFromList(list);
 		
 		//Fill in the list of timestamps (useful for venue grouping)
@@ -106,7 +114,7 @@ public class EvaluationOperator {
 			ithTm=eTools.transformFold(grouped, tools, map, bboxArea);
 			
 			//create map for the holdout evaluation
-			holdout=co.executeForValidation(ithTm.getNormalizedMatrix(), length, inDeltad, 0.1); //normalized_matrix, last_cellId, deltad_matrix, eps_value
+			holdout=co.executeForValidation(ithTm.getNormalizedMatrix(), length, inDeltad, eps); //normalized_matrix, last_cellId, deltad_matrix, eps_value
 			holdoutList.add(holdout);
 			length+=ithTm.getNormalizedMatrix().size(); //update last_cellId value
 			

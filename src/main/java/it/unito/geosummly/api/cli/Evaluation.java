@@ -16,6 +16,7 @@ public class Evaluation {
 	
 	private String evalType=null;
 	private String inFile=null;
+	private String inDensity=null;
 	private String inDeltad=null;
 	private String outDir=null;
 	private int mnum=500;
@@ -27,9 +28,9 @@ public class Evaluation {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		
-		String helpUsage="\ngeosummly evaluation -etype validation -input path/to/file.csv -output path/to/dir [options]"
-							+ "\ngeosummly evaluation -etype correctness -input path/to/file.csv -output path/to/dir [options]";
-		String helpFooter="\nThe options etype, input, output are mandatory. If etype argument is equal to correctness, "
+		String helpUsage="\ngeosummly evaluation -etype validation -input path/to/file.csv -density path/to/file.csv -deltad path/to/file.csv -output path/to/dir [options]"
+							+ "\ngeosummly evaluation -etype correctness -input path/to/file.csv -density path/to/file.csv -deltad path/to/file.csv -output path/to/dir [options]";
+		String helpFooter="\nThe options etype, input, density, deltad, output are mandatory. If etype argument is equal to correctness, "
 							+ "the input file has to be a .csv of grid-shaped aggregates, and the output is a set of"
 							+ " random grid-shaped aggregates. Moreover fnum option cannot be used. If etype argument "
 							+ "is equal to validation, the input file has to be a .csv of single venues, and, for each fold, "
@@ -38,7 +39,7 @@ public class Evaluation {
 		try {
 			CommandLine line = parser.parse(options, args);
 			
-			if(line.hasOption("etype") && line.hasOption("input") && line.hasOption("deltad") && line.hasOption("output")) {
+			if(line.hasOption("etype") && line.hasOption("input") && line.hasOption("density") && line.hasOption("deltad") && line.hasOption("output")) {
 				evalType=line.getOptionValue("etype");
 				if(!evalType.equals("correctness") && !evalType.equals("validation")) {
 					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
@@ -47,6 +48,12 @@ public class Evaluation {
 				inFile=line.getOptionValue("input");
 				//file extension has to be csv
 				if(!inFile.endsWith("csv")) {
+					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					System.exit(-1);
+				}
+				inDensity=line.getOptionValue("density");
+				//file extension has to be csv
+				if(!inDensity.endsWith("csv")) {
 					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
@@ -91,10 +98,10 @@ public class Evaluation {
 			
 			EvaluationOperator eo=new EvaluationOperator();
 			if(evalType.equals("correctness")) {
-				eo.executeCorrectness(inFile, inDeltad, outDir, mnum);
+				eo.executeCorrectness(inFile, inDensity, inDeltad, outDir, mnum);
 			}
 			else if(evalType.equals("validation"))
-			eo.executeValidation(inFile, inDeltad, outDir, fnum);
+			eo.executeValidation(inFile, inDensity, inDeltad, outDir, fnum);
 			
 		}
 		catch(ParseException | NumberFormatException | IOException e) {
@@ -115,6 +122,10 @@ public class Evaluation {
 		 //option input
 		 options.addOption(OptionBuilder.withLongOpt("input").withDescription("set the input file")
 						.hasArg().withArgName("path/to/file").create("I"));
+		 
+		 //option density
+		 options.addOption(OptionBuilder.withLongOpt("density").withDescription("set the input file of density values")
+						.hasArg().withArgName("path/to/file").create("D"));
 		 
 		 //option deltad
 		 options.addOption(OptionBuilder.withLongOpt("deltad").withDescription("set the input file of deltad values")
