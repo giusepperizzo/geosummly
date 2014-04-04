@@ -95,7 +95,7 @@ public class DiscoveryTools {
 		return Math.sqrt(variance);
 	}
 	
-	/**Get single density values with E(d)-1.96*std/radix(N)*/
+	/**Get single density values with 1.57*E(d)-1.96*std/radix(N)*/
 	public ArrayList<Double> getSingleDensities(ArrayList<Double> meanDens, ArrayList<Double> std, double n) {
 		ArrayList<Double> singleDensities=new ArrayList<Double>();
 		double mF=0;
@@ -104,7 +104,8 @@ public class DiscoveryTools {
 		for(int i=0;i<meanDens.size();i++) {
 			mF=meanDens.get(i);
 			sD=std.get(i);
-			density=mF-(1.96* (sD/Math.sqrt(n)) );
+			double scaleFactor = Math.PI / 2;
+			density=scaleFactor*mF-(1.96* (sD/Math.sqrt(n)) );
 			singleDensities.add(density);
 		}
 		return singleDensities;
