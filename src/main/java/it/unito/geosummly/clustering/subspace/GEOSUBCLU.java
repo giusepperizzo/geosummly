@@ -50,7 +50,7 @@ import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameters.ObjectParameter;
  * @param <V> the type of FeatureVector handled by this Algorithm
  */
 @Title("GEOSUBCLU: Density connected Subspace Clustering on seed Geospatial Data")
-@Description("Algorithm to detect arbitrarily shaped and positioned clusters in subspaces. SUBCLU delivers for each subspace the same clusters DBSCAN would have found, when applied to this subspace seperately.")
+@Description("Largely inspired by SUBCLU, GEOSUBCLU applies subspace clustering on a geospatial data set")
 @Reference(authors = "Giuseppe Rizzo", title = "", booktitle = "")
 public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clustering<SubspaceModel<V>>> implements SubspaceClusteringAlgorithm<SubspaceModel<V>> {
   /**
@@ -133,64 +133,8 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
     super();
     this.distanceFunction=distanceFunction;
     
-    //init feature mapper
-    /*FEATUREMAPPER = new HashMap<>();
-    FEATUREMAPPER.put(2,"Arts & Entertainment");
-    FEATUREMAPPER.put(3,"College & University");
-    FEATUREMAPPER.put(4,"Event");
-    FEATUREMAPPER.put(5,"Food");
-    FEATUREMAPPER.put(6,"Nightlife Spot");
-    FEATUREMAPPER.put(7,"Outdoors & Recreation");
-    FEATUREMAPPER.put(8,"Professional & Other Places");
-    FEATUREMAPPER.put(9,"Residence");
-    FEATUREMAPPER.put(10,"Shop & Service");
-    FEATUREMAPPER.put(11,"Travel & Transport");*/
-    
-
-  	/* 
-  	 * 		init deltad
-  	 */
-    /*DELTAD = new HashMap<>();
-    DELTAD.put("Arts & Entertainment",Math.floor(4.39827769041815));
-    DELTAD.put("College & University", Math.floor(2.8435212153219));
-    DELTAD.put("Food", Math.floor(28.9779728367082));
-    DELTAD.put("Nightlife Spot", Math.floor(4.69751876400029));
-    DELTAD.put("Outdoors & Recreation", Math.floor(7.88767295530474));
-    DELTAD.put("Professional & Other Places", Math.floor(19.5187643664804));
-    DELTAD.put("Residence", Math.floor(14.8529298768337));
-    DELTAD.put("Shop & Service", Math.floor(22.5399897538332));
-    DELTAD.put("Travel & Transport", Math.floor(10.4789984336736));*/
-    
-    // all combinations of pairs
-    //DELTAD.put("Arts & Entertainment AND College & University", 20.0);
-//    DELTAD.put("Arts & Entertainment AND Food", 202.0);
-//    DELTAD.put("Arts & Entertainment AND Nightlife Spot", 39.0);
-//    DELTAD.put("Arts & Entertainment AND Outdoors & Recreation", 57.0);
-//    DELTAD.put("Arts & Entertainment AND Professional & Other Places", 137.0);
-//    DELTAD.put("Arts & Entertainment AND Residence", 107.0);
-//    DELTAD.put("Arts & Entertainment AND Shop & Service",159.0);
-//    DELTAD.put("Arts & Entertainment AND Travel & Transport",78.0);
-//    DELTAD.put("College & University AND Food", 238.0);
-//    DELTAD.put("College & University AND Nightlife Spot", 47.0);
-//    DELTAD.put("College & University AND Outdoors & Recreation", 68.0);
-//    DELTAD.put("College & University AND Professional & Other Places", 161.0);
-//    DELTAD.put("College & University AND Residence", 127.0);
-//    DELTAD.put("College & University AND Shop & Service", 188.0);
-//    DELTAD.put("College & University AND Travel & Transport", 92.0);
-//    DELTAD.put("Food AND Nightlife Spot", 231.0);
-//    DELTAD.put("Food AND Outdoors & Recreation", 337.0);
-//    DELTAD.put("Nightlife Spot AND Outdoors & Recreation", 66.0);
-//    DELTAD.put("Nightlife Spot AND Professional & Other Places", 158.0);
-//    DELTAD.put("Nightlife Spot AND Residence", 124.0);
-//    DELTAD.put("Nightlife Spot AND Shop & Service", 183.0);
-//    DELTAD.put("Nightlife Spot AND Travel & Transport",90.0);
-//    DELTAD.put("Outdoors & Recreation AND Professional & Other Places",	229.0);
-//    DELTAD.put("Outdoors & Recreation AND Residence",179.0);
-//    DELTAD.put("Outdoors & Recreation AND Shop & Service", 266.0);
-//    DELTAD.put("Outdoors & Recreation AND Travel & Transport",131.0);
-    
     /*
-     * 	init eps
+     * 	initialize eps
      */
     EPS = new HashMap<>();
   }
@@ -366,97 +310,9 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
         
         newCluster.setName(name);
         result.addToplevelCluster(newCluster);
-        //System.out.println(newCluster.getName() + " has been generated from " + subspace.toString());
         sbLog.append("\n"+newCluster.getName() + " has been generated from " + subspace.toString());
-        
-//        Vector<Integer> ids_sorted = new Vector<Integer>();
-//        
-//        for (DBIDIter iter = cluster.getIDs().iter(); iter.valid(); iter.advance()) 
-//        {
-//        	ids_sorted.add(DBIDUtil.asInteger(iter));
-////            V o = relation.get(iter);
-////            o.getValue(dimension);
-//        }
-//        Collections.sort(ids_sorted);        
-//               
-//        double sse = 0.0;
-//        double sum_distance = 0.0;
-//        int total_number = 0;
-//        for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) 
-//        {
-//        	V o1 = relation.get(i1);
-//        	for (DBIDIter i2 = cluster.getIDs().iter(); i2.valid(); i2.advance()) 
-//            {
-//        		V o2 = relation.get(i2);
-//        		int dimension = o1.getDimensionality();
-//        		double sum_squared = 0.0;
-//        		for (int i=0; i<dimension; i++) {
-//        			double d1 = o1.getValue(i).doubleValue();
-//        			double d2 = o2.getValue(i).doubleValue();
-//        			sum_squared += (d1-d2)*(d1-d2);
-//        		}
-//        		sum_distance += sum_squared;
-//            	total_number++;
-//            }
-//        }
-//        sse = sum_distance * 1/(2*total_number);
-//        Entry<String,Double> entry = new AbstractMap.SimpleEntry<String,Double>(newCluster.getName(),sse);
-//        SSEs.add(entry);	
-//        
-//        System.out.print("\t");
-//        for (Integer id : ids_sorted) {
-//        	System.out.print(id+" ");
-//        	//sb.append(id + "," + newCluster.getName()+"\n");
-//        	String record = dataset.get(id-1);
-//        	String[] fields = record.split(",");
-//        	sb.append(fields[0] + "," + fields[1] + "," + newCluster.getName()+"\n");
-//        }
-//        System.out.print("\n");
-//        
-//        if( !sets.containsKey(newCluster.getName()) )
-//        	sets.put(newCluster.getName(), ids_sorted);
-//        
-//        else{
-//        	Vector<Integer> temp = sets.get(newCluster.getName());
-//        	sets.remove(newCluster.getName());
-//        	temp.addAll(ids_sorted);
-//        	Collections.sort(temp);
-//        	sets.put(newCluster.getName(), temp);
-//        }
       }
     }
-
-    /*
-     * 	output serialization 
-     */
-//    System.out.println("Aggregate Results");
-//    for (Entry<String,Vector<Integer>> e :sets.entrySet()) {
-//  	  System.out.print(e.getKey());
-//  	  System.out.print(";");
-//  	  for (Integer i : e.getValue()) 
-//  		  System.out.print(i + " ");
-//  	  System.out.print("\n");
-//    }
-//    
-//    System.out.println();
-//    System.out.println("SSE figures");
-//    Double sse = 0.0;
-//    for (Entry<String,Double> e : SSEs) {
-//    	System.out.printf("SSE(%s)=%s\n", e.getKey(), e.getValue());
-//    	sse += e.getValue(); 
-//    }
-//    System.out.printf("SSE_total=%s\n",sse);
-//    
-//    try {
-//		FileUtils.writeStringToFile(new File("output.csv"), sb.toString());
-//	} catch (IOException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	}
-//    
-//    if (stepprog != null) {
-//      stepprog.setCompleted(LOG);
-//    }
     return result;
   }
 
@@ -503,8 +359,6 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
 		feature = FEATUREMAPPER.get(bs.nextSetBit(0));
 	}
 
-	//if (DELTAD.containsKey(feature)) 
-
 	if (!DELTAD.containsKey(feature) ) 
 		return new LinkedList<Cluster<Model>>();
 	int minpts = DELTAD.get(feature).intValue();
@@ -512,8 +366,7 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
 	DoubleDistance epsilon = (EPS.containsKey(feature)) ? 
 			new DoubleDistance (EPS.get(feature).doubleValue()) :
 		    new DoubleDistance (epsValue);
-			
-	//System.out.println(bs.toString() + "." + feature + ".minpts=" + minpts+";eps="+epsilon);
+	
 	sbLog.append(bs.toString() + "." + feature + ".minpts=" + minpts+"\n");
 	
 	bs.set(0);
@@ -709,17 +562,6 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
       if (config.grab(param)) {
         distance = param.instantiateClass(config);
       }
-
-//      DistanceParameter<DoubleDistance> epsilonP = new DistanceParameter<>(EPSILON_ID, distance);
-//      if (config.grab(epsilonP)) {
-//        epsilon = epsilonP.getValue();
-//      }
-//
-//      IntParameter minptsP = new IntParameter(MINPTS_ID);
-//      minptsP.addConstraint(new GreaterConstraint(0));
-//      if (config.grab(minptsP)) {
-//        minpts = minptsP.getValue();
-//      }
     }
 
     @Override
