@@ -110,8 +110,8 @@ public class DiscoveryTools {
 		return singleDensities;
 	}
 	
-	/**Get density values of categories combinations with E-1.96*std/radix(N)
-	* E=E(d_m, cat1) * E(d_m, cat2) * E(d_m, cat3) * ... * (E(d_m, catn))
+	/**Get density values of categories combinations with 1.57*E-1.96*std/radix(N)
+	* E= [(pi/2)^n] * E(d_m, cat1) * E(d_m, cat2) * E(d_m, cat3) * ... * (E(d_m, catn))
 	* std = radix( sum( (XiYiZi...Kn - E(d_m,cat1)E(d_m,cat2)E(d_m, cat3)...(E(d_m, catn) )^2 ) / N ), Xi, Yi, Zi, ..., Ki are the individual values of the cell of the categories
 	* N = |observation_cat1|*|observation_cat2|*|observation_cat3|* ... *|observation_catn| */
 	public ArrayList<Double> getCombinations(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> toRet, ArrayList<Double> meanDens, int[] comb, int startIndex, int combCount, double n) {
@@ -138,7 +138,18 @@ public class DiscoveryTools {
 			}
 			//get the density values
 			sD=Math.sqrt(sum/n);
-			density=mult-(1.96 * (sD/Math.sqrt(n)));
+			
+			// Let define C as number of venues with a circle, S as number of 
+			// venues within a square.
+			// C = Q * surface(circle) / surface(square)
+			// Let define N as the number of cells along an edge of the BBox
+			// since the edge of the square is the sqrt(2)/2 * N is sqrt
+			// C = Q * (pi * 1/4 * 2 * 1/N^2) / (1/N^2)
+			//   = Q * pi * 1/2
+			//   = Q * 1.57
+			double scaleFactor = Math.PI / 2;
+			
+			density=scaleFactor * mult-(1.96 * (sD/Math.sqrt(n))); 
 			toRet.add(density);
 		}
 		//recursive call for the next combinations
