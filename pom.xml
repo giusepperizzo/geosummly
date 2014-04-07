@@ -132,7 +132,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.aksw.fox.MainServer</mainClass>
+                            <mainClass>it.unito.geosummly.api.MainCLI</mainClass>
                             <addClasspath>true</addClasspath>
                             <!-- <classpathPrefix>lib/</classpathPrefix> -->
                         </manifest>
