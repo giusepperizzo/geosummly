@@ -67,28 +67,30 @@ public class Evaluation {
 				mandatory=true;
 			}
 			
-			if(line.hasOption("mnum")) {
-				if(!evalType.equals("correctness")) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
-					System.exit(-1);
+			if(mandatory) {
+				if(line.hasOption("mnum")) {
+					if(!evalType.equals("correctness")) {
+						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						System.exit(-1);
+					}
+					mnum=Integer.parseInt(line.getOptionValue("mnum"));
+					if(mnum<0) {
+						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						System.exit(-1);
+					}		
 				}
-				mnum=Integer.parseInt(line.getOptionValue("mnum"));
-				if(mnum<0) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
-					System.exit(-1);
-				}		
-			}
-			
-			if(line.hasOption("fnum")) {
-				if(!evalType.equals("validation")) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
-					System.exit(-1);
+				
+				if(line.hasOption("fnum")) {
+					if(!evalType.equals("validation")) {
+						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						System.exit(-1);
+					}
+					fnum=Integer.parseInt(line.getOptionValue("fnum"));
+					if(fnum<0) {
+						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						System.exit(-1);
+					}		
 				}
-				fnum=Integer.parseInt(line.getOptionValue("fnum"));
-				if(fnum<0) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
-					System.exit(-1);
-				}		
 			}
 			
 			if (line.hasOption("help") || !mandatory) {
