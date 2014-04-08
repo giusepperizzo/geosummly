@@ -16,7 +16,9 @@ public class SSEValidation {
 			StringBuilder sb = new StringBuilder();
 			sb.append("x=c(");
 			List<String> lines = 
-			 FileUtils.readLines(new File("output/evaluation/clustering_correctness/random/sse.log"));
+					FileUtils.readLines(new File("datasets/milan/20140328/validation/clustering_correctness/SSEs.log"));
+			
+			
 			NumberFormat nf= NumberFormat.getInstance();
 			nf.setMaximumFractionDigits(4);
 			nf.setMinimumFractionDigits(4);
@@ -24,17 +26,19 @@ public class SSEValidation {
 			
 			for(int i=0; i<lines.size(); i++) {
 				String[] chunks = lines.get(i).split(",");
-				sb.append( nf.format(Double.parseDouble(chunks[1])) );
-				if(i<lines.size()-1) sb.append(",");
+				//sb.append( nf.format(Double.parseDouble(chunks[1])) );
+				sb.append((int)Math.floor(Double.parseDouble(chunks[1])));
+				if(i<lines.size()-1) sb.append(", ");
 			}
 			sb.append(");\n");
-			sb.append("bins=seq(65,115,by=0.5);\n");
+			sb.append("bins=seq(2060,2512,by=0.5);\n");
 			sb.append("hist(x,"
 							+ "breaks=bins,"
 							+ "xlab=\"SSE\",ylab=\"count\","
 							+ "main=\"Histogram of SSE for 500 random data sets\")");
 			
 			System.out.println(sb.toString());
+						
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

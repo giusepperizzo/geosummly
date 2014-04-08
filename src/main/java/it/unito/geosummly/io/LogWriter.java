@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 public class LogWriter {
-	
+		
 	/**
 	 * Write the log file of clustering process 
 	*/
@@ -92,7 +92,10 @@ public class LogWriter {
 	        BufferedWriter bw = new BufferedWriter(fw);
 	        sb.append("x=c(");
 			for(Double d: SSEs) {
-				sb.append((double) Math.round(d*10000)/10000+","); //keep only 4 decimal digits
+				//sb.append((double) Math.round(d*10000)/10000+", "); //keep only 4 decimal digits
+				sb
+					.append(Math.floor(d))
+					.append(", ");
 			}
 			sb=sb.replace(sb.length()-1, sb.length(), "");
 			sb.append(");\n");
