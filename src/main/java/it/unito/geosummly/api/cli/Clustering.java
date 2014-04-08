@@ -34,7 +34,8 @@ public class Clustering {
 							+ " Normalized file has to be a .csv of grid-shaped normalized density values, output the Sampling state. "
 							+ " Deltad file has to be a .csv of deltad values, output the Discovery state. "
 							+ " Venues file has to be a .csv of single venues, output the Sampling state. "
-							+ "The output consists of a .geojson file expressed as a feature collection whose features are the clusters.";
+							+ "The output consists of a .geojson file expressed as a feature collection whose features are the clusters, "
+							+ "a set of RDF Turtle file (one for each cluster), a log file with the clustering informations.";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
@@ -104,7 +105,7 @@ public class Clustering {
 					.hasArg().withArgName("arg").create("c"));
 		 
 		 //option eps
-		 options.addOption(OptionBuilder.withLongOpt("eps").withDescription("set the eps value of clustering algorithm. Default 0.1")
+		 options.addOption(OptionBuilder.withLongOpt("eps").withDescription("set the eps value of clustering algorithm. Default sqrt(2) * (1/ sqrt( size(density_values) ))")
 					.hasArg().withArgName("arg").create("e"));
 		 
 		//more options

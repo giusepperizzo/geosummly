@@ -3,7 +3,7 @@ package it.unito.geosummly;
 import it.unito.geosummly.io.CSVDataIO;
 import it.unito.geosummly.io.GeoJSONWriter;
 import it.unito.geosummly.io.GeoTurtleWriter;
-import it.unito.geosummly.io.LogWriter;
+import it.unito.geosummly.io.LogDataIO;
 import it.unito.geosummly.tools.ClusteringTools;
 
 import java.io.IOException;
@@ -83,9 +83,9 @@ public class ClusteringOperator {
 		double sse=tools.getClusteringSSE(db, cs);
 	    
 	    //serialize the log
-	    LogWriter lWriter=new LogWriter();
+	    LogDataIO lWriter=new LogDataIO();
 	    StringBuilder sb=tools.getLog();
-	    lWriter.printClusteringLog(sb, eps, sse, out);
+	    lWriter.writeClusteringLog(sb, eps, sse, out);
 	    
 	    
 	    //serialize the clustering output to geojson and turtle files
@@ -95,22 +95,19 @@ public class ClusteringOperator {
 	    tWriter.writeStream(clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
 	}
     
-	public HashMap<String, Vector<Integer>> executeForValidation(ArrayList<ArrayList<Double>> normalized, int length, String inDeltad, double eps) throws IOException {
-		
-		CSVDataIO dataIO=new CSVDataIO();
-		List<CSVRecord> listDeltad=dataIO.readCSVFile(inDeltad);
-		
+	public HashMap<String, Vector<Integer>> executeForValidation(ArrayList<ArrayList<Double>> normalized, int length, ArrayList<String> labels, ArrayList<String> minpts, double eps) throws IOException {
+				
 		ClusteringTools tools=new ClusteringTools();
 		
 		//build the database from the normalized matrix without considering timestamp values
 		ArrayList<ArrayList<Double>> normMatrix=tools.buildNormalizedFromList(normalized);
 		Database db=tools.buildDatabaseFromMatrix(normMatrix);
 		
-		//fill in the feature hashmap only with single features and only if the corresponding value is greater than 0
-		HashMap<Integer, String> featuresMap=tools.getFeaturesMapFromDeltad(listDeltad);
+		//fill in the feature hashmap only with single features
+		HashMap<Integer, String> featuresMap=tools.getFeaturesMap(labels);
 		
-		//fill in the deltad hashmap with that values which are greater than 0 and whose feature is in the features hashmap
-	    HashMap<String, Double> deltadMap=tools.getValuesMapFromDeltad(listDeltad);
+		//fill in the deltad hashmap
+	    HashMap<String, Double> deltadMap=tools.getDeltadMap(labels, minpts);
 		
 		//% of cells
 		Double density=normMatrix.size()*0.9;
@@ -143,20 +140,18 @@ public class ClusteringOperator {
 	    return holdout;
 	}
 	
-	public double executeForCorrectness(ArrayList<ArrayList<Double>> normalized, String inDeltad, double eps) throws IOException {
-		CSVDataIO dataIO=new CSVDataIO();
-		List<CSVRecord> listDeltad=dataIO.readCSVFile(inDeltad);
+	public double executeForCorrectness(ArrayList<ArrayList<Double>> normalized, ArrayList<String> labels, ArrayList<String> minpts, double eps) throws IOException {
 		
 		ClusteringTools tools=new ClusteringTools();
 		
 		//build the database from the normalized matrix without considering timestamp values
 		Database db=tools.buildDatabaseFromMatrix(normalized);
 		
-		//fill in the feature hashmap only with single features and only if the corresponding value is greater than 0
-		HashMap<Integer, String> featuresMap=tools.getFeaturesMapFromDeltad(listDeltad);
+		//fill in the feature hashmap only with single features
+		HashMap<Integer, String> featuresMap=tools.getFeaturesMap(labels);
 		
-		//fill in the deltad hashmap with that values which are greater than 0 and whose feature is in the features hashmap
-	    HashMap<String, Double> deltadMap=tools.getValuesMapFromDeltad(listDeltad);
+		//fill in the deltad hashmap
+	    HashMap<String, Double> deltadMap=tools.getDeltadMap(labels, minpts);
 		
 		//% of cells
 		Double density=normalized.size()*0.9;
