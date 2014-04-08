@@ -4,6 +4,7 @@ import it.unito.geosummly.BoundingBox;
 import it.unito.geosummly.TransformationMatrix;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -257,5 +258,18 @@ public class EvaluationTools {
 			builder.append("avg_jaccard_cluster("+entry.getKey()+")="+counter/entry.getValue().size()+"\n");
 		}
 		return builder;
+	}
+	
+	/**
+	 * Compute the discard in percentage between the SSE of clustering output on the entire dataset (real_SSE)
+	 * and the median SSE value of correctness experiment (random_SSE).
+	 * discard= (real_SSE * 100) / random_SSE 
+	*/
+	public double getSSEDiscard(ArrayList<Double> SSEs, double cl_sse) {
+		Collections.sort(SSEs);
+		double median=SSEs.get(SSEs.size()/2); //get the median of SSEs
+		double discard= (cl_sse*100)/median;
+		
+		return discard;
 	}
 }

@@ -34,6 +34,7 @@ public class EvaluationOperator {
 		ArrayList<String> labels=infos.get(0);
 		ArrayList<String> minpts=infos.get(1);
 		double eps=Double.parseDouble(infos.get(2).get(0));
+		double cl_sse=Double.parseDouble(infos.get(2).get(1)); //sse of clustering on entire dataset
 
 		//Fill in the matrix of aggregate (frequency) values without consider timestamp and coordinates
 		ArrayList<ArrayList<Double>> matrix=eTools.buildAggregatesFromList(list);
@@ -67,9 +68,12 @@ public class EvaluationOperator {
 
 			SSEs.add(co.executeForCorrectness(normalizedRandomMatrix, labels, minpts, eps));
 		}
-
+		
+		//Get the sse discard
+		double discard=eTools.getSSEDiscard(SSEs, cl_sse);
+		
 		//Write down the log file with SSE values
-		logIO.writeSSELog(SSEs, out);
+		logIO.writeSSELog(SSEs, discard, out);
 		logIO.writeSSEforR(SSEs, out);
 	}
 

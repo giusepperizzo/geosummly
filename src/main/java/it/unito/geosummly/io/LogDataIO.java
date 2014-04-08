@@ -21,7 +21,7 @@ public class LogDataIO {
 	public ArrayList<ArrayList<String>> readClusteringLog(String logFile) throws IOException {
 		ArrayList<String> labels=new ArrayList<String>();
 		ArrayList<String> minpts=new ArrayList<String>();
-		ArrayList<String> eps=new ArrayList<String>();
+		ArrayList<String> eps_sse=new ArrayList<String>(); //eps value and sse value
 			 
 		String current;
  
@@ -60,7 +60,14 @@ public class LogDataIO {
 			else if (current.startsWith("eps value")) {
 					matcher=p3.matcher(current);
 					if(matcher.find())
-						eps.add(matcher.group(1).trim());
+						eps_sse.add(matcher.group(1).trim());
+			}
+			
+			//get the SSE
+			else if (current.startsWith("SSE value")) {
+				matcher=p3.matcher(current);
+				if(matcher.find())
+					eps_sse.add(matcher.group(1).trim());
 			}
 		}
 		
@@ -69,7 +76,7 @@ public class LogDataIO {
 		ArrayList<ArrayList<String>> logInfo=new ArrayList<ArrayList<String>>();
 		logInfo.add(labels);
 		logInfo.add(minpts);
-		logInfo.add(eps);
+		logInfo.add(eps_sse);
 		
 		return logInfo;
 	}
@@ -105,7 +112,7 @@ public class LogDataIO {
 	/**
 	 * Write the log file of SSE values
 	*/
-	public void writeSSELog(ArrayList<Double> SSEs, String output) {
+	public void writeSSELog(ArrayList<Double> SSEs, double discard, String output) {
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
@@ -123,6 +130,9 @@ public class LogDataIO {
 				bw.write(index+","+d+"\n");
 				index++;
 			}
+			
+			bw.write("\n\nDiscard between real SSE and median of SSE random values: "+ discard);
+			
 	        bw.flush();
 	        bw.close();
 	 
