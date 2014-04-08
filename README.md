@@ -48,20 +48,23 @@ The options *input*, *output* are mandatory. Input file has to be a .csv of grid
 -M -method      <arg>           set the clustering algorithm. So far only geosubclu is activable. Default geosubclu.
 -e -eps         <arg>           set the eps value of clustering algorithm. Default 0.1.
 ```
-The options *density*, *normalized*, *deltad*, *venues*, *output* are mandatory. Density file has to be a .csv of grid-shaped density values, output the Sampling state. Normalized file has to be a .csv of grid-shaped normalized density values, output the Sampling state. Deltad file has to be a .csv of deltad values, output the Discovery state. Venues file has to be a .csv of single venues, output the Sampling state. The output consists of a .geojson file expressed as a feature collection whose features are the clusters, a set of RDF Turtle file (one for each cluster), a log file with the clustering informations.
+The options *density*, *normalized*, *deltad*, *venues*, *output* are mandatory. Density file has to be a .csv of grid-shaped density values, output the Sampling state. Normalized file has to be a .csv of grid-shaped normalized density values, output of the sampling state. Deltad file has to be a .csv of deltad values, output the Discovery state. Venues file has to be a .csv of single venues, output the Sampling state. The output consists of a .geojson file expressed as a feature collection whose features are the clusters, a set of RDF Turtle file (one for each cluster), a log file with the clustering informations.
 
 #####evaluation
 ```sh
--E –etype   <arg>           set the operation to do. Allowed values: correctness, validation.
--I –input   <path/to/file>  set the csv input file
--S -deltad  <path/to/file>  set the input file of deltad values
--O –output  <path/to/dir>   set the output directory
--m –mnum    <arg>           set the random matrix number to create. Default 500.
--f –fnum    <arg>           set the fold number to create for the cross-validation. Default 10.
+-E –etype      <arg>           set the operation to do. Allowed values: correctness, validation.
+-I –input      <path/to/file>  set the log input file
+-F -frequency  <path/to/file>  set the input file of frequency values
+-V -venues     <path/to/file>  set the input file of single venues
+-O –output     <path/to/dir>   set the output directory
+-m –mnum       <arg>           set the random matrix number to create. Default 500.
+-f –fnum       <arg>           set the fold number to create for the cross-validation. Default 10.
 ```
-The options *etype*, *input*, *deltad*, *output* are mandatory. 
-If *etype* argument is equal to correctness, the input file has to be a .csv of grid-shaped aggregates with coordinates values included and, for each random matrix, the output is the same as the one returned by the sampling state. In addition a SSE log is provided. Moreover *fnum* option cannot be used.
-If *etype* argument is equal to validation, the input file has to be a .csv of single venues and, for each fold, the output is the same as the one returned by the sampling state. In addition a Jaccard log is provided. Moreover *mnum* option cannot be used.
+
+The options *etype*, *input*, *frequency* (only if etype is equal to correctness), *venues* (only if etype is equal to validation), *output* are mandatory. 
+The input file has to be the log file returned by the clustering state.
+If *etype* argument is equal to correctness, the *frequency* option (csv file of grid-shaped aggregates) has to be expressed mandatory and, for each of the *mnum* matrices, the output is: a random grid-shaped aggregates, a grid of density values of the previous aggregates, a grid with intra-feature normalized density values shifted in [0,1]. In addition to the output a SSE log and a R script (visualization of SSE values) are provided. Moreover *venues* and *fnum* options cannot be used.
+If *etype* argument is equal to validation, the *venues* option (csv file of single venues) has to be expressed mandatory and, for each fold, the output is a file of density values and a file with intra-feature normalized density values shifted in [0,1]. In addition to the output a Jaccard log is provided. Moreover *frequency* and *mnum* options cannot be used.
 
 #####more options
 ```sh
@@ -79,7 +82,7 @@ geosummly discovery –input path/to/file.csv –output path/to/dir –combinati
 
 geosummly clustering -density path/to/file1.csv -normalized path/to/file2.csv -deltad path/to/file3.csv -venues path/to/file4.csv -output path/to/dir
 
-geosummly evaluation –etype correctness –input path/to/file.csv -deltad path/to/file.csv –output path/to/dir –mnum 300
+geosummly evaluation –etype correctness –input path/to/file.log -frequency path/to/file.csv –output path/to/dir –mnum 300
 
-geosummly evaluation –etype validation –input path/to/file.csv -deltad path/to/file.csv –output path/to/dir
+geosummly evaluation –etype validation –input path/to/file.log -venues path/to/file.csv –output path/to/dir
 ```    
