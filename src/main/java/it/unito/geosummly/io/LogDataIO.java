@@ -10,13 +10,74 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class LogWriter {
+public class LogDataIO {
+	
+	/**
+	 * Read the clustering log file
+	*/
+	public ArrayList<ArrayList<String>> readClusteringLog(String logFile) throws IOException {
+		ArrayList<String> labels=new ArrayList<String>();
+		ArrayList<String> minpts=new ArrayList<String>();
+		ArrayList<String> eps=new ArrayList<String>();
+			 
+		String current;
+ 
+		BufferedReader br = new BufferedReader(new FileReader(logFile));
+		Pattern p1=Pattern.compile("\\.(.*)\\."); //regex for feature label
+		Pattern p2=Pattern.compile("=(.*)"); //regex for minpts value
+		Pattern p3=Pattern.compile(":(.*)"); //regex for eps value
+		Matcher matcher;
+		
+		//read the file
+		while ((current = br.readLine()) != null) {
+			//get the label
+			if(current.startsWith("{")) {
+				matcher=p1.matcher(current);
+				if(matcher.find()) {
+					boolean found =false;
+					
+					//check if label is already in the list
+					for(int i=0;i<labels.size() && !found;i++) {
+						if(matcher.group(1).equals(labels.get(i)))
+							found=true;
+					}
+					
+					//add label if it's not in the list yet
+					//add also minpts
+					if(!found) {
+						labels.add(matcher.group(1));
+						matcher=p2.matcher(current);
+						if (matcher.find())
+							minpts.add(matcher.group(1));
+					}
+				}
+			}
+	
+			//get the eps
+			else if (current.startsWith("eps value")) {
+					matcher=p3.matcher(current);
+					if(matcher.find())
+						eps.add(matcher.group(1).trim());
+			}
+		}
+		
+		br.close();
+		
+		ArrayList<ArrayList<String>> logInfo=new ArrayList<ArrayList<String>>();
+		logInfo.add(labels);
+		logInfo.add(minpts);
+		logInfo.add(eps);
+		
+		return logInfo;
+	}
 	
 	/**
 	 * Write the log file of clustering process 
 	*/
-	public void printClusteringLog(StringBuilder sb, double eps, double sse, String output) {
+	public void writeClusteringLog(StringBuilder sb, double eps, double sse, String output) {
 		sb.append("\n\neps value: "+eps);
 		sb.append("\nSSE value: "+sse);
 		
@@ -44,7 +105,7 @@ public class LogWriter {
 	/**
 	 * Write the log file of SSE values
 	*/
-	public void printSSELog(ArrayList<Double> SSEs, String output) {
+	public void writeSSELog(ArrayList<Double> SSEs, String output) {
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
@@ -73,7 +134,7 @@ public class LogWriter {
 	/**
 	 * Write a R script in order to get the SSEs' gaussian distribution
 	*/
-	public void printSSEforR(ArrayList<Double> SSEs, String output) {
+	public void writeSSEforR(ArrayList<Double> SSEs, String output) {
 		int min=Collections.min(SSEs).intValue();
 		int max=Collections.max(SSEs).intValue();
 		StringBuilder sb=new StringBuilder();
@@ -112,7 +173,7 @@ public class LogWriter {
 	/**
 	 * Write the log file of holdouts 
 	*/
-	public void printHoldoutLog(HashMap<String, Vector<Integer>> holdout, String output) {
+	public void writeHoldoutLog(HashMap<String, Vector<Integer>> holdout, String output) {
 	    try {
 	    	File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
@@ -162,7 +223,7 @@ public class LogWriter {
 	/**
 	 * Write the log file of Jaccard evaluation 
 	*/
-	public void printJaccardLog(StringBuilder builder, String output) {
+	public void writeJaccardLog(StringBuilder builder, String output) {
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();

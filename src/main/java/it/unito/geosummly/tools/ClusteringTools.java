@@ -107,6 +107,20 @@ public class ClusteringTools {
 		return features;
 	}
 	
+	/**Fill in the feature hashmap from a list of labels
+	 * Only single features will be considered, so feature combinations (i.e. with 'AND') will be excluded.
+	*/
+	public HashMap<Integer, String> getFeaturesMap(ArrayList<String> labels) {
+		HashMap<Integer, String> features=new HashMap<Integer, String>();
+		for(String s: labels) {
+			if(!s.contains("AND")) {
+				int mSize=features.size();
+				features.put(mSize+2, s); //keys start from 2
+			}
+		}
+		return features;
+	}
+	
 	/**Fill in the deltad hashmap from a list of CSV records.
 	 * Will be considered only that values which are greater than 0 and whose feature is in the features hashmap.*/
 	public  HashMap<String, Double> getValuesMapFromDeltad(List<CSVRecord> list) {
@@ -132,6 +146,14 @@ public class ClusteringTools {
 			else if(!excluded)
 				toExclude.add(feature);
 		}
+		return map;
+	}
+	
+	/**Fill in the deltad hashmap from a list of minpts values taken as strings.*/
+	public  HashMap<String, Double> getDeltadMap(ArrayList<String> labels, ArrayList<String> minpts) {
+		HashMap<String, Double> map=new HashMap<String, Double>();
+		for(int i=0;i<labels.size();i++)
+			map.put(labels.get(i), Double.parseDouble(minpts.get(i)));
 		return map;
 	}
 	
