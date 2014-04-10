@@ -77,11 +77,10 @@ app.Map = function(params) {
   }
 
   function updateClustersSelection(selectedFeature, params) {
-    // clustersSelection = svg polygon elements
-    // representing clusters (hulls)
-
     var infoTemplate = _.template(d3.select('#cluster-tooltip').html());
 
+    // clustersSelection = svg polygon elements
+    // representing clusters (hulls)
     clustersSelection = g.selectAll("path.cluster")
       .data(selectedFeature.features, function(feature) {
         return feature.properties.clusterId;
@@ -170,13 +169,13 @@ app.Map = function(params) {
   }
 
   function onViewReset() {
-
     initPath();
 
-    var bounds = getBounds(selectedFeature),
+    var
+      bounds = getBounds(selectedFeature),
       topLeft = bounds[0],
       bottomRight = bounds[1],
-        padding = Math.pow(maxCircle, map.getZoom() / 10);
+      padding = Math.pow(maxCircle, map.getZoom() / 10);
 
     svg .attr("width", bottomRight[0] - topLeft[0] + (2 * padding))
         .attr("height", bottomRight[1] - topLeft[1] + (2 * padding))
@@ -276,10 +275,10 @@ app.Map = function(params) {
   }
 
   return {
-        locationParams: locationParams,
+    locationParams: locationParams,
     update: update,
     get: function() {
       return map;
     }
-  }
+  };
 };
