@@ -1,5 +1,7 @@
 package it.unito.geosummly.io;
 
+import it.unito.geosummly.BoundingBox;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,7 +19,9 @@ import com.google.gson.stream.JsonWriter;
 public class GeoJSONWriter implements IGeoWriter{
 	
 	@Override
-	public void writeStream(HashMap<Integer, String> labels, 
+	public void writeStream(String geosummlyLabel,
+							BoundingBox bbox,
+							HashMap<Integer, String> labels, 
 							HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
 							HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
 							double eps, 
