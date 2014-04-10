@@ -8,25 +8,40 @@ app.Map = function(params) {
 		.addLayer(new L.TileLayer('http://{s}.tile.cloudmade.com/' + params.key + '/998/256/{z}/{x}/{y}.png'))
 		.on("viewreset", onViewReset);
 
-	var svg = d3.select(map.getPanes().overlayPane).append("svg"),
-		g = svg.append("g").attr("class", "leaflet-zoom-hide");
+	var
+		svg,
+		g,
 
-	var selectedFeature,
+		selectedFeature,
 		transform,
 		path,
-		bordersSelection, clustersSelection, venuesSelection,
-		layerPoints;
+		clustersSelection,
+		venuesSelection,
+		layerPoints,
 
+		colors = params.colors,
+ 		minCircle = 3,
+    maxCircle = 30,
 
-	var tooltip = Tooltip({
+    tooltip;
+
+	drawBorder(locationParams.bounds, map);
+	svg = d3.select(map.getPanes().overlayPane).append("svg");
+	g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+	tooltip = Tooltip({
 		elmId: "tooltip",
 		width: 240
 	});
 
-	var colors = params.colors;
-    var minCircle = 3,
-        maxCircle = 30;
 
+	function drawBorder(bounds, map) {
+		var pointSW = [bounds.sud, bounds.west];
+		var pointNE = [bounds.north, bounds.est];
+		var border = [pointSW, pointNE];
+		var styles = { stroke: true, color: '#000', weight: 5, fillOpacity: 0 };
+		L.rectangle(border, {className: 'border'}).addTo(map);
+	}
 
 	function initPath() {
 
@@ -40,7 +55,7 @@ app.Map = function(params) {
 
 
 	function getBounds(feature) {
-		
+
 		var allBounds = feature.features.map(function(subfeature) {
 			return path.bounds(subfeature);
 		});
@@ -66,30 +81,6 @@ app.Map = function(params) {
 	}
 
 
-    function updateBorders(locationParams) {
-        var bounds = locationParams.bounds;
-        var geometry = {
-            type: 'Polygon',
-            coordinates: [[
-                // [ 9.15423312, 45.44013697 ]
-                [bounds.west, bounds.north],
-                [bounds.est, bounds.north],
-                [bounds.est, bounds.sud],
-                [bounds.west, bounds.sud],
-                [bounds.west, bounds.north]
-            ]]
-        };
-
-        bordersSelection = g.selectAll("path.border")
-            .data([geometry]);
-
-        bordersSelection.enter().append("path") 
-            .classed('border', true)
-
-        bordersSelection.exit().remove();
-    }
-
-
 	function updateClustersSelection(selectedFeature, params) {
 		// clustersSelection = svg polygon elements
 		// representing clusters (hulls)
@@ -109,7 +100,7 @@ app.Map = function(params) {
 								// 'category', props.name,
 								'clusters', props.clusterId
 							].join('/');
-				return hash; 
+				return hash;
 			})
             .classed('cluster', true)
 			.style('fill', function(feature) {
@@ -133,12 +124,12 @@ app.Map = function(params) {
 
 
 	function updateVenuesSelection(selectedFeature) {
-	 
+
         var infoTemplate = _.template(d3.select('#venue-tooltip').html());
 
 		var venues = [];
 		if (selectedFeature.features.length === 1) {
-			var venues = getVenues(selectedFeature);	
+			var venues = getVenues(selectedFeature);
 		}
 
 
@@ -201,14 +192,6 @@ app.Map = function(params) {
 		updateClustersSelection(selectedFeature, params);
 		updateVenuesSelection(selectedFeature);
 
-        // if (selectedFeature.features.length === 1) {
-		if (params.category || params.clusters) {
-            bordersSelection && bordersSelection.remove(); 
-        }
-        else {
-            updateBorders(this.locationParams);
-        }
-
 		onViewReset();
 
 		// debugger;
@@ -252,12 +235,6 @@ app.Map = function(params) {
 				.attr('cy', point.y);
 		});
 
-        if (bordersSelection) {
-            bordersSelection.attr("d", function(geometry) {
-                  return path(geometry);
-              }.bind(this));  
-        }
-
 
 		// removePoints();
 		// removeVenues();
@@ -284,7 +261,7 @@ app.Map = function(params) {
 					return L.marker(coords, { icon: L.divIcon({ className: 'grid-dot' }) });
 				});
 		})).flatten();
-		
+
 		layerPoints = L.layerGroup(markers).addTo(map);
 	}
 
@@ -303,7 +280,7 @@ app.Map = function(params) {
 		var feature = selectedFeature.features[0];
 		var categoriesToShow = categoriesFromFeature(feature.properties.name);
 		var venues = selectedFeature.features[0].properties.venues;
-		
+
 		var venuesInCategory = venues.filter(function(venue) {
 			return (categoriesToShow.indexOf(venue.category) >= 0);
 		});
@@ -325,7 +302,7 @@ app.Map = function(params) {
 		}
 
 		function categoriesFromFeature(categoryName) {
-			
+
 			var regex = /c\((.*?)\)/;
 			var matched = regex.exec(categoryName);
 
@@ -340,7 +317,7 @@ app.Map = function(params) {
 	// function createMarkers(coords, icon) {
 	//	 var options = {};
 	//	 if (icon) { options.icon = icon; }
-	//	 return coords.map(function(marker) { 
+	//	 return coords.map(function(marker) {
 	//		 return L.marker(marker, options);
 	//			// .bindPopup(renderPopup()); // .addTo(map);
 	//	 })
