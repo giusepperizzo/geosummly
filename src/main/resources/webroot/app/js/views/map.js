@@ -161,11 +161,16 @@ app.Map = function(params) {
   function update(feature, params) {
     selectedFeature = feature;
 
-    updateClustersSelection(selectedFeature, params);
-    updateVenuesSelection(selectedFeature);
+    if (selectedFeature.features.length > 0) {
+      updateClustersSelection(selectedFeature, params);
+      updateVenuesSelection(selectedFeature);
 
-    onViewReset();
-    map.fitBounds(getAllCoords(selectedFeature).map(app.utils.inv));
+      onViewReset();
+      map.fitBounds(getAllCoords(selectedFeature).map(app.utils.inv));
+    }
+    else {
+      alert('Wrong cluster or category!')
+    }
   }
 
   function onViewReset() {
