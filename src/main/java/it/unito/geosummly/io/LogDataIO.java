@@ -18,6 +18,37 @@ import java.util.regex.Pattern;
 public class LogDataIO {
 	
 	/**
+	 * Read the sampling log file
+	*/
+	public ArrayList<Integer> readSamplingLog(String logFile) throws IOException {
+		
+		int cellsNum=0;
+		int catNum=0;
+		
+		BufferedReader br = new BufferedReader(new FileReader(logFile));
+		String current=null;
+		
+		//Get the values from file
+		while((current=br.readLine()) !=null) {
+			if(current.contains("Number of cells")) {
+				cellsNum=Integer.parseInt(current.split(":")[1].trim()); //get the number of cells of the bbox
+			}
+			else if(current.contains("1st level")) {
+				catNum=Integer.parseInt(current.split(":")[1].trim()); //get the total number of categories found
+			}	
+		}
+		
+		br.close();
+		
+		ArrayList<Integer> logInfos=new ArrayList<Integer>();
+		logInfos.add(cellsNum);
+		logInfos.add(catNum);
+		
+		return logInfos;
+	}
+	
+	
+	/**
 	 * Read the clustering log file
 	*/
 	public ArrayList<ArrayList<String>> readClusteringLog(String logFile) throws IOException {
