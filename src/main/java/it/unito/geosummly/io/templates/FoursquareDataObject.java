@@ -1,4 +1,4 @@
-package it.unito.geosummly;
+package it.unito.geosummly.io.templates;
 
 import java.util.Arrays;
 import java.util.logging.Logger;
@@ -7,12 +7,11 @@ import fi.foyt.foursquare.api.entities.Category;
 
 
 /**
- * @author Giacomo Falcone
- *
- * Template of the object returned by 4square
+ * Template of the object returned by 4square on the sampling state
  */
 
 public class FoursquareDataObject {
+	
 	private int row;
 	private int column;
 	private String venueId;
@@ -33,8 +32,7 @@ public class FoursquareDataObject {
 	
 	public static Logger logger = Logger.getLogger(FoursquareDataObject.class.toString());
 	
-
-	public FoursquareDataObject(){}
+	public FoursquareDataObject() {}
 	
 	/**constructor without row and column informations*/
 	public FoursquareDataObject(String vId, String vName, double lat, double lng, Category[] cat, String email, 
