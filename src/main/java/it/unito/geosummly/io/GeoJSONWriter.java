@@ -1,7 +1,7 @@
 package it.unito.geosummly.io;
 
 import it.unito.geosummly.BoundingBox;
-import it.unito.geosummly.io.templates.VenueDataObject;
+import it.unito.geosummly.io.templates.VenueTemplate;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -59,9 +59,9 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		name=labels.get(i);
 	    		key=i;
 	    		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i));
-	    		ArrayList<VenueDataObject> vo_array=new ArrayList<VenueDataObject>();
+	    		ArrayList<VenueTemplate> vo_array=new ArrayList<VenueTemplate>();
 	    		writer.beginObject();
-	    		writer.name("type").value("Feature");
+	    		writer.name("type").value("FeatureTemplate");
 		        writer.name("id").value(key);
 		        writer.name("geometry");
 		        writer.beginObject();
@@ -96,7 +96,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	    				Double fLng=Double.parseDouble(df.format(Double.parseDouble(r.get(6))).replaceAll(",", "."));
 	    				
 	    				//create a VenueObject with the venue informations
-	    				VenueDataObject vo=new VenueDataObject(timestamp, bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
+	    				VenueTemplate vo=new VenueTemplate(timestamp, bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
 	    				vo_array.add(vo);
 	    			}
 	    		}
@@ -110,7 +110,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		writer.beginArray();
 	    		
 	    		//write down all the VenueObjects of the cluster
-	    		for(VenueDataObject obj: vo_array) {
+	    		for(VenueTemplate obj: vo_array) {
 	    			writer.beginObject();
 	    			writer.name("timestamp").value(obj.getTimestamp());
 	    			if(obj.getBeen_here()>0)
@@ -130,9 +130,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	        writer.endArray();
 	        writer.name("properties");
 	        writer.beginObject();
-	        writer.name("name").value("geosummly");
-	        writer.name("date").value(date);
-	        writer.name("bounding box");
+	        writer.name("name").value("geosummly of BBox");
 	        writer.beginArray();
 	        writer.beginObject();
 	        writer.name("north").value(bbox.getNorth());
@@ -147,6 +145,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	        writer.name("west").value(bbox.getWest());
 	        writer.endObject();
 	        writer.endArray();
+	        writer.name("date").value(date);
 			writer.name("eps").value(eps);
 	        writer.endObject();
 	        writer.endObject();
