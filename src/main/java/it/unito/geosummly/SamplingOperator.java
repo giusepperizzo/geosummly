@@ -2,6 +2,7 @@ package it.unito.geosummly;
 
 import it.unito.geosummly.io.CSVDataIO;
 import it.unito.geosummly.io.GeoJSONReader;
+import it.unito.geosummly.io.LogDataIO;
 import it.unito.geosummly.io.templates.FoursquareObjectTemplate;
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.InformationType;
@@ -23,7 +24,11 @@ public class SamplingOperator {
     
     public SamplingOperator() {}
        
-    public void executeWithInput(String in, String out, InformationType vtype, CoordinatesNormalizationType ltype, long sleep) throws IOException, JSONException, FoursquareApiException, InterruptedException {
+    public void executeWithInput(String in, String out, 
+    							InformationType vtype, 
+    							CoordinatesNormalizationType ltype, 
+    							long sleep) 
+    									throws IOException, JSONException, FoursquareApiException, InterruptedException {
     	
     	//Create the grid
     	GeoJSONReader reader=new GeoJSONReader();
@@ -38,7 +43,7 @@ public class SamplingOperator {
 		grid.setBbox(global);
 		grid.setStructure(data);
 		
-		collectAndTransform(data, out, vtype, ltype, sleep);
+		collectAndTransform(global, data, out, vtype, ltype, sleep);
     }
     
     public void executeWithCoord(ArrayList<Double> coord, String out, int gnum, int rnum, InformationType vtype, CoordinatesNormalizationType ltype, long sleep) throws IOException, FoursquareApiException, InterruptedException {
@@ -55,10 +60,10 @@ public class SamplingOperator {
     	else
     		grid.createCells();
     	
-    	collectAndTransform(data, out, vtype, ltype, sleep);
+    	collectAndTransform(bbox, data, out, vtype, ltype, sleep);
     }
     
-    public void collectAndTransform(ArrayList<BoundingBox> data, String out, InformationType vtype, CoordinatesNormalizationType ltype, long sleep) throws UnknownHostException, FoursquareApiException, InterruptedException {
+    public void collectAndTransform(BoundingBox bbox, ArrayList<BoundingBox> data, String out, InformationType vtype, CoordinatesNormalizationType ltype, long sleep) throws UnknownHostException, FoursquareApiException, InterruptedException {
     	//Cache system
 		/*MongoClient mongoClient=new MongoClient("localhost"); //MongoDB instance
 		DB db=mongoClient.getDB("VenueDB");
@@ -139,6 +144,10 @@ public class SamplingOperator {
 		ArrayList<ArrayList<Double>> normalizedMatrixSecondLevel=tools.buildNormalizedMatrix(ltype, densityMatrixSecondLevel);
 		tmSecondLevel.setNormalizedMatrix(normalizedMatrixSecondLevel);
 		tmSecondLevel.setHeader(tools.sortFeatures(tools.getMapSecondLevel()));
+		
+		//Write down the log file
+		LogDataIO logIO=new LogDataIO();
+		logIO.writeSamplingLog(bbox, data.size(), bboxArea.get(0), tools.getMap().keySet().size(), tools.getMapSecondLevel().keySet().size(), out);
 		
 		//Write down the transformation matrix to file
 		dataIO.printResultHorizontal(tools.getCellsTimestamps(), tm.getFrequencyMatrix(), tools.getFeaturesLabel(ltype, "f", tm.getHeader()), out, "/frequency-transformation-matrix.csv");

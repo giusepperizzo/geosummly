@@ -1,5 +1,7 @@
 package it.unito.geosummly.io;
 
+import it.unito.geosummly.BoundingBox;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -79,6 +81,39 @@ public class LogDataIO {
 		logInfo.add(eps_sse);
 		
 		return logInfo;
+	}
+	
+	/**
+	 * Write the log file of sampling process 
+	*/
+	public void writeSamplingLog(BoundingBox bbox, int cellNumber, double cellArea, int categories_1st, int categories_2nd, String output) {
+		
+		try {
+			File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
+	    	File file=new File(dir.getPath().concat("/sampling-output.log"));
+	    	
+	    	//if file doesn't exist, then create it
+			/*if(!file.exists()){
+				file.createNewFile();
+			}*/
+	    	
+    		FileWriter fw = new FileWriter(file);
+	        BufferedWriter bw = new BufferedWriter(fw);
+	        
+	        bw.write("Bounding box: "+bbox.getNorth()+", "+bbox.getEast()+", "+bbox.getSouth()+","+bbox.getWest()+"\n");
+	        bw.write("Area of the bounding box (km^2): "+bbox.getArea()+"\n");
+	        bw.write("Number of cells of the grid: "+cellNumber+"\n");
+	        bw.write("Area of a cell (km^2): "+cellArea+"\n");
+	        bw.write("Categories number (1st level): "+categories_1st+"\n");
+	        bw.write("Categories number (2nd level): "+categories_2nd);
+			
+	        bw.flush();
+	        bw.close();
+	 
+    	} catch(IOException e){
+    		e.printStackTrace();
+    	}
 	}
 	
 	/**
