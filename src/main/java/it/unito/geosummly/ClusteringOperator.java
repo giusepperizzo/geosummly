@@ -26,7 +26,7 @@ public class ClusteringOperator {
 
 	public static Logger logger = Logger.getLogger(ClusteringOperator.class.toString());
 
-	public void execute(String inDens, String inNorm, String inDeltad, String inSingles, String out, double eps, String method) throws IOException {
+	public void execute(ArrayList<Double> coord, String inDens, String inNorm, String inDeltad, String inSingles, String out, double eps, String method) throws IOException {
 		
 		//Read all the csv files
 		CSVDataIO dataIO=new CSVDataIO();
@@ -34,6 +34,13 @@ public class ClusteringOperator {
 		List<CSVRecord> listNorm=dataIO.readCSVFile(inNorm);
 		List<CSVRecord> listDeltad=dataIO.readCSVFile(inDeltad);
 		List<CSVRecord> listSingles=dataIO.readCSVFile(inSingles);
+		
+		//Get the bounding box
+		double north=coord.get(0);
+		double east=coord.get(1);
+		double south=coord.get(2);
+		double west=coord.get(3);
+		BoundingBox bbox=new BoundingBox(north, east, south, west);
 		
 		ClusteringTools tools=new ClusteringTools();
 		
@@ -90,9 +97,9 @@ public class ClusteringOperator {
 	    
 	    //serialize the clustering output to geojson and turtle files
 	    GeoJSONWriter jWriter=new GeoJSONWriter();
-	    jWriter.writeStream(clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
+	    jWriter.writeStream(bbox, clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
 	    GeoTurtleWriter tWriter=new GeoTurtleWriter();
-	    tWriter.writeStream(clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
+	    tWriter.writeStream(bbox, clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
 	}
     
 	public HashMap<String, Vector<Integer>> executeForValidation(ArrayList<ArrayList<Double>> normalized, int length, ArrayList<String> labels, ArrayList<String> minpts, double eps) throws IOException {

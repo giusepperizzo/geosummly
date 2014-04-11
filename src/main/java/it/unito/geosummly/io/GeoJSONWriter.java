@@ -1,6 +1,7 @@
 package it.unito.geosummly.io;
 
 import it.unito.geosummly.BoundingBox;
+import it.unito.geosummly.io.templates.VenueDataObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,7 +20,7 @@ import com.google.gson.stream.JsonWriter;
 public class GeoJSONWriter implements IGeoWriter{
 	
 	@Override
-	public void writeStream(String geosummlyLabel,
+	public void writeStream(
 							BoundingBox bbox,
 							HashMap<Integer, String> labels, 
 							HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
@@ -58,7 +59,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		name=labels.get(i);
 	    		key=i;
 	    		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i));
-	    		ArrayList<VenueObject> vo_array=new ArrayList<VenueObject>();
+	    		ArrayList<VenueDataObject> vo_array=new ArrayList<VenueDataObject>();
 	    		writer.beginObject();
 	    		writer.name("type").value("Feature");
 		        writer.name("id").value(key);
@@ -95,7 +96,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	    				Double fLng=Double.parseDouble(df.format(Double.parseDouble(r.get(6))).replaceAll(",", "."));
 	    				
 	    				//create a VenueObject with the venue informations
-	    				VenueObject vo=new VenueObject(timestamp, bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
+	    				VenueDataObject vo=new VenueDataObject(timestamp, bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
 	    				vo_array.add(vo);
 	    			}
 	    		}
@@ -109,7 +110,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		writer.beginArray();
 	    		
 	    		//write down all the VenueObjects of the cluster
-	    		for(VenueObject obj: vo_array) {
+	    		for(VenueDataObject obj: vo_array) {
 	    			writer.beginObject();
 	    			writer.name("timestamp").value(obj.getTimestamp());
 	    			if(obj.getBeen_here()>0)
@@ -131,6 +132,21 @@ public class GeoJSONWriter implements IGeoWriter{
 	        writer.beginObject();
 	        writer.name("name").value("geosummly");
 	        writer.name("date").value(date);
+	        writer.name("bounding box");
+	        writer.beginArray();
+	        writer.beginObject();
+	        writer.name("north").value(bbox.getNorth());
+	        writer.endObject();
+	        writer.beginObject();
+	        writer.name("east").value(bbox.getSouth());
+	        writer.endObject();
+	        writer.beginObject();
+	        writer.name("south").value(bbox.getSouth());
+	        writer.endObject();
+	        writer.beginObject();
+	        writer.name("west").value(bbox.getWest());
+	        writer.endObject();
+	        writer.endArray();
 			writer.name("eps").value(eps);
 	        writer.endObject();
 	        writer.endObject();
@@ -140,93 +156,5 @@ public class GeoJSONWriter implements IGeoWriter{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-}
-
-/**Venue Object Template*/
-class VenueObject {
-	 
-	private long timestamp;
-	private int been_here;
-	private String id;
-	private double venue_latitude;
-	private double venue_longitude;
-	private double focal_latitude;
-	private double focal_longitude;
-	private String category;
-	
-	public VenueObject(long t, int b, String id, double vLat, double vLng, double fLat, double fLng, String c) {
-		this.timestamp=t;
-		this.been_here=b;
-		this.id=id;
-		this.venue_latitude=vLat;
-		this.venue_longitude=vLng;
-		this.focal_latitude=fLat;
-		this.focal_longitude=fLng;
-		this.category=c;
-	}
-
-	public long getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public int getBeen_here() {
-		return been_here;
-	}
-
-	public void setBeen_here(int been_here) {
-		this.been_here = been_here;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public double getVenue_latitude() {
-		return venue_latitude;
-	}
-
-	public void setVenue_latitude(double venue_latitude) {
-		this.venue_latitude = venue_latitude;
-	}
-
-	public double getVenue_longitude() {
-		return venue_longitude;
-	}
-
-	public void setVenue_longitude(double venue_longitude) {
-		this.venue_longitude = venue_longitude;
-	}
-
-	public double getFocal_latitude() {
-		return focal_latitude;
-	}
-
-	public void setFocal_latitude(double focal_latitude) {
-		this.focal_latitude = focal_latitude;
-	}
-
-	public double getFocal_longitude() {
-		return focal_longitude;
-	}
-
-	public void setFocal_longitude(double focal_longitude) {
-		this.focal_longitude = focal_longitude;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 }

@@ -1,5 +1,7 @@
 package it.unito.geosummly;
 
+import it.unito.geosummly.io.templates.FoursquareDataObject;
+
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 

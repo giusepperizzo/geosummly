@@ -43,8 +43,7 @@ public class GeoTurtleWriter implements IGeoWriter {
 
 	
 	@Override
-	public void writeStream(String geosummlyLabel,
-							BoundingBox bbox,
+	public void writeStream(BoundingBox bbox,
 							HashMap<Integer, String> labels,
 							HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
 							HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
@@ -106,7 +105,7 @@ public class GeoTurtleWriter implements IGeoWriter {
         } //end for clusters
         
         
-        Model model = serializeSummary(geosummlyLabel, bbox);
+        Model model = serializeSummary(bbox);
         //Create Turtle
 		OutputStream os;
     	try {
@@ -127,7 +126,7 @@ public class GeoTurtleWriter implements IGeoWriter {
 		}
 	}
 	
-	public Model serializeSummary (String geosummlyLabel, BoundingBox bbox) 
+	public Model serializeSummary (BoundingBox bbox) 
 	{
 		// define GEO classes
 		OntClass GeoGeometry = modelGEO.createClass( GEO_URI + "Geometry" );
@@ -169,7 +168,7 @@ public class GeoTurtleWriter implements IGeoWriter {
 		
 		Resource summary = model.createResource(summaryURI)
 						.addProperty(RDF.type, GeoSpatialObject)
-						.addProperty(RDFS.label, geosummlyLabel)
+						.addProperty(RDFS.label, "geosummly")
 						.addProperty(GeohasGeometry, geometry);
 		for (Resource r : fingerprints)
 			summary.addProperty(GeosfContains, r);

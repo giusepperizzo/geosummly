@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 public interface IGeoWriter {
     public void writeStream(		
-    							String geosummlyLabel,
     							BoundingBox bbox,
     							HashMap<Integer, 
     							String> labels, 

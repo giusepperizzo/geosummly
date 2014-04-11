@@ -2,6 +2,7 @@ package it.unito.geosummly;
 
 import it.unito.geosummly.io.CSVDataIO;
 import it.unito.geosummly.io.GeoJSONReader;
+import it.unito.geosummly.io.templates.FoursquareDataObject;
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.InformationType;
 import it.unito.geosummly.tools.TransformationTools;

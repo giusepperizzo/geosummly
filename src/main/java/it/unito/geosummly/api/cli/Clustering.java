@@ -102,7 +102,7 @@ public class Clustering {
 					.hasArg().withArgName("path/to/file").create("V"));
 		 
 		 //option coord
-		 options.addOption(OptionBuilder.withLongOpt("coord").withDescription("set the input grid coordinates")
+		 options.addOption(OptionBuilder.withLongOpt("coord").withDescription("set the bounding box coordinates")
 					.hasArgs(4).withValueSeparator(',').withArgName("n,e,s,w").create("L"));
 		 
 		 //option output
