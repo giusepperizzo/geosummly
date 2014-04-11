@@ -1,6 +1,6 @@
 package it.unito.geosummly;
 
-import it.unito.geosummly.io.templates.FoursquareDataObject;
+import it.unito.geosummly.io.templates.FoursquareObjectTemplate;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class FoursquareSearchVenuesTest extends TestCase {
 	public void testSearchVenues() throws UnknownHostException, FoursquareApiException {
 		Gson gson=new Gson();
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
-		ArrayList<FoursquareDataObject> array;
+		ArrayList<FoursquareObjectTemplate> array;
 		array=fsv.searchVenues(1, 1, 45.057, 7.6613, 45.0561, 7.6600);
 		String s=gson.toJson(array.get(1));
 		s=s.replace("\"","");

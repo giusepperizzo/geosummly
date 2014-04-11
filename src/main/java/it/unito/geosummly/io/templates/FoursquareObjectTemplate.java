@@ -5,12 +5,11 @@ import java.util.logging.Logger;
 
 import fi.foyt.foursquare.api.entities.Category;
 
-
 /**
  * Template of the object returned by 4square on the sampling state
  */
 
-public class FoursquareDataObject {
+public class FoursquareObjectTemplate {
 	
 	private int row;
 	private int column;
@@ -30,12 +29,12 @@ public class FoursquareDataObject {
 	private Long hereNow;
 	private Long timestamp;
 	
-	public static Logger logger = Logger.getLogger(FoursquareDataObject.class.toString());
+	public static Logger logger = Logger.getLogger(FoursquareObjectTemplate.class.toString());
 	
-	public FoursquareDataObject() {}
+	public FoursquareObjectTemplate() {}
 	
 	/**constructor without row and column informations*/
-	public FoursquareDataObject(String vId, String vName, double lat, double lng, Category[] cat, String email, 
+	public FoursquareObjectTemplate(String vId, String vName, double lat, double lng, Category[] cat, String email, 
 			String phone, String fb, String tw, boolean ver, int chkCount, int usrCount, String url, long hn, long timestamp) {
 		this.venueId=vId;
 		this.venueName=vName;
@@ -55,7 +54,7 @@ public class FoursquareDataObject {
 	}
 	
 	/**Constructor with row and column informations*/
-	public FoursquareDataObject(int row, int col, String vId, String vName, double lat, double lng, Category[] cat, String email, 
+	public FoursquareObjectTemplate(int row, int col, String vId, String vName, double lat, double lng, Category[] cat, String email, 
 			String phone, String fb, String tw, boolean ver, int chkCount, int usrCount, String url, long hn, long timestamp) {
 		this.row=row; 
 		this.column=col;
@@ -212,8 +211,9 @@ public class FoursquareDataObject {
 		this.timestamp = timestamp;
 	}
 	
+	@Override
 	public String toString() {
-		return "FoursquareDataObject [row=" + row + ", column=" + column
+		return "FoursquareObjectTemplate [row=" + row + ", column=" + column
 				+ ", venueId=" + venueId + ", venueName=" + venueName
 				+ ", latitude=" + latitude + ", longitude=" + longitude
 				+ ", categories=" + Arrays.toString(categories) + ", email="

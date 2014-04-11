@@ -2,7 +2,7 @@ package it.unito.geosummly;
 
 import it.unito.geosummly.io.CSVDataIO;
 import it.unito.geosummly.io.GeoJSONReader;
-import it.unito.geosummly.io.templates.FoursquareDataObject;
+import it.unito.geosummly.io.templates.FoursquareObjectTemplate;
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.InformationType;
 import it.unito.geosummly.tools.TransformationTools;
@@ -26,8 +26,8 @@ public class SamplingOperator {
     public void executeWithInput(String in, String out, InformationType vtype, CoordinatesNormalizationType ltype, long sleep) throws IOException, JSONException, FoursquareApiException, InterruptedException {
     	
     	//Create the grid
-    	GeoJSONReader gjd=new GeoJSONReader();
-		ArrayList<BoundingBox> data=gjd.decode(in);
+    	GeoJSONReader reader=new GeoJSONReader();
+		ArrayList<BoundingBox> data=reader.decodeForSampling(in);
 		double bigNorth=data.get(data.size()-1).getNorth();
 		double bigEast=data.get(data.size()-1).getEast();
 		double bigSouth=data.get(0).getSouth();
@@ -72,7 +72,7 @@ public class SamplingOperator {
 		ArrayList<ArrayList<Double>> venuesMatrixSecondLevel=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> bboxArea=new ArrayList<Double>();
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
-		ArrayList<FoursquareDataObject> cellVenue;
+		ArrayList<FoursquareObjectTemplate> cellVenue;
 		CSVDataIO dataIO=new CSVDataIO();
 		
 		//Collect the geopoints
@@ -80,7 +80,7 @@ public class SamplingOperator {
 		    logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
 			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getEast(), b.getSouth(), b.getWest());
 			//Copy to cache
-			/*for(FoursquareDataObject fdo: cellVenue){
+			/*for(FoursquareObjectTemplate fdo: cellVenue){
 				String obj=gson.toJson(fdo); //Serialize with Gson
 				doc=(BasicDBObject) JSON.parse(obj); //initialize the document with the JSON result parsed for MongoDB
 				coll.insert(doc); //insert the document into MongoDB collection

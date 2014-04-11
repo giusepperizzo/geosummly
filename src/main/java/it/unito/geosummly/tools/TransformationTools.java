@@ -2,7 +2,7 @@ package it.unito.geosummly.tools;
 
 import it.unito.geosummly.BoundingBox;
 import it.unito.geosummly.TransformationMatrix;
-import it.unito.geosummly.io.templates.FoursquareDataObject;
+import it.unito.geosummly.io.templates.FoursquareObjectTemplate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -475,18 +475,18 @@ public class TransformationTools {
 	}
 
 	/**Return the total number of categories for a bounding box cell*/
-	public int getCategoriesNumber(ArrayList<FoursquareDataObject> array) {
+	public int getCategoriesNumber(ArrayList<FoursquareObjectTemplate> array) {
 		int n=0;
-		for(FoursquareDataObject fdo: array) {
+		for(FoursquareObjectTemplate fdo: array) {
 			n+=fdo.getCategories().length;
 		}
 		return n;
 	}
 	
 	/**Create a list with distinct categories for a bounding box cell*/
-	public ArrayList<String> createCategoryList(int index, ArrayList<FoursquareDataObject> array) {
+	public ArrayList<String> createCategoryList(int index, ArrayList<FoursquareObjectTemplate> array) {
 		ArrayList<String> categories=new ArrayList<String>();
-		for(FoursquareDataObject venue: array) {
+		for(FoursquareObjectTemplate venue: array) {
 			Category[] catArray=venue.getCategories();
 			for(int j=0; j<catArray.length;j++){
 				String c="";
@@ -519,12 +519,12 @@ public class TransformationTools {
 	}
 	
 	/**Create a list with the number of occurrences for each distinct category*/
-	public ArrayList<Integer> getCategoryOccurences(int index, ArrayList<FoursquareDataObject> array, ArrayList<String> categories) {
+	public ArrayList<Integer> getCategoryOccurences(int index, ArrayList<FoursquareObjectTemplate> array, ArrayList<String> categories) {
 		int n;
 		ArrayList<Integer> occurrences=new ArrayList<Integer>();
 		for(String s: categories) {
 			n=0;
-			for(FoursquareDataObject fdo: array)
+			for(FoursquareObjectTemplate fdo: array)
 				for(Category c: fdo.getCategories()) {
 					String str="";
 					if(c.getParents().length>0) {
@@ -549,13 +549,13 @@ public class TransformationTools {
 	}
 	
 	/**Get the informations either of a bounding box cell or of single venues of a cell*/
-	public ArrayList<ArrayList<Double>> getInformations(InformationType type, double lat, double lng, ArrayList<ArrayList<Double>> matrix, ArrayList<FoursquareDataObject> cell) {
+	public ArrayList<ArrayList<Double>> getInformations(InformationType type, double lat, double lng, ArrayList<ArrayList<Double>> matrix, ArrayList<FoursquareObjectTemplate> cell) {
 		ArrayList<Double> rowOfMatrix=new ArrayList<Double>();
 		ArrayList<Double> rowOfMatrixSecondLevel=new ArrayList<Double>();
 		switch (type) {
 		//If we consider single venues (coordinates both of venue and focal points are considered)
 		case SINGLE:
-			for(FoursquareDataObject venue: cell) {
+			for(FoursquareObjectTemplate venue: cell) {
 				String category="";
 				String categorySecondLevel="";
 				for(Category c: venue.getCategories()) {
