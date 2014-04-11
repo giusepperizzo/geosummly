@@ -32,10 +32,10 @@ public class Clustering {
 		Boolean mandatory=false; //check the presence of mandatory options
 		String helpUsage="geosummly clustering -density <path/to/file.csv> -normalized <path/to/file.csv> -deltad <path/to/file.csv> -venues <path/to/file.csv> -coord <n,e,s,w> -output <path/to/dir> [options]";
 		String helpFooter="\nThe options density, normalized,  deltad, venues, coord, output are mandatory."
-							+ " Density file has to be a .csv of grid-shaped density values, output the Sampling state. "
-							+ " Normalized file has to be a .csv of grid-shaped normalized density values, output the Sampling state. "
-							+ " Deltad file has to be a .csv of deltad values, output the Discovery state. "
-							+ " Venues file has to be a .csv of single venues, output the Sampling state. "
+							+ " Density file has to be a .csv of grid-shaped density values, output of the sampling state. "
+							+ " Normalized file has to be a .csv of grid-shaped normalized density values, output of the sampling state. "
+							+ " Deltad file has to be a .csv of deltad values, output of the discovery state. "
+							+ " Venues file has to be a .csv of single venues, output of the sampling state. "
 							+ "The output consists of a .geojson file expressed as a feature collection whose features are the clusters, "
 							+ "a set of RDF Turtle file (one for each cluster), a log file with the clustering informations.";
 		
