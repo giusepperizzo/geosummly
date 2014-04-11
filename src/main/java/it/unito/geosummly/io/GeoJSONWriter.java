@@ -29,7 +29,6 @@ public class GeoJSONWriter implements IGeoWriter{
 							String output, 
 							Calendar cal) {
 		try {
-			
 			//Get the current date. Example: 2014-03-19T17:10:57.616Z
 			SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd'T'H:mm:ss.SSS'Z'");
 			dateFormat.setLenient(false); //now month index starts from 1
@@ -130,28 +129,22 @@ public class GeoJSONWriter implements IGeoWriter{
 	        writer.endArray();
 	        writer.name("properties");
 	        writer.beginObject();
-	        writer.name("name").value("geosummly of BBox");
-	        writer.beginArray();
+	        writer.name("name").value("geosummly");
+	        writer.name("bbox");
 	        writer.beginObject();
 	        writer.name("north").value(bbox.getNorth());
-	        writer.endObject();
-	        writer.beginObject();
-	        writer.name("east").value(bbox.getSouth());
-	        writer.endObject();
-	        writer.beginObject();
+	        writer.name("east").value(bbox.getEast());
 	        writer.name("south").value(bbox.getSouth());
-	        writer.endObject();
-	        writer.beginObject();
 	        writer.name("west").value(bbox.getWest());
 	        writer.endObject();
-	        writer.endArray();
 	        writer.name("date").value(date);
 			writer.name("eps").value(eps);
 	        writer.endObject();
 	        writer.endObject();
-	        
+	       
 	        writer.close();
 	        os.close();
+	        
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

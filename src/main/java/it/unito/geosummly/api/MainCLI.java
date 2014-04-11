@@ -6,6 +6,7 @@ import java.util.Arrays;
 import it.unito.geosummly.api.cli.Clustering;
 import it.unito.geosummly.api.cli.Discovery;
 import it.unito.geosummly.api.cli.Evaluation;
+import it.unito.geosummly.api.cli.Optimization;
 import it.unito.geosummly.api.cli.Sampling;
 
 import org.apache.commons.cli.CommandLine;
@@ -41,11 +42,14 @@ public class MainCLI {
 			case "clustering":
 				Clustering clustering=new Clustering();
 				clustering.run(args);
-				
 				break;
 			case "evaluation":
 				Evaluation evaluation=new Evaluation();
 				evaluation.run(args);
+				break;
+			case "optimization":
+				Optimization optimization=new Optimization();
+				optimization.run(args);
 				break;
 			default:
 				throw new IllegalArgumentException("Invalid operation: " + action + ". Allowed operation: sampling, discovery, clustering, evaluation");
