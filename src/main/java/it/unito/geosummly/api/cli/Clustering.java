@@ -1,6 +1,7 @@
 package it.unito.geosummly.api.cli;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -18,6 +19,7 @@ public class Clustering {
 	private String inNorm=null;
 	private String inDeltad=null;
 	private String inVenues=null;
+	private ArrayList<Double> coordinates=new ArrayList<Double>();
 	private String outDir=null;
 	private Double epsValue=0.0;
 	//private String method="geosubclu";
@@ -28,8 +30,8 @@ public class Clustering {
 		CommandLineParser parser=new PosixParser(); //create the command line parser
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
-		String helpUsage="geosummly clustering -density <path/to/file.csv> -normalized <path/to/file.csv> -deltad <path/to/file.csv> -venues <path/to/file.csv> -output <path/to/dir> [options]";
-		String helpFooter="\nThe options density, normalized,  deltad, venues, output are mandatory."
+		String helpUsage="geosummly clustering -density <path/to/file.csv> -normalized <path/to/file.csv> -deltad <path/to/file.csv> -venues <path/to/file.csv> -coord <n,e,s,w> -output <path/to/dir> [options]";
+		String helpFooter="\nThe options density, normalized,  deltad, venues, coord, output are mandatory."
 							+ " Density file has to be a .csv of grid-shaped density values, output the Sampling state. "
 							+ " Normalized file has to be a .csv of grid-shaped normalized density values, output the Sampling state. "
 							+ " Deltad file has to be a .csv of deltad values, output the Discovery state. "
@@ -40,11 +42,14 @@ public class Clustering {
 		try {
 			CommandLine line = parser.parse(options, args);
 			
-			if(line.hasOption("density") && line.hasOption("normalized") && line.hasOption("deltad") && line.hasOption("venues") && line.hasOption("output")) {
+			if(line.hasOption("density") && line.hasOption("normalized") && line.hasOption("deltad") && line.hasOption("venues") && line.hasOption("coord") && line.hasOption("output")) {
 				inDensity=line.getOptionValue("density");
 				inNorm=line.getOptionValue("normalized");
 				inDeltad=line.getOptionValue("deltad");
 				inVenues=line.getOptionValue("venues");
+				String[] c=line.getOptionValues("coord");
+				for(String s: c)
+					coordinates.add(Double.parseDouble(s));
 				//file extension has to be csv
 				if(!inDensity.endsWith("csv") || !inNorm.endsWith("csv") || !inDeltad.endsWith("csv") || !inVenues.endsWith("csv")) {
 					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
@@ -68,7 +73,7 @@ public class Clustering {
             }
 			
 			ClusteringOperator co=new ClusteringOperator();
-			co.execute(inDensity, inNorm, inDeltad, inVenues, outDir, epsValue, "");
+			co.execute(coordinates, inDensity, inNorm, inDeltad, inVenues, outDir, epsValue, "");
 		}
 		catch(ParseException | NumberFormatException e) {
 			System.out.println("Unexpected exception: " + e.getMessage());
@@ -95,6 +100,10 @@ public class Clustering {
 		//option venues
 		 options.addOption(OptionBuilder.withLongOpt("venues").withDescription("set the input file of single venues")
 					.hasArg().withArgName("path/to/file").create("V"));
+		 
+		 //option coord
+		 options.addOption(OptionBuilder.withLongOpt("coord").withDescription("set the input grid coordinates")
+					.hasArgs(4).withValueSeparator(',').withArgName("n,e,s,w").create("L"));
 		 
 		 //option output
 		 options.addOption(OptionBuilder.withLongOpt("output").withDescription("set the output directory")
