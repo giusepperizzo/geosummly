@@ -27,7 +27,7 @@ bounding box;
 -C –cache                   cache activation. Default deactivated.
 ```
 The options *coord*, *input* (only if *coord* is not specified), *output* are mandatory. The options *input* and *coord* are mutually exclusive. The options *input* and *gnum* are mutually exclusive. The options *input* and *rnum* are mutually exclusive.
-The output consists of a file of single venues, a file of grid-shaped aggregated venues, a file of density values of the previous aggregates, a file with intra-feature normalized density values shifted in [0,1]. 
+The output consists of a file of single venues, a file of grid-shaped aggregated venues, a file of density values of the previous aggregates, a file with intra-feature normalized density values shifted in [0,1], a log file with the sampling informations. 
 
 #####discovery
 ```sh
@@ -44,11 +44,12 @@ The options *input*, *output* are mandatory. Input file has to be a .csv of grid
 -N –normalized  <path/to/file>  set the input file of normalized density values
 -S –deltad      <path/to/file>  set the input file of deltad values
 -V –venues      <path/to/file>  set the input file of single venues
+-L -coord       <n,e,s,w>       set the bounding box coordinates
 -O –output      <path/to/dir>   set the output directory
 -M -method      <arg>           set the clustering algorithm. So far only geosubclu is activable. Default geosubclu.
 -e -eps         <arg>           set the eps value of clustering algorithm. Default sqrt(2) * (1/ sqrt( size(density_values) )).
 ```
-The options *density*, *normalized*, *deltad*, *venues*, *output* are mandatory. Density file has to be a .csv of grid-shaped density values, output the Sampling state. Normalized file has to be a .csv of grid-shaped normalized density values, output of the sampling state. Deltad file has to be a .csv of deltad values, output the Discovery state. Venues file has to be a .csv of single venues, output the Sampling state. The output consists of a .geojson file expressed as a feature collection whose features are the clusters, a set of RDF Turtle file (one for each cluster), a log file with the clustering informations.
+The options *density*, *normalized*, *deltad*, *venues*, *coord*, *output* are mandatory. Density file has to be a .csv of grid-shaped density values, output the Sampling state. Normalized file has to be a .csv of grid-shaped normalized density values, output of the sampling state. Deltad file has to be a .csv of deltad values, output the Discovery state. Venues file has to be a .csv of single venues, output the Sampling state. The output consists of a .geojson file expressed as a feature collection whose features are the clusters, a set of RDF Turtle file (one for each cluster), a log file with the clustering informations.
 
 #####evaluation
 ```sh
