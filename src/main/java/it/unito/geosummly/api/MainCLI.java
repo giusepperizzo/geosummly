@@ -25,6 +25,8 @@ public class MainCLI {
 	private void run(String[] args) {
 		
 		CommandLineParser parser=new PosixParser(); //create the command line parser
+		String helpFooter="Allowed operation: sampling, discovery, clustering, evaluation, optimization."
+				+ "\nDigit <operation> help for more details.";
 		
 		try {
 			CommandLine line = parser.parse(new Options(), args, true);
@@ -52,7 +54,8 @@ public class MainCLI {
 				optimization.run(args);
 				break;
 			default:
-				throw new IllegalArgumentException("Invalid operation: " + action + ". Allowed operation: sampling, discovery, clustering, evaluation");
+				System.out.println("Invalid operation: " + action + ".\n"+helpFooter);
+				System.exit(-1);
 			}
 			
 		} catch (ParseException | IOException e) {

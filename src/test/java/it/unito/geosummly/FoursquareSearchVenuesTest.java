@@ -22,7 +22,7 @@ public class FoursquareSearchVenuesTest extends TestCase {
 		s=s.substring(0, 48);
 		
 		//Construct the test case
-		String s1="{row:1,column:1,venueId:4c76b9505cd6b1f76fca3c94";
+		String s1="{row:1,column:1,venueId:4e1028a36284edb6bacc6d51";
 		
 		//Start the tests
 		assertNotNull(array);

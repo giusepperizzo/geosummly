@@ -28,21 +28,28 @@ public class Evaluation {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		
-		String helpUsage="\ngeosummly evaluation -etype correctness -input path/to/file.log -frequency path/to/file.csv -output path/to/dir [options]"
-						+ "\ngeosummly evaluation -etype validation -input path/to/file.log -venues path/to/file.csv -output path/to/dir [options]";
-		String helpFooter="\nThe options etype, input, frequency (only if etype is equal to correctness), "
-							+ "venues (only if etype is equal to validation), output are mandatory. "
-							+ "The input file has to be the log file returned by the clustering state. "
-							+ "If etype argument is equal to correctness, the frequency option "
-							+ "(csv file of grid-shaped aggregates) is mandatory and, for each of the mnum matrices, "
-							+ "the output is: a random grid-shaped aggregates, a grid of density values of the previous "
-							+ "aggregates, a grid with intra-feature normalized density values shifted in [0,1]. "
-							+ "In addition to the output a SSE log and a R script (visualization of SSE values) are provided. "
-							+ "Moreover venues and fnum options cannot be used. If etype argument is equal to validation, "
-							+ "the venues option (csv file of single venues) is mandatory and, for each fold, "
-							+ "the output is a file of density values and a file with intra-feature normalized density values "
-							+ "shifted in [0,1]. In addition to the output a Jaccard log is provided. "
-							+ "Moreover frequency and mnum options cannot be used.";
+		String helpUsage="geosummly evaluation -etype validation -input <path/to/file.log> -venues <path/to/file.csv> -output <path/to/dir> [options]";
+		String helpFooter="\n------------------------------------------------------------------"
+				+ "\nThe options etype, input, frequency (only if etype is equal to correctness), "
+				+ "venues (only if etype is equal to validation), output are mandatory."
+				+ "\nThe input file has to be the log file returned by the clustering state."
+				+ "\nIf etype argument is equal to correctness, the frequency option "
+				+ "(csv file of grid-shaped aggregates) is mandatory and, for each of the mnum matrices, "
+				+ "the output is: a random grid-shaped aggregates, a grid of density values of the previous "
+				+ "aggregates, a grid with intra-feature normalized density values shifted in [0,1]. "
+				+ "In addition to the output a SSE log and a R script (visualization of SSE values) are provided. "
+				+ "Moreover venues and fnum options cannot be used."
+				+ "If etype argument is equal to validation, "
+				+ "the venues option (csv file of single venues) is mandatory and, for each fold, "
+				+ "the output is a file of density values and a file with intra-feature normalized density values "
+				+ "shifted in [0,1]. In addition to the output a Jaccard log is provided. "
+				+ "Moreover frequency and mnum options cannot be used."
+				+ "\n--------------------------------------------------------"
+				+ "\nExamples:"
+				+ "\n1. geosummly evaluation -etype correctness -input path/to/file.log "
+				+ "-frequency path/to/file1.csv -output path/to/dir -mnum 300"
+				+ "\n2. geosummly evaluation -etype validation -input path/to/file.log "
+				+ "-venues path/to/file1.csv -output path/to/dir -fnum 5";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
@@ -50,13 +57,13 @@ public class Evaluation {
 			if(line.hasOption("etype") && line.hasOption("input") && line.hasOption("output")) {
 				evalType=line.getOptionValue("etype");
 				if(!evalType.equals("correctness") && !evalType.equals("validation")) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
 				inLog=line.getOptionValue("input");
 				//file extension has to be log
 				if(!inLog.endsWith("log")) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
 				if(line.hasOption("frequency")) {
@@ -65,7 +72,7 @@ public class Evaluation {
 						mandatory=true;
 					}
 					else {
-						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 						System.exit(-1);
 					}
 				}
@@ -75,7 +82,7 @@ public class Evaluation {
 						mandatory=true;
 					}
 					else {
-						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 						System.exit(-1);
 					}
 				}
@@ -85,31 +92,31 @@ public class Evaluation {
 			if(mandatory) {
 				if(line.hasOption("mnum")) {
 					if(!evalType.equals("correctness")) {
-						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 						System.exit(-1);
 					}
 					mnum=Integer.parseInt(line.getOptionValue("mnum"));
 					if(mnum<0) {
-						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 						System.exit(-1);
 					}		
 				}
 				
 				if(line.hasOption("fnum")) {
 					if(!evalType.equals("validation")) {
-						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 						System.exit(-1);
 					}
 					fnum=Integer.parseInt(line.getOptionValue("fnum"));
 					if(fnum<0) {
-						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 						System.exit(-1);
 					}		
 				}
 			}
 			
 			if (line.hasOption("help") || !mandatory) {
-                formatter.printHelp(150, helpUsage,"\ncommands list:", options, helpFooter);
+                formatter.printHelp(helpUsage,"\ncommands list:", options, helpFooter);
                 System.exit(-1);
             }
 			

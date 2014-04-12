@@ -31,13 +31,22 @@ public class Clustering {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		String helpUsage="geosummly clustering -density <path/to/file.csv> -normalized <path/to/file.csv> -deltad <path/to/file.csv> -venues <path/to/file.csv> -coord <n,e,s,w> -output <path/to/dir> [options]";
-		String helpFooter="\nThe options density, normalized,  deltad, venues, coord, output are mandatory."
-							+ " Density file has to be a .csv of grid-shaped density values, output of the sampling state. "
-							+ " Normalized file has to be a .csv of grid-shaped normalized density values, output of the sampling state. "
-							+ " Deltad file has to be a .csv of deltad values, output of the discovery state. "
-							+ " Venues file has to be a .csv of single venues, output of the sampling state. "
-							+ "The output consists of a .geojson file expressed as a feature collection whose features are the clusters, "
-							+ "a set of RDF Turtle file (one for each cluster), a log file with the clustering informations.";
+		String helpFooter="\n------------------------------------------------------------------"
+				+ "\nThe options density, normalized,  deltad, venues, coord, output are mandatory."
+				+ "\nDensity file has to be a .csv of grid-shaped density values, "
+				+ "output of the sampling state. "
+				+ "\nNormalized file has to be a .csv of grid-shaped normalized density values, "
+				+ "output of the sampling state. "
+				+ "\nDeltad file has to be a .csv of deltad values, output of the discovery state. "
+				+ "\nVenues file has to be a .csv of single venues, output of the sampling state. "
+				+ "\nThe output consists of a .geojson file expressed as a feature collection "
+				+ "whose features are the clusters, a set of RDF Turtle file (one for each cluster), "
+				+ "a log file with the clustering informations."
+				+ "\n------------------------------------------------------------------"
+				+ "\nExamples:"
+				+ "\ngeosummly clustering -density path/to/file.csv -normalized path/to/file1.csv "
+				+ "-deltad path/to/file2.csv -venues path/to/file3.csv -coord 45.01,8.3,44.0,7.2856 "
+				+ "-output path/to/dir -method geosubclu -eps 0.03";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
@@ -52,7 +61,7 @@ public class Clustering {
 					coordinates.add(Double.parseDouble(s));
 				//file extension has to be csv
 				if(!inDensity.endsWith("csv") || !inNorm.endsWith("csv") || !inDeltad.endsWith("csv") || !inVenues.endsWith("csv")) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
 				outDir=line.getOptionValue("output");
@@ -68,7 +77,7 @@ public class Clustering {
 			}
 			
 			if (line.hasOption("help") || !mandatory) {
-                formatter.printHelp(150, helpUsage,"\ncommands list:", options, helpFooter);
+                formatter.printHelp(helpUsage,"\ncommands list:", options, helpFooter);
                 System.exit(-1);
             }
 			

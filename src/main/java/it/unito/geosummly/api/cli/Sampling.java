@@ -43,10 +43,20 @@ public class Sampling {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		Boolean inputFlag=false; //check the presence either of input or coord;
-		String helpUsage="\ngeosummly sampling -input<path/to/file.geojson> -output<path/to/dir> [options]\ngeosummly sampling -coord <n,e,s,w> -output<path/to/dir> [options]";
-		String helpFooter="\nThe options coord, input (only if coord is not specified), output are mandatory. The options input and coord are mutually exclusive. The options input and gnum are mutually exclusive. "
-				 + "The options input and rnum are mutually exclusive. The output consist of a file of single venues, a file of grid-shaped aggregated venues, a file of density values of the previous "
-				 + "aggregates, a file with intra-feature normalized density values shifted in [0,1].";
+		String helpUsage="geosummly sampling -input <path/to/file.geojson> -output <path/to/dir> [options]";
+		String helpFooter="\n------------------------------------------------------------------"
+				+ "\nThe options coord, input (only if coord is not specified), output are mandatory."
+				+ "\nThe options input and coord are mutually exclusive."
+				+ "\nThe options input and gnum are mutually exclusive."
+				+ "\nThe options input and rnum are mutually exclusive. "
+				+ "\nThe output consist of a file of single venues, a file of grid-shaped aggregated venues, "
+				+ "a file of density values of the previous aggregates, "
+				+ "a file with intra-feature normalized density values shifted in [0,1], "
+				+ "a log file with the sampling informations."
+				+ "\n------------------------------------------------------------------"
+				+ "\nExamples:"
+				+ "\n1. geosummly sampling -input path/to/file.geojson -output path/to/dir -sleep 730 -vtype cell -ctype missing"
+				+ "\n2. geosummly sampling –coord 45.01,8.3,44.0,7.2856 –output path/to/dir –cnum 40 –snum 100";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
@@ -55,7 +65,7 @@ public class Sampling {
 				inFile=line.getOptionValue("input");
 				//file extension has to be geojson
 				if(!inFile.endsWith("geojson")) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
 				outDir=line.getOptionValue("output");
@@ -71,14 +81,14 @@ public class Sampling {
 				if(line.hasOption("gnum")) {
 					gridCells=Integer.parseInt(line.getOptionValue("gnum"));
 					if(gridCells<0) {
-						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 						System.exit(-1);
 					}		
 				}
 				if(line.hasOption("rnum")) {
 					randomCells=Integer.parseInt(line.getOptionValue("rnum"));
 					if(randomCells<0) {
-						formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 						System.exit(-1);
 					}
 				}
@@ -95,7 +105,7 @@ public class Sampling {
 				else if(l.equals("missing"))
 					coordType=CoordinatesNormalizationType.MISSING;
 				else {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
 			}
@@ -107,7 +117,7 @@ public class Sampling {
 				else if(v.equals("cell"))
 					venueType=InformationType.CELL;
 				else {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
 			}
@@ -122,13 +132,13 @@ public class Sampling {
 			if(line.hasOption("sleep")) {
 				sleepMs=Long.parseLong(line.getOptionValue("sleep"));
 				if(sleepMs<0) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
 			}
 			
 			if (line.hasOption("help") || !mandatory) {
-                formatter.printHelp(150, helpUsage,"\ncommands list:", options, helpFooter);
+                formatter.printHelp(helpUsage,"\ncommands list:", options, helpFooter);
                 System.exit(-1);
             }
 			SamplingOperator so=new SamplingOperator();

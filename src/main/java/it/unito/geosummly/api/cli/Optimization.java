@@ -27,9 +27,14 @@ public class Optimization {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		String helpUsage="geosummly optimization -input <path/to/file.geojson> -infos <path/to/file.log> -output <path/to/dir> [options]";
-		String helpFooter="\nThe options input, infos, output are mandatory. Input file has to be a geojson file, output "
-							+ "of the clustering state. Infos file has to be a log file, output of the sampling state."
-							+ " The output consists of.... ???";
+		String helpFooter="\n------------------------------------------------------------------"
+				+ "\nThe options input, infos, output are mandatory."
+				+ "\nInput file has to be a geojson file, output of the clustering state."
+				+ "\nInfos file has to be a log file, output of the sampling state."
+				+ "\nThe output consists of.... ???"
+				+ "\n------------------------------------------------------------------"
+				+ "\nExamples:"
+				+ "\ngeosummly optimization -input path/to/file.geojson -infos path/to/file1.log -output path/to/dir -weight 0.5,0.2,0.3 -top 5";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
@@ -38,14 +43,14 @@ public class Optimization {
 				inGeo=line.getOptionValue("input");
 				//file extension has to be geojson
 				if(!inGeo.endsWith("geojson")) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
 				
 				inLog=line.getOptionValue("infos");
 				//file extension has to be geojson
 				if(!inLog.endsWith("log")) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
 				
@@ -69,13 +74,13 @@ public class Optimization {
 			if(line.hasOption("top")) {
 				topCat=Integer.parseInt(line.getOptionValue("top"));
 				if(topCat<0) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}		
 			}
 			
 			if (line.hasOption("help") || !mandatory) {
-                formatter.printHelp(150, helpUsage,"\ncommands list:", options, helpFooter);
+                formatter.printHelp(helpUsage,"\ncommands list:", options, helpFooter);
                 System.exit(-1);
             }
 			

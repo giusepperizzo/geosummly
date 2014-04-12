@@ -24,10 +24,15 @@ public class Discovery {
 		CommandLineParser parser=new PosixParser(); //create the command line parser
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
-		String helpUsage="geosummly discovery -input<path/to/file.csv> -output<path/to/dir> [options]";
-		String helpFooter="\nThe options input, output are mandatory. Input file has to be a .csv either of singles or"
-							+ " grid-shaped venues. The output consists of a file of standard deviation values for"
-							+ " the categories combinations.";
+		String helpUsage="geosummly discovery -input <path/to/file.csv> -output <path/to/dir> [options]";
+		String helpFooter="\n------------------------------------------------------------------"
+				+ "\nThe options input, output are mandatory."
+				+ "\nInput file has to be a .csv either of singles or grid-shaped venues."
+				+ "\nThe output consists of a file of standard deviation values for the single categories, "
+				+ "a file of deltad values for single and combination of categories."
+				+ "\n------------------------------------------------------------------"
+				+ "\nExamples:"
+				+ "\ngeosummly discovery -input path/to/file.csv -output path/to/dir -combination 3";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
@@ -36,7 +41,7 @@ public class Discovery {
 				inFile=line.getOptionValue("input");
 				//file extension has to be csv
 				if(!inFile.endsWith("csv")) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
 				outDir=line.getOptionValue("output");
@@ -46,7 +51,7 @@ public class Discovery {
 			if(line.hasOption("combination")) {
 				comb=Integer.parseInt(line.getOptionValue("combination"));
 				if(comb<0) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}		
 			}
@@ -54,13 +59,13 @@ public class Discovery {
 			if(line.hasOption("rnum")) {
 				randNum=Integer.parseInt(line.getOptionValue("rnum"));
 				if(randNum<0) {
-					formatter.printHelp(150, helpUsage, "\ncommands list:", options, helpFooter);
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}		
 			}
 			
 			if (line.hasOption("help") || !mandatory) {
-                formatter.printHelp(150, helpUsage,"\ncommands list:", options, helpFooter);
+                formatter.printHelp(helpUsage,"\ncommands list:", options, helpFooter);
                 System.exit(-1);
             }
 			
