@@ -56,7 +56,7 @@ public class Sampling {
 				+ "\n------------------------------------------------------------------"
 				+ "\nExamples:"
 				+ "\n1. geosummly sampling -input path/to/file.geojson -output path/to/dir -sleep 730 -vtype cell -ctype missing"
-				+ "\n2. geosummly sampling –coord 45.01,8.3,44.0,7.2856 –output path/to/dir –cnum 40 –snum 100";
+				+ "\n2. geosummly sampling -coord 45.01,8.3,44.0,7.2856 -output path/to/dir -cnum 40 -snum 100";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
