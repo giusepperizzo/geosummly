@@ -2,58 +2,50 @@ package it.unito.geosummly;
 
 import it.unito.geosummly.io.GeoJSONReader;
 import it.unito.geosummly.io.LogDataIO;
+import it.unito.geosummly.tools.OptimizationTools;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.Map;
 
 public class OptimizationOperator {
 	
+	@SuppressWarnings("rawtypes")
 	public void execute(String inGeo, String inLog, String output, ArrayList<Double> weights, int top) throws IOException{
 		
 		//Read input files
 		GeoJSONReader geoReader=new GeoJSONReader();
-		ArrayList<ArrayList<Integer>> infos=geoReader.decodeForOptimization(inGeo);
+		ArrayList<ArrayList<Integer>> geo_infos=geoReader.decodeForOptimization(inGeo);
 		LogDataIO logReader=new LogDataIO();
-		ArrayList<Integer> samplingInfos=logReader.readSamplingLog(inLog);
+		ArrayList<Integer> s_infos=logReader.readSamplingLog(inLog);
+		
+		OptimizationTools tools=new OptimizationTools();
 		
 		//Function 1: Spatial Coverage
-		//for each cluster: #obj_of_cluster / #obj_of_bbox
-		ArrayList<Double> spatialCoverage=new ArrayList<Double>();
-		for(Integer i: infos.get(0))
-			spatialCoverage.add(((double)i)/samplingInfos.get(0));
+		ArrayList<Double> spatialCoverage=tools.getSpatialCoverage(geo_infos.get(0), s_infos.get(0));
 		
 		//Function 2: Density
-		//for each cluster: #venues_of_cluster / #obj_of_cluster
-		//#obj_of_cluster represents the dimension of the cluster
-		ArrayList<Double> density= new ArrayList<Double>();
-		for(int i=0;i<infos.get(1).size();i++)
-			density.add(((double) infos.get(1).get(i))/infos.get(0).get(i));
+		ArrayList<Double> density = tools.getDensity(geo_infos.get(1), geo_infos.get(0));
 		
 		//Function 3: Heterogeneity
-		//for each cluster: #categories_of_cluster / #total_categories
-		//#categories_of_cluster is the number of cluster labels
-		//#total_categories is the number of categories found in the sampling state
-		ArrayList<Double> heterogeneity= new ArrayList<Double>();
-		for(Integer i: infos.get(2))
-			heterogeneity.add(((double) infos.get(2).get(i))/samplingInfos.get(1));
+		ArrayList<Double> heterogeneity = tools.getHeterogeneity(geo_infos.get(2), s_infos.get(1));
 		
-		ArrayList<Double> fZeroes=new ArrayList<Double>();
-		for(int i=0;i<spatialCoverage.size();i++) {
-			fZeroes.add(
-						(spatialCoverage.get(i)*weights.get(0)) + 
-						(density.get(i)*weights.get(1)) + 
-						(heterogeneity.get(i)*weights.get(2)) 
-						);
+		//Linear combination f0 = w1*f1 + w2*f2 + w3*f3 for each cluster
+		Map<Integer, Double> clusterMap = tools.getLinearCombination(spatialCoverage, density, heterogeneity, weights);
+		
+		//Sort values in decreasing order
+		Map<Integer, Double> sortedMap = tools.sortByValue(clusterMap);
+		
+		System.out.println("Mappa non ordinata");
+		for (Map.Entry entry : clusterMap.entrySet()) {
+			System.out.println("Key : " + entry.getKey() 
+                                   + " Value : " + entry.getValue());
 		}
 		
-		//Sort in decreasing order
-		Comparator<Double> comparator=Collections.reverseOrder();
-		Collections.sort(fZeroes, comparator);
-		
-		for(Double d: fZeroes)
-			System.out.println(d);
+		System.out.println("\n\nMappa ordinata");
+		for (Map.Entry entry : sortedMap.entrySet()) {
+			System.out.println("Key : " + entry.getKey() 
+                                   + " Value : " + entry.getValue());
+		}
 	}
-
 }
