@@ -102,5 +102,5 @@ geosummly evaluation –etype correctness –input path/to/file.log -frequency p
 
 geosummly evaluation –etype validation –input path/to/file.log -venues path/to/file.csv –output path/to/dir
 
-geosummly optimization -input path/to/file.geojson -infos path/to/file1.log -output path/to/dir -weight 0.5,0.2,0.3 -top 5"
+geosummly optimization -input path/to/file.geojson -infos path/to/file1.log -output path/to/dir -weight 0.5,0.2,0.3 -top 5
 ```    
