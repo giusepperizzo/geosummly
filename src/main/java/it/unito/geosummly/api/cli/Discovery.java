@@ -58,7 +58,7 @@ public class Discovery {
 			
 			if(line.hasOption("rnum")) {
 				randNum=Integer.parseInt(line.getOptionValue("rnum"));
-				if(randNum<0) {
+				if(randNum<=0) {
 					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}		
