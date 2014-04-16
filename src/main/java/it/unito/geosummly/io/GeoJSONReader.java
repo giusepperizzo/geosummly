@@ -2,9 +2,7 @@ package it.unito.geosummly.io;
 
 import it.unito.geosummly.BoundingBox;
 import it.unito.geosummly.io.templates.FeatureCollectionTemplate;
-import it.unito.geosummly.io.templates.FeatureTemplate;
 import it.unito.geosummly.io.templates.SamplingFeatureTemplate;
-
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -83,29 +81,13 @@ public class GeoJSONReader {
     /**
 	 * Decode a geojson file for the optimization state
 	 */
-    public ArrayList<ArrayList<Integer>> decodeForOptimization(String file) throws IOException {
+    public FeatureCollectionTemplate decodeForOptimization(String file) throws IOException {
     	
     	BufferedReader br = new BufferedReader(
 				new FileReader(file));
 		Gson gson=new GsonBuilder().setPrettyPrinting().create();
 		FeatureCollectionTemplate fct=gson.fromJson(br, FeatureCollectionTemplate.class);
-		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
 		
-		ArrayList<Integer> objOfClusters=new ArrayList<Integer>();
-		ArrayList<Integer> venueOfClusters=new ArrayList<Integer>();
-		ArrayList<Integer> labelOfClusters=new ArrayList<Integer>();
-		
-		for(FeatureTemplate ft: ft_array) {
-			objOfClusters.add(ft.getGeometry().getCoordinates().size());
-			venueOfClusters.add(ft.getProperties().getVenues().size());
-			labelOfClusters.add(ft.getProperties().getName().trim().split(",").length);
-		}
-		
-		ArrayList<ArrayList<Integer>> infos=new ArrayList<ArrayList<Integer>>();
-		infos.add(objOfClusters);
-		infos.add(venueOfClusters);
-		infos.add(labelOfClusters);
-		
-		return infos;
+		return fct;
     }
 }

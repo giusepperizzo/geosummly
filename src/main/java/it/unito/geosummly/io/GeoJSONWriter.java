@@ -60,7 +60,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i));
 	    		ArrayList<VenueTemplate> vo_array=new ArrayList<VenueTemplate>();
 	    		writer.beginObject();
-	    		writer.name("type").value("FeatureTemplate");
+	    		writer.name("type").value("Feature");
 		        writer.name("id").value(key);
 		        writer.name("geometry");
 		        writer.beginObject();
@@ -148,5 +148,109 @@ public class GeoJSONWriter implements IGeoWriter{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void writerAfterOptimization(BoundingBox bbox, ArrayList<ArrayList<ArrayList<Double>>> cells, 
+										ArrayList<ArrayList<VenueTemplate>> venues, 
+										ArrayList<String[]> labels,
+										double eps, String date, String output) {
+		
+		try {
+			
+			//Create GeoJSON
+			File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
+        	OutputStream os= new FileOutputStream(new File(dir.getPath().concat("/opt-clustering-output-eps").concat(eps+"").concat(".geojson")));
+	    	String name=""; //cluster label
+	    	int key; //cluster key
+	    	ArrayList<ArrayList<Double>> cellsOfCluster; //cells informations (cell_lat, cell_lng) of a cluster
+	    	
+	    	JsonWriter writer = new JsonWriter(new OutputStreamWriter(os, "UTF-8"));
+	        
+	        writer.setIndent("  ");
+	        writer.beginObject();
+	    	writer.name("type").value("FeatureCollection");
+	    	writer.name("features");
+			writer.beginArray();
+			
+			//iterate for each cluster
+	        for(int i=0;i<cells.size();i++) {
+	    		
+	        	name="";
+	        	for(String s: labels.get(i))
+	    			name=name.concat(s).concat(",");
+	    		name=name.substring(0, name.length()-1); //delete last comma
+	    		
+	    		key=i;
+	    		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i)); //get the cells of the ith cluster
+	    		
+	    		writer.beginObject();
+	    		writer.name("type").value("Feature");
+		        writer.name("id").value(key);
+		        writer.name("geometry");
+		        writer.beginObject();
+	        	writer.name("type").value("MultiPoint");
+	        	writer.name("coordinates");
+	        	writer.beginArray();
+	        	
+	    		//iterate for each cell of the cluster
+	    		for(ArrayList<Double> cl: cellsOfCluster) {
+	    			writer.beginArray();
+	    			writer.value(cl.get(0));
+	    			writer.value(cl.get(1));
+	    			writer.endArray();
+	    		}
+	    		writer.endArray();
+		        writer.endObject();
+		        writer.name("properties");
+	        	writer.beginObject();
+	    		writer.name("clusterId").value(key+1);
+	    		writer.name("name").value(name);
+	    		writer.name("venues");
+	    		writer.beginArray();
+	    		
+	    		//write down all the VenueObjects of the cluster
+	    		for(VenueTemplate obj: venues.get(i)) {
+	    			writer.beginObject();
+	    			writer.name("timestamp").value(obj.getTimestamp());
+	    			if(obj.getBeen_here()>0)
+	    				writer.name("beenHere").value(obj.getBeen_here());
+	    			writer.name("id").value(obj.getId());
+	    			writer.name("venueLatitude").value(obj.getVenue_latitude());
+	    			writer.name("venueLongitude").value(obj.getVenue_longitude());
+	    			writer.name("centroidLatitude").value(obj.getFocal_latitude());
+	    			writer.name("centroidLongitude").value(obj.getFocal_longitude());
+	    			writer.name("category").value(obj.getCategory());
+	    			writer.endObject();
+	    		}
+	    		
+	    		writer.endArray();
+	        	writer.endObject();
+	        	writer.endObject();
+	    	}
+	        
+	        writer.endArray();
+	        writer.name("properties");
+	        writer.beginObject();
+	        writer.name("name").value("geosummly");
+	        writer.name("bbox");
+	        writer.beginObject();
+	        writer.name("north").value(bbox.getNorth());
+	        writer.name("east").value(bbox.getEast());
+	        writer.name("south").value(bbox.getSouth());
+	        writer.name("west").value(bbox.getWest());
+	        writer.endObject();
+	        writer.name("date").value(date);
+			writer.name("eps").value(eps);
+	        writer.endObject();
+	        writer.endObject();
+	       
+	        writer.close();
+	        os.close();
+	        
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

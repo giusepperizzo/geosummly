@@ -31,7 +31,7 @@ public class Optimization {
 				+ "\nThe options input, infos, output are mandatory."
 				+ "\nInput file has to be a geojson file, output of the clustering state."
 				+ "\nInfos file has to be a log file, output of the sampling state."
-				+ "\nThe output consists of.... ???"
+				+ "\nThe output consists of a geojson file with the clustering result after the optimization, a log file."
 				+ "\n------------------------------------------------------------------"
 				+ "\nExamples:"
 				+ "\ngeosummly optimization -input path/to/file.geojson -infos path/to/file1.log -output path/to/dir -weight 0.5,0.2,0.3 -top 5";

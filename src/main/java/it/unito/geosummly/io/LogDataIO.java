@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -316,6 +318,61 @@ public class LogDataIO {
 	        bw.flush();
 	        bw.close();
 	        fw.close();
+	 
+    	} catch(IOException e){
+    		e.printStackTrace();
+    	}
+	}
+	
+	/**
+	 * Write the log file of optimization process
+	*/
+	@SuppressWarnings("rawtypes")
+	public void writeOptimizationLog(List<Integer> selected, 
+									Map<Integer, Double> map, 
+									ArrayList<Double> weights,
+									ArrayList<Double> f1,
+									ArrayList<Double> f2,
+									ArrayList<Double> f3,
+									ArrayList<Double> f0,
+									String output) {
+		
+		try {
+			File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
+	    	File file=new File(dir.getPath().concat("/optimization-output.log"));
+	    	
+    		FileWriter fw = new FileWriter(file);
+	        BufferedWriter bw = new BufferedWriter(fw);
+	        
+	        ArrayList<Integer> keys=new ArrayList<Integer>(map.keySet());
+	        Collections.sort(keys);
+	        
+	        bw.write("Clusters before optimization: "+keys.size()+"\n");
+	        bw.write("Clusters after optimization: "+selected.size()+"\n");
+	        bw.write("Top clusters selected (cluster_id): "+selected.toString()+"\n");
+	        bw.write("Weights: "+weights.toString()+"\n");
+	        
+	        bw.write("\n---------------------------------------------\n");
+	        bw.write("Ranking\n");
+	        bw.write("---------------------------------------------\n");
+	        for (Map.Entry entry : map.entrySet()) {
+				bw.write("cluster_id : " + entry.getKey() + "\t\tf0_value : "
+					+ entry.getValue()+"\n");
+			}
+	        
+	        for(int i=0;i<f1.size();i++) {
+	        	bw.write("\n---------------\n");
+	        	bw.write("CLUSTER "+(i+1)+"\n");
+	        	bw.write("---------------\n");
+	        	bw.write("Spatial coverage = "+f1.get(i)+"\n");
+	        	bw.write("Density = "+f2.get(i)+"\n");
+	        	bw.write("Heterogeneity = "+f3.get(i)+"\n");
+	        	bw.write("Total = "+f0.get(i)+"\n");
+	        }
+			
+	        bw.flush();
+	        bw.close();
 	 
     	} catch(IOException e){
     		e.printStackTrace();

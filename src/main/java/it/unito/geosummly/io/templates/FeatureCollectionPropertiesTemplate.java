@@ -1,10 +1,13 @@
 package it.unito.geosummly.io.templates;
 
+import it.unito.geosummly.BoundingBox;
+
 public class FeatureCollectionPropertiesTemplate {
 	
 	private String name;
 	private String date;
 	private double eps;
+	private BoundingBox bbox;
 	
 	public String getName() {
 		return name;
@@ -29,9 +32,18 @@ public class FeatureCollectionPropertiesTemplate {
 		this.eps = eps;
 	}
 	
+	public BoundingBox getBbox() {
+		return bbox;
+	}
+
+	public void setBbox(BoundingBox bbox) {
+		this.bbox = bbox;
+	}
+
 	@Override
 	public String toString() {
-		return "\n\tCollectionProperties [name=" + name + ", date=" + date
-				+ ", eps=" + eps + "]";
+		return "FeatureCollectionPropertiesTemplate [name=" + name + ", date="
+				+ date + ", eps=" + eps + ", bbox=" + bbox + "]";
 	}
+
 }
