@@ -3,12 +3,13 @@ geosummly
 
 ####Geo Summarization Based on Crowd Sensors
 
-geosummly is as a 4-states application, respectively:
+geosummly is as a 5-states application, respectively:
 * sampling: it performs the sampling of foursquare venues that are surrounded by a bounding box, and it generates a multidimensional tensor matrix where each dimension reports the magnitude of the Fourquare category vanue, and each object shapes a portion (cell) of the original 
 bounding box;
 * discovery: it estimates the parameter minpts;
 * clustering: it performs the clustering algorithm;
 * evaluation: it computes the SSE and the Jaccard as evaluation means of the obtained clustering output.
+* optimization: it performs the Pareto distribution on the clustering output by exploiting 3 optimization functions: cluster spatial coverage, cluster density, cluster heterogeneity  
 
 
 ###CLI commands
@@ -67,6 +68,20 @@ The input file has to be the log file returned by the clustering state.
 If *etype* argument is equal to correctness, the *frequency* option (csv file of grid-shaped aggregates) is mandatory and, for each of the *mnum* matrices, the output is: a random grid-shaped aggregates, a grid of density values of the previous aggregates, a grid with intra-feature normalized density values shifted in [0,1]. In addition to the output a SSE log and a R script (visualization of SSE values) are provided. Moreover *venues* and *fnum* options cannot be used.
 If *etype* argument is equal to validation, the *venues* option (csv file of single venues) is mandatory and, for each fold, the output is a file of density values and a file with intra-feature normalized density values shifted in [0,1]. In addition to the output a Jaccard log is provided. Moreover *frequency* and *mnum* options cannot be used.
 
+#####optimization
+```sh
+-I –input    <path/to/file>  set the geojson input file
+-i -infos    <path/to/file>  set the log input file
+-O -output   <path/to/dir>   set the output directory
+-t -top      <arg>           set the number of clusters to hold in the fingerprint. Default 10.
+-w -weight   <w1,w2,w3>      set the weights to assign to each optimization function. Default 0.3.
+```
+
+The options *input*, *infos*, *output* are mandatory.
+Input file has to be a geojson file, output of the clustering state.
+Infos file has to be a log file, output of the sampling state.
+The output consists of a log file, a geojson file with the clustering result after the optimization.
+
 #####more options
 ```sh
 -H –help  print the command list 
@@ -86,4 +101,6 @@ geosummly clustering -density path/to/file1.csv -normalized path/to/file2.csv -d
 geosummly evaluation –etype correctness –input path/to/file.log -frequency path/to/file.csv –output path/to/dir –mnum 300
 
 geosummly evaluation –etype validation –input path/to/file.log -venues path/to/file.csv –output path/to/dir
+
+geosummly optimization -input path/to/file.geojson -infos path/to/file1.log -output path/to/dir -weight 0.5,0.2,0.3 -top 5"
 ```    
