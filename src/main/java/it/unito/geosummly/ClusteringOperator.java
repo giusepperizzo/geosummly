@@ -82,7 +82,7 @@ public class ClusteringOperator {
 	    		clustersName.put(index, cluster.getName()); //put the cluster name in the map
 	    		cellsOfCluster=tools.putCompleteCellsOfCluster(cellsOfCluster, cluster, index, listDens); //get all the cell_ids for the selected cluster
 	    		cells=cellsOfCluster.get(index);
-	    		venuesOfCell=tools.putVenuesOfCells(venuesOfCell, cells, listSingles);
+	    		venuesOfCell=tools.putVenuesOfCells(cluster.getName(), venuesOfCell, cells, listSingles);
 	    	}
 	    }
 	    

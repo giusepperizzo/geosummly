@@ -201,8 +201,15 @@ public class ClusteringTools {
 	/**
 	 * Fill in the venues hashmap with the venues of the cells of a cluster.
 	 * Each entry of the map will be a couple: key=cellId, list of lists of venue_info.
+	 * Only venues of the same label of the cluster will be included.
 	*/
-	public  HashMap<Integer, ArrayList<ArrayList<String>>> putVenuesOfCells(HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell, ArrayList<ArrayList<Double>> cells, List<CSVRecord> listSingles) {
+	public  HashMap<Integer, ArrayList<ArrayList<String>>> putVenuesOfCells(String clusterName, HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell, ArrayList<ArrayList<Double>> cells, List<CSVRecord> listSingles) {
+		
+		//clean cluster name
+		String str= clusterName.substring(2, clusterName.length()-1); //keep only category names
+		String[] str_array= str.split(",");
+		
+		
 		//get the header of singles in order to get the correct vanue category name
 		ArrayList<String> features=new ArrayList<String>();
 		for(int i=7;i<listSingles.get(0).size();i++)
@@ -241,8 +248,12 @@ public class ClusteringTools {
 						//venue category
 						for(int h=7;h<r.size() && !catFound;h++)
 							if(r.get(h).equals("1.0")) {
-								venueRecord.add(features.get(h-7));
-								catFound=true;
+								//keep only venues of the same labels of the cluster
+								for(String s: str_array)
+									if(features.get(h-7).equals(s.trim())) {
+										venueRecord.add(features.get(h-7));
+										catFound=true;
+									}
 							}
 						venuesInfo.add(venueRecord); //add the venue informations
 						added=true;
