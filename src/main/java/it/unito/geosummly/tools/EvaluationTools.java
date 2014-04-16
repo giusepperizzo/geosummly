@@ -262,13 +262,13 @@ public class EvaluationTools {
 	
 	/**
 	 * Compute the discard in percentage between the SSE of clustering output on the entire dataset (real_SSE)
-	 * and the median SSE value of correctness experiment (random_SSE).
+	 * and the minimum SSE value of correctness experiment (random_SSE).
 	 * discard= (real_SSE * 100) / random_SSE 
 	*/
 	public double getSSEDiscard(ArrayList<Double> SSEs, double cl_sse) {
 		Collections.sort(SSEs);
-		double median=SSEs.get(SSEs.size()/2); //get the median of SSEs
-		double discard= (cl_sse*100)/median;
+		double min=SSEs.get(0); //get the minimum of SSEs
+		double discard= (cl_sse*100)/min;
 		
 		return discard;
 	}
