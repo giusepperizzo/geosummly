@@ -124,7 +124,7 @@ public class LogDataIO {
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
-	    	File file=new File(dir.getPath().concat("/sampling-output.log"));
+	    	File file=new File(dir.getPath().concat("/sampling.log"));
 	    	
 	    	//if file doesn't exist, then create it
 			/*if(!file.exists()){
@@ -159,7 +159,7 @@ public class LogDataIO {
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
-	    	File file=new File(dir.getPath().concat("/clustering-log-eps").concat(eps+"").concat(".log"));
+	    	File file=new File(dir.getPath().concat("/clustering.log"));
 	 
     		//if file doesn't exist, then create it
 			if(!file.exists()){
@@ -340,7 +340,7 @@ public class LogDataIO {
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
-	    	File file=new File(dir.getPath().concat("/optimization-output.log"));
+	    	File file=new File(dir.getPath().concat("/optimization.log"));
 	    	
     		FileWriter fw = new FileWriter(file);
 	        BufferedWriter bw = new BufferedWriter(fw);
