@@ -95,7 +95,6 @@ public class GeoJSONWriter implements IGeoWriter{
 	    				Double fLng=Double.parseDouble(df.format(Double.parseDouble(r.get(6))).replaceAll(",", "."));
 	    				
 	    				//create a VenueObject with the venue informations
-	    				System.out.println(timestamp+" "+ bH+" "+ r.get(2)+" "+ vLat+" "+ vLng+" "+ fLat+" "+ fLng+" ");
 	    				VenueTemplate vo=new VenueTemplate(timestamp, bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
 	    				vo_array.add(vo);
 	    			}
