@@ -96,7 +96,7 @@ geosummly sampling –coord 45,8,44,7 –output path/to/dir –cnum 40 –snum 1
 
 geosummly discovery –input path/to/file.csv –output path/to/dir –combination 3
 
-geosummly clustering -density path/to/file1.csv -normalized path/to/file2.csv -deltad path/to/file3.csv -venues path/to/file4.csv -output path/to/dir
+geosummly clustering -coord 45,8,44,7 -density path/to/file1.csv -normalized path/to/file2.csv -deltad path/to/file3.csv -venues path/to/file4.csv -output path/to/dir
 
 geosummly evaluation –etype correctness –input path/to/file.log -frequency path/to/file.csv –output path/to/dir –mnum 300
 
