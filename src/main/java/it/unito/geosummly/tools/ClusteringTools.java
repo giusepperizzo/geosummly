@@ -205,24 +205,27 @@ public class ClusteringTools {
 	*/
 	public  HashMap<Integer, ArrayList<ArrayList<String>>> putVenuesOfCells(String clusterName, HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell, ArrayList<ArrayList<Double>> cells, List<CSVRecord> listSingles) {
 		
+		int cellId=0;
+		String cellLat="";
+		String cellLng="";
+		String venueLabel="";
+		ArrayList<ArrayList<String>> venuesInfo;
+		ArrayList<String> venueRecord;
+		boolean found=false;
+		boolean added=false;
+		boolean catFound=false;
+		
 		//clean cluster name
 		String str= clusterName.substring(2, clusterName.length()-1); //keep only category names
 		String[] str_array= str.split(",");
 		
 		
-		//get the header of singles in order to get the correct vanue category name
+		//get the header of singles in order to get the correct venue category name
 		ArrayList<String> features=new ArrayList<String>();
 		for(int i=7;i<listSingles.get(0).size();i++)
 			features.add(listSingles.get(0).get(i));
 		
-		int cellId=0;
-		String cellLat="";
-		String cellLng="";
-		ArrayList<ArrayList<String>> venuesInfo;
-		boolean found=false;
-		boolean added=false;
-		ArrayList<String> venueRecord;
-		boolean catFound=false;
+		//get the venues
 		for(ArrayList<Double> array: cells) {
 			cellId=array.get(0).intValue();
 			cellLat=array.get(1)+"";
@@ -234,8 +237,24 @@ public class ClusteringTools {
 				CSVRecord r=listSingles.get(i); //venue information
 				//we don't have to consider the header
 				if(!r.get(0).contains("Timestamp")) {
+					
+					venueLabel="";
+					catFound=false;
+					//check if the venue has the same label of the cluster
+					for(int h=7;h<r.size() && !catFound;h++) {
+						if(r.get(h).equals("1.0")) {
+							//keep only venues of the same labels of the cluster
+							for(String s: str_array) {
+								if(features.get(h-7).equals(s.trim())) {
+									venueLabel=features.get(h-7);
+									catFound=true;
+								}
+							}
+						}
+					}
+					
 					//check if the venue belong to the cell
-					if(r.get(5).equals(cellLat) && r.get(6).equals(cellLng)) {
+					if(r.get(5).equals(cellLat) && r.get(6).equals(cellLng) && catFound) {
 						venueRecord=new ArrayList<String>();
 						venueRecord.add(r.get(0)); //timestamp
 						venueRecord.add(r.get(1)); //beenHere
@@ -244,17 +263,8 @@ public class ClusteringTools {
 						venueRecord.add(r.get(4)); //venue lat
 						venueRecord.add(r.get(5)); //focal lat
 						venueRecord.add(r.get(6)); //focal lng
-						catFound=false;
-						//venue category
-						for(int h=7;h<r.size() && !catFound;h++)
-							if(r.get(h).equals("1.0")) {
-								//keep only venues of the same labels of the cluster
-								for(String s: str_array)
-									if(features.get(h-7).equals(s.trim())) {
-										venueRecord.add(features.get(h-7));
-										catFound=true;
-									}
-							}
+						venueRecord.add(venueLabel); //category of the venue
+						
 						venuesInfo.add(venueRecord); //add the venue informations
 						added=true;
 					} else if(added) 

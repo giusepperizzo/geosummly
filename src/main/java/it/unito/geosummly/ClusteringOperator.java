@@ -78,8 +78,8 @@ public class ClusteringOperator {
 	    
 	    for(Clustering<?> c: cs) {
 	    	for(Cluster<?> cluster: c.getAllClusters()) {
-	    		int index=clustersName.size();
-	    		clustersName.put(index, cluster.getName()); //put the cluster name in the map
+	    		int index=clustersName.size(); //at first clustersName.size()=0
+	    		clustersName.put(index, cluster.getName()); //put the cluster name in the map (clustersName.size()++)
 	    		cellsOfCluster=tools.putCompleteCellsOfCluster(cellsOfCluster, cluster, index, listDens); //get all the cell_ids for the selected cluster
 	    		cells=cellsOfCluster.get(index);
 	    		venuesOfCell=tools.putVenuesOfCells(cluster.getName(), venuesOfCell, cells, listSingles);
