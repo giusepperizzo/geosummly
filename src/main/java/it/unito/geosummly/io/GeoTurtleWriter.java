@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -83,7 +84,12 @@ public class GeoTurtleWriter implements IGeoWriter {
 		        
     			//iterate for each venue of the cell (get the venue ids)
     			for(ArrayList<String> r: venuesOfCell) {
-    				sqrVenues.add("http://foursquare.com/v/"+r.get(2));
+    				
+    				String str= clusterLabel.substring(2,clusterLabel.length()-1); //keep only category names
+    				String[] str_array= str.split(","); //all labels of the cluster
+    				ArrayList<String> tmp=new ArrayList<String>(Arrays.asList(str_array));
+    				if(tmp.contains( (String) r.get(7)));
+    					sqrVenues.add("http://foursquare.com/v/"+r.get(2));
     			}
     		}
     		multipoint=multipoint.substring(0, multipoint.length()-1); //remove last comma

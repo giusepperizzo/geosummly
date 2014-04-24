@@ -11,6 +11,7 @@ import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.TimeZone;
@@ -96,7 +97,11 @@ public class GeoJSONWriter implements IGeoWriter{
 	    				
 	    				//create a VenueObject with the venue informations
 	    				VenueTemplate vo=new VenueTemplate(timestamp, bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
-	    				vo_array.add(vo);
+	    				String str= name.substring(2,name.length()-1); //keep only category names
+	    				String[] str_array= str.split(","); //all labels of the cluster
+	    				ArrayList<String> tmp=new ArrayList<String>(Arrays.asList(str_array));
+	    				if(tmp.contains( (String) r.get(7)))
+	    					vo_array.add(vo);
 	    			}
 	    		}
 	    		writer.endArray();

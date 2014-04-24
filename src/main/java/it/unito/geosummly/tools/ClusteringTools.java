@@ -203,7 +203,106 @@ public class ClusteringTools {
 	 * Each entry of the map will be a couple: key=cellId, list of lists of venue_info.
 	 * Only venues of the same label of the cluster will be included.
 	*/
-	public  HashMap<Integer, ArrayList<ArrayList<String>>> putVenuesOfCells(String clusterName, HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell, ArrayList<ArrayList<Double>> cells, List<CSVRecord> listSingles) {
+	public  HashMap<Integer, ArrayList<ArrayList<String>>> putVenuesOfCells(
+														String clusterName, 
+														HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell, 
+														ArrayList<ArrayList<Double>> cells, 
+														List<CSVRecord> listSingles) {
+
+		int cellId=0;
+		String cellLat="";
+		String cellLng="";
+		ArrayList<ArrayList<String>> venuesInfo;
+		ArrayList<String> venueRecord;;
+	
+		//clean cluster name
+		String str= clusterName.substring(2, clusterName.length()-1); //keep only category names
+		String[] str_array= str.split(","); //all labels of the cluster
+	
+	
+		//get the header of singles in order to get the correct venue category name
+		ArrayList<String> features=new ArrayList<String>();
+		for(int i=7;i<listSingles.get(0).size();i++)
+			features.add(listSingles.get(0).get(i));
+		
+		for(ArrayList<Double> array: cells) {
+			cellId=array.get(0).intValue();
+			cellLat=array.get(1)+"";
+			cellLng=array.get(2)+"";
+			venuesInfo=new ArrayList<ArrayList<String>>();
+		
+			//go through the venue dataset. i=1 because we don't have to consider the header
+			for(int i=1;i<listSingles.size();i++) {
+			
+				//check if the venue belong to the cell
+				CSVRecord r=listSingles.get(i);
+				if(r.get(5).equals(cellLat) && r.get(6).equals(cellLng)) {
+					venueRecord=getVenueRecord(str_array, features, r);
+					if(venueRecord.size()>0)
+						venuesInfo.add(venueRecord);
+				}
+			}
+			
+			//add venue_id only if the venue exists in the cell
+			if(venuesInfo.size()>0)
+				venuesOfCell.put(cellId, venuesInfo);
+		}
+		
+		return venuesOfCell;
+	}
+	
+	/**
+	 * Get the infos of a venue record.
+	*/
+	public ArrayList<String> getVenueRecord(String[] str_array, 
+											ArrayList<String> features,
+											CSVRecord r) {
+	
+		ArrayList<String> venueRecord=new ArrayList<String>();
+		String venueLabel=checkVenueLabel(r, str_array, features);
+		
+		if(venueLabel!=null) {
+			venueRecord.add(r.get(0)); //timestamp
+			venueRecord.add(r.get(1)); //beenHere
+			venueRecord.add(r.get(2)); //venue id
+			venueRecord.add(r.get(3)); //venue lat
+			venueRecord.add(r.get(4)); //venue lat
+			venueRecord.add(r.get(5)); //focal lat
+			venueRecord.add(r.get(6)); //focal lng
+			venueRecord.add(venueLabel); //category of the venue
+		}
+		
+		return venueRecord;
+	}
+	
+	/**
+	 * Check whether a venue has the same label of the cluster 
+	*/
+	public String checkVenueLabel(CSVRecord r, String[] str_array, ArrayList<String> features) {
+
+		boolean found = false;
+		boolean matched = false;
+		String venueLabel = null;
+		
+		for(int h=7;h<r.size() && !matched;h++) {
+		
+			if(r.get(h).equals("1.0")) {
+				matched=true;
+		
+				//keep only venues of the same labels of the cluster
+				for(int k=0; k<str_array.length && !found; k++) {
+					if(features.get(h-7).equals(str_array[k].trim())) {
+						venueLabel=features.get(h-7);
+						found=true;
+					}
+				}
+			}
+		}
+		
+		return venueLabel;
+	}
+	
+	/*public  HashMap<Integer, ArrayList<ArrayList<String>>> putVenuesOfCells(String clusterName, HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell, ArrayList<ArrayList<Double>> cells, List<CSVRecord> listSingles) {
 		
 		int cellId=0;
 		String cellLat="";
@@ -277,7 +376,7 @@ public class ClusteringTools {
 		}
 		
 		return venuesOfCell;
-	}
+	}*/
 	
 	/**
 	 * Get the Calendar of a timestamp value from a list of CSV records.  
