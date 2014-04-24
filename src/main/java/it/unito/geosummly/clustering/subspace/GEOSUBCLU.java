@@ -185,9 +185,9 @@ public class GEOSUBCLU<V extends NumberVector<?>>
     // mapping of dimensionality to set of subspaces
     HashMap<Integer, List<Subspace>> subspaceMap = new HashMap<>();
 
-    // list of 1-dimensional subspaces containing clusters
-    List<Subspace> s_1 = new ArrayList<>();
-    subspaceMap.put(0, s_1);
+    // list of 3-dimensional subspaces containing clusters
+    List<Subspace> s_3 = new ArrayList<>();
+    subspaceMap.put(0, s_3);
 
     // mapping of subspaces to list of clusters
     TreeMap<Subspace, List<Cluster<Model>>> clusterMap = new TreeMap<>(new Subspace.DimensionComparator());
@@ -208,7 +208,7 @@ public class GEOSUBCLU<V extends NumberVector<?>>
       }
 
       if (!clusters.isEmpty()) {
-        s_1.add(currentSubspace);
+        s_3.add(currentSubspace);
         clusterMap.put(currentSubspace, clusters);
       }
     }
