@@ -52,7 +52,10 @@ import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameters.ObjectParameter;
 @Title("GEOSUBCLU: Density connected Subspace Clustering on seed Geospatial Data")
 @Description("Largely inspired by SUBCLU, GEOSUBCLU applies subspace clustering on a geospatial data set")
 @Reference(authors = "Giuseppe Rizzo", title = "", booktitle = "")
-public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clustering<SubspaceModel<V>>> implements SubspaceClusteringAlgorithm<SubspaceModel<V>> {
+public class GEOSUBCLU<V extends NumberVector<?>> 
+	extends AbstractAlgorithm<Clustering<SubspaceModel<V>>> 
+	implements SubspaceClusteringAlgorithm<SubspaceModel<V>> 
+{
   /**
    * The logger for this class.
    */
@@ -182,9 +185,9 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
     // mapping of dimensionality to set of subspaces
     HashMap<Integer, List<Subspace>> subspaceMap = new HashMap<>();
 
-    // list of 1-dimensional subspaces containing clusters
-    List<Subspace> s_1 = new ArrayList<>();
-    subspaceMap.put(0, s_1);
+    // list of 3-dimensional subspaces containing clusters
+    List<Subspace> s_3 = new ArrayList<>();
+    subspaceMap.put(0, s_3);
 
     // mapping of subspaces to list of clusters
     TreeMap<Subspace, List<Cluster<Model>>> clusterMap = new TreeMap<>(new Subspace.DimensionComparator());
@@ -205,7 +208,7 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
       }
 
       if (!clusters.isEmpty()) {
-        s_1.add(currentSubspace);
+        s_3.add(currentSubspace);
         clusterMap.put(currentSubspace, clusters);
       }
     }
@@ -264,24 +267,7 @@ public class GEOSUBCLU<V extends NumberVector<?>> extends AbstractAlgorithm<Clus
       }
     }
 
-    // build result
-    //int numClusters = 1;
     result = new Clustering<>("GEOSUBCLU clustering", "geosubclu");
-    
-//    StringBuilder sb = new StringBuilder();
-//    List<String> dataset = new ArrayList<>(); 
-//    Map<String,Vector<Integer>> sets = new HashMap<>();
-//    List<Entry<String,Double>> SSEs = new LinkedList<>();
-    
-//    try {
-//		String input_dataset = FileUtils.readFileToString(new File("/home/rizzo/Workspace/geosummly/output/evaluation/clustering correctness/density-transformation-matrix.csv"), "utf8");
-//		String[] rows = input_dataset.split("\n");
-//		for(String row : rows)
-//			dataset.add(row);
-//    } catch (IOException e1) {
-//		// TODO Auto-generated catch block
-//		e1.printStackTrace();
-//	}
     
     for (Subspace subspace : clusterMap.descendingKeySet()) 
     {
