@@ -97,7 +97,7 @@ public class ClusteringTools {
 	*/
 	public HashMap<Integer, String> getFeaturesMapFromDeltad(List<CSVRecord> list) {
 		HashMap<Integer, String> features=new HashMap<Integer, String>();
-		for(CSVRecord r: list) {
+		for(CSVRecord r: list) {		
 			String f=(String) r.get(0).replace("deltad", "").replaceAll("\\(", "").replaceAll("\\)", ""); //take only feature name
 			if(!f.contains("AND") && Math.floor(Double.parseDouble(r.get(1)))>0) {
 				int mSize=features.size();
