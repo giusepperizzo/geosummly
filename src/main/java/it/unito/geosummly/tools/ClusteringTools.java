@@ -158,7 +158,7 @@ public class ClusteringTools {
 	}
 	
 	/**
-	 * Fill in the cells hashmap with a the cells of a cluster.
+	 * Fill in the cells hashmap with the cells of a cluster.
 	 * Each entry of the map will be a couple: key, list_of_triple (cell_id, lat, lng).
 	*/
 	public HashMap<Integer, ArrayList<ArrayList<Double>>> putCompleteCellsOfCluster(HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster, Cluster<?> cluster, int index, List<CSVRecord> listDens) {
@@ -200,20 +200,20 @@ public class ClusteringTools {
 	
 	/**
 	 * Fill in the venues hashmap with the venues of the cells of a cluster.
-	 * Each entry of the map will be a couple: key=cellId, list of lists of venue_info.
+	 * Each entry of the map will be a couple: key=clusterId, list of lists of venue_info.
 	 * Only venues of the same label of the cluster will be included.
 	*/
 	public  HashMap<Integer, ArrayList<ArrayList<String>>> putVenuesOfCells(
-														String clusterName, 
+														String clusterName,
+														int index,
 														HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell, 
 														ArrayList<ArrayList<Double>> cells, 
 														List<CSVRecord> listSingles) {
 
-		int cellId=0;
 		String cellLat="";
 		String cellLng="";
 		ArrayList<ArrayList<String>> venuesInfo;
-		ArrayList<String> venueRecord;;
+		ArrayList<String> venueRecord;
 	
 		//clean cluster name
 		String str= clusterName.substring(2, clusterName.length()-1); //keep only category names
@@ -226,7 +226,6 @@ public class ClusteringTools {
 			features.add(listSingles.get(0).get(i));
 		
 		for(ArrayList<Double> array: cells) {
-			cellId=array.get(0).intValue();
 			cellLat=array.get(1)+"";
 			cellLng=array.get(2)+"";
 			venuesInfo=new ArrayList<ArrayList<String>>();
@@ -245,7 +244,7 @@ public class ClusteringTools {
 			
 			//add venue_id only if the venue exists in the cell
 			if(venuesInfo.size()>0)
-				venuesOfCell.put(cellId, venuesInfo);
+				venuesOfCell.put(index, venuesInfo);
 		}
 		
 		return venuesOfCell;
@@ -253,6 +252,7 @@ public class ClusteringTools {
 	
 	/**
 	 * Get the infos of a venue record.
+	 * This method is exploit by the method putVenuesOfCell
 	*/
 	public ArrayList<String> getVenueRecord(String[] str_array, 
 											ArrayList<String> features,
@@ -276,7 +276,8 @@ public class ClusteringTools {
 	}
 	
 	/**
-	 * Check whether a venue has the same label of the cluster 
+	 * Check whether a venue has the same label of the cluster.
+	 * This method is exploit by getVenueRecord 
 	*/
 	public String checkVenueLabel(CSVRecord r, String[] str_array, ArrayList<String> features) {
 

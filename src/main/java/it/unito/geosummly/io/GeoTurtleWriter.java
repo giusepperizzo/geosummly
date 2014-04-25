@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -74,24 +73,16 @@ public class GeoTurtleWriter implements IGeoWriter {
     			String s1=df.format(cl.get(1)).replaceAll(",", ".");
     			String s2=df.format(cl.get(2)).replaceAll(",", ".");
     			multipoint=multipoint+"("+s1+","+s2+"),";
-    			
-    			//put venue informations to the list (get the venue of the cell)
-		        if(venues.containsKey(cl.get(0).intValue())) {
-    				venuesOfCell=new ArrayList<ArrayList<String>>(venues.get(cl.get(0).intValue()));
-    			}
-    			else
-    				venuesOfCell=new ArrayList<ArrayList<String>>();
-		        
-    			//iterate for each venue of the cell (get the venue ids)
-    			for(ArrayList<String> r: venuesOfCell) {
-    				
-    				String str= clusterLabel.substring(2,clusterLabel.length()-1); //keep only category names
-    				String[] str_array= str.split(","); //all labels of the cluster
-    				ArrayList<String> tmp=new ArrayList<String>(Arrays.asList(str_array));
-    				if(tmp.contains( (String) r.get(7)));
-    					sqrVenues.add("http://foursquare.com/v/"+r.get(2));
-    			}
     		}
+    		
+    		//iterate for each venue of the cluster (get all the venues it they exist)
+    		Object tmp=venues.get(i);
+    		if(tmp!=null) {
+    			venuesOfCell=new ArrayList<ArrayList<String>>(venues.get(i));
+    			for(ArrayList<String> r: venuesOfCell)
+					sqrVenues.add("http://foursquare.com/v/"+r.get(2));
+    		}
+    		
     		multipoint=multipoint.substring(0, multipoint.length()-1); //remove last comma
     		multipoint=multipoint+")"; //concatenate parenthesis
     		model=serializeAnnotation(multipoint, clusterLabel, sqrVenues, cal);

@@ -11,7 +11,6 @@ import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.TimeZone;
@@ -21,14 +20,10 @@ import com.google.gson.stream.JsonWriter;
 public class GeoJSONWriter implements IGeoWriter{
 	
 	@Override
-	public void writeStream(
-							BoundingBox bbox,
-							HashMap<Integer, String> labels, 
+	public void writeStream(BoundingBox bbox, HashMap<Integer, String> labels, 
 							HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
 							HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
-							double eps, 
-							String output, 
-							Calendar cal) {
+							double eps, String output, Calendar cal) {
 		try {
 			//Get the current date. Example: 2014-03-19T17:10:57.616Z
 			SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd'T'H:mm:ss.SSS'Z'");
@@ -45,6 +40,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	    	int key; //cluster key
 	    	ArrayList<ArrayList<Double>> cellsOfCluster; //cells informations (cell_id, cell_lat, cell_lng) of a cluster
 	    	ArrayList<ArrayList<String>> venuesOfCell; //all venues of a cell
+	    	DecimalFormat df=new DecimalFormat("#.########");
 	    	
 	    	JsonWriter writer = new JsonWriter(new OutputStreamWriter(os, "UTF-8"));
 	        
@@ -59,6 +55,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		name=labels.get(i);
 	    		key=i;
 	    		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i));
+    		
 	    		ArrayList<VenueTemplate> vo_array=new ArrayList<VenueTemplate>();
 	    		writer.beginObject();
 	    		writer.name("type").value("Feature");
@@ -71,38 +68,12 @@ public class GeoJSONWriter implements IGeoWriter{
 	        	
 	    		//iterate for each cell of the cluster
 	    		for(ArrayList<Double> cl: cellsOfCluster) {
-	    			DecimalFormat df=new DecimalFormat("#.########");
 	    			String s1=df.format(cl.get(1)).replaceAll(",", ".");
 	    			String s2=df.format(cl.get(2)).replaceAll(",", ".");
 	    			writer.beginArray();
 	    			writer.value(Double.parseDouble(s1));
 	    			writer.value(Double.parseDouble(s2));
 	    			writer.endArray();
-	    			
-	    			//put venue informations to the list
-			        if(venues.containsKey(cl.get(0).intValue())) {
-	    				venuesOfCell=new ArrayList<ArrayList<String>>(venues.get(cl.get(0).intValue()));
-	    			}
-	    			else
-	    				venuesOfCell=new ArrayList<ArrayList<String>>();
-			        
-	    			//iterate for each venue of the cell
-	    			for(ArrayList<String> r: venuesOfCell) {
-	    				Long timestamp=Long.parseLong(r.get(0));
-	    				Integer bH=Integer.parseInt(r.get(1));
-	    				Double vLat=Double.parseDouble(df.format(Double.parseDouble(r.get(3))).replaceAll(",", "."));
-	    				Double vLng=Double.parseDouble(df.format(Double.parseDouble(r.get(4))).replaceAll(",", "."));
-	    				Double fLat=Double.parseDouble(df.format(Double.parseDouble(r.get(5))).replaceAll(",", "."));
-	    				Double fLng=Double.parseDouble(df.format(Double.parseDouble(r.get(6))).replaceAll(",", "."));
-	    				
-	    				//create a VenueObject with the venue informations
-	    				VenueTemplate vo=new VenueTemplate(timestamp, bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
-	    				String str= name.substring(2,name.length()-1); //keep only category names
-	    				String[] str_array= str.split(","); //all labels of the cluster
-	    				ArrayList<String> tmp=new ArrayList<String>(Arrays.asList(str_array));
-	    				if(tmp.contains( (String) r.get(7)))
-	    					vo_array.add(vo);
-	    			}
 	    		}
 	    		writer.endArray();
 		        writer.endObject();
@@ -113,19 +84,37 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		writer.name("venues");
 	    		writer.beginArray();
 	    		
-	    		//write down all the VenueObjects of the cluster
-	    		for(VenueTemplate obj: vo_array) {
-	    			writer.beginObject();
-	    			writer.name("timestamp").value(obj.getTimestamp());
-	    			if(obj.getBeen_here()>0)
-	    				writer.name("beenHere").value(obj.getBeen_here());
-	    			writer.name("id").value(obj.getId());
-	    			writer.name("venueLatitude").value(obj.getVenue_latitude());
-	    			writer.name("venueLongitude").value(obj.getVenue_longitude());
-	    			writer.name("centroidLatitude").value(obj.getFocal_latitude());
-	    			writer.name("centroidLongitude").value(obj.getFocal_longitude());
-	    			writer.name("category").value(obj.getCategory());
-	    			writer.endObject();
+	    		//iterate for each venue of the cluster
+	    		Object tmp=venues.get(key);
+	    		if(tmp!=null) {
+	    			venuesOfCell=new ArrayList<ArrayList<String>>(venues.get(key));
+		    		for(ArrayList<String> r: venuesOfCell) {
+	    				Long timestamp=Long.parseLong(r.get(0));
+	    				Integer bH=Integer.parseInt(r.get(1));
+	    				Double vLat=Double.parseDouble(df.format(Double.parseDouble(r.get(3))).replaceAll(",", "."));
+	    				Double vLng=Double.parseDouble(df.format(Double.parseDouble(r.get(4))).replaceAll(",", "."));
+	    				Double fLat=Double.parseDouble(df.format(Double.parseDouble(r.get(5))).replaceAll(",", "."));
+	    				Double fLng=Double.parseDouble(df.format(Double.parseDouble(r.get(6))).replaceAll(",", "."));
+	    				
+	    				//create a VenueObject with the venue informations
+	    				VenueTemplate vo=new VenueTemplate(timestamp, bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
+    					vo_array.add(vo);
+	    			}
+		    		
+		    		//write down all the VenueObjects of the cluster
+		    		for(VenueTemplate obj: vo_array) {
+		    			writer.beginObject();
+		    			writer.name("timestamp").value(obj.getTimestamp());
+		    			if(obj.getBeen_here()>0)
+		    				writer.name("beenHere").value(obj.getBeen_here());
+		    			writer.name("id").value(obj.getId());
+		    			writer.name("venueLatitude").value(obj.getVenue_latitude());
+		    			writer.name("venueLongitude").value(obj.getVenue_longitude());
+		    			writer.name("centroidLatitude").value(obj.getFocal_latitude());
+		    			writer.name("centroidLongitude").value(obj.getFocal_longitude());
+		    			writer.name("category").value(obj.getCategory());
+		    			writer.endObject();
+		    		}
 	    		}
 	    		writer.endArray();
 	        	writer.endObject();
