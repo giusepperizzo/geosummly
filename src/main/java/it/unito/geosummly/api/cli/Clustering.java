@@ -24,7 +24,7 @@ public class Clustering {
 	private Double epsValue=0.0;
 	//private String method="geosubclu";
 
-	public void run(String[] args) throws IOException {
+	public void run(String[] args) {
 		
 		Options options= initOptions(); //define list of options
 		CommandLineParser parser=new PosixParser(); //create the command line parser
@@ -84,7 +84,7 @@ public class Clustering {
 			ClusteringOperator co=new ClusteringOperator();
 			co.execute(coordinates, inDensity, inNorm, inDeltad, inVenues, outDir, epsValue, "");
 		}
-		catch(ParseException | NumberFormatException e) {
+		catch(IOException | ParseException | NumberFormatException e) {
 			System.out.println("Unexpected exception: " + e.getMessage());
 		}
 	}

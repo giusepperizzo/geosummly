@@ -127,4 +127,44 @@ public class BoundingBox {
 
 	    return Math.floor(dist*1000)/1000;
 	}
+
+	/**
+	 * Overrided from java to implement equals method
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(centerLat);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(centerLng);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	/**
+	 * Overrided from java. The equality check is based on 
+	 * center latitude and center longitude values
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof BoundingBox))
+			return false;
+		BoundingBox other = (BoundingBox) obj;
+		if (Double.doubleToLongBits(centerLat) != Double
+				.doubleToLongBits(other.centerLat)  ||  
+			Double.doubleToLongBits(centerLng) != Double
+				.doubleToLongBits(other.centerLng))
+			return false;
+		return true;
+	}
+	
+	
+	
+	
 }

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import it.unito.geosummly.api.cli.Clustering;
 import it.unito.geosummly.api.cli.Discovery;
 import it.unito.geosummly.api.cli.Evaluation;
+import it.unito.geosummly.api.cli.Import;
 import it.unito.geosummly.api.cli.Optimization;
 import it.unito.geosummly.api.cli.Sampling;
 
@@ -25,7 +26,7 @@ public class MainCLI {
 	private void run(String[] args) {
 		
 		CommandLineParser parser=new PosixParser(); //create the command line parser
-		String helpFooter="Allowed operation: sampling, discovery, clustering, evaluation, optimization."
+		String helpFooter="Allowed operation: sampling, import, discovery, clustering, evaluation, optimization."
 				+ "\nDigit <operation> help for more details.";
 		
 		try {
@@ -36,6 +37,10 @@ public class MainCLI {
 			case "sampling":
 				Sampling sampling=new Sampling();
 				sampling.run(args);
+				break;
+			case "import":
+				Import imp=new Import();
+				imp.run(args);
 				break;
 			case "discovery":
 				Discovery discovery = new Discovery();
