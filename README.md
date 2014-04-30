@@ -3,9 +3,9 @@ geosummly
 
 ####Geo Summarization Based on Crowd Sensors
 
-geosummly is as a 5-states application, respectively:
-* sampling: it performs the sampling of foursquare venues that are surrounded by a bounding box, and it generates a multidimensional tensor matrix where each dimension reports the magnitude of the Fourquare category vanue, and each object shapes a portion (cell) of the original 
-bounding box;
+geosummly is as a 6-states application, respectively:
+* sampling: it performs the sampling of foursquare venues that are surrounded by a bounding box, and it records this informations on a matrix 
+* import: it generates a multidimensional tensor matrix, given the sampled data, where each dimension reports the magnitude of the Fourquare category venue, and each object shapes a portion (cell) of the original bounding box;
 * discovery: it estimates the parameter minpts;
 * clustering: it performs the clustering algorithm;
 * evaluation: it computes the SSE and the Jaccard as evaluation means of the obtained clustering output.
@@ -19,8 +19,6 @@ bounding box;
 -L –coord   <n,e,s,w>       set the input grid coordinates
 -I –input   <path/to/file>  set the geojson input file
 -O –output  <path/to/dir>   set the output directory
--v -vtype   <arg>           set the type of venue grouping. Allowed values: single, cell. Default single.
--l –ltype   <arg>           set the type of coordinates (latitude and longitude) normalization. Allowed values: norm, notnorm, missing. Default norm.
 -g –gnum    <arg>           set the number of cells of a side of the squared grid. Default 20.
 -r –rnum    <arg>           set the number of cells, taken randomly, chosen for the sampling.
 -s –social  <arg>           set the social network for meta-data collection. So far only foursquare is activable. Default fourquare.
@@ -28,7 +26,17 @@ bounding box;
 -C –cache                   cache activation. Default deactivated.
 ```
 The options *coord*, *input* (only if *coord* is not specified), *output* are mandatory. The options *input* and *coord* are mutually exclusive. The options *input* and *gnum* are mutually exclusive. The options *input* and *rnum* are mutually exclusive.
-The output consists of a file of single venues, a file of grid-shaped aggregated venues, a file of density values of the previous aggregates, a file with intra-feature normalized density values shifted in [0,1], a log file with the sampling informations. 
+The output consists of a file of single venues for each of the two levels of the Foursquare categories taxonomy, a log file with the sampling informations. 
+
+#####import
+```sh
+-I –input   <path/to/file>  set the csv input file
+-L –coord   <n,e,s,w>       set the bounding box coordinates
+-g –gnum    <arg>           set the number of cells of a side of the squared grid. Default 20.
+-O –output  <path/to/dir>   set the output directory
+-l –ltype   <arg>           set the type of coordinates (latitude and longitude) normalization. Allowed values: norm, notnorm, missing. Default norm.
+```
+The options *input*, *coord*, *gnum*, *output* are mandatory." Input file has to be a .csv of single venues, output of the sampling state. The output consist of a file of grid-shaped aggregated venues, a file of density values of the previous aggregates, a file with intra-feature normalized density values shifted in [0,1].
 
 #####discovery
 ```sh
@@ -50,7 +58,7 @@ The options *input*, *output* are mandatory. Input file has to be a .csv of grid
 -M -method      <arg>           set the clustering algorithm. So far only geosubclu is activable. Default geosubclu.
 -e -eps         <arg>           set the eps value of clustering algorithm. Default sqrt(2) * (1/ sqrt( size(density_values) )).
 ```
-The options *density*, *normalized*, *deltad*, *venues*, *coord*, *output* are mandatory. Density file has to be a .csv of grid-shaped density values, output the Sampling state. Normalized file has to be a .csv of grid-shaped normalized density values, output of the sampling state. Deltad file has to be a .csv of deltad values, output the Discovery state. Venues file has to be a .csv of single venues, output the Sampling state. The output consists of a .geojson file expressed as a feature collection whose features are the clusters, a set of RDF Turtle file (one for each cluster), a log file with the clustering informations.
+The options *density*, *normalized*, *deltad*, *venues*, *coord*, *output* are mandatory. Density file has to be a .csv of grid-shaped density values, output the import state. Normalized file has to be a .csv of grid-shaped normalized density values, output of the import state. Deltad file has to be a .csv of deltad values, output the discovery state. Venues file has to be a .csv of single venues, output the sampling state. The output consists of a .geojson file expressed as a feature collection whose features are the clusters, a set of RDF Turtle file (one for each cluster), a log file with the clustering informations.
 
 #####evaluation
 ```sh
@@ -90,9 +98,11 @@ The output consists of a log file, a geojson file with the clustering result aft
 ###Examples
 
 ```sh
-geosummly sampling –input path/to/file.geojson –output path/to/dir –vtype cell –ctype missing 
+geosummly sampling –input path/to/file.geojson –output path/to/dir –ctype missing 
 
-geosummly sampling –coord 45,8,44,7 –output path/to/dir –cnum 40 –snum 100
+geosummly sampling –coord 45,8,44,7 –output path/to/dir –gnum 40 –rnum 100
+
+geosummly import -input path/to/file.csv -coord 48,8,44,7 -gnum 100 -output path/to/dir -ltype notnorm
 
 geosummly discovery –input path/to/file.csv –output path/to/dir –combination 3
 
