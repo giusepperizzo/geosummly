@@ -4,12 +4,12 @@ geosummly
 ####Geo Summarization Based on Crowd Sensors
 
 geosummly is as a 6-states application, respectively:
-* sampling: it performs the sampling of foursquare venues that are surrounded by a bounding box, and it records this informations on a matrix 
+* sampling: it performs the sampling of foursquare venues that are surrounded by a bounding box, and it records this informations on a matrix;
 * import: it generates a multidimensional tensor matrix, given the sampled data, where each dimension reports the magnitude of the Fourquare category venue, and each object shapes a portion (cell) of the original bounding box;
 * discovery: it estimates the parameter minpts;
 * clustering: it performs the clustering algorithm;
 * evaluation: it computes the SSE and the Jaccard as evaluation means of the obtained clustering output.
-* optimization: it performs the Pareto distribution on the clustering output by exploiting 3 optimization functions: cluster spatial coverage, cluster density, cluster heterogeneity  
+* optimization: it performs the Pareto distribution on the clustering output by exploiting 3 optimization functions: cluster spatial coverage, cluster density, cluster heterogeneity.
 
 
 ###CLI commands
