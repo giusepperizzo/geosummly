@@ -1,7 +1,6 @@
 package it.unito.geosummly.tools;
 
 import it.unito.geosummly.BoundingBox;
-import it.unito.geosummly.TransformationMatrix;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -101,21 +100,19 @@ public class EvaluationTools {
 	}
 	
 	/**
-	 * Fill in the map of features from a list of CSV records.
-	 * Timestamp, been here, venue id, venue latitude, venue longitude, centroid latitude and centroid longitude columns
-	 * won't be considered.
-	 * Each record of the map will be: feature name, key.
-	 * The keys start from 2.
+	 * Fill in the list of features from a list of CSV records.
+	 * Timestamp, been here, venue id, venue latitude, venue longitude, 
+	 * centroid latitude and centroid longitude columns won't be considered.
 	*/
-	public HashMap<String, Integer> getFeaturesMapFromList(List<CSVRecord> list) {
-		HashMap<String, Integer> map=new HashMap<String, Integer>();
-		int key=2;
+	public ArrayList<String> getFeaturesFromList(List<CSVRecord> list) {
+		
+		ArrayList<String> features = new ArrayList<String>();
+		
 		//Don't consider timestamp, been here, venue id, venueLat, venueLng, focalLat, focalLng, so k=7
-		for(int i=7;i<list.get(0).size();i++) {
-			map.put(list.get(0).get(i), key);
-			key++;
-		}
-		return map;
+		for(int i=7;i<list.get(0).size();i++)
+			features.add(list.get(0).get(i));
+		
+		return features;
 	}
 	
 	/**
@@ -153,9 +150,25 @@ public class EvaluationTools {
 	}
 	
 	/**
+	 * Remove the columns venue_latitude and venue_longitude from the folds  
+	*/
+	public ArrayList<ArrayList<ArrayList<Double>>> removeVenueCoordinates(ArrayList<ArrayList<ArrayList<Double>>> folds) {
+		
+		for(ArrayList<ArrayList<Double>> f: folds) {
+			for(ArrayList<Double> rec: f) {
+				rec.remove(1); //remove venue latitude
+				rec.remove(0); //remove venue longitude
+			}
+		}
+		
+		ArrayList<ArrayList<ArrayList<Double>>> newFolds = new ArrayList<ArrayList<ArrayList<Double>>>(folds);
+		return newFolds;
+	}
+	
+	/**
 	 * Group the folds from single venues to cells.
 	*/
-	public ArrayList<ArrayList<ArrayList<Double>>> groupFolds(TransformationTools tools, ArrayList<BoundingBox> data, ArrayList<ArrayList<ArrayList<Double>>> allMatrices) {
+	public ArrayList<ArrayList<ArrayList<Double>>> groupFolds(ImportTools tools, ArrayList<BoundingBox> data, ArrayList<ArrayList<ArrayList<Double>>> allMatrices) {
 		ArrayList<ArrayList<ArrayList<Double>>> allGrouped=new ArrayList<ArrayList<ArrayList<Double>>>();
 		ArrayList<ArrayList<Double>> ithGrouped;
 		for(ArrayList<ArrayList<Double>> m: allMatrices) {
@@ -166,34 +179,6 @@ public class EvaluationTools {
 			allGrouped.add(ithGrouped);
 		}
 		return allGrouped;
-	}
-	
-	/**
-	 * Get the area of each cell of the grid.
-	*/
-	public ArrayList<Double> getCellsArea(TransformationTools tools, ArrayList<BoundingBox> data, ArrayList<ArrayList<Double>> matrix) {
-		ArrayList<Double> areas=new ArrayList<Double>();
-		double edgeValue=tools.getDistance(data.get(0).getCenterLat(), data.get(0).getCenterLng(), data.get(1).getCenterLat(), data.get(1).getCenterLng());
-		double areaValue=Math.pow(edgeValue, 2);
-		for(int i=0; i<matrix.size();i++)
-			areas.add(areaValue);
-		return areas;
-	}
-	
-	/**
-	 * Get the transformation matrix of a fold.
-	*/
-	public TransformationMatrix transformFold(ArrayList<ArrayList<Double>> grouped, TransformationTools tools, HashMap<String, Integer> map, ArrayList<Double> bboxArea) {
-		TransformationMatrix tm=new TransformationMatrix();
-		tm=new TransformationMatrix();
-		ArrayList<ArrayList<Double>> frequency=tools.sortMatrix(CoordinatesNormalizationType.NORM, grouped, map);
-		tm.setFrequencyMatrix(frequency);
-		ArrayList<ArrayList<Double>> density=tools.buildDensityMatrix(CoordinatesNormalizationType.NORM, tm.getFrequencyMatrix(), bboxArea);
-		tm.setDensityMatrix(density);
-		ArrayList<ArrayList<Double>> normalized=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, tm.getDensityMatrix());
-		tm.setNormalizedMatrix(normalized);
-		tm.setHeader(tools.sortFeatures(map));
-		return tm;
 	}
 	
 	/**
@@ -271,5 +256,39 @@ public class EvaluationTools {
 		double discard= (cl_sse*100)/min;
 		
 		return discard;
+	}
+	
+	/**Change the feature label by replacing 'old' with 'last'*/
+	public ArrayList<String> changeFeaturesLabel(String old, String last, ArrayList<String> features) {
+		String label="";
+		ArrayList<String> featuresLabel=new ArrayList<String>();
+		for(int i=0;i<features.size();i++) {
+			//remove character and parenthesis
+			label=features.get(i).replaceFirst(old, last).replaceAll("\\(", "").replaceAll("\\)", "");
+			featuresLabel.add(label);
+		}
+		return featuresLabel;
+	}
+	
+	/**Get the feature labeled either for frequency, density or normalized density without timestamp column*/
+	public ArrayList<String> getFeaturesLabelNoTimestamp(CoordinatesNormalizationType type, String s, ArrayList<String> features) {
+		ArrayList<String> featuresLabel=new ArrayList<String>();
+		if(type.equals(CoordinatesNormalizationType.NORM) || type.equals(CoordinatesNormalizationType.NOTNORM)) {
+			String label="";
+			featuresLabel.add(features.get(0)); //Latitude
+			featuresLabel.add(features.get(1)); //Longitude
+			for(int i=2;i<features.size();i++) {
+				label=s+"("+features.get(i)+")";
+				featuresLabel.add(label);
+			}
+		}
+		else if(type.equals(CoordinatesNormalizationType.MISSING)) {
+			String label="";
+			for(int i=2;i<features.size();i++) {
+				label=s+"("+features.get(i)+")";
+				featuresLabel.add(label);
+			}
+		}
+		return featuresLabel;
 	}
 }

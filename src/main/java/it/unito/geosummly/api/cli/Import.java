@@ -35,7 +35,7 @@ public class Import {
 				+ "\nInput file has to be a .csv of single venues, output of the sampling state."
 				+ "\nThe output consist of a file of grid-shaped aggregated venues, "
 				+ "a file of density values of the previous aggregates, "
-				+ "a file with intra-feature normalized density values shifted in [0,1], "
+				+ "a file with intra-feature normalized density values shifted in [0,1] "
 				+ "\n------------------------------------------------------------------"
 				+ "\nExamples:"
 				+ "\ngeosummly import -input path/to/file.csv -coord 48,8,44,7 "

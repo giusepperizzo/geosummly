@@ -119,17 +119,14 @@ public class LogDataIO {
 	/**
 	 * Write the log file of sampling process 
 	*/
-	public void writeSamplingLog(BoundingBox bbox, int cellNumber, double cellArea, int categories_1st, int categories_2nd, String output) {
+	public void writeSamplingLog(BoundingBox bbox, ArrayList<BoundingBox> data, int categories_1st, int categories_2nd, String output) {
 		
+		int cellNumber=data.size();
+		double cellArea=data.get(0).getArea();
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
 	    	File file=new File(dir.getPath().concat("/sampling.log"));
-	    	
-	    	//if file doesn't exist, then create it
-			/*if(!file.exists()){
-				file.createNewFile();
-			}*/
 	    	
     		FileWriter fw = new FileWriter(file);
 	        BufferedWriter bw = new BufferedWriter(fw);

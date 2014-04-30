@@ -1,5 +1,7 @@
 package it.unito.geosummly.io;
 
+import it.unito.geosummly.BoundingBox;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -31,9 +33,65 @@ public class CSVDataIO {
 		return list;
 	}
 	
+	/**METODO PROVVISORIO UTILE PER CREAZIONE GEOJSON*/
+	public void printCells(ArrayList<BoundingBox> data, String directoryName, String fileName) {
+		
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+		OutputStreamWriter osw = new OutputStreamWriter(bout);
+        try {
+            CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
+            
+        	csv.print("Row");
+        	csv.print("Column");
+        	csv.print("North");
+        	csv.print("East");
+        	csv.print("South");
+        	csv.print("West");
+        	csv.print("Center_Lat");
+        	csv.print("Center_Lng");
+        	csv.print("Area");
+        	csv.println();
+            
+            for(BoundingBox b: data) {
+            	csv.print(b.getRow());
+            	csv.print(b.getColumn());
+            	csv.print(b.getNorth());
+            	csv.print(b.getEast());
+            	csv.print(b.getSouth());
+            	csv.print(b.getWest());
+            	csv.print(b.getCenterLat());
+            	csv.print(b.getCenterLng());
+            	csv.print(b.getArea());
+            	csv.println();
+            }
+            
+            csv.flush();
+            csv.close();
+        } catch (IOException e1) {
+    		e1.printStackTrace();
+        }
+        OutputStream outputStream;
+        try {
+        	File dir=new File(directoryName); //create the output directory if it doesn't exist
+        	dir.mkdirs();
+            outputStream = new FileOutputStream (dir.getPath().concat(fileName));
+            bout.writeTo(outputStream);
+            
+            bout.close();
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }		
+	}
+	
+	
+	
+	
+	
 	/**
 	 * Print result of transformation matrix to csv file.
-	 * @param string 
 	*/
 	public void printResultHorizontal(
 										ArrayList<Long> timestamps, 

@@ -1,8 +1,7 @@
 package it.unito.geosummly;
 
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
-import it.unito.geosummly.tools.InformationType;
-import it.unito.geosummly.tools.TransformationTools;
+import it.unito.geosummly.tools.SamplingTools;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +12,7 @@ public class TransformationToolsTest extends TestCase {
 	
 	public void testbuildListZero() {
 		//Initialize the transformation matrix and execute the method
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		int size=5;
 		ArrayList<Double> actual=tm.buildListZero(size);
 		
@@ -26,9 +25,9 @@ public class TransformationToolsTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
-	public void testUpdateMap() {
+	/*public void testUpdateMap() {
 		//Initialize the transformation matrix and create the hash map 
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		HashMap<String, Integer> actual=new HashMap<String, Integer>();
 		ArrayList<String> a=new ArrayList<String>();
 		a.add("Cat 1");
@@ -62,11 +61,11 @@ public class TransformationToolsTest extends TestCase {
 		//Start the tests
 		assertNotNull(actual);
 		assertEquals(expected, actual);
-	}
+	}*/
 	
-	public void testFillRow() {
+	/*public void testFillRow() {
 		//Initialize the transformation matrix and create a consistent row 
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		HashMap<String, Integer> map=new HashMap<String, Integer>();
 		map.put("Cat 1", 2);
 		map.put("Cat 2", 3);
@@ -102,11 +101,11 @@ public class TransformationToolsTest extends TestCase {
 		//Start the tests
 		assertNotNull(actual);
 		assertEquals(expected, actual);
-	}
+	}*/
 	
 	public void testFixRowsLength() {
 		//Initialize the transformation matrix and execute the method
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		ArrayList<ArrayList<Double>> actual= new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> row1=new ArrayList<Double>();
 		row1.add(0.1);
@@ -150,9 +149,9 @@ public class TransformationToolsTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
-	public void testGetSum() {
+	/*public void testGetSum() {
 		//Initialize the transformation matrix and execute the method
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		ArrayList<Double> a=new ArrayList<Double>();
 		a.add(5.0);
 		ArrayList<Double> b=new ArrayList<Double>();
@@ -170,11 +169,11 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected, actual, 0);
-	}
+	}*/
 	
-	public void testGetSumArray() {
+	/*public void testGetSumArray() {
 		//Initialize the transformation matrix and execute the method
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		ArrayList<Double> a=new ArrayList<Double>();
 		a.add(5.0);
 		a.add(6.0);
@@ -203,11 +202,11 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected, actual);
-	}
+	}*/
 	
-	public void testGetMin() {
+	/*public void testGetMin() {
 		//Initialize the transformation matrix and execute the method
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		ArrayList<Double> a=new ArrayList<Double>();
 		a.add(5.0);
 		a.add(3.0);
@@ -228,11 +227,11 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected, actual, 0);
-	}
+	}*/
 	
-	public void testGetMinArray() {
+	/*public void testGetMinArray() {
 		//Initialize the transformation matrix and execute the method
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		ArrayList<Double> a=new ArrayList<Double>();
 		a.add(5.0);
 		a.add(3.0);
@@ -255,11 +254,11 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected, actual);
-	}
+	}*/
 	
-	public void testGetMax() {
+	/*public void testGetMax() {
 		//Initialize the transformation matrix and execute the method
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		ArrayList<Double> a=new ArrayList<Double>();
 		a.add(5.0);
 		a.add(3.0);
@@ -280,11 +279,11 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected, actual, 0);
-	}
+	}*/
 	
-	public void testGetMaxArray() {
+	/*public void testGetMaxArray() {
 		//Initialize the transformation matrix and execute the method
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		ArrayList<Double> a=new ArrayList<Double>();
 		a.add(5.0);
 		a.add(3.0);
@@ -307,10 +306,10 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected, actual);
-	}
+	}*/
 	
-	public void testGetIntraFeatureNormalization() {
-		TransformationTools tm=new TransformationTools();
+	/*public void testGetIntraFeatureNormalization() {
+		SamplingTools tm=new SamplingTools();
 		ArrayList<Double> record=new ArrayList<Double>();
 		record.add(40.0);
 		record.add(50.0);
@@ -331,10 +330,10 @@ public class TransformationToolsTest extends TestCase {
 		expected.add(0.1);
 		
 		assertEquals(expected, actual);
-	}
+	}*/
 	
-	public void testGetIntraFeatureNormalizationNoCoord() {
-		TransformationTools tm=new TransformationTools();
+	/*public void testGetIntraFeatureNormalizationNoCoord() {
+		SamplingTools tm=new SamplingTools();
 		ArrayList<Double> record=new ArrayList<Double>();
 		record.add(2.0);
 		record.add(4.0);
@@ -351,17 +350,17 @@ public class TransformationToolsTest extends TestCase {
 		expected.add(0.1);
 		
 		assertEquals(expected, actual);
-	}
+	}*/
 	
-	public void testNormalizeValues() {
-		TransformationTools tm=new TransformationTools();
+	/*public void testNormalizeValues() {
+		SamplingTools tm=new SamplingTools();
 		double actual=tm.normalizeValues(-90, 90, 45);
 		double expected=0.75;
 		assertEquals(expected, actual, 0);
-	}
+	}*/
 	
-	public void testNormalizeRow() {
-		TransformationTools tm=new TransformationTools();
+	/*public void testNormalizeRow() {
+		SamplingTools tm=new SamplingTools();
 		ArrayList<Double> record=new ArrayList<Double>();
 		record.add(6.0);
 		record.add(16.0);
@@ -378,10 +377,10 @@ public class TransformationToolsTest extends TestCase {
 		expected.add(0.0);
 		
 		assertEquals(expected, actual);
-	}
+	}*/
 	
-	public void testSortMatrix() {
-		TransformationTools tm=new TransformationTools();
+	/*public void testSortMatrix() {
+		SamplingTools tm=new SamplingTools();
 		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> rec1=new ArrayList<Double>();
 		rec1.add(40.0);
@@ -442,10 +441,10 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected, actual);
-	}
+	}*/
 	
-	public void testBuildDensityMatrix() {
-		TransformationTools tm=new TransformationTools();
+	/*public void testBuildDensityMatrix() {
+		SamplingTools tm=new SamplingTools();
 		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> a=new ArrayList<Double>();
 		ArrayList<Double> b=new ArrayList<Double>();
@@ -494,7 +493,7 @@ public class TransformationToolsTest extends TestCase {
 		//Start the test
 		assertEquals(expected, actual);
 		
-		TransformationTools tm1=new TransformationTools();
+		SamplingTools tm1=new SamplingTools();
 		ArrayList<ArrayList<Double>> matrix1=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> a1=new ArrayList<Double>();
 		ArrayList<Double> b1=new ArrayList<Double>();
@@ -530,11 +529,11 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected1, actual1);
-	}
+	}*/
 	
-	public void testBuildNormalizedMatrix() {
+	/*public void testBuildNormalizedMatrix() {
 		//Initialize the transformation matrix and execute the method
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		ArrayList<ArrayList<Double>> matrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> a=new ArrayList<Double>();
 		ArrayList<Double> b=new ArrayList<Double>();
@@ -580,10 +579,10 @@ public class TransformationToolsTest extends TestCase {
 		for(int i=0;i<actual.size();i++)
 			for(int j=0;j<actual.get(i).size();j++)
 				assertEquals(expected.get(i).get(j), actual.get(i).get(j), 0.001);
-	}
+	}*/
 	
 	public void testSortFeatures() {
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		HashMap<String, Integer> map=new HashMap<String, Integer>();
 		map.put("B", 2);
 		map.put("C", 3);
@@ -602,7 +601,7 @@ public class TransformationToolsTest extends TestCase {
 	}
 	
 	public void testGetFeaturesForSinglesEvaluation() {
-		TransformationTools tm=new TransformationTools();
+		SamplingTools tm=new SamplingTools();
 		ArrayList<String> a=new ArrayList<String>();
 		a.add("Latitude");
 		a.add("Longitude");
@@ -627,8 +626,8 @@ public class TransformationToolsTest extends TestCase {
 		assertEquals(expected, actual);
 	}
 	
-	public void testGetFeaturesLabel() {
-		TransformationTools tm=new TransformationTools();
+	/*public void testGetFeaturesLabel() {
+		SamplingTools tm=new SamplingTools();
 		ArrayList<String> a=new ArrayList<String>();
 		a.add("Latitude");
 		a.add("Longitude");
@@ -648,7 +647,7 @@ public class TransformationToolsTest extends TestCase {
 		//Start the test
 		assertEquals(expected, actual);
 		
-		TransformationTools tm1=new TransformationTools();
+		SamplingTools tm1=new SamplingTools();
 		ArrayList<String> a1=new ArrayList<String>();
 		a1.add("Latitude");
 		a1.add("Longitude");
@@ -664,10 +663,10 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected1, actual1);
-	}
+	}*/
 	
-	public void testGroupSinglesToCell() {
-		TransformationTools tm=new TransformationTools();
+	/*public void testGroupSinglesToCell() {
+		SamplingTools tm=new SamplingTools();
 		ArrayList<Long> singlesTimestamp=new ArrayList<>();
 		singlesTimestamp.add((long) 0); singlesTimestamp.add((long) 0); singlesTimestamp.add((long) 0);
 		tm.setSinglesTimestamps(singlesTimestamp);
@@ -713,5 +712,5 @@ public class TransformationToolsTest extends TestCase {
 		
 		//Start the test
 		assertEquals(expected, actual);
-	}
+	}*/
 }

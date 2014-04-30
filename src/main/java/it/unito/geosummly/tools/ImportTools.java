@@ -26,12 +26,49 @@ public class ImportTools {
 	public ArrayList<Double> getAreas(ArrayList<BoundingBox> data) {
 		
 		ArrayList<Double> areas=new ArrayList<Double>();
-		
-		ArrayList<Double> bboxArea=new ArrayList<Double>();
+
     	for(BoundingBox b: data)
-    		bboxArea.add(b.getArea());
+    		areas.add(b.getArea());
+		
+    	return areas;
+	}
+	
+	/**
+	 * Get all the areas of the grid cells by considering only the focal points
+	*/
+	public ArrayList<Double> getAreasFromFocalPoints(ArrayList<BoundingBox> data, ArrayList<ArrayList<Double>> matrix) {
+		
+		ArrayList<Double> areas=new ArrayList<Double>();
+		double edgeValue = getDistance(data.get(0).getCenterLat(), data.get(0).getCenterLng(), data.get(1).getCenterLat(), data.get(1).getCenterLng());
+		double areaValue=Math.pow(edgeValue, 2);
+		
+		for(int i=0; i<matrix.size();i++)
+			areas.add(areaValue);
 		
 		return areas;
+	}
+	
+	/**Get (as bounding boxes) all the distinct focal coordinates of singles*/
+	public ArrayList<BoundingBox> getFocalPoints(ArrayList<ArrayList<Double>> matrix) {
+		ArrayList<BoundingBox> bbox=new ArrayList<BoundingBox>();
+		BoundingBox b=new BoundingBox();
+		b.setCenterLat(matrix.get(0).get(2));
+		b.setCenterLng(matrix.get(0).get(3));
+		bbox.add(b);
+		double lat;
+		double lng;
+		
+		for(int i=1;i<matrix.size();i++) {
+			lat=matrix.get(i).get(2);
+			lng=matrix.get(i).get(3);
+			if((matrix.get(i-1).get(2)!=lat) || (matrix.get(i-1).get(3)!=lng)) {
+				b=new BoundingBox();
+				b.setCenterLat(lat);
+				b.setCenterLng(lng);
+				bbox.add(b);
+			}
+		}
+		return bbox;
 	}
 	
 	/**Group venues occurrences belonging to the same focal points*/
@@ -144,7 +181,6 @@ public class ImportTools {
 			break;
 		}
 		
-
 		//get the arrays of min and max values
 		ArrayList<Double> minArray=getMinArray(intraFeatureMatrix);
 		ArrayList<Double> maxArray=getMaxArray(intraFeatureMatrix);
@@ -373,5 +409,20 @@ public class ImportTools {
 		
 		return venues;
 	}
-			
+	
+	/** Haversine formula implementation. It returns the distance between 
+	 * two points given latitude and longitude values in meters
+	 */
+	public double getDistance(double lat1, double lng1, double lat2, double lng2){
+		double earthRadius = 6371; //in km
+	    double dLat = Math.toRadians(lat2-lat1);
+	    double dLng = Math.toRadians(lng2-lng1);
+	    double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+	               Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+	               Math.sin(dLng/2) * Math.sin(dLng/2);
+	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	    double dist = earthRadius * c;
+
+	    return Math.floor(dist*1000)/1000;
+	}		
 }

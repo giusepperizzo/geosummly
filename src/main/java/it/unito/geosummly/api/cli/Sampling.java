@@ -3,7 +3,6 @@ package it.unito.geosummly.api.cli;
 import fi.foyt.foursquare.api.FoursquareApiException;
 import it.unito.geosummly.SamplingOperator;
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
-import it.unito.geosummly.tools.InformationType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ public class Sampling {
 	private int gridCells=20;
 	private int randomCells=-1;
 	private long sleepMs=0;
-	private InformationType venueType=InformationType.SINGLE;
 	private CoordinatesNormalizationType coordType=CoordinatesNormalizationType.NORM;
 	//private String socNet="foursquare";
 	
@@ -49,14 +47,13 @@ public class Sampling {
 				+ "\nThe options input and coord are mutually exclusive."
 				+ "\nThe options input and gnum are mutually exclusive."
 				+ "\nThe options input and rnum are mutually exclusive. "
-				+ "\nThe output consist of a file of single venues, a file of grid-shaped aggregated venues, "
-				+ "a file of density values of the previous aggregates, "
-				+ "a file with intra-feature normalized density values shifted in [0,1], "
+				+ "\nThe output consist of a file of single venues for "
+				+ "each of the two levels of the Foursquare categories taxonomy, "
 				+ "a log file with the sampling informations."
 				+ "\n------------------------------------------------------------------"
 				+ "\nExamples:"
-				+ "\n1. geosummly sampling -input path/to/file.geojson -output path/to/dir -sleep 730 -vtype cell -ctype missing"
-				+ "\n2. geosummly sampling -coord 45.01,8.3,44.0,7.2856 -output path/to/dir -cnum 40 -snum 100";
+				+ "\n1. geosummly sampling -input path/to/file.geojson -output path/to/dir -sleep 730 -ctype missing"
+				+ "\n2. geosummly sampling -coord 45.01,8.3,44.0,7.2856 -output path/to/dir -gnum 40 -srnum 100";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
@@ -110,18 +107,6 @@ public class Sampling {
 				}
 			}
 			
-			if(line.hasOption("vtype")) {
-				String v=line.getOptionValue("vtype");
-				if(v.equals("single"))
-					venueType=InformationType.SINGLE;
-				else if(v.equals("cell"))
-					venueType=InformationType.CELL;
-				else {
-					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
-					System.exit(-1);
-				}
-			}
-			
 			/*if(line.hasOption("social")) {
 				//manage social media
 			}
@@ -143,9 +128,9 @@ public class Sampling {
             }
 			SamplingOperator so=new SamplingOperator();
 			if(inputFlag)
-				so.executeWithInput(inFile, outDir, venueType, coordType, sleepMs);
+				so.executeWithInput(inFile, outDir, coordType, sleepMs);
 			else
-				so.executeWithCoord(coordinates, outDir, gridCells, randomCells, venueType, coordType, sleepMs);
+				so.executeWithCoord(coordinates, outDir, gridCells, randomCells, coordType, sleepMs);
 			
 		}
 		catch(ParseException | NumberFormatException | FoursquareApiException | IOException | JSONException | InterruptedException e) {
@@ -188,8 +173,6 @@ public class Sampling {
 		 //add all other options for sampling
 		 options.addOption(OptionBuilder.withLongOpt( "output" ).withDescription("set the output directory")
 							.hasArg().withArgName("path/to/dir").create("O"));
-		 options.addOption(OptionBuilder.withLongOpt( "vtype" ).withDescription("set the type of venue grouping. Allowed values: single, cell. Default single")
-							.hasArg().withArgName("arg").create("v"));
 		 options.addOption(OptionBuilder.withLongOpt( "ltype" ).withDescription("set the type of coordinates (latitude and longitude) normalization. Allowed values: norm, notnorm, missing. Default norm")
 							.hasArg().withArgName("arg").create("l"));
 		 options.addOption(OptionBuilder.withLongOpt("social").withDescription("set the social network for meta-data collection. So far only foursquare is activable. Default fourquare")
