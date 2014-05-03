@@ -56,7 +56,7 @@ public class GeoJSONReader {
 		double north;
 		double east;
 		double south;
-		double west;;
+		double west;
 		BoundingBox b;
 		
 		for(MfFeature mf: coll) {
