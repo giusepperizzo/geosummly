@@ -32,9 +32,9 @@ public class SamplingOperator {
     	//Get the grid
     	GeoJSONReader reader=new GeoJSONReader();
 		ArrayList<BoundingBox> data=reader.decodeForSampling(in);
-		double bigNorth=data.get(data.size()-1).getNorth();
-		double bigEast=data.get(data.size()-1).getEast();
-		double bigSouth=data.get(0).getSouth();
+		double bigNorth=data.get(0).getNorth(); //top left cell give ne coordinates
+		double bigEast=data.get(data.size()-1).getEast(); //bottom right cell give sw coordinates
+		double bigSouth=data.get(data.size()-1).getSouth();
 		double bigWest=data.get(0).getWest();
 		BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 		
@@ -107,8 +107,5 @@ public class SamplingOperator {
 		//Write down the log file
 		LogDataIO logIO=new LogDataIO();
 		logIO.writeSamplingLog(bbox, data, tools.getMap().keySet().size(), tools.getMapSecondLevel().keySet().size(), out);
-		
-		//Write down the cell coordinates to file
-		/**************************/dataIO.printCells(data, out, "/info-coord-celle.csv");
     }
 }
