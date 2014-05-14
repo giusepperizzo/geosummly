@@ -33,6 +33,10 @@ import de.lmu.ifi.dbs.elki.math.linearalgebra.Centroid;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Description;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Reference;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Title;
+import de.lmu.ifi.dbs.elki.utilities.optionhandling.AbstractParameterizer;
+import de.lmu.ifi.dbs.elki.utilities.optionhandling.OptionID;
+import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameterization.Parameterization;
+import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameters.ObjectParameter;
 
 /**
  * <p>
@@ -478,4 +482,34 @@ public class GEOSUBCLU<V extends NumberVector<?>>
     return LOG;
   }
 
+  /**
+  -   * Parameterization class.
+  -   * 
+  -   * @author Erich Schubert
+  -   * 
+  -   * @apiviz.exclude
+  -   */
+  public static class Parameterizer<V extends NumberVector<?>> extends AbstractParameterizer {
+	protected int minpts = 0;
+	protected DoubleDistance epsilon = null;
+	
+	protected DimensionSelectingSubspaceDistanceFunction<V, DoubleDistance> distance = null;
+
+	@Override
+	protected void makeOptions(Parameterization config) {
+		super.makeOptions(config);
+		ObjectParameter<DimensionSelectingSubspaceDistanceFunction<V, DoubleDistance>> param = 
+					new ObjectParameter<>(new OptionID("geosubclu.distancefunction", "Distance function to determine the distance between database objects."),
+					DimensionSelectingSubspaceDistanceFunction.class, 
+					SubspaceEuclideanDistanceFunction.class);
+		if (config.grab(param)) {
+			distance = param.instantiateClass(config);
+		}
+	}
+	@Override
+	protected GEOSUBCLU<V> makeInstance() {
+		return new GEOSUBCLU<>(distance);
+	}
+  }
+  
 }
