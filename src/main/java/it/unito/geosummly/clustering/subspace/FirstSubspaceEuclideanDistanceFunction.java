@@ -35,10 +35,13 @@ public class FirstSubspaceEuclideanDistanceFunction extends SubspaceLPNormDistan
       sqrDist += delta * delta;
     }
     
-	if( v1.doubleValue(last) == v2.doubleValue(last) && v1.doubleValue(last) == 0) {
-		return Double.POSITIVE_INFINITY;
-	}
+//	if( v1.doubleValue(last) == v2.doubleValue(last) && v1.doubleValue(last) == 0.0) {
+//		return Double.POSITIVE_INFINITY;
+//	}
     
-    return Math.sqrt(sqrDist);
+    if( v1.doubleValue(last) == 0.0 || v2.doubleValue(last) == 0.0 ) 
+    	return Double.POSITIVE_INFINITY;
+    
+    else return Math.sqrt(sqrDist);
   }
 }

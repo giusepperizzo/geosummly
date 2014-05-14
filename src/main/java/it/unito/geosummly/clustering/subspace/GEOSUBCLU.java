@@ -389,7 +389,7 @@ public class GEOSUBCLU<V extends NumberVector<?>>
     for (Cluster<Model> c : clusterAndNoise) {
     	if (!c.isNoise()) {
     		DBIDs objects = c.getIDs();
-    		if ( objects.size()>1 && objects.size()<DENSITY ) {
+    		if ( objects.size()>1 ) { //&& objects.size()<DENSITY ) {
     			clusters.add(c);
     			//System.out.println("\tnumber of objects ci=" + objects.size());
     			sbLog.append("\tnumber of objects ci=" + objects.size()+"\n");
