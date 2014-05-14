@@ -1,18 +1,26 @@
-geosummly
-=========
+# geosummly - Geographic Summaries from Crowdsourced Data
 
-####Geo Summarization Based on Crowd Sensors
+[geosummly][geosummly] is as a framework that creates geographic summaries using the whereabouts of Foursquare users. Exploiting the density of the venue types in a particular region, the system adds a layer over any typical cartography geographic maps service, creating a first glance summary over the venues sampled from the Foursquare
+knowledge base. Each summary is represented by a convex hull. The shape is automatically computed according to the venue densities enclosed in the area. The summary is then labeled with the most prominent
+category or categories. The prominence is given by the observed venue category density. 
 
-geosummly is as a 6-states application, respectively:
+## Architecture Overview 
+The prototype is composed of 6 components:
 * sampling: it performs the sampling of foursquare venues that are surrounded by a bounding box, and it records this informations on a matrix;
 * import: it generates a multidimensional tensor matrix, given the sampled data, where each dimension reports the magnitude of the Fourquare category venue, and each object shapes a portion (cell) of the original bounding box;
 * discovery: it estimates the parameter minpts;
 * clustering: it performs the clustering algorithm;
 * evaluation: it computes the SSE and the Jaccard as evaluation means of the obtained clustering output.
 * optimization: it performs the Pareto distribution on the clustering output by exploiting 3 optimization functions: cluster spatial coverage, cluster density, cluster heterogeneity.
+Please refer to our [paper][paper] for a detailed description. 
+
+## Requirements
 
 
-###CLI commands
+## Setting up geosummly
+
+
+## CLI commands
 
 #####sampling
 ```sh
@@ -113,4 +121,14 @@ geosummly evaluation –etype correctness –input path/to/file.log -frequency p
 geosummly evaluation –etype validation –input path/to/file.log -venues path/to/file.csv –output path/to/dir
 
 geosummly optimization -input path/to/file.geojson -infos path/to/file1.log -output path/to/dir -weight 0.5,0.2,0.3 -top 5
-```    
+```  
+
+
+## Citation
+If you want to cite this work, please use the following citation.
+
+    Rizzo G., Falcone G., Meo R., Pensa R., Troncy R., Milicic V. (2014), Geographic Summaries from Crowdsourced Data. In 11th Extended Semantic Web Conference (ESWC'14) Poster Demo Session, Hersonissou, Crete, Greece
+
+## References
+[geosummly] : https://github.com/giusepperizzo/geosummly/
+[paper] : http://www.di.unito.it/~rizzo/publications/Rizzo_Falcone-ESWC2014.pdf 
