@@ -3,6 +3,7 @@ package it.unito.geosummly;
 import it.unito.geosummly.io.templates.FoursquareObjectTemplate;
 import it.unito.geosummly.utils.PropFactory;
 
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 import fi.foyt.foursquare.api.FoursquareApi;
 import fi.foyt.foursquare.api.FoursquareApiException;
 import fi.foyt.foursquare.api.Result;
+import fi.foyt.foursquare.api.entities.Category;
 import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 
@@ -35,11 +37,13 @@ public class FoursquareSearchVenues {
 		        PropFactory.config.getProperty("it.unito.geosummly.foursquare.clientID"), 
 		        PropFactory.config.getProperty("it.unito.geosummly.foursquare.clientSecret"), 
 		        "http://www.foursquare.com");
+		//foursquareApi.setVersion("20140501");
 		timestamp=System.currentTimeMillis();
 	}
 	
 	/**Search venues informations. Row and column informations are included*/
 	public ArrayList<FoursquareObjectTemplate> searchVenues(int row, int column, double north, double east, double south, double west) throws FoursquareApiException, UnknownHostException {
+		try {
 		String ne=north+","+east;
 		String sw=south+","+west;
 		Map<String, String> searchParams = new HashMap<String, String>(); 
@@ -66,6 +70,7 @@ public class FoursquareSearchVenues {
     			logger.log(Level.INFO, "Error occurred:\ncode: "+result.getMeta().getCode()+"\ntype: "+result.getMeta().getErrorType()+"\ndetail: "+result.getMeta().getErrorDetail());
     			return doclist;
 	    }
+		}catch(Exception e) {e.printStackTrace(); return null;}
 	}
 	
 	/**Search venues informations. Row and column informations are not included*/
@@ -96,5 +101,38 @@ public class FoursquareSearchVenues {
     			logger.log(Level.INFO, "Error occurred:\ncode: "+result.getMeta().getCode()+"\ntype: "+result.getMeta().getErrorType()+"\ndetail: "+result.getMeta().getErrorDetail());
     			return doclist;
 	    }
+	}
+	
+	/**
+	 * Get the 4square category tree
+	*/
+	public HashMap<String, String> getCategoryTree() throws FoursquareApiException, IOException {
+		
+		Result<Category[]> result= foursquareApi.venuesCategories();
+		Category[] mainTree = result.getResult();
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		//Top categories
+		for(int i=0;i<mainTree.length;i++) {
+			String cat = mainTree[i].getName();
+			Category[] subTree = mainTree[i].getCategories();
+			
+			//Subcategories
+			for(int j=0;j<subTree.length;j++) {
+				String subCat = subTree[j].getName();
+				Category[] subSubTree = subTree[j].getCategories();
+				
+				//Subsubcategories
+				for(int k=0;k<subSubTree.length;k++) {
+					map.put(subSubTree[k].getName(), subCat);
+				}
+				
+				map.put(subCat, cat);
+			}
+			
+			map.put(cat, null);
+		}
+		
+		return map;
 	}
  }

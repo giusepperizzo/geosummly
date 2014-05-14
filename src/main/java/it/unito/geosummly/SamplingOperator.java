@@ -8,8 +8,8 @@ import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.SamplingTools;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,11 +23,9 @@ public class SamplingOperator {
     
     public SamplingOperator() {}
        
-    public void executeWithInput(String in, 
-    							String out,
-    							CoordinatesNormalizationType ltype, 
-    							long sleep) 
-    									throws IOException, JSONException, FoursquareApiException, InterruptedException {
+    public void executeWithInput(
+    		String in, String out, CoordinatesNormalizationType ltype, long sleep) 
+    			throws IOException, JSONException, FoursquareApiException, InterruptedException {
     	
     	//Get the grid
     	GeoJSONReader reader=new GeoJSONReader();
@@ -41,12 +39,10 @@ public class SamplingOperator {
 		collectAndTransform(global, data, out, sleep);
     }
     
-    public void executeWithCoord(ArrayList<Double> coord, 
-    							String out, 
-    							int gnum, 
-    							int rnum, 
-    							CoordinatesNormalizationType ltype, 
-    							long sleep) throws IOException, FoursquareApiException, InterruptedException {
+    public void executeWithCoord(
+    			ArrayList<Double> coord, String out, int gnum, int rnum, 
+    			CoordinatesNormalizationType ltype, long sleep) 
+    				throws IOException, FoursquareApiException, InterruptedException {
     	
     	//Create the grid
     	BoundingBox bbox=new BoundingBox(coord.get(0), coord.get(1), coord.get(2), coord.get(3));
@@ -63,8 +59,10 @@ public class SamplingOperator {
     	collectAndTransform(bbox, data, out, sleep);
     }
     
-    public void collectAndTransform(BoundingBox bbox, ArrayList<BoundingBox> data, String out, long sleep) 
-    								throws UnknownHostException, FoursquareApiException, InterruptedException {
+    public void collectAndTransform(
+    		BoundingBox bbox, ArrayList<BoundingBox> data, String out, long sleep) 
+    			throws FoursquareApiException, InterruptedException, IOException {
+    	
     	//Cache system
 		/*MongoClient mongoClient=new MongoClient("localhost"); //MongoDB instance
 		DB db=mongoClient.getDB("VenueDB");
@@ -76,14 +74,19 @@ public class SamplingOperator {
 		SamplingTools tools=new SamplingTools();
 		ArrayList<ArrayList<Double>> venuesMatrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> venuesMatrixSecondLevel=new ArrayList<ArrayList<Double>>();
-		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareObjectTemplate> cellVenue;
 		CSVDataIO dataIO=new CSVDataIO();
+		
+		//Get infos form foursquare
+		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
+		HashMap<String, String> tree = fsv.getCategoryTree(); //category tree
+		
 		
 		//Collect the geopoints
 		for(BoundingBox b: data){
 		    logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
 			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getEast(), b.getSouth(), b.getWest());
+			
 			//Copy to cache
 			/*for(FoursquareObjectTemplate fdo: cellVenue){
 				String obj=gson.toJson(fdo); //Serialize with Gson
@@ -91,7 +94,8 @@ public class SamplingOperator {
 				coll.insert(doc); //insert the document into MongoDB collection
 			}*/
 			
-			venuesMatrix=tools.getInformations(b.getCenterLat(), b.getCenterLng(), venuesMatrix, cellVenue);
+			venuesMatrix=tools.getInformations(b.getCenterLat(), 
+					b.getCenterLng(), venuesMatrix, cellVenue, tree);
 			Thread.sleep(sleep);
 		}
 		

@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import fi.foyt.foursquare.api.entities.Category;
 
 /**
  *
@@ -180,54 +179,74 @@ public class SamplingTools {
 	}
 	
 	/**Get the informations of single venues of a cell*/
-	public ArrayList<ArrayList<Double>> getInformations(double lat, double lng, ArrayList<ArrayList<Double>> matrix, ArrayList<FoursquareObjectTemplate> cell) {
+	public ArrayList<ArrayList<Double>> getInformations(double lat, 
+						double lng, ArrayList<ArrayList<Double>> matrix, 
+						ArrayList<FoursquareObjectTemplate> cell,
+						HashMap<String, String> tree) {
+		
 		ArrayList<Double> rowOfMatrix=new ArrayList<Double>();
 		ArrayList<Double> rowOfMatrixSecondLevel=new ArrayList<Double>();
 		
 		for(FoursquareObjectTemplate venue: cell) {
-			String category="";
-			String categorySecondLevel="";
-			for(Category c: venue.getCategories()) {
-				if(c.getParents().length>0) {
-					category=c.getParents()[0]; //take the parent category name only if it is set
-					//Take the second level category
-					if(c.getParents().length>1)
-						categorySecondLevel=c.getParents()[1];
-					else
-						categorySecondLevel=c.getName();
-					
+			
+			if(venue.getCategories().length > 0) {
+				String category = getTopCategory(venue.getCategories()[0].getName(), tree);
+				String categorySecondLevel = getSubCategory(venue.getCategories()[0].getName(), tree);
+				
+				if(category != null) { //update the matrix only if the category has a name
+					ArrayList<String>aux=new ArrayList<String>();
+					aux.add(category);
+					ArrayList<String> auxSecondLevel=new ArrayList<String>();
+					auxSecondLevel.add(categorySecondLevel);
+					updateMap(this.map, aux);//update the hash map
+					updateMap(this.mapSecondLevel, auxSecondLevel);
+					rowOfMatrix=fillRowWithSingle(this.map, category, lat, lng); //create a consistent row (related to the categories). row of the transformation matrix (one for each venue);
+					rowOfMatrixSecondLevel=fillRowWithSingle(this.mapSecondLevel, categorySecondLevel, lat, lng);
+					if(this.total<rowOfMatrix.size())
+						this.total=rowOfMatrix.size(); //update the overall number of categories
+					if(this.totalSecondLevel<rowOfMatrixSecondLevel.size());
+						this.totalSecondLevel=rowOfMatrixSecondLevel.size();
+					rowOfMatrix.add(0, venue.getLatitude());
+					rowOfMatrix.add(1, venue.getLongitude());
+					rowOfMatrixSecondLevel.add(0, venue.getLatitude());
+					rowOfMatrixSecondLevel.add(1, venue.getLongitude());
+					this.singlesId.add(venue.getVenueId()); //memorize venue id
+					this.singlesTimestamps.add(venue.getTimestamp()); //memorize timestamp
+					this.beenHere.add(venue.getCheckinsCount()); //memorize check-ins count
+					matrix.add(rowOfMatrix);
+					this.matrixSecondLevel.add(rowOfMatrixSecondLevel);
 				}
-				else {
-					category=c.getName();
-					categorySecondLevel=c.getName();
-				}
-			}
-			if(category.length()>0) { //update the matrix only if the category has a name
-				ArrayList<String>aux=new ArrayList<String>();
-				aux.add(category);
-				ArrayList<String> auxSecondLevel=new ArrayList<String>();
-				auxSecondLevel.add(categorySecondLevel);
-				updateMap(this.map, aux);//update the hash map
-				updateMap(this.mapSecondLevel, auxSecondLevel);
-				rowOfMatrix=fillRowWithSingle(this.map, category, lat, lng); //create a consistent row (related to the categories). row of the transformation matrix (one for each venue);
-				rowOfMatrixSecondLevel=fillRowWithSingle(this.mapSecondLevel, categorySecondLevel, lat, lng);
-				if(this.total<rowOfMatrix.size())
-					this.total=rowOfMatrix.size(); //update the overall number of categories
-				if(this.totalSecondLevel<rowOfMatrixSecondLevel.size());
-					this.totalSecondLevel=rowOfMatrixSecondLevel.size();
-				rowOfMatrix.add(0, venue.getLatitude());
-				rowOfMatrix.add(1, venue.getLongitude());
-				rowOfMatrixSecondLevel.add(0, venue.getLatitude());
-				rowOfMatrixSecondLevel.add(1, venue.getLongitude());
-				this.singlesId.add(venue.getVenueId()); //memorize venue id
-				this.singlesTimestamps.add(venue.getTimestamp()); //memorize timestamp
-				this.beenHere.add(venue.getCheckinsCount()); //memorize check-ins count
-				matrix.add(rowOfMatrix);
-				this.matrixSecondLevel.add(rowOfMatrixSecondLevel);
 			}
 		}
 		return matrix;
 	}
+	
+	/**
+	 * Get the corresponding top category of the category "name" 
+	*/
+	public String getTopCategory(String name, HashMap<String, String> map) {
+		
+		String tmp=map.get(name); //Get the value corresponding to the key "name"
+		String category=map.get(tmp); //Check for more general category of the previous value
+		if(category == null)
+			return tmp;
+		else
+			return category;
+	}
+	
+	/**
+	 * Get the corresponding sub category of the category "name" 
+	*/
+	public String getSubCategory(String name, HashMap<String, String> map) {
+		
+		String tmp=map.get(name); //Get the value corresponding to the key "name"
+		String category=map.get(tmp); //Check for more general category of the previous value
+		if(category == null)
+			return name;
+		else
+			return tmp;
+	}
+	
 	
 	/**Sort the features in alphabetical order*/
 	public ArrayList<String> sortFeatures(HashMap<String,Integer> map) {
