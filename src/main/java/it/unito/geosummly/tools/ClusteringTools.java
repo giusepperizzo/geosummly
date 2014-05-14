@@ -212,7 +212,7 @@ public class ClusteringTools {
 
 		String cellLat="";
 		String cellLng="";
-		ArrayList<ArrayList<String>> venuesInfo;
+		ArrayList<ArrayList<String>> venuesInfo=new ArrayList<ArrayList<String>>();
 		ArrayList<String> venueRecord;
 	
 		//clean cluster name
@@ -228,7 +228,6 @@ public class ClusteringTools {
 		for(ArrayList<Double> array: cells) {
 			cellLat=array.get(1)+"";
 			cellLng=array.get(2)+"";
-			venuesInfo=new ArrayList<ArrayList<String>>();
 		
 			//go through the venue dataset. i=1 because we don't have to consider the header
 			for(int i=1;i<listSingles.size();i++) {
@@ -241,11 +240,11 @@ public class ClusteringTools {
 						venuesInfo.add(venueRecord);
 				}
 			}
-			
-			//add venue_id only if the venue exists in the cell
-			if(venuesInfo.size()>0)
-				venuesOfCell.put(index, venuesInfo);
 		}
+		
+		//add venue_id only if the venue exists in the cell
+		if(venuesInfo.size()>0)
+			venuesOfCell.put(index, venuesInfo);
 		
 		return venuesOfCell;
 	}

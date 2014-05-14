@@ -40,7 +40,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	    	int key; //cluster key
 	    	ArrayList<ArrayList<Double>> cellsOfCluster; //cells informations (cell_id, cell_lat, cell_lng) of a cluster
 	    	ArrayList<ArrayList<String>> venuesOfCell; //all venues of a cell
-	    	DecimalFormat df=new DecimalFormat("#.########");
+	    	DecimalFormat df=new DecimalFormat("#.###############");
 	    	
 	    	JsonWriter writer = new JsonWriter(new OutputStreamWriter(os, "UTF-8"));
 	        

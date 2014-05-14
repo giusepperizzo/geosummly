@@ -196,7 +196,7 @@ public class LogDataIO {
 				index++;
 			}
 			
-			bw.write("\n\nDiscard between real SSE and median of SSE random values: "+ discard);
+			bw.write("\n\nDiscard between real SSE and minimum of SSE random values: "+ discard);
 			
 	        bw.flush();
 	        bw.close();
