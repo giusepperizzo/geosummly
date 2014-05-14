@@ -33,10 +33,6 @@ import de.lmu.ifi.dbs.elki.math.linearalgebra.Centroid;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Description;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Reference;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Title;
-import de.lmu.ifi.dbs.elki.utilities.optionhandling.AbstractParameterizer;
-import de.lmu.ifi.dbs.elki.utilities.optionhandling.OptionID;
-import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameterization.Parameterization;
-import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameters.ObjectParameter;
 
 /**
  * <p>
@@ -61,52 +57,6 @@ public class GEOSUBCLU<V extends NumberVector<?>>
    * The logger for this class.
    */
   private static final Logging LOG = Logging.getLogger(GEOSUBCLU.class);
-
-  /**
-   * The distance function to determine the distance between database objects.
-   * <p>
-   * Default value: {@link SubspaceEuclideanDistanceFunction}
-   * </p>
-   * <p>
-   * Key: {@code -subclu.distancefunction}
-   * </p>
-   */
-  public static final OptionID DISTANCE_FUNCTION_ID = new OptionID("subclu.distancefunction", "Distance function to determine the distance between database objects.");
-
-  /**
-   * Parameter to specify the maximum radius of the neighborhood to be
-   * considered, must be suitable to
-   * {@link DimensionSelectingSubspaceDistanceFunction}.
-   * <p>
-   * Key: {@code -geosubclu.epsilon}
-   * </p>
-   */
-  //public static final OptionID EPSILON_ID = new OptionID("geosubclu.epsilon", "The maximum radius of the neighborhood to be considered.");
-
-  /**
-   * Parameter to specify the threshold for minimum number of points in the
-   * epsilon-neighborhood of a point, must be an integer greater than 0.
-   * <p>
-   * Key: {@code -geosubclu.minpts}
-   * </p>
-   */
-//  public static final OptionID MINPTS_ID = new OptionID("geosubclu.minpts", "Threshold for minimum number of points in the epsilon-neighborhood of a point.");
-
-  /**
-   * Holds the instance of the distance function specified by
-   * {@link #DISTANCE_FUNCTION_ID}.
-   */
-  //private DimensionSelectingSubspaceDistanceFunction<V, DoubleDistance> distanceFunction;
-
-  /**
-   * Holds the value of {@link #EPSILON_ID}.
-   */
-  //private DoubleDistance epsilon = new DoubleDistance(0.01);
-
-  /**
-   * Holds the value of {@link #MINPTS_ID}.
-   */
-  //private int minpts = 1 ;
 
   /**
    * Holds the result;
@@ -135,11 +85,6 @@ public class GEOSUBCLU<V extends NumberVector<?>>
   public GEOSUBCLU( DimensionSelectingSubspaceDistanceFunction<V, DoubleDistance> distanceFunction) 
   {
     super();
-    //this.distanceFunction=distanceFunction;
-    
-    /*
-     * 	initialize eps
-     */
     EPS = new HashMap<>();
   }
   
@@ -533,32 +478,4 @@ public class GEOSUBCLU<V extends NumberVector<?>>
     return LOG;
   }
 
-  /**
-   * Parameterization class.
-   * 
-   * @author Erich Schubert
-   * 
-   * @apiviz.exclude
-   */
-  public static class Parameterizer<V extends NumberVector<?>> extends AbstractParameterizer {
-    protected int minpts = 0;
-
-    protected DoubleDistance epsilon = null;
-
-    protected DimensionSelectingSubspaceDistanceFunction<V, DoubleDistance> distance = null;
-
-    @Override
-    protected void makeOptions(Parameterization config) {
-      super.makeOptions(config);
-      ObjectParameter<DimensionSelectingSubspaceDistanceFunction<V, DoubleDistance>> param = new ObjectParameter<>(DISTANCE_FUNCTION_ID, DimensionSelectingSubspaceDistanceFunction.class, SubspaceEuclideanDistanceFunction.class);
-      if (config.grab(param)) {
-        distance = param.instantiateClass(config);
-      }
-    }
-
-    @Override
-    protected GEOSUBCLU<V> makeInstance() {
-      return new GEOSUBCLU<>(distance);
-    }
-  }
 }
