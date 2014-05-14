@@ -54,7 +54,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	        for(Integer i: keys) {
 	        	
 	        	//Check for not empty venues
-	        	if(venues.get(i)!=null) {
+	        	//if(venues.get(i)!=null) {
 	        	
 		    		name=labels.get(i);
 		    		key=i;
@@ -124,7 +124,7 @@ public class GeoJSONWriter implements IGeoWriter{
 		        	writer.endObject();
 		        	writer.endObject();
 		    	}
-	        }
+	        //}
 	        
 	        writer.endArray();
 	        writer.name("properties");
