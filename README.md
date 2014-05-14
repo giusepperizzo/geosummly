@@ -127,9 +127,11 @@ geosummly optimization -input path/to/file.geojson -infos path/to/file1.log -out
 ## Citation
 If you want to cite this work, please use the following citation.
 
-    Rizzo G., Falcone G., Meo R., Pensa R., Troncy R., Milicic V. (2014), Geographic Summaries from Crowdsourced Data. In 11th Extended Semantic Web Conference (ESWC'14) Poster Demo Session, Hersonissou, Crete, Greece
+    Rizzo G., Falcone G., Meo R., Pensa R., Troncy R., Milicic V. (2014), 
+    Geographic Summaries from Crowdsourced Data. 
+    In 11th Extended Semantic Web Conference (ESWC'14) 
+    Poster Demo Session, Hersonissou, Crete, Greece
 
-## References
 
 [geosummly]: https://github.com/giusepperizzo/geosummly/
 [paper]: http://www.di.unito.it/~rizzo/publications/Rizzo_Falcone-ESWC2014.pdf 
