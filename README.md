@@ -50,7 +50,7 @@ For a full list of commands, please refer to:
 ```
 The options *coord*, *input* (only if *coord* is not specified), *output* are mandatory. The options *input* and *coord* are mutually exclusive. The options *input* and *gnum* are mutually exclusive. The options *input* and *rnum* are mutually exclusive.
 The output consists of a file of single venues for each of the two levels of the Foursquare categories taxonomy, a log file with the sampling informations. 
-#### examples
+
     geosummly sampling –input path/to/file.geojson –output path/to/dir –ctype missing 
     geosummly sampling –coord 45,8,44,7 –output path/to/dir –gnum 40 –rnum 100
 
@@ -64,7 +64,7 @@ The output consists of a file of single venues for each of the two levels of the
 -l –ltype   <arg>           set the type of coordinates (latitude and longitude) normalization. Allowed values: norm, notnorm, missing. Default norm.
 ```
 The options *input*, *coord*, *gnum*, *output* are mandatory." Input file has to be a .csv of single venues, output of the sampling state. The output consist of a file of grid-shaped aggregated venues, a file of density values of the previous aggregates, a file with intra-feature normalized density values shifted in [0,1].
-#### examples
+
     geosummly import -input path/to/file.csv -coord 48,8,44,7 \
      -gnum 100 -output path/to/dir -ltype notnorm
 
@@ -77,7 +77,6 @@ The options *input*, *coord*, *gnum*, *output* are mandatory." Input file has to
 ```
 The options *input*, *output* are mandatory. Input file has to be a .csv of grid-shaped density values. The output consists of a file of standard deviation values for the categories combinations.
 
-#### examples
     geosummly discovery –input path/to/file.csv –output path/to/dir –combination 3
 
 #####clustering
@@ -92,7 +91,7 @@ The options *input*, *output* are mandatory. Input file has to be a .csv of grid
 -e -eps         <arg>           set the eps value of clustering algorithm. Default sqrt(2) * (1/ sqrt( size(density_values) )).
 ```
 The options *density*, *normalized*, *deltad*, *venues*, *coord*, *output* are mandatory. Density file has to be a .csv of grid-shaped density values, output the import state. Normalized file has to be a .csv of grid-shaped normalized density values, output of the import state. Deltad file has to be a .csv of deltad values, output the discovery state. Venues file has to be a .csv of single venues, output the sampling state. The output consists of a .geojson file expressed as a feature collection whose features are the clusters, a set of RDF Turtle file (one for each cluster), a log file with the clustering informations.
-#### examples
+
     geosummly clustering -coord 45,8,44,7 -density path/to/file1.csv \
      -normalized path/to/file2.csv -deltad path/to/file3.csv \
      -venues path/to/file4.csv -output path/to/dir
@@ -113,7 +112,7 @@ The options *etype*, *input*, *frequency* (only if etype is equal to correctness
 The input file has to be the log file returned by the clustering state.
 If *etype* argument is equal to correctness, the *frequency* option (csv file of grid-shaped aggregates) is mandatory and, for each of the *mnum* matrices, the output is: a random grid-shaped aggregates, a grid of density values of the previous aggregates, a grid with intra-feature normalized density values shifted in [0,1]. In addition to the output a SSE log and a R script (visualization of SSE values) are provided. Moreover *venues* and *fnum* options cannot be used.
 If *etype* argument is equal to validation, the *venues* option (csv file of single venues) is mandatory and, for each fold, the output is a file of density values and a file with intra-feature normalized density values shifted in [0,1]. In addition to the output a Jaccard log is provided. Moreover *frequency* and *mnum* options cannot be used.
-#### examples
+
     geosummly evaluation –etype correctness –input path/to/file.log \
      -frequency path/to/file.csv –output path/to/dir –mnum 300
     geosummly evaluation –etype validation –input path/to/file.log \
@@ -133,7 +132,7 @@ The options *input*, *infos*, *output* are mandatory.
 Input file has to be a geojson file, output of the clustering state.
 Infos file has to be a log file, output of the sampling state.
 The output consists of a log file, a geojson file with the clustering result after the optimization.
-#### examples
+
     geosummly optimization -input path/to/file.geojson \
      -infos path/to/file1.log -output path/to/dir \
      -weight 0.5,0.2,0.3 -top 5
