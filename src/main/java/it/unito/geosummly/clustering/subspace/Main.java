@@ -50,7 +50,7 @@ public class Main {
         // while values are the values of each cell expressed in doub
         
         //Database db = main.makeSimpleDatabase("subspace-simple-1.csv", 1000, new ListParameterization(), null);       
-        Database db = main.buildFromMatrix("sample.csv");
+        Database db = main.buildFromMatrix("data/sample.csv");
         //Database db = main.buildFromMatrix("sample-subclu.csv");
         
         Collection<Index> indexes = db.getIndexes();
@@ -135,6 +135,7 @@ public class Main {
         ListParameterization params = new ListParameterization();
         //params.addParameter(GEOSUBCLU.EPSILON_ID, GEOSUBCLU_esp);
         //params.addParameter(GEOSUBCLU.MINPTS_ID, GEOSUBCLU_minpts);
+        //params.addParameter(FixedDBIDsFilter.IDSTART_ID, 1);
         
         // setup algorithm
         GEOSUBCLU<DoubleVector> geosubclu = ClassGenericsUtil.parameterizeOrAbort(GEOSUBCLU.class, params);

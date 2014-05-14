@@ -25,6 +25,7 @@ import de.lmu.ifi.dbs.elki.database.relation.Relation;
 import de.lmu.ifi.dbs.elki.database.relation.RelationUtil;
 import de.lmu.ifi.dbs.elki.distance.distancefunction.subspace.DimensionSelectingSubspaceDistanceFunction;
 import de.lmu.ifi.dbs.elki.distance.distancefunction.subspace.SubspaceEuclideanDistanceFunction;
+import de.lmu.ifi.dbs.elki.distance.distancefunction.subspace.SubspaceLPNormDistanceFunction;
 import de.lmu.ifi.dbs.elki.distance.distancevalue.DoubleDistance;
 import de.lmu.ifi.dbs.elki.logging.Logging;
 import de.lmu.ifi.dbs.elki.logging.progress.StepProgress;
@@ -95,7 +96,7 @@ public class GEOSUBCLU<V extends NumberVector<?>>
    * Holds the instance of the distance function specified by
    * {@link #DISTANCE_FUNCTION_ID}.
    */
-  private DimensionSelectingSubspaceDistanceFunction<V, DoubleDistance> distanceFunction;
+  //private DimensionSelectingSubspaceDistanceFunction<V, DoubleDistance> distanceFunction;
 
   /**
    * Holds the value of {@link #EPSILON_ID}.
@@ -134,7 +135,7 @@ public class GEOSUBCLU<V extends NumberVector<?>>
   public GEOSUBCLU( DimensionSelectingSubspaceDistanceFunction<V, DoubleDistance> distanceFunction) 
   {
     super();
-    this.distanceFunction=distanceFunction;
+    //this.distanceFunction=distanceFunction;
     
     /*
      * 	initialize eps
@@ -167,7 +168,7 @@ public class GEOSUBCLU<V extends NumberVector<?>>
   }
   
   /**
-   * Performs the SUBCLU algorithm on the given database.
+   * Performs the GEOSUBCLU algorithm on the given database.
    * 
    * @param relation Relation to process
    * @return Clustering result
@@ -196,7 +197,8 @@ public class GEOSUBCLU<V extends NumberVector<?>>
     for (int d = 2; d < dimensionality; d++) {
       
       Subspace currentSubspace = new Subspace(d);
-      List<Cluster<Model>> clusters = runDBSCAN(relation, null, currentSubspace);
+      //List<Cluster<Model>> clusters = runDBSCAN(relation, null, currentSubspace);
+      List<Cluster<Model>> clusters = runDBSCAN(relation, null, currentSubspace, new FirstSubspaceEuclideanDistanceFunction(new BitSet()));
 
       if (LOG.isDebuggingFiner()) {
         StringBuilder msg = new StringBuilder();
@@ -241,7 +243,7 @@ public class GEOSUBCLU<V extends NumberVector<?>>
         List<Cluster<Model>> bestSubspaceClusters = clusterMap.get(bestSubspace);
         List<Cluster<Model>> clusters = new ArrayList<>();
         for (Cluster<Model> cluster : bestSubspaceClusters) {
-          List<Cluster<Model>> candidateClusters = runDBSCAN(relation, cluster.getIDs(), candidate);
+          List<Cluster<Model>> candidateClusters = runDBSCAN(relation, cluster.getIDs(), candidate, new SubspaceEuclideanDistanceFunction(new BitSet()));
           if (!candidateClusters.isEmpty()) {
             clusters.addAll(candidateClusters);
           }
@@ -321,12 +323,15 @@ public class GEOSUBCLU<V extends NumberVector<?>>
    *        - if this parameter is null DBSCAN will be applied to the whole
    *        database
    * @param subspace the subspace to run DBSCAN on
+ * @param firstSubspaceEuclideanDistanceFunction 
    * @return the clustering result of the DBSCAN run
    */
   private List<Cluster<Model>> runDBSCAN(
 		  									Relation<V> relation, 
 		  									DBIDs ids, 
-		  									Subspace subspace
+		  									Subspace subspace, 
+		  									SubspaceLPNormDistanceFunction dist
+		  										
 		  								) 
   {  
 	BitSet bs = (BitSet) subspace.getDimensions().clone();
@@ -359,8 +364,9 @@ public class GEOSUBCLU<V extends NumberVector<?>>
 	bs.set(1);
 	
 	// distance function
-    distanceFunction.setSelectedDimensions(bs);
-
+    //distanceFunction.setSelectedDimensions(bs);
+	dist.setSelectedDimensions(bs);
+	
     ProxyDatabase proxy;
     if (ids == null) {
       // TODO: in this case, we might want to use an index - the proxy below
@@ -370,7 +376,7 @@ public class GEOSUBCLU<V extends NumberVector<?>>
 
     proxy = new ProxyDatabase(ids, relation);
     
-    DBSCAN<V, DoubleDistance> dbscan = new DBSCAN<>(distanceFunction, epsilon, minpts);
+    DBSCAN<V, DoubleDistance> dbscan = new DBSCAN<>(dist, epsilon, minpts);
     // run DBSCAN
     if (LOG.isVerbose()) {	
       LOG.verbose("\nRun DBSCAN on subspace " + subspace.dimensonsToString());
