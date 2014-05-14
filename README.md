@@ -5,7 +5,7 @@ knowledge base. Each summary is represented by a convex hull. The shape is autom
 category or categories. The prominence is given by the observed venue category density. 
 
 ## Architectural Overview 
-The prototype is composed of 6 components:
+The prototype is composed of 6 stages:
 * sampling: it performs the sampling of foursquare venues that are surrounded by a bounding box, and it records this informations on a matrix;
 * import: it generates a multidimensional tensor matrix, given the sampled data, where each dimension reports the magnitude of the Fourquare category venue, and each object shapes a portion (cell) of the original bounding box;
 * discovery: it estimates the parameter minpts;
