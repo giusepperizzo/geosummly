@@ -31,7 +31,7 @@ Please refer to our [paper][paper] for a detailed description.
     mvn clean
     mvn package
 
-## Hands-On API: CLI
+## CLI API
 For a full list of commands, please refer to:
 ```sh
     geosummly -H –help  (print the command list)
@@ -137,14 +137,22 @@ The output consists of a log file, a geojson file with the clustering result aft
      -infos path/to/file1.log -output path/to/dir \
      -weight 0.5,0.2,0.3 -top 5
 
+## Web UI
+A web interface can be instantiated to visualize on a map the output of the geosummly.
+
+    java -cp /path/where/geosummly/jar/is/located it.unito.geosummly.Server 8080
+    
+A set of pre-computed fingerprints will be shown. To add new ones, just copy the geojson of the clustering stage into the webroot/app/data folder, and then add the new location to webroot/app/js/config/config.js.
+
+## License
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License http://www.apache.org/licenses/LICENSE-2.0. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. The license is applicable to the modules developed in this project.
 
 ## Citation
 If you want to cite this work, please use the following citation.
 
     Rizzo G., Falcone G., Meo R., Pensa R., Troncy R., Milicic V. (2014), 
     Geographic Summaries from Crowdsourced Data. 
-    In 11th Extended Semantic Web Conference (ESWC'14) 
-    Poster Demo Session, Hersonissou, Crete, Greece
+    In 11th Extended Semantic Web Conference (ESWC'14) Poster Demo Session, Hersonissou, Crete, Greece
 
 
 [geosummly]: https://github.com/giusepperizzo/geosummly
