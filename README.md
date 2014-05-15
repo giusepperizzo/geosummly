@@ -33,9 +33,8 @@ Please refer to our [paper][paper] for a detailed description.
 
 ## CLI API
 For a full list of commands, please refer to:
-```sh
+
     geosummly -H –help  (print the command list)
-```
 
 ### sampling
 ```sh
