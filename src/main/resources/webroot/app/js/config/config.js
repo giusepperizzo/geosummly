@@ -22,13 +22,13 @@ app.Config = function() {
 			leaflet: '5f9ebf625acb4df3a40163ddca8c064b'
 		},
 		locations: {
-			milan: new Location({
-				jsonUrl: 'data/milan/clustering-output-eps0.09.geojson',
+			torino: new Location({
+				jsonUrl: 'data/torino/clustering-output-eps0.07071067811865477.geojson',
 				bounds: {
-					north: 45.56673320779651,
-					sud: 45.35774348391226,
-					west: 9.012991053852822,
-					est: 9.311176701852737
+					north: 45.10975600522702,
+					sud: 45.04393354716772,
+					west: 7.630176544189453,
+					est: 7.734889984130859
 				},
 				zoom: 11
 			}),

@@ -1,0 +1,4645 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 0,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.07190809184292,
+            7.643265724182129
+          ],
+          [
+            45.07190809184292,
+            7.648501396179199
+          ],
+          [
+            45.068616968939956,
+            7.643265724182129
+          ],
+          [
+            45.068616968939956,
+            7.648501396179199
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 1,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "5357b670498ef48fe46c8aff",
+            "venueLatitude": 45.07049787905097,
+            "venueLongitude": 7.64474595890013,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.643265724182129,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "5129e763e4b08ef0662025ad",
+            "venueLatitude": 45.071939,
+            "venueLongitude": 7.647077,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.648501396179199,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 13,
+            "id": "4f749132e4b082acd15796a9",
+            "venueLatitude": 45.069009130635045,
+            "venueLongitude": 7.641399212461049,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.643265724182129,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 52,
+            "id": "4dc44d23887717c880063938",
+            "venueLatitude": 45.067535509024935,
+            "venueLongitude": 7.645851179085636,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.643265724182129,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 17,
+            "id": "4fba310de4b05abe23bfc1f8",
+            "venueLatitude": 45.067729077537365,
+            "venueLongitude": 7.647171557192962,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.648501396179199,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.07190809184292,
+            7.695622444152832
+          ],
+          [
+            45.068616968939956,
+            7.695622444152832
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 2,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1241,
+            "id": "4d6bbb60dc858cfa8af87573",
+            "venueLatitude": 45.07292962169707,
+            "venueLongitude": 7.697725296020508,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 37,
+            "id": "5069a8e8e4b05564fcf13e02",
+            "venueLatitude": 45.07313507806902,
+            "venueLongitude": 7.697930187334313,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 17,
+            "id": "4e9542e8d22df0eb8bab5a70",
+            "venueLatitude": 45.070916880370206,
+            "venueLongitude": 7.694700633184356,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 11,
+            "id": "53147dc7498e32844af04f27",
+            "venueLatitude": 45.0731586470927,
+            "venueLongitude": 7.697876345570307,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 15,
+            "id": "5191e334498eb731c054f8e4",
+            "venueLatitude": 45.072281,
+            "venueLongitude": 7.697561,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3922,
+            "id": "4bec10dba9900f47c8801840",
+            "venueLatitude": 45.06812721185687,
+            "venueLongitude": 7.694598770325952,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1119,
+            "id": "4cb2c2cfdedbef3bcc7f9d40",
+            "venueLatitude": 45.06808996144617,
+            "venueLongitude": 7.694662238259354,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 23,
+            "id": "526fb7b911d21684919709c4",
+            "venueLatitude": 45.067970275878906,
+            "venueLongitude": 7.695291996002197,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 83,
+            "id": "4ffafed0e4b07a70ba8aa479",
+            "venueLatitude": 45.06706864256936,
+            "venueLongitude": 7.693499519623796,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 110,
+            "id": "50a9e88ce4b0354e5d1a1f00",
+            "venueLatitude": 45.068303220155684,
+            "venueLongitude": 7.695386638242574,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1135,
+            "id": "4c32202316adc928fc99c19c",
+            "venueLatitude": 45.06705542736078,
+            "venueLongitude": 7.695286737642179,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 2,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.05216135442513,
+            7.679915428161621
+          ],
+          [
+            45.05216135442513,
+            7.685151100158691
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 3,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1296,
+            "id": "4c31ecb1213c2d7f2694345d",
+            "venueLatitude": 45.0511666885307,
+            "venueLongitude": 7.678424150821515,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.679915428161621,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 836,
+            "id": "4bf0f18721072d7fc17a208b",
+            "venueLatitude": 45.052109559081174,
+            "venueLongitude": 7.681349713501299,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.679915428161621,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 119,
+            "id": "4e8075e79a528a7d4d5089cc",
+            "venueLatitude": 45.052437723623974,
+            "venueLongitude": 7.682089896663098,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.679915428161621,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 18,
+            "id": "4dd6df0b1fc7d8d8663f18c7",
+            "venueLatitude": 45.05103994089823,
+            "venueLongitude": 7.680100669135353,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.679915428161621,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 97,
+            "id": "4d4a1014031f59414c4cf6c0",
+            "venueLatitude": 45.05317356850053,
+            "venueLongitude": 7.682147026062012,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.679915428161621,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 30,
+            "id": "51360ed4e4b082d2741e845f",
+            "venueLatitude": 45.05323559538503,
+            "venueLongitude": 7.67799666671032,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.679915428161621,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 524,
+            "id": "4d4bae85b9a2a1433c1a5623",
+            "venueLatitude": 45.05136509363529,
+            "venueLongitude": 7.680962463907417,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.679915428161621,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 176,
+            "id": "4daea5b7fa8cf04fbe038961",
+            "venueLatitude": 45.05353110810721,
+            "venueLongitude": 7.685263981930723,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.685151100158691,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 41,
+            "id": "4f8e9fd7e4b018d8f66a6918",
+            "venueLatitude": 45.05364150703365,
+            "venueLongitude": 7.685301872781329,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.685151100158691,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 93,
+            "id": "4c2f5f9a66e40f4773bec18b",
+            "venueLatitude": 45.052233767987225,
+            "venueLongitude": 7.684286322386927,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.685151100158691,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "517655f1e4b0e18a756f99b3",
+            "venueLatitude": 45.05256282369155,
+            "venueLongitude": 7.682603060856941,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.685151100158691,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "51e8e447498ef95689747005",
+            "venueLatitude": 45.05332946777344,
+            "venueLongitude": 7.684282779693604,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.685151100158691,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 12,
+            "id": "51877aa7498ebe737ce7550b",
+            "venueLatitude": 45.052857072784676,
+            "venueLongitude": 7.682998385581538,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.685151100158691,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "4c3ecc7ab037952140469ba7",
+            "venueLatitude": 45.053253,
+            "venueLongitude": 7.68288,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.685151100158691,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 3,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.05874360023106,
+            7.643265724182129
+          ],
+          [
+            45.05874360023106,
+            7.648501396179199
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 4,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 283,
+            "id": "4c8e557aad70a1438ec3880f",
+            "venueLatitude": 45.06034385039551,
+            "venueLongitude": 7.6446782948534,
+            "centroidLatitude": 45.05874360023106,
+            "centroidLongitude": 7.643265724182129,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 27,
+            "id": "4eea43d8775b562a39ea7f9f",
+            "venueLatitude": 45.05774320955621,
+            "venueLongitude": 7.644822676083797,
+            "centroidLatitude": 45.05874360023106,
+            "centroidLongitude": 7.643265724182129,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 88,
+            "id": "4d5590a148ea6ea80698d6a3",
+            "venueLatitude": 45.059494,
+            "venueLongitude": 7.647942,
+            "centroidLatitude": 45.05874360023106,
+            "centroidLongitude": 7.648501396179199,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 4,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.09823707506664,
+            7.679915428161621
+          ],
+          [
+            45.09494595216368,
+            7.679915428161621
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 5,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 5,
+            "id": "4d6bf16279476dcb371e8268",
+            "venueLatitude": 45.09760080110063,
+            "venueLongitude": 7.680878618063749,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.679915428161621,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 40,
+            "id": "4f9bc981e4b08ea038f2332a",
+            "venueLatitude": 45.09385074757517,
+            "venueLongitude": 7.680177798399413,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.679915428161621,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 5,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.055452477328096,
+            7.632794380187988
+          ],
+          [
+            45.05216135442513,
+            7.632794380187988
+          ],
+          [
+            45.05216135442513,
+            7.638030052185059
+          ],
+          [
+            45.05216135442513,
+            7.643265724182129
+          ],
+          [
+            45.048870231522166,
+            7.638030052185059
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 6,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 200,
+            "id": "4e6da3b9d4c0af8b79230347",
+            "venueLatitude": 45.054616436391385,
+            "venueLongitude": 7.634493430765538,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.632794380187988,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 19,
+            "id": "5057424ee4b0001ed512646a",
+            "venueLatitude": 45.05407818191089,
+            "venueLongitude": 7.63375914519158,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.632794380187988,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "52344c8b11d20a2812dfea63",
+            "venueLatitude": 45.053096771240234,
+            "venueLongitude": 7.631691455841064,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.632794380187988,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "501c60a3e4b00e1d086650a3",
+            "venueLatitude": 45.05127591238001,
+            "venueLongitude": 7.63936995111411,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.638030052185059,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "53490a64498e0f29cc1b401c",
+            "venueLatitude": 45.053699,
+            "venueLongitude": 7.641941,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.643265724182129,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 78,
+            "id": "4d008d2af160548101de9eea",
+            "venueLatitude": 45.048014,
+            "venueLongitude": 7.637602970406108,
+            "centroidLatitude": 45.048870231522166,
+            "centroidLongitude": 7.638030052185059,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 6,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.08507258345478,
+            7.674679756164551
+          ],
+          [
+            45.08178146055182,
+            7.674679756164551
+          ],
+          [
+            45.07849033764885,
+            7.674679756164551
+          ],
+          [
+            45.07849033764885,
+            7.66944408416748
+          ],
+          [
+            45.075199214745886,
+            7.674679756164551
+          ],
+          [
+            45.075199214745886,
+            7.66944408416748
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 7,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 160,
+            "id": "4f853714e4b04695defda33b",
+            "venueLatitude": 45.08482163797747,
+            "venueLongitude": 7.675216374565189,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 32,
+            "id": "4f8536fce4b0928ce7fe06fe",
+            "venueLatitude": 45.084590876907285,
+            "venueLongitude": 7.67599694593615,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "515217c1e4b04c8e58fdf7bc",
+            "venueLatitude": 45.08115,
+            "venueLongitude": 7.672834,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 16,
+            "id": "4f3cfac0e4b08f6e584ebe56",
+            "venueLatitude": 45.080045119298745,
+            "venueLongitude": 7.676359065037087,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "50b4f788e4b0f65a3779f7fc",
+            "venueLatitude": 45.079499424501904,
+            "venueLongitude": 7.675192912997992,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 387,
+            "id": "4cd0a0347f56a1439f6fcfa6",
+            "venueLatitude": 45.079799274343074,
+            "venueLongitude": 7.669723113485705,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.66944408416748,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 319,
+            "id": "4c84b13051ada1cd442f3110",
+            "venueLatitude": 45.07487301235965,
+            "venueLongitude": 7.675765668442267,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 245,
+            "id": "4c45ceb82d3ec9b63bc230ae",
+            "venueLatitude": 45.07384765637147,
+            "venueLongitude": 7.671781812027042,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.66944408416748,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 7,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.055452477328096,
+            7.65897274017334
+          ],
+          [
+            45.055452477328096,
+            7.66420841217041
+          ],
+          [
+            45.055452477328096,
+            7.66944408416748
+          ],
+          [
+            45.055452477328096,
+            7.674679756164551
+          ],
+          [
+            45.05216135442513,
+            7.66944408416748
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 8,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 196,
+            "id": "4c7fc6308ae376b068b89074",
+            "venueLatitude": 45.05482585140036,
+            "venueLongitude": 7.660399675369263,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.65897274017334,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 35,
+            "id": "50acb085e4b0030b0815a08f",
+            "venueLatitude": 45.05403848794633,
+            "venueLongitude": 7.663236823626269,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.66420841217041,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "50b71219e4b00e4ad9ac06f6",
+            "venueLatitude": 45.055765,
+            "venueLongitude": 7.661623,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.66420841217041,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 124,
+            "id": "4d4a142c031f5941fc6df6c0",
+            "venueLatitude": 45.056397970720944,
+            "venueLongitude": 7.670988060005651,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.66944408416748,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 88,
+            "id": "4cb34ce3562d224bc0f52c88",
+            "venueLatitude": 45.054359570959996,
+            "venueLongitude": 7.677000223671027,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 30,
+            "id": "5159d143e4b0e55db46934d0",
+            "venueLatitude": 45.053725,
+            "venueLongitude": 7.66869,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.66944408416748,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 8,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.09165482926071,
+            7.65373706817627
+          ],
+          [
+            45.09165482926071,
+            7.65897274017334
+          ],
+          [
+            45.08836370635775,
+            7.65373706817627
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 9,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "51cd4126498e0080ecac980a",
+            "venueLatitude": 45.09189738181573,
+            "venueLongitude": 7.654197566524249,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.65373706817627,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 276,
+            "id": "4ee749e66da14e7d9c56e775",
+            "venueLatitude": 45.090278186254004,
+            "venueLongitude": 7.658565657497507,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.65897274017334,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 421,
+            "id": "4ca0e3a819e4236aca846589",
+            "venueLatitude": 45.08785224163403,
+            "venueLongitude": 7.653708311432407,
+            "centroidLatitude": 45.08836370635775,
+            "centroidLongitude": 7.65373706817627,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 9,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.10811044377554,
+            7.65897274017334
+          ],
+          [
+            45.10811044377554,
+            7.66420841217041
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 10,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 61,
+            "id": "50f0644ee4b0d9e04b9e0400",
+            "venueLatitude": 45.10771560668945,
+            "venueLongitude": 7.661352157592773,
+            "centroidLatitude": 45.10811044377554,
+            "centroidLongitude": 7.65897274017334,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 5,
+            "id": "4da3fded22a5f04d6f7e2f55",
+            "venueLatitude": 45.109649,
+            "venueLongitude": 7.663486,
+            "centroidLatitude": 45.10811044377554,
+            "centroidLongitude": 7.66420841217041,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.10481932087257,
+            7.695622444152832
+          ],
+          [
+            45.10481932087257,
+            7.700858116149902
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 11,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 132,
+            "id": "4d1c5cedc50e6ea8a7e7d1b8",
+            "venueLatitude": 45.10500640727279,
+            "venueLongitude": 7.696804411643787,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 56,
+            "id": "4d6f671427316ea8af7eafaa",
+            "venueLatitude": 45.10598258889137,
+            "venueLongitude": 7.701685035180863,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.700858116149902,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 11,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.07849033764885,
+            7.690386772155762
+          ],
+          [
+            45.07849033764885,
+            7.695622444152832
+          ],
+          [
+            45.075199214745886,
+            7.690386772155762
+          ],
+          [
+            45.07190809184292,
+            7.690386772155762
+          ],
+          [
+            45.068616968939956,
+            7.690386772155762
+          ],
+          [
+            45.06532584603699,
+            7.690386772155762
+          ],
+          [
+            45.062034723134026,
+            7.690386772155762
+          ],
+          [
+            45.062034723134026,
+            7.685151100158691
+          ],
+          [
+            45.05874360023106,
+            7.685151100158691
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 12,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1042,
+            "id": "4bc2d6eab492d13ac5fea760",
+            "venueLatitude": 45.079689207974184,
+            "venueLongitude": 7.690608333353125,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "4d6befed79476dcb9c058268",
+            "venueLatitude": 45.077911,
+            "venueLongitude": 7.695738,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "525ecb99498e7caa12d89b27",
+            "venueLatitude": 45.07507398294716,
+            "venueLongitude": 7.69027615698623,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "50914986e4b019e9fb979e18",
+            "venueLatitude": 45.07127422801322,
+            "venueLongitude": 7.691801148940841,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "529ddb79498e94afd23a66ba",
+            "venueLatitude": 45.072108750089626,
+            "venueLongitude": 7.692958770061194,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 293,
+            "id": "4d8e1a5ad4ec8cfad2656a89",
+            "venueLatitude": 45.067595326618004,
+            "venueLongitude": 7.689743041992188,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 43,
+            "id": "5187d4e8498ed26597cfad18",
+            "venueLatitude": 45.069427771987755,
+            "venueLongitude": 7.68936206578604,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 777,
+            "id": "4cb45d58cbab236aad93bd73",
+            "venueLatitude": 45.06910628524022,
+            "venueLongitude": 7.69172499963704,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 297,
+            "id": "4dfb308f8130db594dfe56c1",
+            "venueLatitude": 45.06523110481639,
+            "venueLongitude": 7.688541412353516,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 213,
+            "id": "4d2d84f9aa5c6ea852baad04",
+            "venueLatitude": 45.06586,
+            "venueLongitude": 7.692066,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 41,
+            "id": "4f96721ce4b08e75f2de08d3",
+            "venueLatitude": 45.06482165576889,
+            "venueLongitude": 7.691281964806311,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 10,
+            "id": "516331efe4b09d06ff0f2b57",
+            "venueLatitude": 45.0621379960155,
+            "venueLongitude": 7.690254638528056,
+            "centroidLatitude": 45.062034723134026,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "533d408d498e6581bad1f669",
+            "venueLatitude": 45.060969084438824,
+            "venueLongitude": 7.69228449444853,
+            "centroidLatitude": 45.062034723134026,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 420,
+            "id": "4cebcb94f1c6236ae0d471f0",
+            "venueLatitude": 45.06363366504119,
+            "venueLongitude": 7.685658882254705,
+            "centroidLatitude": 45.062034723134026,
+            "centroidLongitude": 7.685151100158691,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 10,
+            "id": "51111b24e4b0f145256bc1bb",
+            "venueLatitude": 45.062089,
+            "venueLongitude": 7.683843,
+            "centroidLatitude": 45.062034723134026,
+            "centroidLongitude": 7.685151100158691,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 45,
+            "id": "4e00ae3952b1ac66aac7b88c",
+            "venueLatitude": 45.058471891654435,
+            "venueLongitude": 7.685398788093147,
+            "centroidLatitude": 45.05874360023106,
+            "centroidLongitude": 7.685151100158691,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 12,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.08507258345478,
+            7.65897274017334
+          ],
+          [
+            45.08178146055182,
+            7.65897274017334
+          ],
+          [
+            45.08507258345478,
+            7.66420841217041
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 13,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 37,
+            "id": "4dee4a8bae6052cbed1a1f63",
+            "venueLatitude": 45.08455445793663,
+            "venueLongitude": 7.661487304483023,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.65897274017334,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "522ae81811d235eb9f1af7b1",
+            "venueLatitude": 45.0835,
+            "venueLongitude": 7.6581,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.65897274017334,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 38,
+            "id": "52b06fa5498e02b78252ec41",
+            "venueLatitude": 45.081756591796875,
+            "venueLongitude": 7.660110473632812,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.65897274017334,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 59,
+            "id": "4d6eaa29134ea14322f7931a",
+            "venueLatitude": 45.085342765471914,
+            "venueLongitude": 7.662109098079054,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.66420841217041,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 13,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.068616968939956,
+            7.66944408416748
+          ],
+          [
+            45.068616968939956,
+            7.674679756164551
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 14,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2070,
+            "id": "4bee97d6d1b7d13ab616cdec",
+            "venueLatitude": 45.0674516617254,
+            "venueLongitude": 7.668633894089981,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.66944408416748,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 79,
+            "id": "4f4cc9cee4b05ebee414d4b3",
+            "venueLatitude": 45.06742781604511,
+            "venueLongitude": 7.668407516882318,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.66944408416748,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 853,
+            "id": "4d995c0e97d06ea848de480b",
+            "venueLatitude": 45.06789842490547,
+            "venueLongitude": 7.674894332885741,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 7,
+            "id": "5369f11c498e862f199ee1df",
+            "venueLatitude": 45.06836577678073,
+            "venueLongitude": 7.673930768190909,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 7,
+            "id": "4ded1703c65b85dd15f8a6bd",
+            "venueLatitude": 45.06903402405329,
+            "venueLongitude": 7.67570336045267,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 14,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.06532584603699,
+            7.706093788146973
+          ],
+          [
+            45.062034723134026,
+            7.706093788146973
+          ],
+          [
+            45.06532584603699,
+            7.711329460144043
+          ],
+          [
+            45.05874360023106,
+            7.706093788146973
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 15,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 19,
+            "id": "4c948cd758d4b60c62a02929",
+            "venueLatitude": 45.06592402782612,
+            "venueLongitude": 7.703852661510145,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.706093788146973,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "536ca3a8498ef3f1daf6f906",
+            "venueLatitude": 45.06188201904297,
+            "venueLongitude": 7.706825256347656,
+            "centroidLatitude": 45.062034723134026,
+            "centroidLongitude": 7.706093788146973,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 103,
+            "id": "4f0ae691e4b090ef24639901",
+            "venueLatitude": 45.064746654111474,
+            "venueLongitude": 7.709916801368939,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.711329460144043,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 6,
+            "id": "50b79fbde4b0c9f8dc85f411",
+            "venueLatitude": 45.064552307128906,
+            "venueLongitude": 7.710751533508301,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.711329460144043,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 66,
+            "id": "4f1e6e72e4b00c461cbbcb9a",
+            "venueLatitude": 45.05970581585238,
+            "venueLongitude": 7.706377948089012,
+            "centroidLatitude": 45.05874360023106,
+            "centroidLongitude": 7.706093788146973,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 97,
+            "id": "4d6ccd571dfca35d79c03ee0",
+            "venueLatitude": 45.0590910900474,
+            "venueLongitude": 7.703589767569156,
+            "centroidLatitude": 45.05874360023106,
+            "centroidLongitude": 7.706093788146973,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 15,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.08836370635775,
+            7.695622444152832
+          ],
+          [
+            45.08507258345478,
+            7.695622444152832
+          ],
+          [
+            45.08507258345478,
+            7.700858116149902
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 16,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 20,
+            "id": "4d6807127579224b7e82079a",
+            "venueLatitude": 45.08718651926248,
+            "venueLongitude": 7.693597015038502,
+            "centroidLatitude": 45.08836370635775,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 50,
+            "id": "52e9f49d498ef0a9a7591b52",
+            "venueLatitude": 45.08345413208008,
+            "venueLongitude": 7.697751998901367,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 54,
+            "id": "4c245f36c11dc9b6ad652524",
+            "venueLatitude": 45.08565717792256,
+            "venueLongitude": 7.697961330413818,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.695622444152832,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 19,
+            "id": "51b18826498efaca241c7bff",
+            "venueLatitude": 45.08603926760305,
+            "venueLongitude": 7.703255489977854,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.700858116149902,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 6,
+            "id": "521c943d11d219689fa1e4f8",
+            "venueLatitude": 45.085899377788145,
+            "venueLongitude": 7.698299839041245,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.700858116149902,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 16,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.09494595216368,
+            7.700858116149902
+          ],
+          [
+            45.09494595216368,
+            7.706093788146973
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 17,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "4fe2eb17e4b01e4929d30d39",
+            "venueLatitude": 45.094188,
+            "venueLongitude": 7.699417,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.700858116149902,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 10,
+            "id": "4f465029e4b0f737ed9e058f",
+            "venueLatitude": 45.095014254101024,
+            "venueLongitude": 7.708472107554837,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.706093788146973,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 17,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.07849033764885,
+            7.648501396179199
+          ],
+          [
+            45.07849033764885,
+            7.65373706817627
+          ],
+          [
+            45.075199214745886,
+            7.65373706817627
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 18,
+        "name": "c(College & University)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 165,
+            "id": "4cc2a0221e596dcb1862c467",
+            "venueLatitude": 45.077980985497696,
+            "venueLongitude": 7.648301774425767,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.648501396179199,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 11,
+            "id": "4dc83bbec65be1b8e34e70d1",
+            "venueLatitude": 45.07862042611787,
+            "venueLongitude": 7.647683938080789,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.648501396179199,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 117,
+            "id": "51601db6e4b011345ab7a371",
+            "venueLatitude": 45.07721924921333,
+            "venueLongitude": 7.655258448981805,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.65373706817627,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 471,
+            "id": "4dda94f08877f1151033e7c2",
+            "venueLatitude": 45.076874816272685,
+            "venueLongitude": 7.655572509654311,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.65373706817627,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 32,
+            "id": "4fdc5af9e4b05197cd2cd6c6",
+            "venueLatitude": 45.07801480854892,
+            "venueLongitude": 7.656047599272556,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.65373706817627,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 281,
+            "id": "4f1d07bde4b0e2eeecf660f7",
+            "venueLatitude": 45.0766193226625,
+            "venueLongitude": 7.655490348759576,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.65373706817627,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 80,
+            "id": "4d0fc0ab6331a09305985294",
+            "venueLatitude": 45.076511803813126,
+            "venueLongitude": 7.655605746582447,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.65373706817627,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 13,
+            "id": "4f60731be4b05c3a9291f498",
+            "venueLatitude": 45.07648181663902,
+            "venueLongitude": 7.655144630743639,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.65373706817627,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 18,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.075199214745886,
+            7.711329460144043
+          ],
+          [
+            45.075199214745886,
+            7.716565132141113
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 19,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 46,
+            "id": "4f5397e1e4b02d0eb4a7f27c",
+            "venueLatitude": 45.07512297392924,
+            "venueLongitude": 7.713417662628324,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.711329460144043,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "4f4dcf5ee4b0ed3693ca51c6",
+            "venueLatitude": 45.073725,
+            "venueLongitude": 7.718035,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.716565132141113,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 19,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.05216135442513,
+            7.679915428161621
+          ],
+          [
+            45.05216135442513,
+            7.685151100158691
+          ],
+          [
+            45.048870231522166,
+            7.685151100158691
+          ],
+          [
+            45.0455791086192,
+            7.685151100158691
+          ],
+          [
+            45.048870231522166,
+            7.690386772155762
+          ],
+          [
+            45.0455791086192,
+            7.679915428161621
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 20,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 39,
+            "id": "50414babe4b0dd909b81e36a",
+            "venueLatitude": 45.05200316480343,
+            "venueLongitude": 7.677304908578357,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 11,
+            "id": "4e89b1b8f5b977bb5a8d9a12",
+            "venueLatitude": 45.05222620179858,
+            "venueLongitude": 7.68263207890213,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 20,
+            "id": "4e35516045dd1c42bf1d2a68",
+            "venueLatitude": 45.0487351294578,
+            "venueLongitude": 7.685726224151922,
+            "centroidLatitude": 45.048870231522166,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "4e354e92a8092599ee0326f0",
+            "venueLatitude": 45.046471,
+            "venueLongitude": 7.685745,
+            "centroidLatitude": 45.0455791086192,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 54,
+            "id": "4f4f3593e4b0c3e278b9e9d5",
+            "venueLatitude": 45.05029884288662,
+            "venueLongitude": 7.688292920620683,
+            "centroidLatitude": 45.048870231522166,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 20,
+            "id": "4f5fd080e4b0d3b493295832",
+            "venueLatitude": 45.045351,
+            "venueLongitude": 7.678482,
+            "centroidLatitude": 45.0455791086192,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 20,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.06532584603699,
+            7.643265724182129
+          ],
+          [
+            45.06532584603699,
+            7.648501396179199
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 21,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 28,
+            "id": "4f635114e4b0bf1010c62722",
+            "venueLatitude": 45.064576361924736,
+            "venueLongitude": 7.64518040466734,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 9,
+            "id": "508d7edb011c3c984b3ffd53",
+            "venueLatitude": 45.0638064624166,
+            "venueLongitude": 7.644317150115967,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "529c931711d23c41a593b911",
+            "venueLatitude": 45.06675,
+            "venueLongitude": 7.644296,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 13,
+            "id": "4f1ae31ee4b085450645235b",
+            "venueLatitude": 45.064581890886494,
+            "venueLongitude": 7.641676552526221,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 113,
+            "id": "5186670b498e6db4355a2a7c",
+            "venueLatitude": 45.06498062516927,
+            "venueLongitude": 7.648115952434258,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 53,
+            "id": "4d94b240ca3f6ea80fcacf34",
+            "venueLatitude": 45.06389199310446,
+            "venueLongitude": 7.650812294928907,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 95,
+            "id": "4bc88c97dc55eee13d8ce8ac",
+            "venueLatitude": 45.064555,
+            "venueLongitude": 7.650506,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 130,
+            "id": "4e031fa8e4cdbd9a51764d71",
+            "venueLatitude": 45.0643236833342,
+            "venueLongitude": 7.648028475006966,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 21,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.07849033764885,
+            7.66420841217041
+          ],
+          [
+            45.07849033764885,
+            7.66944408416748
+          ],
+          [
+            45.07849033764885,
+            7.674679756164551
+          ],
+          [
+            45.07849033764885,
+            7.679915428161621
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 22,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 27,
+            "id": "4bd89ec82ecdce72fdddd0f2",
+            "venueLatitude": 45.07733131359903,
+            "venueLongitude": 7.664446945024222,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "534e667d498ead8bdada60a4",
+            "venueLatitude": 45.07795561318156,
+            "venueLongitude": 7.662286167595609,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 324,
+            "id": "4ecd476f0e611503516e5910",
+            "venueLatitude": 45.07807859047735,
+            "venueLongitude": 7.671455387601211,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 10,
+            "id": "4f6d6f25e4b0ac4cda46f85c",
+            "venueLatitude": 45.07699124316111,
+            "venueLongitude": 7.669731878978385,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 63,
+            "id": "4d9fbb975970b1f751004b1e",
+            "venueLatitude": 45.07690695025231,
+            "venueLongitude": 7.674738935798242,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 30,
+            "id": "4f27a739e4b07152421b0d10",
+            "venueLatitude": 45.079392,
+            "venueLongitude": 7.67572,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 174,
+            "id": "4fa36ed3e4b01208f93096f3",
+            "venueLatitude": 45.07837679080028,
+            "venueLongitude": 7.678918398557978,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "4f7040d8e4b0463c9632d3df",
+            "venueLatitude": 45.078328,
+            "venueLongitude": 7.679105,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 22,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.07849033764885,
+            7.638030052185059
+          ],
+          [
+            45.075199214745886,
+            7.638030052185059
+          ],
+          [
+            45.075199214745886,
+            7.643265724182129
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 23,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 102,
+            "id": "4f041059c512408c65504d77",
+            "venueLatitude": 45.07927476364429,
+            "venueLongitude": 7.636969239717128,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.638030052185059,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 9,
+            "id": "50c061ece4b04c4de0d43024",
+            "venueLatitude": 45.07949075767946,
+            "venueLongitude": 7.637412978954174,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.638030052185059,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1727,
+            "id": "4cf53984b3662c0f991b7d30",
+            "venueLatitude": 45.0752783721638,
+            "venueLongitude": 7.63575553894043,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.638030052185059,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 89,
+            "id": "4f2a389ee4b02f0aff999cff",
+            "venueLatitude": 45.07521024114567,
+            "venueLongitude": 7.635686006553218,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.638030052185059,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 764,
+            "id": "4d8e794ed00a6ea880acba4f",
+            "venueLatitude": 45.07558142970864,
+            "venueLongitude": 7.644381523132324,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 9,
+            "id": "526b74d411d24f4dd09888d1",
+            "venueLatitude": 45.073806,
+            "venueLongitude": 7.641522,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 23,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.09165482926071,
+            7.690386772155762
+          ],
+          [
+            45.09165482926071,
+            7.695622444152832
+          ],
+          [
+            45.09165482926071,
+            7.700858116149902
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 24,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 79,
+            "id": "50d81a6ce4b091e316e1e1f8",
+            "venueLatitude": 45.09126281738281,
+            "venueLongitude": 7.688580513000488,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 62,
+            "id": "4f550680e4b0e14ed9e4caed",
+            "venueLatitude": 45.09090113394083,
+            "venueLongitude": 7.692811543949031,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 17,
+            "id": "4dcff5ce1f6eb12270a00908",
+            "venueLatitude": 45.09279831730024,
+            "venueLongitude": 7.694251603348427,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "52c34a50498ead6a4afda6b8",
+            "venueLatitude": 45.090894,
+            "venueLongitude": 7.697487,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 18,
+            "id": "5159a027e4b0a9d4d6b4a03c",
+            "venueLatitude": 45.09240743125304,
+            "venueLongitude": 7.700239540077837,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "513b5ac9e4b04f702234f497",
+            "venueLatitude": 45.09109115600586,
+            "venueLongitude": 7.701869487762451,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 24,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.0455791086192,
+            7.638030052185059
+          ],
+          [
+            45.0455791086192,
+            7.643265724182129
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 25,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 10,
+            "id": "505b629be4b02d617c74ebe0",
+            "venueLatitude": 45.046525559499834,
+            "venueLongitude": 7.640383091639877,
+            "centroidLatitude": 45.0455791086192,
+            "centroidLongitude": 7.638030052185059,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 8,
+            "id": "4de64b1418389f055875c6a6",
+            "venueLatitude": 45.045198,
+            "venueLongitude": 7.635891,
+            "centroidLatitude": 45.0455791086192,
+            "centroidLongitude": 7.638030052185059,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 4,
+            "id": "52d41e39498e2bacf8ebf29d",
+            "venueLatitude": 45.045421230096075,
+            "venueLongitude": 7.644922202676205,
+            "centroidLatitude": 45.0455791086192,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 80,
+            "id": "4f718418e4b05d91e3ae5ceb",
+            "venueLatitude": 45.04603845448197,
+            "venueLongitude": 7.645418142023495,
+            "centroidLatitude": 45.0455791086192,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 25,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.10152819796961,
+            7.632794380187988
+          ],
+          [
+            45.10152819796961,
+            7.638030052185059
+          ],
+          [
+            45.10152819796961,
+            7.643265724182129
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 26,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 6,
+            "id": "515355cce4b0066797d5ec0d",
+            "venueLatitude": 45.10282118817726,
+            "venueLongitude": 7.631910556122673,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.632794380187988,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 4,
+            "id": "5077d818498e98df0dbe1cb8",
+            "venueLatitude": 45.101759,
+            "venueLongitude": 7.640198,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.638030052185059,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "4f76996ae4b04368dbefc055",
+            "venueLatitude": 45.101137223871916,
+            "venueLongitude": 7.642705628371645,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 26,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.08507258345478,
+            7.66944408416748
+          ],
+          [
+            45.08178146055182,
+            7.66944408416748
+          ],
+          [
+            45.08507258345478,
+            7.674679756164551
+          ],
+          [
+            45.08178146055182,
+            7.674679756164551
+          ],
+          [
+            45.08507258345478,
+            7.679915428161621
+          ],
+          [
+            45.08178146055182,
+            7.679915428161621
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 27,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 47,
+            "id": "4f60f428e4b071dd72a162cb",
+            "venueLatitude": 45.08579352924562,
+            "venueLongitude": 7.669143676757812,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "4da0b7b62939b1f744dee456",
+            "venueLatitude": 45.085246,
+            "venueLongitude": 7.669121,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 9,
+            "id": "4f682b82e4b005342ab3d704",
+            "venueLatitude": 45.08361910779008,
+            "venueLongitude": 7.668517897222072,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 13,
+            "id": "519089bf498e744b8e186b2f",
+            "venueLatitude": 45.08284015727518,
+            "venueLongitude": 7.669862928416672,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 13,
+            "id": "4f61e78ee4b011d850f18b5e",
+            "venueLatitude": 45.082242860429965,
+            "venueLongitude": 7.66698611201673,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 145,
+            "id": "50654472e4b0166bad8187ad",
+            "venueLatitude": 45.08263884315515,
+            "venueLongitude": 7.669923168930513,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 194,
+            "id": "4ecd45e80aafc14746921d9b",
+            "venueLatitude": 45.084899679834535,
+            "venueLongitude": 7.674876515258343,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 67,
+            "id": "4f86cb9ce4b079949fe52272",
+            "venueLatitude": 45.084768687512366,
+            "venueLongitude": 7.674399929863413,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 130,
+            "id": "505ae0eae4b08c9f918bbe30",
+            "venueLatitude": 45.084958054681266,
+            "venueLongitude": 7.674933089410235,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "51cdcbb3498e7586fe2edfe4",
+            "venueLatitude": 45.08148369526149,
+            "venueLongitude": 7.676856136453185,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 6,
+            "id": "4f59db75e4b0b04916e22194",
+            "venueLatitude": 45.080456324027544,
+            "venueLongitude": 7.676069171188351,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 6,
+            "id": "4ea43a352c5b5cb4f4bca32e",
+            "venueLatitude": 45.08092463153441,
+            "venueLongitude": 7.677119704868002,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 320,
+            "id": "4bc88caedc55eee1518ce8ac",
+            "venueLatitude": 45.08595095974528,
+            "venueLongitude": 7.677724518056716,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 14,
+            "id": "50249a87e4b05ebc0ca9a5ed",
+            "venueLatitude": 45.08467788282187,
+            "venueLongitude": 7.679110910732216,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 21,
+            "id": "4f58a8c9e4b0bdfd0ef03657",
+            "venueLatitude": 45.08491935757121,
+            "venueLongitude": 7.677502237166949,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 34,
+            "id": "4f684679e4b072f14584fb68",
+            "venueLatitude": 45.08211618810284,
+            "venueLongitude": 7.682185903928625,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 19,
+            "id": "4fe027ced5fbe007f6408d22",
+            "venueLatitude": 45.08305129009343,
+            "venueLongitude": 7.681953907012939,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "50aea9a2e4b0f661208bfc58",
+            "venueLatitude": 45.08325958251953,
+            "venueLongitude": 7.680401802062988,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 27,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.10481932087257,
+            7.700858116149902
+          ],
+          [
+            45.10152819796961,
+            7.700858116149902
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 28,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 8,
+            "id": "4e1af61f45dd5191e7c099f2",
+            "venueLatitude": 45.105804,
+            "venueLongitude": 7.700783,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 236,
+            "id": "50094e2ce4b04f67ec0f7bf5",
+            "venueLatitude": 45.105500446537164,
+            "venueLongitude": 7.699077129364014,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 16,
+            "id": "4e01d0dffa764068a36d8b8f",
+            "venueLatitude": 45.105274,
+            "venueLongitude": 7.701086,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 211,
+            "id": "4bd1036320cd996025a22e9e",
+            "venueLatitude": 45.10190427538588,
+            "venueLongitude": 7.700547532298732,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 107,
+            "id": "50692781e4b0e370b2f820ea",
+            "venueLatitude": 45.10143079773333,
+            "venueLongitude": 7.698876791889775,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 4,
+            "id": "5130397fe4b0303cc6a2b58a",
+            "venueLatitude": 45.10038,
+            "venueLongitude": 7.69876,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 28,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.10481932087257,
+            7.732272148132324
+          ],
+          [
+            45.10152819796961,
+            7.732272148132324
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 29,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "523b649d498ecbd0b28db0ff",
+            "venueLatitude": 45.1046028137207,
+            "venueLongitude": 7.732968807220459,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.732272148132324,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 31,
+            "id": "4f9f8194e4b08ae3f6c49aff",
+            "venueLatitude": 45.100371,
+            "venueLongitude": 7.734365,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.732272148132324,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 29,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.06532584603699,
+            7.679915428161621
+          ],
+          [
+            45.06532584603699,
+            7.685151100158691
+          ],
+          [
+            45.062034723134026,
+            7.685151100158691
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 30,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 765,
+            "id": "4bd74be3304fce72975533ab",
+            "venueLatitude": 45.06513069900167,
+            "venueLongitude": 7.681304812431335,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 116,
+            "id": "4e15a4a3e4cded561129bb2f",
+            "venueLatitude": 45.066842480430715,
+            "venueLongitude": 7.680241945209404,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 305,
+            "id": "4cd5581b122ba143284c2ba1",
+            "venueLatitude": 45.065126,
+            "venueLongitude": 7.685601,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 669,
+            "id": "4bd74be5304fce729b5533ab",
+            "venueLatitude": 45.0651491465922,
+            "venueLongitude": 7.684053369899416,
+            "centroidLatitude": 45.06532584603699,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 243,
+            "id": "4db865406e81c67f61cd02ba",
+            "venueLatitude": 45.06366820740628,
+            "venueLongitude": 7.68573220766479,
+            "centroidLatitude": 45.062034723134026,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 8,
+            "id": "51b19e26498e77e089525f4a",
+            "venueLatitude": 45.063002,
+            "venueLongitude": 7.685637,
+            "centroidLatitude": 45.062034723134026,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 30,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.08178146055182,
+            7.643265724182129
+          ],
+          [
+            45.08178146055182,
+            7.648501396179199
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 31,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "50544cad45b08f6aa1ed559c",
+            "venueLatitude": 45.08055134412809,
+            "venueLongitude": 7.64275074005127,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 55,
+            "id": "4f294810e4b0ea161e0959a6",
+            "venueLatitude": 45.08124415149434,
+            "venueLongitude": 7.641600947097414,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 232,
+            "id": "4f28e42de4b018893855b4d6",
+            "venueLatitude": 45.08169355444719,
+            "venueLongitude": 7.648086938179714,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "5018cd20e4b07e04e394aab8",
+            "venueLatitude": 45.08037120138346,
+            "venueLongitude": 7.646748627589407,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 31,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.10152819796961,
+            7.721800804138184
+          ],
+          [
+            45.09823707506664,
+            7.721800804138184
+          ],
+          [
+            45.09823707506664,
+            7.716565132141113
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 32,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "51d3e44a498ea9117c7d06ac",
+            "venueLatitude": 45.10176086425781,
+            "venueLongitude": 7.724210262298584,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.721800804138184,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 7,
+            "id": "51fbf24d498ea9914f874957",
+            "venueLatitude": 45.0994607474547,
+            "venueLongitude": 7.722200350951948,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.721800804138184,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "50a24355e4b0eea671b58500",
+            "venueLatitude": 45.096778869628906,
+            "venueLongitude": 7.717087268829346,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.716565132141113,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 32,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.08178146055182,
+            7.685151100158691
+          ],
+          [
+            45.08178146055182,
+            7.690386772155762
+          ],
+          [
+            45.08178146055182,
+            7.695622444152832
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 33,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 132,
+            "id": "4bd73624304fce72d33733ab",
+            "venueLatitude": 45.08216030600503,
+            "venueLongitude": 7.685367892704258,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 9,
+            "id": "509b76afe4b0a4918869e02f",
+            "venueLatitude": 45.080302313063484,
+            "venueLongitude": 7.687052735211863,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 312,
+            "id": "4f95a89fe4b02d4704c495da",
+            "venueLatitude": 45.08138437146907,
+            "venueLongitude": 7.68907547981754,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 140,
+            "id": "4d6a474830a7236add4280ac",
+            "venueLatitude": 45.08186951108838,
+            "venueLongitude": 7.691094875335692,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "52eb7db311d2780a3bbbecbd",
+            "venueLatitude": 45.083404541015625,
+            "venueLongitude": 7.697797298431396,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 22,
+            "id": "4f5efaaee4b01b0f4a06b630",
+            "venueLatitude": 45.08182480259526,
+            "venueLongitude": 7.693334271183136,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 33,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.055452477328096,
+            7.679915428161621
+          ],
+          [
+            45.055452477328096,
+            7.685151100158691
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 34,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1242,
+            "id": "4d735515ec0754811f1196bf",
+            "venueLatitude": 45.05663724430917,
+            "venueLongitude": 7.678027153015138,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 136,
+            "id": "4f05e58e0e0199f87c4c08e9",
+            "venueLatitude": 45.05462784870449,
+            "venueLongitude": 7.680788213355911,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 50,
+            "id": "4e6f7cf1b0fbacf2adc7395a",
+            "venueLatitude": 45.054397111737806,
+            "venueLongitude": 7.678299012231614,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1080,
+            "id": "4f2140e5e4b0644fb354760a",
+            "venueLatitude": 45.05612803350275,
+            "venueLongitude": 7.683503721337401,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 23,
+            "id": "4e8991ef775b5c00c7c4e138",
+            "venueLatitude": 45.056571,
+            "venueLongitude": 7.686157,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 86,
+            "id": "4e9308d529c27df468e73952",
+            "venueLatitude": 45.05537154902701,
+            "venueLongitude": 7.682737112045287,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 34,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.055452477328096,
+            7.700858116149902
+          ],
+          [
+            45.05216135442513,
+            7.700858116149902
+          ],
+          [
+            45.05216135442513,
+            7.695622444152832
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 35,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "513f2d55e4b0256a7ace483f",
+            "venueLatitude": 45.054039,
+            "venueLongitude": 7.702168,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "5267f26811d2129f8713372a",
+            "venueLatitude": 45.0534782409668,
+            "venueLongitude": 7.699266910552979,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 155,
+            "id": "4b9e3a55f964a5205dd336e3",
+            "venueLatitude": 45.050928,
+            "venueLongitude": 7.695465,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 35,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.07849033764885,
+            7.65897274017334
+          ],
+          [
+            45.075199214745886,
+            7.65897274017334
+          ],
+          [
+            45.075199214745886,
+            7.65373706817627
+          ],
+          [
+            45.075199214745886,
+            7.648501396179199
+          ],
+          [
+            45.07190809184292,
+            7.648501396179199
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 36,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 4,
+            "id": "533be9cc498e28915baa0e91",
+            "venueLatitude": 45.078036523899605,
+            "venueLongitude": 7.66046245174349,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 435,
+            "id": "4d4982af48a06dcbb65870a2",
+            "venueLatitude": 45.079780823858144,
+            "venueLongitude": 7.660734776682659,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 6,
+            "id": "5162b669498ee174d272fae2",
+            "venueLatitude": 45.078484753750054,
+            "venueLongitude": 7.659768501592877,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 12,
+            "id": "515463d3e4b0284e3d546cc8",
+            "venueLatitude": 45.07577841625094,
+            "venueLongitude": 7.656505107879639,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 97,
+            "id": "4ffedf09e4b097513cad7e64",
+            "venueLatitude": 45.074066125912424,
+            "venueLongitude": 7.657899856567383,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 42,
+            "id": "4d94afe0078ef04dc1813078",
+            "venueLatitude": 45.07478122663813,
+            "venueLongitude": 7.656483457713795,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1028,
+            "id": "4d2329818629224ba0352987",
+            "venueLatitude": 45.076036013012384,
+            "venueLongitude": 7.656011581420898,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 25,
+            "id": "4be1ab808dd062b5d9763e3c",
+            "venueLatitude": 45.07532862893733,
+            "venueLongitude": 7.651211715889626,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 266,
+            "id": "4f329407e4b057434da462a3",
+            "venueLatitude": 45.07584940566859,
+            "venueLongitude": 7.661435564184801,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1006,
+            "id": "4c9493a438dd8cfa0e32ca62",
+            "venueLatitude": 45.07550566547311,
+            "venueLongitude": 7.648308277130127,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "533317fb498e49c84580377d",
+            "venueLatitude": 45.075494,
+            "venueLongitude": 7.648409,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 5,
+            "id": "526b83b7498eea41352d5f84",
+            "venueLatitude": 45.07381217105905,
+            "venueLongitude": 7.649072525819303,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 37,
+            "id": "4f5a48e3e4b072fe9ddc6ca5",
+            "venueLatitude": 45.07078681717636,
+            "venueLongitude": 7.647210387399268,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "535e095b498eb27f19e6dc1c",
+            "venueLatitude": 45.070921,
+            "venueLongitude": 7.646696,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "5252b72a498e8b30166625ae",
+            "venueLatitude": 45.072548,
+            "venueLongitude": 7.647206,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 36,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.09494595216368,
+            7.674679756164551
+          ],
+          [
+            45.09165482926071,
+            7.674679756164551
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 37,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 22,
+            "id": "501402fde4b08f147c5cfb3c",
+            "venueLatitude": 45.09657940258767,
+            "venueLongitude": 7.676117420196533,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 6,
+            "id": "50991b8fe4b0a93ce3024807",
+            "venueLatitude": 45.09099873954042,
+            "venueLongitude": 7.677196935349484,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 37,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.10152819796961,
+            7.690386772155762
+          ],
+          [
+            45.09823707506664,
+            7.690386772155762
+          ],
+          [
+            45.09823707506664,
+            7.695622444152832
+          ],
+          [
+            45.09494595216368,
+            7.690386772155762
+          ],
+          [
+            45.09823707506664,
+            7.685151100158691
+          ],
+          [
+            45.09494595216368,
+            7.685151100158691
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 38,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 5,
+            "id": "517a641d498e4a3bbee190c6",
+            "venueLatitude": 45.100375,
+            "venueLongitude": 7.688471,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 7,
+            "id": "51efca25498ed30e04327b1d",
+            "venueLatitude": 45.097503,
+            "venueLongitude": 7.689854,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "51a99155498ecc27e532de0e",
+            "venueLatitude": 45.09791946411133,
+            "venueLongitude": 7.696549415588379,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "505bf3c4e4b05db61ac825e6",
+            "venueLatitude": 45.094886,
+            "venueLongitude": 7.691295,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 74,
+            "id": "50c71ecfe4b0dae47ed36cea",
+            "venueLatitude": 45.09964070755269,
+            "venueLongitude": 7.685596247891742,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 11,
+            "id": "5090d83ee4b0a32427ec82d7",
+            "venueLatitude": 45.09642792970574,
+            "venueLongitude": 7.68394947052002,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 38,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.075199214745886,
+            7.695622444152832
+          ],
+          [
+            45.07190809184292,
+            7.695622444152832
+          ],
+          [
+            45.068616968939956,
+            7.695622444152832
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 39,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 46,
+            "id": "4f36fe41e4b0948a81a4b0fa",
+            "venueLatitude": 45.07589034853902,
+            "venueLongitude": 7.696160886531865,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 21,
+            "id": "4ef796b193ad7cf2ea92b0b8",
+            "venueLatitude": 45.075389238421536,
+            "venueLongitude": 7.695742521812077,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 468,
+            "id": "4d3412762e56236a8f802bb4",
+            "venueLatitude": 45.07247071061778,
+            "venueLongitude": 7.693317010823898,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 62,
+            "id": "4ec0f4104901f56b0e815134",
+            "venueLatitude": 45.07184115481199,
+            "venueLongitude": 7.697712158781472,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 335,
+            "id": "4e7259fdfa767a2b30e08f00",
+            "venueLatitude": 45.06897029907436,
+            "venueLongitude": 7.694371381924793,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 20,
+            "id": "4eecb66f9911d70cb6eeb331",
+            "venueLatitude": 45.06822524567527,
+            "venueLongitude": 7.694559299187041,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 39,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.07849033764885,
+            7.643265724182129
+          ],
+          [
+            45.07849033764885,
+            7.648501396179199
+          ],
+          [
+            45.07849033764885,
+            7.65373706817627
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 40,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 177,
+            "id": "504b3d8fe4b0f7c8ce88165e",
+            "venueLatitude": 45.07850302270225,
+            "venueLongitude": 7.641095863258785,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 210,
+            "id": "4fdb542de4b078dd5f137c84",
+            "venueLatitude": 45.07932397441376,
+            "venueLongitude": 7.650044309743588,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 314,
+            "id": "4f1d0627e4b044fd37240b3b",
+            "venueLatitude": 45.079369775652765,
+            "venueLongitude": 7.656136461755076,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 40,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.08836370635775,
+            7.690386772155762
+          ],
+          [
+            45.08507258345478,
+            7.690386772155762
+          ],
+          [
+            45.08507258345478,
+            7.695622444152832
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 41,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 30,
+            "id": "4ec4c3cb49017fff08ab6ff8",
+            "venueLatitude": 45.088187,
+            "venueLongitude": 7.691181,
+            "centroidLatitude": 45.08836370635775,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 9,
+            "id": "4e03415c1495525ce2c71cab",
+            "venueLatitude": 45.08759,
+            "venueLongitude": 7.688127,
+            "centroidLatitude": 45.08836370635775,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "520f9a8b498e17ff4fce083b",
+            "venueLatitude": 45.089336,
+            "venueLongitude": 7.691072,
+            "centroidLatitude": 45.08836370635775,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 493,
+            "id": "4f50f957e4b002b478c0d4bc",
+            "venueLatitude": 45.08383718781594,
+            "venueLongitude": 7.689502905799261,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 28,
+            "id": "4d3b6ac61fc36dcb137e71f5",
+            "venueLatitude": 45.08398267188998,
+            "venueLongitude": 7.689999473995645,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 23,
+            "id": "4dce8430c65bdac71362745f",
+            "venueLatitude": 45.08469187763275,
+            "venueLongitude": 7.689906584642546,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 20,
+            "id": "4e885c7ed5fb43a633c1a382",
+            "venueLatitude": 45.08613809931354,
+            "venueLongitude": 7.693376437436493,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "50f95d2de4b01272ba8bc3f2",
+            "venueLatitude": 45.08357842453336,
+            "venueLongitude": 7.69802144302267,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 4,
+            "id": "4fd2e2eae4b0b3abb30fa4b2",
+            "venueLatitude": 45.08397439354655,
+            "venueLongitude": 7.696710466869909,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 41,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.07190809184292,
+            7.711329460144043
+          ],
+          [
+            45.07190809184292,
+            7.716565132141113
+          ],
+          [
+            45.068616968939956,
+            7.711329460144043
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 42,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 335,
+            "id": "51531010e4b0b71b73cea1c8",
+            "venueLatitude": 45.07176479330832,
+            "venueLongitude": 7.710433004856384,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.711329460144043,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 680,
+            "id": "4e88b5b629c2ea60eefe24f1",
+            "venueLatitude": 45.07215091866689,
+            "venueLongitude": 7.70955564877173,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.711329460144043,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 9,
+            "id": "4f709547e4b0541c6436620f",
+            "venueLatitude": 45.073,
+            "venueLongitude": 7.7141,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.716565132141113,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 191,
+            "id": "5061cb49e4b06cf1a237a60e",
+            "venueLatitude": 45.07332210775334,
+            "venueLongitude": 7.718631672131744,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.716565132141113,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 542,
+            "id": "4df8e48362e1bb821b5fe54b",
+            "venueLatitude": 45.069883678948294,
+            "venueLongitude": 7.713925838470459,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.711329460144043,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 25,
+            "id": "4d919124939e5481f1e2cf9e",
+            "venueLatitude": 45.068015,
+            "venueLongitude": 7.71356,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.711329460144043,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 42,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.075199214745886,
+            7.679915428161621
+          ],
+          [
+            45.07190809184292,
+            7.679915428161621
+          ],
+          [
+            45.07190809184292,
+            7.685151100158691
+          ],
+          [
+            45.068616968939956,
+            7.685151100158691
+          ],
+          [
+            45.07190809184292,
+            7.690386772155762
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 43,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 78,
+            "id": "517f94c6e4b009808a12bd87",
+            "venueLatitude": 45.07649816899741,
+            "venueLongitude": 7.678402662277222,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1128,
+            "id": "4f2900dee4b083b61065926b",
+            "venueLatitude": 45.07125329251565,
+            "venueLongitude": 7.682210857225896,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 276,
+            "id": "4c112f33ce640f4767273b52",
+            "venueLatitude": 45.07139747978974,
+            "venueLongitude": 7.683551617605473,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2894,
+            "id": "4c1cf324eac020a1064f47c2",
+            "venueLatitude": 45.06880855250181,
+            "venueLongitude": 7.683221354977428,
+            "centroidLatitude": 45.068616968939956,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 19,
+            "id": "4e995b0e82310013a108b808",
+            "venueLatitude": 45.07034827964442,
+            "venueLongitude": 7.692159588738876,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 43,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.055452477328096,
+            7.632794380187988
+          ],
+          [
+            45.05216135442513,
+            7.632794380187988
+          ],
+          [
+            45.048870231522166,
+            7.632794380187988
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 44,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 16,
+            "id": "4d94fa62c19fb60cc60c5d65",
+            "venueLatitude": 45.05692721696642,
+            "venueLongitude": 7.634884608220455,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.632794380187988,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "4f8fa3f6e4b05b1cb6d11a73",
+            "venueLatitude": 45.05582757952385,
+            "venueLongitude": 7.633085900455647,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.632794380187988,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 46,
+            "id": "4e9e7c156da161b08d961820",
+            "venueLatitude": 45.05295899584475,
+            "venueLongitude": 7.632818484081466,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.632794380187988,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 5,
+            "id": "50b64992e4b0cf2e776ecc71",
+            "venueLatitude": 45.052944922500785,
+            "venueLongitude": 7.632548960788846,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.632794380187988,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 92,
+            "id": "4f9ad038e4b0ec21f430f84e",
+            "venueLatitude": 45.04893513465792,
+            "venueLongitude": 7.633414743017252,
+            "centroidLatitude": 45.048870231522166,
+            "centroidLongitude": 7.632794380187988,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 33,
+            "id": "50b0d7f6498e8cffe1f83760",
+            "venueLatitude": 45.04750298921984,
+            "venueLongitude": 7.634776115373337,
+            "centroidLatitude": 45.048870231522166,
+            "centroidLongitude": 7.632794380187988,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 44,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.10481932087257,
+            7.66944408416748
+          ],
+          [
+            45.10152819796961,
+            7.66944408416748
+          ],
+          [
+            45.10481932087257,
+            7.674679756164551
+          ],
+          [
+            45.10152819796961,
+            7.674679756164551
+          ],
+          [
+            45.10152819796961,
+            7.66420841217041
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 45,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "5050b8ece4b04e8a4c54e507",
+            "venueLatitude": 45.104591369628906,
+            "venueLongitude": 7.671802043914795,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "5322bfcd498e4077ae321557",
+            "venueLatitude": 45.012968061506605,
+            "venueLongitude": 7.662165346393955,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 15,
+            "id": "5050b990e4b0361aabd735fc",
+            "venueLatitude": 45.10460323262138,
+            "venueLongitude": 7.672863177170663,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 58,
+            "id": "4f56603be4b00007a98a3b50",
+            "venueLatitude": 45.100688,
+            "venueLongitude": 7.672474,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 35,
+            "id": "4f60f4b8e4b07ccaa4f8f425",
+            "venueLatitude": 45.10251682297378,
+            "venueLongitude": 7.663178443908691,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 45,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.062034723134026,
+            7.700858116149902
+          ],
+          [
+            45.062034723134026,
+            7.706093788146973
+          ],
+          [
+            45.05874360023106,
+            7.706093788146973
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 46,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 20,
+            "id": "4f7f16c4e4b00dcb6a20ed63",
+            "venueLatitude": 45.0620087644446,
+            "venueLongitude": 7.700188077540139,
+            "centroidLatitude": 45.062034723134026,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "4ec402e29a524f6c479e5c9f",
+            "venueLatitude": 45.061353,
+            "venueLongitude": 7.707768,
+            "centroidLatitude": 45.062034723134026,
+            "centroidLongitude": 7.706093788146973,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 19,
+            "id": "4da2f57722a5f04d1f221a55",
+            "venueLatitude": 45.05902124878907,
+            "venueLongitude": 7.703698960362748,
+            "centroidLatitude": 45.05874360023106,
+            "centroidLongitude": 7.706093788146973,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 46,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.10811044377554,
+            7.690386772155762
+          ],
+          [
+            45.10811044377554,
+            7.695622444152832
+          ],
+          [
+            45.10811044377554,
+            7.700858116149902
+          ],
+          [
+            45.10811044377554,
+            7.706093788146973
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 47,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 18,
+            "id": "4e56a71b091ac185c1e95b5d",
+            "venueLatitude": 45.10749575243788,
+            "venueLongitude": 7.690043449401855,
+            "centroidLatitude": 45.10811044377554,
+            "centroidLongitude": 7.690386772155762,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 14,
+            "id": "51a0882a498e55760f593f70",
+            "venueLatitude": 45.10755920410156,
+            "venueLongitude": 7.695309162139893,
+            "centroidLatitude": 45.10811044377554,
+            "centroidLongitude": 7.695622444152832,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 9,
+            "id": "51574e24e4b0655013850b3a",
+            "venueLatitude": 45.108453625938104,
+            "venueLongitude": 7.700943946838379,
+            "centroidLatitude": 45.10811044377554,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 582,
+            "id": "4dcc0f7a52b17cba4fb682eb",
+            "venueLatitude": 45.106988033189545,
+            "venueLongitude": 7.707542403374428,
+            "centroidLatitude": 45.10811044377554,
+            "centroidLongitude": 7.706093788146973,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 47,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.075199214745886,
+            7.66944408416748
+          ],
+          [
+            45.075199214745886,
+            7.674679756164551
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 48,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 360,
+            "id": "4d06852b37036dcbd6871cfb",
+            "venueLatitude": 45.073703,
+            "venueLongitude": 7.668553,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "535cd90e498e20e08bc9119b",
+            "venueLatitude": 45.07355499267578,
+            "venueLongitude": 7.668212413787842,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 39,
+            "id": "4fa04bc1e4b045c4372c3f8c",
+            "venueLatitude": 45.075869332887564,
+            "venueLongitude": 7.672019004821776,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 90,
+            "id": "4fe75d2be4b04318c474b5db",
+            "venueLatitude": 45.07638395592327,
+            "venueLongitude": 7.675940626702763,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 28,
+            "id": "50044e26e4b0ed544a860b9f",
+            "venueLatitude": 45.075436613872725,
+            "venueLongitude": 7.676098188317487,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 18,
+            "id": "51346dfee4b008f275eb2fe3",
+            "venueLatitude": 45.07624150020034,
+            "venueLongitude": 7.677156887189454,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.674679756164551,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 48,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.10481932087257,
+            7.679915428161621
+          ],
+          [
+            45.10152819796961,
+            7.679915428161621
+          ],
+          [
+            45.10481932087257,
+            7.685151100158691
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 49,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "52755aca11d2c7216ae5088d",
+            "venueLatitude": 45.104794,
+            "venueLongitude": 7.680126,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "4fb26d61e4b0f1afb50a1398",
+            "venueLatitude": 45.106076530675494,
+            "venueLongitude": 7.681458380452706,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "51c2b93c498e31f20af9f202",
+            "venueLatitude": 45.10232,
+            "venueLongitude": 7.678949,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 42,
+            "id": "4e6eef3288779c905dc069d4",
+            "venueLatitude": 45.102535702672235,
+            "venueLongitude": 7.678985483064235,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "4fbe6317e4b08dd46731b2de",
+            "venueLatitude": 45.10615167358715,
+            "venueLongitude": 7.684893608093262,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 29,
+            "id": "4f5b9f5ae4b085f52d6b28ec",
+            "venueLatitude": 45.10408468296695,
+            "venueLongitude": 7.685241195862276,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 49,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.09494595216368,
+            7.65373706817627
+          ],
+          [
+            45.09494595216368,
+            7.65897274017334
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 50,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 9,
+            "id": "4f7ae088e4b0220e0fa1170c",
+            "venueLatitude": 45.09373700515626,
+            "venueLongitude": 7.654462029604641,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 12,
+            "id": "4f621068e4b0157287e7ca80",
+            "venueLatitude": 45.0943720050106,
+            "venueLongitude": 7.653866554323803,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 67,
+            "id": "4f51bed5e4b02d0eb2a40ee5",
+            "venueLatitude": 45.09408557273221,
+            "venueLongitude": 7.655820252554954,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 5,
+            "id": "50b47afae4b0c72f2eb014cd",
+            "venueLatitude": 45.095403964837644,
+            "venueLongitude": 7.653053756891601,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "4f6c9c3be4b0a4e20ec9dc53",
+            "venueLatitude": 45.09572216637727,
+            "venueLongitude": 7.657058574679077,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 40,
+            "id": "4f53c767e4b023845fdfa7f2",
+            "venueLatitude": 45.094619592768254,
+            "venueLongitude": 7.656748583805435,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "50c346a6e4b00fec696085c8",
+            "venueLatitude": 45.09609286396407,
+            "venueLongitude": 7.657414464424932,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 1,
+            "id": "5098c554e4b0c4f0fe90727f",
+            "venueLatitude": 45.09492492675781,
+            "venueLongitude": 7.656420230865479,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 50,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.08507258345478,
+            7.700858116149902
+          ],
+          [
+            45.08507258345478,
+            7.706093788146973
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 51,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 269,
+            "id": "4ec534b69911232436f33af0",
+            "venueLatitude": 45.085553180509336,
+            "venueLongitude": 7.701500875273438,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.700858116149902,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 38,
+            "id": "4e4eae8e15203aaed65f37dc",
+            "venueLatitude": 45.08620258126201,
+            "venueLongitude": 7.705450057983398,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.706093788146973,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 51,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.09823707506664,
+            7.66420841217041
+          ],
+          [
+            45.09823707506664,
+            7.66944408416748
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 52,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 6,
+            "id": "52bb5d2511d2a2a2c3ef94d9",
+            "venueLatitude": 45.09894645209834,
+            "venueLongitude": 7.664969085883245,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 23,
+            "id": "4f2fefe9e4b0124abb05223d",
+            "venueLatitude": 45.097275821782645,
+            "venueLongitude": 7.662933105826639,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 12,
+            "id": "4f858073e4b0be4a11eebffe",
+            "venueLatitude": 45.09916109686583,
+            "venueLongitude": 7.662966639325465,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 43,
+            "id": "52d8ecd4498e9936e2f29511",
+            "venueLatitude": 45.09871034296332,
+            "venueLongitude": 7.669323249752824,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 15,
+            "id": "4f678842e4b0ce431feaebeb",
+            "venueLatitude": 45.09718091474754,
+            "venueLongitude": 7.671932328657324,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 15,
+            "id": "4fe1bb53e4b0bc932fe798f5",
+            "venueLatitude": 45.09947292442316,
+            "venueLongitude": 7.671749035210175,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 52,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.09165482926071,
+            7.679915428161621
+          ],
+          [
+            45.09165482926071,
+            7.685151100158691
+          ],
+          [
+            45.08836370635775,
+            7.679915428161621
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 53,
+        "name": "c(Travel & Transport)",
+        "venues": [
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 440,
+            "id": "4c7692a0db52b1f797cb7bdc",
+            "venueLatitude": 45.090815576210034,
+            "venueLongitude": 7.677302956581116,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 178,
+            "id": "4bd1fa40462cb7132752db07",
+            "venueLatitude": 45.09287597373157,
+            "venueLongitude": 7.679416253384968,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 37,
+            "id": "4fbfd9f3e4b05190680cb1c2",
+            "venueLatitude": 45.0930146353396,
+            "venueLongitude": 7.679084003638573,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 9,
+            "id": "4f608e15e4b0a32e0eee1f51",
+            "venueLatitude": 45.090226991059254,
+            "venueLongitude": 7.679362359184919,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 273,
+            "id": "4def764f887754a6af92e074",
+            "venueLatitude": 45.09282275653606,
+            "venueLongitude": 7.685987949371337,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 35,
+            "id": "50faeac5e4b00afff968fb0e",
+            "venueLatitude": 45.091062759785274,
+            "venueLongitude": 7.68623927217387,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 2,
+            "id": "50a1f7e3e4b0f0dfd032a99e",
+            "venueLatitude": 45.092750549316406,
+            "venueLongitude": 7.685545921325684,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 11,
+            "id": "505ae965e4b0df441221ad13",
+            "venueLatitude": 45.09078640468576,
+            "venueLongitude": 7.683476197934223,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.685151100158691,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 202,
+            "id": "4bc88c94dc55eee13c8ce8ac",
+            "venueLatitude": 45.08937884590109,
+            "venueLongitude": 7.678613308604347,
+            "centroidLatitude": 45.08836370635775,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 47,
+            "id": "5052df84e4b0c3ed1dc7d358",
+            "venueLatitude": 45.08942711785456,
+            "venueLongitude": 7.678498324726878,
+            "centroidLatitude": 45.08836370635775,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "50ec0dc0e4b0000d0317c014",
+            "venueLatitude": 45.08927536010742,
+            "venueLongitude": 7.678665161132812,
+            "centroidLatitude": 45.08836370635775,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          },
+          {
+            "timestamp": 1400071690519,
+            "beenHere": 3,
+            "id": "51a0ec9c498efd44ca59c47f",
+            "venueLatitude": 45.08742303497694,
+            "venueLongitude": 7.679275178668246,
+            "centroidLatitude": 45.08836370635775,
+            "centroidLongitude": 7.679915428161621,
+            "category": "Travel & Transport"
+          }
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "name": "geosummly",
+    "bbox": {
+      "north": 45.10975600522702,
+      "east": 7.734889984130859,
+      "south": 45.04393354716772,
+      "west": 7.630176544189453
+    },
+    "date": "2014-05-14T12:48:10.519Z",
+    "eps": 0.07071067811865477
+  }
+}
