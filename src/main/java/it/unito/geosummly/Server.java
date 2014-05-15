@@ -30,7 +30,7 @@ public class Server {
     public static final String APP_PATH = "/";
     public static final String API_PATH = "/api/";
     public static final String WEB_ROOT = "/webroot/app";
-    public static final int PORT = 8080;
+    public static int PORT = 8080;
     private static volatile Boolean running = true;
 
     public static Logger logger = Logger.getLogger(Server.class.toString());
@@ -73,27 +73,29 @@ public class Server {
 
     public static void main(String[] args) {
         
-        try {
-            final HttpServer server = startServer(args.length >= 1 ? args[0] : null);
+        try {      	
+        	
+        	PORT = (args.length>=1) ? Integer.parseInt(args[0]) : PORT;
+        	
+            final HttpServer server = startServer(null);
            
             System.out.println(String.format("Ushuaia Web Server started.\n" + 
                     "Access it at %s",
                     getAppUri()));
             
-//            Thread warmUp = new Thread() {
-//                public void run() {
-//                    //factory.searcher().warmUp((int) (configuration.getMaxCacheSize() * 0.7));
-//                }
-//            };
-//            warmUp.start();
-//            while(running) {
-//                Thread.sleep(100);
-//            }
+            Thread warmUp = new Thread() {
+                public void run() {
+                    //factory.searcher().warmUp((int) (configuration.getMaxCacheSize() * 0.7));
+                }
+            };
+            warmUp.start();
+            while(running) {
+                Thread.sleep(100);
+            }
             
             System.in.read();
             server.stop();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -111,7 +113,6 @@ public class Server {
 
         static {
             EXTENSION_TO_MEDIA_TYPE = new HashMap<String, String>();
-            
             EXTENSION_TO_MEDIA_TYPE.put("html", "text/html");
             EXTENSION_TO_MEDIA_TYPE.put("js", "application/javascript");
             EXTENSION_TO_MEDIA_TYPE.put("map", "application/javascript");
