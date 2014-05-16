@@ -53,78 +53,75 @@ public class GeoJSONWriter implements IGeoWriter{
 			//iterate for each cluster
 	        for(Integer i: keys) {
 	        	
-	        	//Check for not empty venues
-	        	//if(venues.get(i)!=null) {
+	    		name=labels.get(i);
+	    		key=i;
+	    		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i));
+    		
+	    		ArrayList<VenueTemplate> vo_array=new ArrayList<VenueTemplate>();
+	    		writer.beginObject();
+	    		writer.name("type").value("Feature");
+		        writer.name("id").value(key);
+		        writer.name("geometry");
+		        writer.beginObject();
+	        	writer.name("type").value("MultiPoint");
+	        	writer.name("coordinates");
+	        	writer.beginArray();
 	        	
-		    		name=labels.get(i);
-		    		key=i;
-		    		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i));
+	    		//iterate for each cell of the cluster
+	    		for(ArrayList<Double> cl: cellsOfCluster) {
+	    			String s1=df.format(cl.get(1)).replaceAll(",", ".");
+	    			String s2=df.format(cl.get(2)).replaceAll(",", ".");
+	    			writer.beginArray();
+	    			writer.value(Double.parseDouble(s1));
+	    			writer.value(Double.parseDouble(s2));
+	    			writer.endArray();
+	    		}
 	    		
-		    		ArrayList<VenueTemplate> vo_array=new ArrayList<VenueTemplate>();
-		    		writer.beginObject();
-		    		writer.name("type").value("Feature");
-			        writer.name("id").value(key);
-			        writer.name("geometry");
-			        writer.beginObject();
-		        	writer.name("type").value("MultiPoint");
-		        	writer.name("coordinates");
-		        	writer.beginArray();
-		        	
-		    		//iterate for each cell of the cluster
-		    		for(ArrayList<Double> cl: cellsOfCluster) {
-		    			String s1=df.format(cl.get(1)).replaceAll(",", ".");
-		    			String s2=df.format(cl.get(2)).replaceAll(",", ".");
-		    			writer.beginArray();
-		    			writer.value(Double.parseDouble(s1));
-		    			writer.value(Double.parseDouble(s2));
-		    			writer.endArray();
-		    		}
-		    		writer.endArray();
-			        writer.endObject();
-			        writer.name("properties");
-		        	writer.beginObject();
-		    		writer.name("clusterId").value(key+1);
-		    		writer.name("name").value(name);
-		    		writer.name("venues");
-		    		writer.beginArray();
+	    		writer.endArray();
+		        writer.endObject();
+		        writer.name("properties");
+	        	writer.beginObject();
+	    		writer.name("clusterId").value(key+1);
+	    		writer.name("name").value(name);
+	    		writer.name("venues");
+	    		writer.beginArray();
+	    		
+	    		//iterate for each venue of the cluster
+	    		Object tmp=venues.get(key);
+	    		if(tmp!=null) {
+	    			venuesOfCell=new ArrayList<ArrayList<String>>(venues.get(key));
+		    		for(ArrayList<String> r: venuesOfCell) {
+	    				Long timestamp=Long.parseLong(r.get(0));
+	    				Integer bH=Integer.parseInt(r.get(1));
+	    				Double vLat=Double.parseDouble(df.format(Double.parseDouble(r.get(3))).replaceAll(",", "."));
+	    				Double vLng=Double.parseDouble(df.format(Double.parseDouble(r.get(4))).replaceAll(",", "."));
+	    				Double fLat=Double.parseDouble(df.format(Double.parseDouble(r.get(5))).replaceAll(",", "."));
+	    				Double fLng=Double.parseDouble(df.format(Double.parseDouble(r.get(6))).replaceAll(",", "."));
+	    				
+	    				//create a VenueObject with the venue informations
+	    				VenueTemplate vo=new VenueTemplate(timestamp, bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
+    					vo_array.add(vo);
+	    			}
 		    		
-		    		//iterate for each venue of the cluster
-		    		Object tmp=venues.get(key);
-		    		if(tmp!=null) {
-		    			venuesOfCell=new ArrayList<ArrayList<String>>(venues.get(key));
-			    		for(ArrayList<String> r: venuesOfCell) {
-		    				Long timestamp=Long.parseLong(r.get(0));
-		    				Integer bH=Integer.parseInt(r.get(1));
-		    				Double vLat=Double.parseDouble(df.format(Double.parseDouble(r.get(3))).replaceAll(",", "."));
-		    				Double vLng=Double.parseDouble(df.format(Double.parseDouble(r.get(4))).replaceAll(",", "."));
-		    				Double fLat=Double.parseDouble(df.format(Double.parseDouble(r.get(5))).replaceAll(",", "."));
-		    				Double fLng=Double.parseDouble(df.format(Double.parseDouble(r.get(6))).replaceAll(",", "."));
-		    				
-		    				//create a VenueObject with the venue informations
-		    				VenueTemplate vo=new VenueTemplate(timestamp, bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
-	    					vo_array.add(vo);
-		    			}
-			    		
-			    		//write down all the VenueObjects of the cluster
-			    		for(VenueTemplate obj: vo_array) {
-			    			writer.beginObject();
-			    			writer.name("timestamp").value(obj.getTimestamp());
-			    			if(obj.getBeen_here()>0)
-			    				writer.name("beenHere").value(obj.getBeen_here());
-			    			writer.name("id").value(obj.getId());
-			    			writer.name("venueLatitude").value(obj.getVenue_latitude());
-			    			writer.name("venueLongitude").value(obj.getVenue_longitude());
-			    			writer.name("centroidLatitude").value(obj.getFocal_latitude());
-			    			writer.name("centroidLongitude").value(obj.getFocal_longitude());
-			    			writer.name("category").value(obj.getCategory());
-			    			writer.endObject();
-			    		}
+		    		//write down all the VenueObjects of the cluster
+		    		for(VenueTemplate obj: vo_array) {
+		    			writer.beginObject();
+		    			writer.name("timestamp").value(obj.getTimestamp());
+		    			if(obj.getBeen_here()>0)
+		    				writer.name("beenHere").value(obj.getBeen_here());
+		    			writer.name("id").value(obj.getId());
+		    			writer.name("venueLatitude").value(obj.getVenue_latitude());
+		    			writer.name("venueLongitude").value(obj.getVenue_longitude());
+		    			writer.name("centroidLatitude").value(obj.getFocal_latitude());
+		    			writer.name("centroidLongitude").value(obj.getFocal_longitude());
+		    			writer.name("category").value(obj.getCategory());
+		    			writer.endObject();
 		    		}
-		    		writer.endArray();
-		        	writer.endObject();
-		        	writer.endObject();
-		    	}
-	        //}
+	    		}
+	    		writer.endArray();
+	        	writer.endObject();
+	        	writer.endObject();
+	    	}
 	        
 	        writer.endArray();
 	        writer.name("properties");
