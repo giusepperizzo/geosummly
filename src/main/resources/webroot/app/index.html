@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>geoSummly</title>
-		<link rel="stylesheet" href="css/leaflet.css" />
+		<!-- <link rel="stylesheet" href="css/leaflet.css" /> -->
 		<!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" /> -->
 		<link rel="stylesheet" href="css/styles.css"></link>
 		<link rel="stylesheet" href="css/pace-theme-barber-shop.css"></link>
@@ -33,7 +33,7 @@
 		<script type="text/template" id="venue-tooltip">
 			<table>
 				<% if (data.category) { %><tr><th>category</th><td><%= data.category %></td></tr><% } %>
-				<% if (data.category) { %><tr><th>foursquare</th><td><a href="https://foursquare.com/v/<%= data.id %>" target="_blank"><%= data.id %></a></td></tr><% } %>
+				<% if (data.category) { %><tr><th>foursquare</th><td><%= data.id %></td></tr><% } %>
 				<% if (data.category) { %><tr><th>date</th><td><%= data.date %></td></tr><% } %>
 				<% if (data.category) { %><tr><th>been here</th><td><%= data.beenHere %></td></tr><% } %> </table>
 		</script>
@@ -45,8 +45,10 @@
 				<% if (data.venuesLen) { %><tr><th>venues</th><td><%= data.venuesLen %></td></tr><% } %>
 		</script>
 
-		<script src="js/libs/leaflet.min.js"></script>
+		// <script src="js/libs/leaflet.min.js"></script>
 		<!-- <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script> -->
+
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 
 		<script src="js/libs/d3.min.js"></script>
 		<script src="js/libs/underscore-min.js"></script>

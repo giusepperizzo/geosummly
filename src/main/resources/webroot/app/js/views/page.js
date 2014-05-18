@@ -3,7 +3,7 @@ app.Page = function() {
 	var map, legend, colors,
 		loaderTimeout;
 
-	function initMap(params, colors) {
+	function initMap(params, colors, callback) {
 
 		if (!map) {
 			map = app.Map({
@@ -11,7 +11,7 @@ app.Page = function() {
 				colors: colors,
 				key: params.key,
 				location: params.locationParams
-			});	
+			}, callback);
 		}
 		return map;
 	}
@@ -68,14 +68,16 @@ app.Page = function() {
 			this.clusters.fetch(function(clusterFeature) {
 
 				clusters.query(params, function(filteredClusterFeature) {
+
 					colors = initColors(clusters);
 					// TODO.. bad api..
-					initMap(params, colors)
-						.update(filteredClusterFeature, params);
+					map = initMap(params, colors);
+					map.setOverlay(function() {
+						map.init(filteredClusterFeature, params);
+					});
 					initLegend()
 						.update(clusters, params, colors);
 					hideLoader();
-
 				});
 			});
 		}

@@ -175,6 +175,7 @@ ul, li {
 
 	svg {
 		position: relative;
+		z-index: 10000;
 		/*border: 1px solid #f00;*/
 	}
 

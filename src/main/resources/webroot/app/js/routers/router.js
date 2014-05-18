@@ -7,7 +7,7 @@ app.Router = function() {
 
 	function urlToParams(hash) {
 
-		var params = {}, 
+		var params = {},
 			paramList = regexp.exec(hash);
 
 		if (!paramList) { return {}; }

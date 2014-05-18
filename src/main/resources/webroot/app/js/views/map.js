@@ -1,13 +1,13 @@
-app.Map = function(params) {
+app.Map = function(params, callback) {
 
   var
     locationParams = params.location,
-    map = new L.Map(params.elmId, {
-        center: [ locationParams.center.lat, locationParams.center.lng ],
-        zoom: locationParams.zoom
-      })
-      .addLayer(new L.TileLayer('http://{s}.tile.cloudmade.com/' + params.key + '/998/256/{z}/{x}/{y}.png'))
-      .on("viewreset", onViewReset),
+
+    map = new google.maps.Map(document.getElementById(params.elmId), {
+      zoom: locationParams.zoom,
+      center: new google.maps.LatLng(locationParams.center.lat, locationParams.center.lng),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }),
 
     svg,
     g,
@@ -18,34 +18,57 @@ app.Map = function(params) {
     clustersSelection,
     venuesSelection,
     layerPoints,
+    overlay,
 
     colors = params.colors,
     minCircle = 3,
     maxCircle = 30,
 
-    tooltip;
+    tooltip = Tooltip({
+      elmId: "tooltip",
+      width: 240
+    });
 
-  drawBorder(locationParams.bounds, map);
-  svg = d3.select(map.getPanes().overlayPane).append("svg");
-  g = svg.append("g").attr("class", "leaflet-zoom-hide");
-
-  tooltip = Tooltip({
-    elmId: "tooltip",
-    width: 240
-  });
+  function setOverlay(callback) {
+    overlay = new google.maps.OverlayView();
+    overlay.onAdd = function() {
+      var overlayEl = this.getPanes().overlayLayer;
+      g = d3.select(overlayEl).select('svg g');
+      if (g.size() === 0) {
+        overlayEl.parentNode.style.zIndex = "10000";
+        svg = d3.select(this.getPanes().overlayLayer).append("svg");
+        g = svg.append("g");// .attr("class", "leaflet-zoom-hide");
+      }
+      callback();
+    };
+    overlay.draw = function() {
+      update();
+    };
+    overlay.setMap(map);
+  }
 
   function drawBorder(bounds, map) {
-    var pointSW = [bounds.sud, bounds.west];
-    var pointNE = [bounds.north, bounds.est];
-    var border = [pointSW, pointNE];
-    var styles = { stroke: true, color: '#000', weight: 5, fillOpacity: 0 };
+    var pointSW = [bounds.sud, bounds.west],
+        pointNE = [bounds.north, bounds.est],
+        border = [pointSW, pointNE],
+        styles = { stroke: true, color: '#000', weight: 5, fillOpacity: 0 };
 
-    L.rectangle(border, {className: 'border'}).addTo(map);
+    var rectangle = new google.maps.Rectangle({
+      strokeColor: '#000',
+      strokeWeight: 5,
+      fillOpacity: 0,
+      clickable: false,
+      map: map,
+      bounds: new google.maps.LatLngBounds(
+        new google.maps.LatLng(bounds.sud, bounds.west),
+        new google.maps.LatLng(bounds.north, bounds.est))
+    });
   }
 
   function initPath() {
     transform = d3.geo.transform({ point: function projectPoint(x, y) {
-      var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+      var projection = overlay.getProjection();
+      var point = projection.fromLatLngToDivPixel(new google.maps.LatLng(y, x));
       this.stream.point(point.x, point.y);
     }});
 
@@ -76,7 +99,7 @@ app.Map = function(params) {
     return _.flatten(groupedCoords, true);
   }
 
-  function updateClustersSelection(selectedFeature, params) {
+  function initClustersSelection(selectedFeature, params) {
     var infoTemplate = _.template(d3.select('#cluster-tooltip').html());
 
     // clustersSelection = svg polygon elements
@@ -116,15 +139,17 @@ app.Map = function(params) {
     clustersSelection.exit().remove();
   }
 
-  function updateVenuesSelection(selectedFeature) {
+  function initVenuesSelection(selectedFeature) {
+
     var
       infoTemplate = _.template(d3.select('#venue-tooltip').html()),
       venues = [],
-      maxBeenHere = _(venues).pluck('beenHere')[0],
+      maxBeenHere,
       radiusScale;
 
     if (selectedFeature.features.length === 1) {
       venues = getVenues(selectedFeature);
+      maxBeenHere = _(venues).pluck('beenHere')[0];
     }
 
     var radiusScale = d3.scale.pow()
@@ -141,6 +166,7 @@ app.Map = function(params) {
 
     venuesSelection.enter().append('circle')
       .attr('r', function(d) {
+        console.log(d.beenHere, radiusScale(d.beenHere));
         return radiusScale(d.beenHere) || 1;
       })
       .on("mouseover", function(d) {
@@ -158,22 +184,38 @@ app.Map = function(params) {
     venuesSelection.exit().remove();
   }
 
-  function update(feature, params) {
+  function init(feature, params) {
     selectedFeature = feature;
 
-    if (selectedFeature.features.length > 0) {
-      updateClustersSelection(selectedFeature, params);
-      updateVenuesSelection(selectedFeature);
+    drawBorder(locationParams.bounds, map);
 
-      onViewReset();
-      map.fitBounds(getAllCoords(selectedFeature).map(app.utils.inv));
+    if (selectedFeature.features.length > 0) {
+      initClustersSelection(selectedFeature, params);
+      initVenuesSelection(selectedFeature);
+      fitToCurrent(selectedFeature);
     }
     else {
       alert('Wrong cluster or category!')
     }
   }
 
-  function onViewReset() {
+  function fitToCurrent(selectedFeature) {
+    var latLngList = getAllCoords(selectedFeature)
+      .map(app.utils.inv)
+      .map(function(pair) {
+        return new google.maps.LatLng(pair[0], pair[1]);
+      });
+    var bounds = new google.maps.LatLngBounds();
+    //  Go through each...
+    for (var i = 0, ltLgLen = latLngList.length; i < ltLgLen; i++) {
+      //  And increase the bounds to take this point
+      bounds.extend(latLngList[i]);
+    }
+    //  Fit these bounds to the maps
+    map.fitBounds(bounds);
+  }
+
+  function update() {
     initPath();
 
     var
@@ -182,12 +224,13 @@ app.Map = function(params) {
       bottomRight = bounds[1],
       padding = Math.pow(maxCircle, map.getZoom() / 10);
 
-    svg .attr("width", bottomRight[0] - topLeft[0] + (2 * padding))
-        .attr("height", bottomRight[1] - topLeft[1] + (2 * padding))
-        .style("left", (topLeft[0] - padding) + "px")
-        .style("top", (topLeft[1] - padding) + "px");
+    svg
+      .attr("width", bottomRight[0] - topLeft[0] + (2 * padding))
+      .attr("height", bottomRight[1] - topLeft[1] + (2 * padding))
+      .style("left", (topLeft[0] - padding) + "px")
+      .style("top", (topLeft[1] - padding) + "px");
 
-    g  .attr("transform", "translate(" + (-topLeft[0] + padding) + "," + (-topLeft[1] + padding) + ")");
+    g.attr("transform", "translate(" + (-topLeft[0] + padding) + "," + (-topLeft[1] + padding) + ")");
 
     clustersSelection.attr("d", function(feature) {
       var geo = feature.geometry.geometries[1];
@@ -199,43 +242,13 @@ app.Map = function(params) {
     }.bind(this));
 
     venuesSelection.each(function(venue) {
-      var point = map.latLngToLayerPoint(new L.LatLng(venue.venueLatitude, venue.venueLongitude));
+      var projection = overlay.getProjection();
+      var point = projection.fromLatLngToDivPixel(new google.maps.LatLng(venue.venueLatitude, venue.venueLongitude));
+
       d3.select(this)
         .attr('cx', point.x)
         .attr('cy', point.y);
     });
-
-    // removePoints();
-    // removeVenues();
-
-    // show only if one cluster
-    if (selectedFeature.features.length === 1) {
-
-      // addPoints();
-      // addVenues();
-    }
-  }
-
-  function addPoints(limit, everyNth) {
-
-    var limit = limit || 1000;
-    var everyNth = everyNth || 2;
-
-    var markers = _(selectedFeature.features.map(function(feature) {
-      var coordinates = feature.geometry.geometries[0].coordinates;
-      return coordinates.map(app.utils.inv)
-        .filter(function(coords, i) { return i % everyNth === 0; })
-        .slice(0, limit)
-        .map(function(coords) {
-          return L.marker(coords, { icon: L.divIcon({ className: 'grid-dot' }) });
-        });
-    })).flatten();
-
-    layerPoints = L.layerGroup(markers).addTo(map);
-  }
-
-  function removePoints(argument) {
-    if (layerPoints) { map.removeLayer(layerPoints); }
   }
 
   function getVenues(selectedFeature, limit) {
@@ -281,7 +294,8 @@ app.Map = function(params) {
 
   return {
     locationParams: locationParams,
-    update: update,
+    init: init,
+    setOverlay: setOverlay,
     get: function() {
       return map;
     }

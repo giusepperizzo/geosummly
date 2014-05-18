@@ -26,8 +26,8 @@ app.Legend = function() {
 			// window.location.hash = '#!' + this.value;
 			window.location.href = '/#!' + this.value;
 			window.location.reload();
-		}); 
-		
+		});
+
 		_(locations).keys().forEach(function(locName) {
 			$('<option />')
 				.text(locName)
@@ -52,7 +52,7 @@ app.Legend = function() {
 	function toggleCluster(clusterId, action) {
 
 		var clusters = params.clusters || [];
-		
+
 		if (action === 'add') {
 			clusters.push(clusterId);
 		}
@@ -118,7 +118,7 @@ app.Legend = function() {
 							var hrefCluster = '#!' + params.location + '/clusters/' + clusterId;
 							var isChecked = params.clusters && params.clusters.indexOf(clusterId) >= 0;
 							isChecked = isChecked || selectAll;
-	
+
 							return '<li class="' + (isChecked ? 'selected' : '') + '">' +
 										'<a href="' + hrefCluster + '">' +
 											'<input data-id="' + clusterId + '" type="checkbox" ' + (isChecked ? 'checked' : '' )+ '/>' +
