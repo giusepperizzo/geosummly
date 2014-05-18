@@ -19,6 +19,7 @@ app.Config = function() {
 	return {
 		defaultLoc: 'trentino',
 		key: {
+			// not used any more
 			leaflet: '5f9ebf625acb4df3a40163ddca8c064b'
 		},
 		locations: {
