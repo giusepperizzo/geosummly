@@ -1,0 +1,158 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 0,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            35.32024091603882,
+            25.139113491682387
+          ],
+          [
+            35.32417433661394,
+            25.139113491682387
+          ],
+          [
+            35.3163074954637,
+            25.139113491682387
+          ],
+          [
+            35.32024091603882,
+            25.143935547740142
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 1,
+        "name": "c(Arts & Entertainment)",
+        "venues": [
+          {
+            "timestamp": 1400232065506,
+            "beenHere": 125,
+            "id": "4cdad40b958f236ae349a903",
+            "venueLatitude": 35.31959042544636,
+            "venueLongitude": 25.140409848724612,
+            "centroidLatitude": 35.32024091603882,
+            "centroidLongitude": 25.139113491682387,
+            "category": "Arts & Entertainment"
+          },
+          {
+            "timestamp": 1400232065506,
+            "beenHere": 12,
+            "id": "5319c923498eaf05ea17cbb3",
+            "venueLatitude": 35.32369435146966,
+            "venueLongitude": 25.139211216209844,
+            "centroidLatitude": 35.32417433661394,
+            "centroidLongitude": 25.139113491682387,
+            "category": "Arts & Entertainment"
+          },
+          {
+            "timestamp": 1400232065506,
+            "beenHere": 2,
+            "id": "5360d75e498e34ff43b215c6",
+            "venueLatitude": 35.315508,
+            "venueLongitude": 25.140264,
+            "centroidLatitude": 35.3163074954637,
+            "centroidLongitude": 25.139113491682387,
+            "category": "Arts & Entertainment"
+          },
+          {
+            "timestamp": 1400232065506,
+            "beenHere": 60,
+            "id": "507d83b0e4b0eb5f0471cb71",
+            "venueLatitude": 35.321102432583935,
+            "venueLongitude": 25.143305077885287,
+            "centroidLatitude": 35.32024091603882,
+            "centroidLongitude": 25.143935547740142,
+            "category": "Arts & Entertainment"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 1,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            35.33204117776419,
+            25.119825267451382
+          ],
+          [
+            35.33597459833931,
+            25.119825267451382
+          ],
+          [
+            35.328107757189066,
+            25.119825267451382
+          ],
+          [
+            35.33204117776419,
+            25.124647323509137
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 2,
+        "name": "c(Arts & Entertainment)",
+        "venues": [
+          {
+            "timestamp": 1400232065506,
+            "beenHere": 5,
+            "id": "519a251a498eb46f016dc69f",
+            "venueLatitude": 35.332271,
+            "venueLongitude": 25.121272,
+            "centroidLatitude": 35.33204117776419,
+            "centroidLongitude": 25.119825267451382,
+            "category": "Arts & Entertainment"
+          },
+          {
+            "timestamp": 1400232065506,
+            "beenHere": 27,
+            "id": "4dc544472271f27051278b9b",
+            "venueLatitude": 35.33541555704536,
+            "venueLongitude": 25.117669812869163,
+            "centroidLatitude": 35.33597459833931,
+            "centroidLongitude": 25.119825267451382,
+            "category": "Arts & Entertainment"
+          },
+          {
+            "timestamp": 1400232065506,
+            "beenHere": 6,
+            "id": "51caf6fb498e5f848ccbeb78",
+            "venueLatitude": 35.327576,
+            "venueLongitude": 25.117911,
+            "centroidLatitude": 35.328107757189066,
+            "centroidLongitude": 25.119825267451382,
+            "category": "Arts & Entertainment"
+          },
+          {
+            "timestamp": 1400232065506,
+            "beenHere": 8,
+            "id": "50feb7afe4b0d5f49526be84",
+            "venueLatitude": 35.3313084871721,
+            "venueLongitude": 25.1238196829135,
+            "centroidLatitude": 35.33204117776419,
+            "centroidLongitude": 25.124647323509137,
+            "category": "Arts & Entertainment"
+          }
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "name": "geosummly",
+    "bbox": {
+      "north": 35.341874729202,
+      "east": 25.1656348,
+      "south": 35.27894,
+      "west": 25.088481903076
+    },
+    "date": "2014-05-16T9:21:05.506Z",
+    "eps": 0.08838834764831845
+  }
+}

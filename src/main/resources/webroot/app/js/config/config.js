@@ -17,7 +17,7 @@ app.Config = function() {
 	};
 
 	return {
-		defaultLoc: 'trentino',
+		defaultLoc: 'athens',
 		key: {
 			// not used any more
 			leaflet: '5f9ebf625acb4df3a40163ddca8c064b'
@@ -30,6 +30,46 @@ app.Config = function() {
 					sud: 37.9323527,
 					west: 23.628845214844,
 					est: 23.8113263
+				},
+				zoom: 11
+			}),
+			heraklion: new Location({
+				jsonUrl: 'data/heraklion/clustering-output-eps0.08838834764831845.geojson',
+				bounds: {
+					north: 35.341874729202,
+					sud:  35.27894,
+					west: 25.088481903076,
+					est: 25.1656348
+				},
+				zoom: 11
+			}),
+			london02: new Location({
+				jsonUrl: 'data/london/clustering-output-eps0.02525381361380527.geojson',
+				bounds: {
+					north: 51.58389660297623,
+					sud:  51.3591295,
+					west: -0.35980224609375,
+					est: 0.0019242
+				},
+				zoom: 11
+			}),
+			london04: new Location({
+				jsonUrl: 'data/london/clustering-output-eps0.04.geojson',
+				bounds: {
+					north: 51.58389660297623,
+					sud:  51.3591295,
+					west: -0.35980224609375,
+					est: 0.0019242
+				},
+				zoom: 11
+			}),			
+			london08: new Location({
+				jsonUrl: 'data/london/clustering-output-eps0.08.geojson',
+				bounds: {
+					north: 51.58389660297623,
+					sud:  51.3591295,
+					west: -0.35980224609375,
+					est: 0.0019242
 				},
 				zoom: 11
 			}),
