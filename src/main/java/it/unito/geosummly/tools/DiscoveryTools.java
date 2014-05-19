@@ -130,7 +130,7 @@ public class DiscoveryTools {
 	
 	//Old deltad singles calculation method
 	/*/**Get single density values with 1.57*E(d)-1.96*std/radix(N)*/
-	/*public ArrayList<Double> getSingleDensities(ArrayList<Double> meanDens, ArrayList<Double> std, double n) {
+	public ArrayList<Double> getSingleDensities(ArrayList<Double> meanDens, ArrayList<Double> std, double n) {
 		ArrayList<Double> singleDensities=new ArrayList<Double>();
 		double mF=0;
 		double sD=0;
@@ -143,7 +143,7 @@ public class DiscoveryTools {
 			singleDensities.add(density);
 		}
 		return singleDensities;
-	}*/
+	}
 	
 	/**
 	 * Get deltad values of single features with (PI/2)*E(d)-1.96*std/radix(N)

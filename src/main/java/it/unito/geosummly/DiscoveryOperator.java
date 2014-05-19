@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,10 +45,12 @@ public class DiscoveryOperator {
 		if(rnum<=0)
 			rnum=dataset.size();
 		
+		//NEW DELTAD CALCULATION (TSTUDENT)
+		
 		DiscoveryTools dt=new DiscoveryTools();
 		
 		//Matrix of means
-		ArrayList<ArrayList<Double>> avgFiftyMat=dt.getMeanMatrix(dataset, SAMPLES, rnum);
+		/*ArrayList<ArrayList<Double>> avgFiftyMat=dt.getMeanMatrix(dataset, SAMPLES, rnum);
 		
 		//Array with the means of the means previously computed
 		ArrayList<Double> meansOfMeans=dt.getMeanArray(avgFiftyMat);
@@ -74,22 +77,20 @@ public class DiscoveryOperator {
 			Arrays.fill(combinations, -1);
 			featuresDeltad.addAll(dt.getFeaturesForCombinations(new ArrayList<String>(), feat, combinations, 0, 0));
 			logger.log(Level.INFO, "All combinations of "+j+" features executed");
-		}
+		}*/
 		
 		//OLD DELTAD CALCULATION
 		
 		//Get rnum random cells
-		/*if(rnum>0) {
-			ArrayList<ArrayList<Double>> matrixRnd = new ArrayList<ArrayList<Double>>();
-			Random r=new Random();
-			int rnd=0;
-			for(int i=0;i<rnum;i++) {
-				rnd=r.nextInt(dataset.size());
-				matrixRnd.add(dataset.get(rnd));
-			}
-			
-			dataset=new ArrayList<ArrayList<Double>>(matrixRnd); //put the random cells in the matrix
+		ArrayList<ArrayList<Double>> matrixRnd = new ArrayList<ArrayList<Double>>();
+		Random r=new Random();
+		int rnd=0;
+		for(int i=0;i<rnum;i++) {
+			rnd=r.nextInt(dataset.size());
+			matrixRnd.add(dataset.get(rnd));
 		}
+		
+		dataset=new ArrayList<ArrayList<Double>>(matrixRnd); //put the random cells in the matrix
 		
 		//DiscoveryTools dt=new DiscoveryTools();
 		
@@ -110,7 +111,7 @@ public class DiscoveryOperator {
 		for(int j=2;j<=comb;j++) {
 			int[] combinations=new int[j]; //array which will contain the indices of the values to combine
 			Arrays.fill(combinations, -1);
-			deltadValues.addAll(dt.getCombinations(dataset, new ArrayList<Double>(), meanDensities, combinations, 0, 0, n));
+			deltadValues.addAll(dt.getDeltadCombinations(dataset, new ArrayList<Double>(), meanDensities, combinations, 0, 0, n));
 			logger.log(Level.INFO, "All combinations of "+j+" values executed");
 		}
 		
@@ -125,7 +126,7 @@ public class DiscoveryOperator {
 			Arrays.fill(combinations, -1);
 			featuresDeltad.addAll(dt.getFeaturesForCombinations(new ArrayList<String>(), feat, combinations, 0, 0));
 			logger.log(Level.INFO, "All combinations of "+j+" features executed");
-		}*/
+		}
 		
 		//Write down the matrices to file
 		//dataIO.printResultHorizontal(null, stdMatrix, dt.getFeaturesLabel("std", feat), out, "/std-values.csv");*/
