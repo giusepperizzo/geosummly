@@ -32,9 +32,9 @@ app.Clusters = function(jsonUrl) {
     }
 
     // kill if area is zero
-    // clusterFeature.features = clusterFeature.features.filter(function(feature) {
-    //   return feature.properties.area !== 0;
-    // });
+    clusterFeature.features = clusterFeature.features.filter(function(feature) {
+      return feature.properties.area !== 0;
+    });
 
     clusterFeature.features = clusterFeature.features.sort(sortByArea);
     return clusterFeature;
