@@ -186,13 +186,17 @@ app.Map = function(params, callback) {
 
   function init(feature, params) {
     selectedFeature = feature;
-
     drawBorder(locationParams.bounds, map);
 
     if (selectedFeature.features.length > 0) {
       initClustersSelection(selectedFeature, params);
       initVenuesSelection(selectedFeature);
-      fitToCurrent(selectedFeature);
+      // dirty hack..
+      // if it's 'home' page of a location, don't do fitBounds
+      // just show everything with the bbox
+      if (location.hash.search(new RegExp(['clusters', 'category'].join('|'))) > -1) {
+        fitToCurrent(selectedFeature);
+      }
     }
     else {
       alert('Wrong cluster or category!')

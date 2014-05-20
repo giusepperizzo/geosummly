@@ -68,7 +68,6 @@ app.Page = function() {
 			this.clusters.fetch(function(clusterFeature) {
 
 				clusters.query(params, function(filteredClusterFeature) {
-
 					colors = initColors(clusters);
 					// TODO.. bad api..
 					map = initMap(params, colors);
