@@ -31,10 +31,12 @@ app.Clusters = function(jsonUrl) {
       }
     }
 
+    // temporarly commented
     // kill if area is zero
-    clusterFeature.features = clusterFeature.features.filter(function(feature) {
-      return feature.properties.area !== 0;
-    });
+//    clusterFeature.features = clusterFeature.features.filter(function(feature) {
+//      if(feature.properties.area == 0 ) console.log("empty area, then removed clusterId:" + (feature.id + 1) );
+//      return feature.properties.area !== 0;
+//    });
 
     clusterFeature.features = clusterFeature.features.sort(sortByArea);
     return clusterFeature;
@@ -61,6 +63,7 @@ app.Clusters = function(jsonUrl) {
   }
 
   function calculateArea(geometry) {
+    //console.log(path.area(geometry));
     return path.area(geometry);
   }
 
