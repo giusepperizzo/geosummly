@@ -50,10 +50,10 @@ public class ClusteringOperator {
 		//build the database from the normalized matrix
 		Database db=tools.buildDatabaseFromMatrix(normMatrix);
 		
-		//fill in the feature hashmap only with single features and only if the corresponding value is greater than 0
+		//fill in the feature hashmap only with single features
 		HashMap<Integer, String> featuresMap=tools.getFeaturesMapFromDeltad(listDeltad);
 		
-		//fill in the deltad hashmap with that values which are greater than 0 and whose feature is in the features hashmap
+		//fill in the deltad hashmap with that values which are greater than or equal to 0 and whose feature is in the features hashmap
 	    HashMap<String, Double> deltadMap=tools.getValuesMapFromDeltad(listDeltad);
 	    
 	    //get the calendar

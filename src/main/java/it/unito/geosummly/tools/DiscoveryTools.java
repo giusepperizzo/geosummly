@@ -110,14 +110,18 @@ public class DiscoveryTools {
 		
 		for(int h=0;h<samples;h++) {
 			
-			Random r=new Random();
-			rnd=0;
 			matrixRnd=new ArrayList<ArrayList<Double>>();
-			//get a random matrix
-			for(int i=0;i<rnum;i++) {
-				rnd=r.nextInt(dataset.size());
-				matrixRnd.add(dataset.get(rnd));
+			if(rnum>0) {
+				Random r=new Random();
+				rnd=0;
+				//get a random matrix
+				for(int i=0;i<rnum;i++) {
+					rnd=r.nextInt(dataset.size());
+					matrixRnd.add(dataset.get(rnd));
+				}
 			}
+			else
+				matrixRnd=new ArrayList<ArrayList<Double>>(dataset);
 			
 			//get the array of mean densities of a random matrix
 			//and add it to the returning matrix

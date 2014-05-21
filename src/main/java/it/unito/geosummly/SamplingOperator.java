@@ -111,5 +111,7 @@ public class SamplingOperator {
 		//Write down the log file
 		LogDataIO logIO=new LogDataIO();
 		logIO.writeSamplingLog(bbox, data, tools.getMap().keySet().size(), tools.getMapSecondLevel().keySet().size(), out);
+		//dataIO.printCells(data, out, "/info-coord-celle.csv");
+    
     }
 }

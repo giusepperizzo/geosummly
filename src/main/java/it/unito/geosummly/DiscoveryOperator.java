@@ -43,11 +43,7 @@ public class DiscoveryOperator {
 		
 		//NEW DELTAD CALCULATION (TSTUDENT)
 		
-		//check rnum parameter
-		/*if(rnum<=0)
-			rnum=dataset.size();
-		
-		DiscoveryTools dt=new DiscoveryTools();
+		/*DiscoveryTools dt=new DiscoveryTools();
 		
 		//Matrix of means
 		ArrayList<ArrayList<Double>> avgFiftyMat=dt.getMeanMatrix(dataset, SAMPLES, rnum);
