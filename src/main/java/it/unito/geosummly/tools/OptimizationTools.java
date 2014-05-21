@@ -17,6 +17,22 @@ import java.util.Map;
 public class OptimizationTools {
 	
 	/**
+	 * Get the MultiPoints coordinates of all the clusters 
+	*/
+	public ArrayList<ArrayList<ArrayList<Double>>> getMultiPoints(FeatureCollectionTemplate fct) {
+
+		ArrayList<ArrayList<ArrayList<Double>>> objs = new ArrayList<ArrayList<ArrayList<Double>>>();
+		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
+
+		//iterate for all clusters
+		for(FeatureTemplate ft: ft_array) {
+			objs.add(ft.getGeometry().getCoordinates()); //multipoints of a cluter
+		}
+
+		return objs;
+	}
+	
+	/**
 	 * Get the cells of all the clusters 
 	*/
 	public ArrayList<ArrayList<ArrayList<Double>>> getObjectsOfClusters(ArrayList<ArrayList<VenueTemplate>> venues) {
@@ -87,7 +103,7 @@ public class OptimizationTools {
 		
 		ArrayList<String[]> labels=new ArrayList<String[]>();
 		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
-		String[] label;;
+		String[] label;
 		
 		//iterate for all clusters
 		for(FeatureTemplate ft: ft_array) {
@@ -96,6 +112,24 @@ public class OptimizationTools {
 		}
 		
 		return labels;
+	}
+	
+	/**
+	 * Get the ids of all the clusters 
+	*/
+	public ArrayList<Integer> getIdsOfClusters(FeatureCollectionTemplate fct) {
+		
+		ArrayList<Integer> ids=new ArrayList<Integer>();
+		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
+		int id;
+		
+		//iterate for all clusters
+		for(FeatureTemplate ft: ft_array) {
+			id=ft.getProperties().getClusterId();
+			ids.add(id);
+		}
+		
+		return ids;
 	}
 	
 	
@@ -166,6 +200,20 @@ public class OptimizationTools {
 		}
 		
 		return clusterMap;
+	}
+	
+	/**
+	 * Get the map of the cluster ids
+	*/
+	public Map<Integer, Integer> getIdsMap(ArrayList<Integer> ids) {
+		
+		Map<Integer, Integer> idsMap=new HashMap<Integer, Integer>();
+		for(int i=0;i<ids.size();i++) {
+			
+			idsMap.put(i+1,ids.get(i));
+		}
+		
+		return idsMap;
 	}
 	
 	/**

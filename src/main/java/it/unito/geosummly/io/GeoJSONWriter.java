@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.TimeZone;
 
 import com.google.gson.stream.JsonWriter;
@@ -160,7 +161,7 @@ public class GeoJSONWriter implements IGeoWriter{
 		}
 	}
 	
-	public void writerAfterOptimization(BoundingBox bbox, ArrayList<ArrayList<ArrayList<Double>>> cells, 
+	public void writerAfterOptimization(BoundingBox bbox, List<Integer> selected, ArrayList<ArrayList<ArrayList<Double>>> multipoints, 
 										ArrayList<ArrayList<VenueTemplate>> venues, 
 										ArrayList<String[]> labels,
 										double eps, String date, String output) {
@@ -173,7 +174,7 @@ public class GeoJSONWriter implements IGeoWriter{
         	OutputStream os= new FileOutputStream(new File(dir.getPath().concat("/opt-clustering-output-eps").concat(eps+"").concat(".geojson")));
 	    	String name=""; //cluster label
 	    	int key; //cluster key
-	    	ArrayList<ArrayList<Double>> cellsOfCluster; //cells informations (cell_lat, cell_lng) of a cluster
+	    	ArrayList<ArrayList<Double>> multipointsOfCluster; //cells informations (cell_lat, cell_lng) of a cluster
 	    	
 	    	JsonWriter writer = new JsonWriter(new OutputStreamWriter(os, "UTF-8"));
 	        
@@ -184,19 +185,19 @@ public class GeoJSONWriter implements IGeoWriter{
 			writer.beginArray();
 			
 			//iterate for each cluster
-	        for(int i=0;i<cells.size();i++) {
+	        for(int i=0;i<multipoints.size();i++) {
 	    		
 	        	name="";
 	        	for(String s: labels.get(i))
 	    			name=name.concat(s).concat(",");
 	    		name=name.substring(0, name.length()-1); //delete last comma
 	    		
-	    		key=i;
-	    		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i)); //get the cells of the ith cluster
+	    		key=selected.get(i);
+	    		multipointsOfCluster=new ArrayList<ArrayList<Double>>(multipoints.get(i)); //get the cells of the ith cluster
 	    		
 	    		writer.beginObject();
 	    		writer.name("type").value("Feature");
-		        writer.name("id").value(key);
+		        writer.name("id").value(key-1);
 		        writer.name("geometry");
 		        writer.beginObject();
 	        	writer.name("type").value("MultiPoint");
@@ -204,7 +205,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	        	writer.beginArray();
 	        	
 	    		//iterate for each cell of the cluster
-	    		for(ArrayList<Double> cl: cellsOfCluster) {
+	    		for(ArrayList<Double> cl: multipointsOfCluster) {
 	    			writer.beginArray();
 	    			writer.value(cl.get(0));
 	    			writer.value(cl.get(1));
@@ -214,7 +215,7 @@ public class GeoJSONWriter implements IGeoWriter{
 		        writer.endObject();
 		        writer.name("properties");
 	        	writer.beginObject();
-	    		writer.name("clusterId").value(key+1);
+	    		writer.name("clusterId").value(key);
 	    		writer.name("name").value(name);
 	    		writer.name("venues");
 	    		writer.beginArray();

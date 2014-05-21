@@ -26,9 +26,11 @@ public class OptimizationOperator {
 		OptimizationTools tools=new OptimizationTools();
 		
 		//Get the clustering infos
+		ArrayList<ArrayList<ArrayList<Double>>> multiPoints = tools.getMultiPoints(fct);
 		ArrayList<ArrayList<VenueTemplate>> venues = tools.getVenuesOfClusters(fct);
 		ArrayList<ArrayList<ArrayList<Double>>> cells = tools.getObjectsOfClusters(venues);
 		ArrayList<String[]> labels = tools.getLabelsOfClusters(fct);
+		ArrayList<Integer> ids = tools.getIdsOfClusters(fct);
 		String date=fct.getProperties().getDate();
 		double eps=fct.getProperties().getEps();
 		BoundingBox bbox=fct.getProperties().getBbox();
@@ -47,6 +49,8 @@ public class OptimizationOperator {
 																		density, 
 																		heterogeneity, 
 																		weights);
+		//get the map of the cluster ids
+		Map<Integer, Integer> clusterIds = tools.getIdsMap(ids);
 		
 		//Sort values in decreasing order
 		Map<Integer, Double> sortedMap = tools.sortByValue(clusterMap);
@@ -59,13 +63,13 @@ public class OptimizationOperator {
 		List<Integer> selected = tools.selectTop(sortedMap, top);
 		
 		//Get the top clusters infos
-		cells = tools.getTopCells(cells, selected);
+		multiPoints = tools.getTopCells(multiPoints, selected);
 		venues = tools.getTopVenues(venues, selected);
 		labels = tools.getTopLabels(labels, selected);
 		
 		//Serialize the optimized output to file and create the log
 		GeoJSONWriter geoWriter=new GeoJSONWriter();
-		geoWriter.writerAfterOptimization(bbox, cells, venues, labels, eps, date, output);
+		geoWriter.writerAfterOptimization(bbox, selected, multiPoints, venues, labels, eps, date, output);
 		logIO.writeOptimizationLog(selected, sortedMap, weights, spatialCoverage, 
 				density, heterogeneity, new ArrayList<Double>(clusterMap.values()), output);
 	}
