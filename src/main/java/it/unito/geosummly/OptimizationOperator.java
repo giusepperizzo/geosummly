@@ -30,7 +30,6 @@ public class OptimizationOperator {
 		ArrayList<ArrayList<VenueTemplate>> venues = tools.getVenuesOfClusters(fct);
 		ArrayList<ArrayList<ArrayList<Double>>> cells = tools.getObjectsOfClusters(venues);
 		ArrayList<String[]> labels = tools.getLabelsOfClusters(fct);
-		ArrayList<Integer> ids = tools.getIdsOfClusters(fct);
 		String date=fct.getProperties().getDate();
 		double eps=fct.getProperties().getEps();
 		BoundingBox bbox=fct.getProperties().getBbox();
@@ -49,8 +48,6 @@ public class OptimizationOperator {
 																		density, 
 																		heterogeneity, 
 																		weights);
-		//get the map of the cluster ids
-		Map<Integer, Integer> clusterIds = tools.getIdsMap(ids);
 		
 		//Sort values in decreasing order
 		Map<Integer, Double> sortedMap = tools.sortByValue(clusterMap);

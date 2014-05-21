@@ -203,20 +203,6 @@ public class OptimizationTools {
 	}
 	
 	/**
-	 * Get the map of the cluster ids
-	*/
-	public Map<Integer, Integer> getIdsMap(ArrayList<Integer> ids) {
-		
-		Map<Integer, Integer> idsMap=new HashMap<Integer, Integer>();
-		for(int i=0;i<ids.size();i++) {
-			
-			idsMap.put(i+1,ids.get(i));
-		}
-		
-		return idsMap;
-	}
-	
-	/**
 	 * Sort the f0 values of the map in a decreasing order
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
