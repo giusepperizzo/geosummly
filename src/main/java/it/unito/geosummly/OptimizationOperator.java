@@ -26,8 +26,8 @@ public class OptimizationOperator {
 		OptimizationTools tools=new OptimizationTools();
 		
 		//Get the clustering infos
-		ArrayList<ArrayList<ArrayList<Double>>> cells = tools.getObjectsOfClusters(fct);
 		ArrayList<ArrayList<VenueTemplate>> venues = tools.getVenuesOfClusters(fct);
+		ArrayList<ArrayList<ArrayList<Double>>> cells = tools.getObjectsOfClusters(venues);
 		ArrayList<String[]> labels = tools.getLabelsOfClusters(fct);
 		String date=fct.getProperties().getDate();
 		double eps=fct.getProperties().getEps();

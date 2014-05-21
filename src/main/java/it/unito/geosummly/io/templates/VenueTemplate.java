@@ -2,23 +2,23 @@ package it.unito.geosummly.io.templates;
 
 public class VenueTemplate {
 	private long timestamp;
-	private int been_here;
+	private int beenHere;
 	private String id;
-	private double venue_latitude;
-	private double venue_longitude;
-	private double focal_latitude;
-	private double focal_longitude;
+	private double venueLatitude;
+	private double venueLongitude;
+	private double centroidLatitude;
+	private double centroidLongitude;
 	private String category;
 	
 	public VenueTemplate(long t, int b, String id, double vLat, double vLng, double fLat, double fLng, String c) {
 		
 		this.timestamp=t;
-		this.been_here=b;
+		this.beenHere=b;
 		this.id=id;
-		this.venue_latitude=vLat;
-		this.venue_longitude=vLng;
-		this.focal_latitude=fLat;
-		this.focal_longitude=fLng;
+		this.venueLatitude=vLat;
+		this.venueLongitude=vLng;
+		this.centroidLatitude=fLat;
+		this.centroidLongitude=fLng;
 		this.category=c;
 	}
 	
@@ -30,12 +30,12 @@ public class VenueTemplate {
 		this.timestamp = timestamp;
 	}
 	
-	public int getBeen_here() {
-		return been_here;
+	public int getBeenHere() {
+		return beenHere;
 	}
 	
-	public void setBeen_here(int been_here) {
-		this.been_here = been_here;
+	public void setBeenHere(int been_here) {
+		this.beenHere = been_here;
 	}
 	
 	public String getId() {
@@ -46,36 +46,36 @@ public class VenueTemplate {
 		this.id = id;
 	}
 	
-	public double getVenue_latitude() {
-		return venue_latitude;
+	public double getVenueLatitude() {
+		return venueLatitude;
 	}
 	
-	public void setVenue_latitude(double venue_latitude) {
-		this.venue_latitude = venue_latitude;
+	public void setVenueLatitude(double venueLatitude) {
+		this.venueLatitude = venueLatitude;
 	}
 	
-	public double getVenue_longitude() {
-		return venue_longitude;
+	public double getVenueLongitude() {
+		return venueLongitude;
 	}
 	
-	public void setVenue_longitude(double venue_longitude) {
-		this.venue_longitude = venue_longitude;
+	public void setVenueLongitude(double venueLongitude) {
+		this.venueLongitude = venueLongitude;
 	}
 	
-	public double getFocal_latitude() {
-		return focal_latitude;
+	public double getCentroidLatitude() {
+		return centroidLatitude;
 	}
 	
-	public void setFocal_latitude(double focal_latitude) {
-		this.focal_latitude = focal_latitude;
+	public void setCentroidLatitude(double centroidLatitude) {
+		this.centroidLatitude = centroidLatitude;
 	}
 	
-	public double getFocal_longitude() {
-		return focal_longitude;
+	public double getCentroidLongitude() {
+		return centroidLongitude;
 	}
 	
-	public void setFocal_longitude(double focal_longitude) {
-		this.focal_longitude = focal_longitude;
+	public void setCentroidLongitude(double centroidlongitude) {
+		this.centroidLongitude = centroidlongitude;
 	}
 	
 	public String getCategory() {
@@ -88,10 +88,10 @@ public class VenueTemplate {
 	
 	@Override
 	public String toString() {
-		return "\n\t\t\tVenues [timestamp=" + timestamp + ", been_here=" + been_here
-				+ ", id=" + id + ", venue_latitude=" + venue_latitude
-				+ ", venue_longitude=" + venue_longitude + ", focal_latitude="
-				+ focal_latitude + ", focal_longitude=" + focal_longitude
+		return "\n\t\t\tVenues [timestamp=" + timestamp + ", been_here=" + beenHere
+				+ ", id=" + id + ", venueLatitude=" + venueLatitude
+				+ ", venueLongitude=" + venueLongitude + ", centroidLatitude="
+				+ centroidLatitude + ", centroidLongitude=" + centroidLongitude
 				+ ", category=" + category + "]";
 	}	
 }

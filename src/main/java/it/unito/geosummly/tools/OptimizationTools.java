@@ -19,17 +19,49 @@ public class OptimizationTools {
 	/**
 	 * Get the cells of all the clusters 
 	*/
-	public ArrayList<ArrayList<ArrayList<Double>>> getObjectsOfClusters(FeatureCollectionTemplate fct) {
+	public ArrayList<ArrayList<ArrayList<Double>>> getObjectsOfClusters(ArrayList<ArrayList<VenueTemplate>> venues) {
 		
 		ArrayList<ArrayList<ArrayList<Double>>> objs = new ArrayList<ArrayList<ArrayList<Double>>>();
-		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
+		ArrayList<ArrayList<Double>> cells;
+		ArrayList<Double> couple;
 		
 		//iterate for all clusters
-		for(FeatureTemplate ft: ft_array) {
-			objs.add(ft.getGeometry().getCoordinates()); //cells of a cluter
+		for(ArrayList<VenueTemplate> vt_array: venues) {
+			
+			cells = new ArrayList<ArrayList<Double>>();
+			
+			for(VenueTemplate v: vt_array) {
+				
+				couple=new ArrayList<Double>();
+				couple.add(v.getCentroidLatitude());
+				couple.add(v.getCentroidLongitude());
+				
+				//Create a list of distinct cells for each cluster
+				if(!isPresent(cells, couple))
+					cells.add(couple);
+			}
+			objs.add(cells);
 		}
 		
 		return objs;
+	}
+	
+	/**
+	 * Check if a coordinates pair has been already selected
+	*/
+	public boolean isPresent(ArrayList<ArrayList<Double>> source, ArrayList<Double> a) {
+		
+		boolean present=false;
+		ArrayList<Double> tmp;
+		
+		for(int i=0;i<source.size() && !present;i++) {
+			
+			tmp = new ArrayList<Double>(source.get(i));
+			if(tmp.get(0) == a.get(0) && tmp.get(1) == a.get(1))
+				present=true;
+		}
+		
+		return present;
 	}
 	
 	/**

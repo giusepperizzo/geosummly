@@ -99,8 +99,8 @@ public class GeoJSONWriter implements IGeoWriter{
 	        	//serialize inside the MultiPoint lat, long of the venues
 	        	for(VenueTemplate obj: vo_array) 
 	        	{
-	    			String s1=df.format(obj.getVenue_latitude()).replaceAll(",", ".");
-	    			String s2=df.format(obj.getVenue_longitude()).replaceAll(",", ".");
+	    			String s1=df.format(obj.getVenueLatitude()).replaceAll(",", ".");
+	    			String s2=df.format(obj.getVenueLongitude()).replaceAll(",", ".");
 	    			writer.beginArray();
 	    			writer.value(Double.parseDouble(s1));
 	    			writer.value(Double.parseDouble(s2));
@@ -120,13 +120,13 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		for(VenueTemplate obj: vo_array) {
 	    			writer.beginObject();
 	    			writer.name("timestamp").value(obj.getTimestamp());
-	    			if(obj.getBeen_here()>0)
-	    				writer.name("beenHere").value(obj.getBeen_here());
+	    			if(obj.getBeenHere()>0)
+	    				writer.name("beenHere").value(obj.getBeenHere());
 	    			writer.name("id").value(obj.getId());
-	    			writer.name("venueLatitude").value(obj.getVenue_latitude());
-	    			writer.name("venueLongitude").value(obj.getVenue_longitude());
-	    			writer.name("centroidLatitude").value(obj.getFocal_latitude());
-	    			writer.name("centroidLongitude").value(obj.getFocal_longitude());
+	    			writer.name("venueLatitude").value(obj.getVenueLatitude());
+	    			writer.name("venueLongitude").value(obj.getVenueLongitude());
+	    			writer.name("centroidLatitude").value(obj.getCentroidLatitude());
+	    			writer.name("centroidLongitude").value(obj.getCentroidLongitude());
 	    			writer.name("category").value(obj.getCategory());
 	    			writer.endObject();
 		    		
@@ -223,13 +223,13 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		for(VenueTemplate obj: venues.get(i)) {
 	    			writer.beginObject();
 	    			writer.name("timestamp").value(obj.getTimestamp());
-	    			if(obj.getBeen_here()>0)
-	    				writer.name("beenHere").value(obj.getBeen_here());
+	    			if(obj.getBeenHere()>0)
+	    				writer.name("beenHere").value(obj.getBeenHere());
 	    			writer.name("id").value(obj.getId());
-	    			writer.name("venueLatitude").value(obj.getVenue_latitude());
-	    			writer.name("venueLongitude").value(obj.getVenue_longitude());
-	    			writer.name("centroidLatitude").value(obj.getFocal_latitude());
-	    			writer.name("centroidLongitude").value(obj.getFocal_longitude());
+	    			writer.name("venueLatitude").value(obj.getVenueLatitude());
+	    			writer.name("venueLongitude").value(obj.getVenueLongitude());
+	    			writer.name("centroidLatitude").value(obj.getCentroidLatitude());
+	    			writer.name("centroidLongitude").value(obj.getCentroidLongitude());
 	    			writer.name("category").value(obj.getCategory());
 	    			writer.endObject();
 	    		}
