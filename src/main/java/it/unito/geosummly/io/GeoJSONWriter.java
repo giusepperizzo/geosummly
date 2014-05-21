@@ -87,15 +87,16 @@ public class GeoJSONWriter implements IGeoWriter{
 	        	
 	        	// serialize inside the MultiPoint the lat,long of the centroids
 	    		//iterate for each cell of the cluster
-	    		/*for(ArrayList<Double> cl: cellsOfCluster) {
-	    			String s1=df.format(cl.get(1)).replaceAll(",", ".");
-	    			String s2=df.format(cl.get(2)).replaceAll(",", ".");
-	    			writer.beginArray();
-	    			writer.value(Double.parseDouble(s1));
-	    			writer.value(Double.parseDouble(s2));
-	    			writer.endArray();
-	    		}*/
+//	    		for(ArrayList<Double> cl: cellsOfCluster) {
+//	    			String s1=df.format(cl.get(1)).replaceAll(",", ".");
+//	    			String s2=df.format(cl.get(2)).replaceAll(",", ".");
+//	    			writer.beginArray();
+//	    			writer.value(Double.parseDouble(s1));
+//	    			writer.value(Double.parseDouble(s2));
+//	    			writer.endArray();
+//	    		}
 	        	
+	        	//serialize inside the MultiPoint lat, long of the venues
 	        	for(VenueTemplate obj: vo_array) 
 	        	{
 	    			String s1=df.format(obj.getVenue_latitude()).replaceAll(",", ".");
