@@ -72,8 +72,8 @@ app.Config = function() {
 					est: 23.8113263
 				},
 				zoom: 11
-			})/*,
-			heraklion: new Location({
+			}),
+			heraklion_1: new Location({
 				jsonUrl: 'data/heraklion/clustering-output-eps0.08838834764831845.geojson',
 				bounds: {
 					north: 35.344815237811,
@@ -81,18 +81,18 @@ app.Config = function() {
 					west: 25.109596252441,
 					est: 25.192337036133
 				},
-				zoom: 11
+				zoom: 13
 			}),
-			heraklionOpt: new Location({
-				jsonUrl: 'data/heraklion/opt-clustering-output-eps0.08838834764831845.geojson',
+			heraklion_2: new Location({
+				jsonUrl: 'data/heraklion/clustering-output-eps0.1.geojson',
 				bounds: {
 					north: 35.344815237811,
 					sud:  35.2773249,
 					west: 25.109596252441,
 					est: 25.192337036133
 				},
-				zoom: 11
-			}),			
+				zoom: 13
+			})/*,			
 			london02: new Location({
 				jsonUrl: 'data/london/clustering-output-eps0.02525381361380527.geojson',
 				bounds: {
