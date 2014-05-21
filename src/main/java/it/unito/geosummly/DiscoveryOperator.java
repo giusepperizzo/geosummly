@@ -41,16 +41,16 @@ public class DiscoveryOperator {
 			dataset.add(rec);
 		}
 		
-		//check rnum parameter
-		if(rnum<=0)
-			rnum=dataset.size();
-		
 		//NEW DELTAD CALCULATION (TSTUDENT)
+		
+		//check rnum parameter
+		/*if(rnum<=0)
+			rnum=dataset.size();
 		
 		DiscoveryTools dt=new DiscoveryTools();
 		
 		//Matrix of means
-		/*ArrayList<ArrayList<Double>> avgFiftyMat=dt.getMeanMatrix(dataset, SAMPLES, rnum);
+		ArrayList<ArrayList<Double>> avgFiftyMat=dt.getMeanMatrix(dataset, SAMPLES, rnum);
 		
 		//Array with the means of the means previously computed
 		ArrayList<Double> meansOfMeans=dt.getMeanArray(avgFiftyMat);
@@ -82,17 +82,19 @@ public class DiscoveryOperator {
 		//OLD DELTAD CALCULATION
 		
 		//Get rnum random cells
-		ArrayList<ArrayList<Double>> matrixRnd = new ArrayList<ArrayList<Double>>();
-		Random r=new Random();
-		int rnd=0;
-		for(int i=0;i<rnum;i++) {
-			rnd=r.nextInt(dataset.size());
-			matrixRnd.add(dataset.get(rnd));
+		if(rnum>0) {
+			ArrayList<ArrayList<Double>> matrixRnd = new ArrayList<ArrayList<Double>>();
+			Random r=new Random();
+			int rnd=0;
+			for(int i=0;i<rnum;i++) {
+				rnd=r.nextInt(dataset.size());
+				matrixRnd.add(dataset.get(rnd));
+			}
+			
+			dataset=new ArrayList<ArrayList<Double>>(matrixRnd); //put the random cells in the matrix
 		}
 		
-		dataset=new ArrayList<ArrayList<Double>>(matrixRnd); //put the random cells in the matrix
-		
-		//DiscoveryTools dt=new DiscoveryTools();
+		DiscoveryTools dt=new DiscoveryTools();
 		
 		ArrayList<Double> meanDensities=dt.getMeanArray(dataset);
 		ArrayList<ArrayList<Double>> stdMatrix=dt.getStdMatrix(dataset);

@@ -129,7 +129,9 @@ public class DiscoveryTools {
 	}
 	
 	//Old deltad singles calculation method
-	/*/**Get single density values with 1.57*E(d)-1.96*std/radix(N)*/
+	/**
+	 * Get single density values with 1.57*E(d)-1.96*std/radix(N)
+	*/
 	public ArrayList<Double> getSingleDensities(ArrayList<Double> meanDens, ArrayList<Double> std, double n) {
 		ArrayList<Double> singleDensities=new ArrayList<Double>();
 		double mF=0;
@@ -148,7 +150,7 @@ public class DiscoveryTools {
 	/**
 	 * Get deltad values of single features with (PI/2)*E(d)-1.96*std/radix(N)
 	*/
-	public ArrayList<Double> getDeltadOfSingles(ArrayList<ArrayList<Double>> avgFiftyMat, 
+	/*public ArrayList<Double> getDeltadOfSingles(ArrayList<ArrayList<Double>> avgFiftyMat, 
 												ArrayList<Double> meansOfMeans) {
 		
 		ArrayList<Double> deltadValues=new ArrayList<Double>();
@@ -176,7 +178,7 @@ public class DiscoveryTools {
 		}
 		
 		return deltadValues;
-	}
+	}*/
 	
 	/**Get deltad values of categories combinations with (PI/2)*E-1.96*std/radix(N)
 	 * For a category cat, each d_m value is the cat density average of one of the 50 matrix
