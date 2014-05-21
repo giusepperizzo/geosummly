@@ -92,8 +92,8 @@ app.Config = function() {
 					est: 25.192337036133
 				},
 				zoom: 13
-			})/*,			
-			london02: new Location({
+			}),			
+			london_1: new Location({
 				jsonUrl: 'data/london/clustering-output-eps0.02525381361380527.geojson',
 				bounds: {
 					north: 51.58389660297623,
@@ -103,7 +103,7 @@ app.Config = function() {
 				},
 				zoom: 11
 			}),
-			london04: new Location({
+			london_2: new Location({
 				jsonUrl: 'data/london/clustering-output-eps0.04.geojson',
 				bounds: {
 					north: 51.58389660297623,
@@ -113,8 +113,8 @@ app.Config = function() {
 				},
 				zoom: 11
 			}),			
-			london08: new Location({
-				jsonUrl: 'data/london/clustering-output-eps0.08.geojson',
+			london_3: new Location({
+				jsonUrl: 'data/london/clustering-output-eps0.05.geojson',
 				bounds: {
 					north: 51.58389660297623,
 					sud:  51.3591295,
@@ -123,7 +123,17 @@ app.Config = function() {
 				},
 				zoom: 11
 			}),
-			milan01: new Location({
+			london_4: new Location({
+				jsonUrl: 'data/london/clustering-output-eps0.06.geojson',
+				bounds: {
+					north: 51.58389660297623,
+					sud:  51.3591295,
+					west: -0.35980224609375,
+					est: 0.0019242
+				},
+				zoom: 11
+			}),
+			milan_1: new Location({
 				jsonUrl: 'data/milan/clustering-output-eps0.014142135623730952.geojson',
 				bounds: {
 					north: 45.567794914783256,
@@ -133,7 +143,7 @@ app.Config = function() {
 				},
 				zoom: 11
 			}),		
-			milan02: new Location({
+			milan_2: new Location({
 				jsonUrl: 'data/milan/clustering-output-eps0.02.geojson',
 				bounds: {
 					north: 45.567794914783256,
@@ -143,8 +153,8 @@ app.Config = function() {
 				},
 				zoom: 11
 			}),		
-			milan03: new Location({
-				jsonUrl: 'data/milan/clustering-output-eps0.02.geojson',
+			milan_3: new Location({
+				jsonUrl: 'data/milan/clustering-output-eps0.03.geojson',
 				bounds: {
 					north: 45.567794914783256,
 					sud:  45.35668565341512,
@@ -152,38 +162,28 @@ app.Config = function() {
 					est: 9.312688264185255
 				},
 				zoom: 11
-			}),								
-			turin07: new Location({
-				jsonUrl: 'data/turin/clustering-output-eps0.07071067811865477.geojson',
+			}),		
+			milan_4: new Location({
+				jsonUrl: 'data/milan/clustering-output-eps0.04.geojson',
 				bounds: {
-					north: 45.10975600522702,
-					sud: 45.04393354716772,
-					west: 7.630176544189453,
-					est: 7.734889984130859
+					north: 45.567794914783256,
+					sud:  45.35668565341512,
+					west: 9.011490619692509,
+					est: 9.312688264185255
 				},
 				zoom: 11
-			}),
-			turin14: new Location({
-				jsonUrl: 'data/turin/clustering-output-eps0.14.geojson',
+			}),	
+			milan_5: new Location({
+				jsonUrl: 'data/milan/clustering-output-eps0.05.geojson',
 				bounds: {
-					north: 45.10975600522702,
-					sud: 45.04393354716772,
-					west: 7.630176544189453,
-					est: 7.734889984130859
+					north: 45.567794914783256,
+					sud:  45.35668565341512,
+					west: 9.011490619692509,
+					est: 9.312688264185255
 				},
 				zoom: 11
-			}),			
-			turin28: new Location({
-				jsonUrl: 'data/turin/clustering-output-eps0.28.geojson',
-				bounds: {
-					north: 45.10975600522702,
-					sud: 45.04393354716772,
-					west: 7.630176544189453,
-					est: 7.734889984130859
-				},
-				zoom: 11
-			}),			
-			trentino: new Location({
+			}),		
+			/*trentino: new Location({
 				jsonUrl: 'data/trentino/clustering-output-eps0.09.geojson',
 				bounds: {
 					north: 46.53633684901995,
@@ -192,7 +192,37 @@ app.Config = function() {
 					est: 11.831262564937385
 				},
 				zoom: 11
-			})*/
+			}),	*/											
+			turin_1: new Location({
+				jsonUrl: 'data/turin/clustering-output-eps0.2.geojson',
+				bounds: {
+					north: 45.10975600522702,
+					sud: 45.04393354716772,
+					west: 7.630176544189453,
+					est: 7.734889984130859
+				},
+				zoom: 12
+			}),
+			turin_2: new Location({
+				jsonUrl: 'data/turin/clustering-output-eps0.3.geojson',
+				bounds: {
+					north: 45.10975600522702,
+					sud: 45.04393354716772,
+					west: 7.630176544189453,
+					est: 7.734889984130859
+				},
+				zoom: 12
+			}),			
+			turin_3: new Location({
+				jsonUrl: 'data/turin/clustering-output-eps0.4.geojson',
+				bounds: {
+					north: 45.10975600522702,
+					sud: 45.04393354716772,
+					west: 7.630176544189453,
+					est: 7.734889984130859
+				},
+				zoom: 12
+			})
 		}
 	};
 };

@@ -1,0 +1,15 @@
+{
+  "type": "FeatureCollection",
+  "features": [],
+  "properties": {
+    "name": "geosummly",
+    "bbox": {
+      "north": 46.53633684901995,
+      "east": 11.831262564937385,
+      "south": 45.672795442796335,
+      "west": 10.914315493899755
+    },
+    "date": "2014-05-15T10:55:58.450Z",
+    "eps": 0.028
+  }
+}
