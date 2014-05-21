@@ -51,40 +51,12 @@ public class GeoJSONWriter implements IGeoWriter{
 			writer.beginArray();
 			
 			//iterate for each cluster
-	        for(Integer i: keys) {
-	        	
+	        for(Integer i: keys) 
+	        {	
 	    		name=labels.get(i);
 	    		key=i;
 	    		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i));
-    		
 	    		ArrayList<VenueTemplate> vo_array=new ArrayList<VenueTemplate>();
-	    		writer.beginObject();
-	    		writer.name("type").value("Feature");
-		        writer.name("id").value(key);
-		        writer.name("geometry");
-		        writer.beginObject();
-	        	writer.name("type").value("MultiPoint");
-	        	writer.name("coordinates");
-	        	writer.beginArray();
-	        	
-	    		//iterate for each cell of the cluster
-	    		for(ArrayList<Double> cl: cellsOfCluster) {
-	    			String s1=df.format(cl.get(1)).replaceAll(",", ".");
-	    			String s2=df.format(cl.get(2)).replaceAll(",", ".");
-	    			writer.beginArray();
-	    			writer.value(Double.parseDouble(s1));
-	    			writer.value(Double.parseDouble(s2));
-	    			writer.endArray();
-	    		}
-	    		
-	    		writer.endArray();
-		        writer.endObject();
-		        writer.name("properties");
-	        	writer.beginObject();
-	    		writer.name("clusterId").value(key+1);
-	    		writer.name("name").value(name);
-	    		writer.name("venues");
-	    		writer.beginArray();
 	    		
 	    		//iterate for each venue of the cluster
 	    		Object tmp=venues.get(key);
@@ -102,21 +74,61 @@ public class GeoJSONWriter implements IGeoWriter{
 	    				VenueTemplate vo=new VenueTemplate(timestamp, bH, r.get(2), vLat, vLng, fLat, fLng, r.get(7));
     					vo_array.add(vo);
 	    			}
+	    		}
+	    		
+	    		writer.beginObject();
+	    		writer.name("type").value("Feature");
+		        writer.name("id").value(key);
+		        writer.name("geometry");
+		        writer.beginObject();
+	        	writer.name("type").value("MultiPoint");
+	        	writer.name("coordinates");
+	        	writer.beginArray();
+	        	
+	        	// serialize inside the MultiPoint the lat,long of the centroids
+	    		//iterate for each cell of the cluster
+//	    		for(ArrayList<Double> cl: cellsOfCluster) {
+//	    			String s1=df.format(cl.get(1)).replaceAll(",", ".");
+//	    			String s2=df.format(cl.get(2)).replaceAll(",", ".");
+//	    			writer.beginArray();
+//	    			writer.value(Double.parseDouble(s1));
+//	    			writer.value(Double.parseDouble(s2));
+//	    			writer.endArray();
+//	    		}
+	        	
+	        	for(VenueTemplate obj: vo_array) 
+	        	{
+	    			String s1=df.format(obj.getVenue_latitude()).replaceAll(",", ".");
+	    			String s2=df.format(obj.getVenue_longitude()).replaceAll(",", ".");
+	    			writer.beginArray();
+	    			writer.value(Double.parseDouble(s1));
+	    			writer.value(Double.parseDouble(s2));
+	    			writer.endArray();
+	    		}
+	    		
+	    		writer.endArray();
+		        writer.endObject();
+		        writer.name("properties");
+	        	writer.beginObject();
+	    		writer.name("clusterId").value(key+1);
+	    		writer.name("name").value(name);
+	    		writer.name("venues");
+	    		writer.beginArray();
+
+	    		//write down all the VenueObjects of the cluster
+	    		for(VenueTemplate obj: vo_array) {
+	    			writer.beginObject();
+	    			writer.name("timestamp").value(obj.getTimestamp());
+	    			if(obj.getBeen_here()>0)
+	    				writer.name("beenHere").value(obj.getBeen_here());
+	    			writer.name("id").value(obj.getId());
+	    			writer.name("venueLatitude").value(obj.getVenue_latitude());
+	    			writer.name("venueLongitude").value(obj.getVenue_longitude());
+	    			writer.name("centroidLatitude").value(obj.getFocal_latitude());
+	    			writer.name("centroidLongitude").value(obj.getFocal_longitude());
+	    			writer.name("category").value(obj.getCategory());
+	    			writer.endObject();
 		    		
-		    		//write down all the VenueObjects of the cluster
-		    		for(VenueTemplate obj: vo_array) {
-		    			writer.beginObject();
-		    			writer.name("timestamp").value(obj.getTimestamp());
-		    			if(obj.getBeen_here()>0)
-		    				writer.name("beenHere").value(obj.getBeen_here());
-		    			writer.name("id").value(obj.getId());
-		    			writer.name("venueLatitude").value(obj.getVenue_latitude());
-		    			writer.name("venueLongitude").value(obj.getVenue_longitude());
-		    			writer.name("centroidLatitude").value(obj.getFocal_latitude());
-		    			writer.name("centroidLongitude").value(obj.getFocal_longitude());
-		    			writer.name("category").value(obj.getCategory());
-		    			writer.endObject();
-		    		}
 	    		}
 	    		writer.endArray();
 	        	writer.endObject();
