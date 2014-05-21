@@ -299,8 +299,9 @@ public class GEOSUBCLU<V extends NumberVector<?>>
 		feature = FEATUREMAPPER.get(bs.nextSetBit(0));
 	}
 
-	if (!DELTAD.containsKey(feature) ) 
+	if (!DELTAD.containsKey(feature) || DELTAD.get(feature) == 0 ) 
 		return new LinkedList<Cluster<Model>>();
+	
 	int minpts = DELTAD.get(feature).intValue();
 	
 	DoubleDistance epsilon = (EPS.containsKey(feature)) ? 
