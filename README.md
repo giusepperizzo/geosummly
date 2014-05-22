@@ -1,8 +1,7 @@
 # geosummly - Geographic Summaries from Crowdsourced Data
 
 [geosummly][geosummly] is as a framework that creates geographic summaries using the whereabouts of Foursquare users. Exploiting the density of the venue types in a particular region, the system adds a layer over any typical cartography geographic maps service, creating a first glance summary over the venues sampled from the Foursquare
-knowledge base. Each summary is represented by a convex hull. The shape is automatically computed according to the venue densities enclosed in the area. The summary is then labeled with the most prominent
-category or categories. The prominence is given by the observed venue category density. 
+knowledge base. Each summary is represented by a convex hull. The shape is automatically computed according to the venue densities enclosed in the area. The summary is then labeled with the most prominent category or categories. The prominence is given by the observed venue category density. A set of summaries are provided in the public [demonstration][demonstration].
 
 ## Architectural Overview 
 The prototype is composed of 6 stages:
@@ -155,6 +154,7 @@ If you want to cite this work, please use the following citation.
 
 
 [geosummly]: https://github.com/giusepperizzo/geosummly
+[demonstration]: http://geosummly.eurecom.fr/
 [paper]: http://www.di.unito.it/~rizzo/publications/Rizzo_Falcone-ESWC2014.pdf 
 [elki]: http://elki.dbs.ifi.lmu.de/wiki/Releases
 [fi]: https://github.com/wallabyfinancial/foursquare-api-java
