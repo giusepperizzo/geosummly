@@ -16,7 +16,8 @@ app.Clusters = function(jsonUrl) {
 
       try {
         feature.geometry = generateHulls(feature.geometry);
-        feature.properties.area = calculateArea(feature.geometry.geometries[1]) || 0;
+        // feature.properties.area = calculateArea(feature.geometry.geometries[1]) || 0;
+        feature.properties.area = polygonArea(feature.geometry.geometries[1].coordinates[0]) || 0;
       }
       catch(err) {
 
@@ -33,10 +34,10 @@ app.Clusters = function(jsonUrl) {
 
     // temporarly commented
     // kill if area is zero
-//    clusterFeature.features = clusterFeature.features.filter(function(feature) {
-//      if(feature.properties.area == 0 ) console.log("empty area, then removed clusterId:" + (feature.id + 1) );
-//      return feature.properties.area !== 0;
-//    });
+    clusterFeature.features = clusterFeature.features.filter(function(feature) {
+      if (feature.properties.area == 0) console.log("empty area, then removed clusterId:" + (feature.id + 1) );
+      return feature.properties.area !== 0;
+    });
 
     clusterFeature.features = clusterFeature.features.sort(sortByArea);
     return clusterFeature;
@@ -65,6 +66,21 @@ app.Clusters = function(jsonUrl) {
   function calculateArea(geometry) {
     //console.log(path.area(geometry));
     return path.area(geometry);
+  }
+
+  // taken from http://stackoverflow.com/a/17952152
+  function polygonArea(points) {
+    var sum = 0.0;
+    var length = points.length;
+    if (length < 3) {
+      return sum;
+    }
+    points.forEach(function(d1, i1) {
+      i2 = (i1 + 1) % length;
+      d2 = points[i2];
+      sum += (d2[1] * d1[0]) - (d1[1] * d2[0]);
+    });
+    return Math.abs(sum / 2);
   }
 
   function sortByArea(feature1, feature2) {
