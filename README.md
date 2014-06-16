@@ -5,8 +5,8 @@ knowledge base. Each summary is represented by a convex hull. The shape is autom
 
 ## Architectural Overview 
 The prototype is composed of 6 stages:
-* sampling: it performs the sampling of foursquare venues that are surrounded by a bounding box, and it records this informations on a matrix;
-* import: it generates a multidimensional tensor matrix, given the sampled data, where each dimension reports the magnitude of the Fourquare category venue, and each object shapes a portion (cell) of the original bounding box;
+* sampling: it performs the sampling of Foursquare venues that are surrounded by a bounding box, and it records this information on a matrix;
+* import: it generates a multidimensional tensor matrix, given the sampled data, where each dimension reports the magnitude of the Foursquare category venue, and each object shapes a portion (cell) of the original bounding box;
 * discovery: it estimates the parameter minpts;
 * clustering: it performs the clustering algorithm;
 * evaluation: it computes the SSE and the Jaccard as evaluation means of the obtained clustering output.
@@ -42,7 +42,7 @@ For a full list of commands, please refer to:
 -O –output  <path/to/dir>   set the output directory
 -g –gnum    <arg>           set the number of cells of a side of the squared grid. Default 20.
 -r –rnum    <arg>           set the number of cells, taken randomly, chosen for the sampling.
--s –social  <arg>           set the social network for meta-data collection. So far only foursquare is activable. Default fourquare.
+-s –social  <arg>           set the social network for meta-data collection. So far only Foursquare is activable. Default Fourquare.
 -z -sleep   <arg>           set the milliseconds between two calls to social media server. Default 0.
 -C –cache                   cache activation. Default deactivated.
 ```
