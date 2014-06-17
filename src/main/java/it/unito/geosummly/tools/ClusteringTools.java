@@ -435,14 +435,14 @@ public class ClusteringTools {
 	 * Create an hashmap for the holdout used to compute Jaccard evaluation.
 	 * each entry of the map will be a couple: cluster_name, list_of_cells 
 	*/
-	public  HashMap<String, Vector<Integer>> buildHoldoutMap(TreeSet<String> distinctLabels, ArrayList<TreeSet<Integer>> allCells, int length) {
+	public  HashMap<String, Vector<Integer>> buildHoldoutMap(TreeSet<String> tree, ArrayList<TreeSet<Integer>> cells, int length) {
 		HashMap<String, Vector<Integer>> holdout=new HashMap<String, Vector<Integer>>();
 	    Vector<Integer> vector;
-	    Iterator<String> distinctIter=distinctLabels.iterator();
-        Iterator<TreeSet<Integer>> allCellsIter=allCells.iterator();
-        while(distinctIter.hasNext() && allCellsIter.hasNext()) {
+	    Iterator<String> distinctIter=tree.iterator();
+        Iterator<TreeSet<Integer>> cellsIter=cells.iterator();
+        while(distinctIter.hasNext() && cellsIter.hasNext()) {
         	String label=distinctIter.next();
-        	Iterator<Integer> treeIter=allCellsIter.next().iterator();
+        	Iterator<Integer> treeIter = cellsIter.next().iterator();
         	vector=new Vector<Integer>();
         	while(treeIter.hasNext()) {
         		vector.add(treeIter.next()-length);

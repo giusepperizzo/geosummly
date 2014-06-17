@@ -28,22 +28,22 @@ public class DiscoveryTools {
 	}
 	
 	/**Create a matrix with standard deviation values starting by the matrix of densities*/
-	public ArrayList<ArrayList<Double>> getStdMatrix(ArrayList<ArrayList<Double>> densMatrix) {
+	public ArrayList<ArrayList<Double>> getStdMatrix(ArrayList<ArrayList<Double>> matrix) {
 		ArrayList<ArrayList<Double>> stdMatrix=new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> stdDevArray=new ArrayList<Double>();
 		double mean=0; //mean of the element (of the same category) found
 		double variance=0;
 		double stdDev=0;
 		
-		for(int j=0; j<densMatrix.get(0).size(); j++) {
-			mean=getMean(densMatrix, j);
-			variance=getVariance(densMatrix, j, mean);
+		for(int j=0; j<matrix.get(0).size(); j++) {
+			mean=getMean(matrix, j);
+			variance=getVariance(matrix, j, mean);
 			stdDev=getStdDev(variance);
 			stdDevArray.add(stdDev);
 		}
 		
 		//Build the matrix
-		for(int i=0; i<densMatrix.size(); i++) {
+		for(int i=0; i<matrix.size(); i++) {
 			ArrayList<Double> stdDevRecord=new ArrayList<Double>(stdDevArray);
 			stdMatrix.add(stdDevRecord);
 		}
@@ -70,11 +70,11 @@ public class DiscoveryTools {
 	}
 	
 	/**Get the variance of a given array of values*/
-	public double getVariance(ArrayList<ArrayList<Double>> densMatrix, int index, double mean) {
+	public double getVariance(ArrayList<ArrayList<Double>> matrix, int index, double mean) {
 		double value=0;
 		double tmp=0;
 		double size=0;
-		for(ArrayList<Double> row: densMatrix) {
+		for(ArrayList<Double> row: matrix) {
 			value=row.get(index);
 			tmp+=(mean-value)*(mean-value);
 			size++;
@@ -102,7 +102,7 @@ public class DiscoveryTools {
 	 * A record of the matrix is a list of intra-feature mean densities of a random matrix.
 	 * A random matrix has |rnum| records and each record is taken randomly by the input dataset.
 	*/
-	public ArrayList<ArrayList<Double>> getMeanMatrix(ArrayList<ArrayList<Double>> dataset, int samples, int rnum) {
+	/*public ArrayList<ArrayList<Double>> getMeanMatrix(ArrayList<ArrayList<Double>> dataset, int samples, int rnum) {
 		
 		ArrayList<ArrayList<Double>> avgFiftyMat=new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> matrixRnd;
@@ -130,19 +130,19 @@ public class DiscoveryTools {
 		}
 		
 		return avgFiftyMat;
-	}
+	}*/
 	
 	//Old deltad singles calculation method
 	/**
 	 * Get single density values with 1.57*E(d)-1.96*std/radix(N)
 	*/
-	public ArrayList<Double> getSingleDensities(ArrayList<Double> meanDens, ArrayList<Double> std, double n) {
+	public ArrayList<Double> getSingleDensities(ArrayList<Double> mean, ArrayList<Double> std, double n) {
 		ArrayList<Double> singleDensities=new ArrayList<Double>();
 		double mF=0;
 		double sD=0;
 		double density=0;
-		for(int i=0;i<meanDens.size();i++) {
-			mF=meanDens.get(i);
+		for(int i=0;i<mean.size();i++) {
+			mF=mean.get(i);
 			sD=std.get(i);
 			double scaleFactor = Math.PI / 2;
 			density=scaleFactor*mF-(1.96* (sD/Math.sqrt(n)) );
@@ -190,7 +190,7 @@ public class DiscoveryTools {
 	 * std = radix( sum( (XiYiZi...Kn - E(d_m,cat1)E(d_m,cat2)E(d_m, cat3)...(E(d_m, catn) )^2 ) / N ), Xi, Yi, Zi, ..., Ki are the cat_i density averages for each one of the 50 matrix
 	 * N = |record of the matrix| 
 	*/
-	public ArrayList<Double> getDeltadCombinations(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> toRet, ArrayList<Double> meanDens, int[] comb, int startIndex, int combCount, double n) {
+	public ArrayList<Double> getDeltadCombinations(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> toRet, ArrayList<Double> mean, int[] comb, int startIndex, int combCount, double n) {
 		double mult;
 		double sum;
 		double value;
@@ -202,7 +202,7 @@ public class DiscoveryTools {
 			sum=0;
 			//get the values of the combination
 			for(int i = 0; i < combCount; i++){
-				mult*= meanDens.get(comb[i]);
+				mult*= mean.get(comb[i]);
 			}
 			//get the corresponding values of the matrix
 			for(int i=0; i<matrix.size();i++) {
@@ -230,9 +230,9 @@ public class DiscoveryTools {
 		}
 		//recursive call for the next combinations
 		else{
-			for(int i = startIndex; i < meanDens.size(); i++){
+			for(int i = startIndex; i < mean.size(); i++){
 				comb[combCount] = i;
-				getDeltadCombinations(matrix, toRet, meanDens, comb, i+1, combCount+1, n);
+				getDeltadCombinations(matrix, toRet, mean, comb, i+1, combCount+1, n);
 			}
 		}
 		return toRet;
