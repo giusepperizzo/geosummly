@@ -59,7 +59,7 @@ public class EvaluationOperator {
 
 		//mnum matrices
 		for(int i=0;i<mnum;i++) {
-			frequencyRandomMatrix=eTools.buildFrequencyRandomMatrix(matrix, minArray, maxArray);
+			frequencyRandomMatrix=eTools.buildFrequencyRandomMatrix(matrix.size(), minArray, maxArray);
 			densityRandomMatrix=tools.buildDensityMatrix(CoordinatesNormalizationType.MISSING, frequencyRandomMatrix, bboxArea);
 			normalizedRandomMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.MISSING, densityRandomMatrix);
 			ArrayList<String>feat=eTools.changeFeaturesLabel("f", "", features);
@@ -99,16 +99,16 @@ public class EvaluationOperator {
 		allMatrices=eTools.removeVenueCoordinates(allMatrices);
 		
 		//Group the venues and get the value of each cell
-		ImportTools tools=new ImportTools();
-		ArrayList<BoundingBox> data=tools.getFocalPoints(matrix);
-		ArrayList<ArrayList<ArrayList<Double>>> allGrouped=eTools.groupFolds(tools, data, allMatrices);
-		ArrayList<Double> bboxArea=tools.getAreasFromFocalPoints(data, matrix);
+		ArrayList<BoundingBox> data=eTools.getFocalPoints(matrix);
+		ArrayList<ArrayList<ArrayList<Double>>> allGrouped=eTools.groupFolds(data, allMatrices);
+		ArrayList<Double> bboxArea=eTools.getAreasFromFocalPoints(data, matrix);
 
 		//Fill in the list of features for transformation
 		//Only the categories will be considered
 		ArrayList<String> features = eTools.getFeaturesFromList(list);
 
 		//Transform all the random matrices, prepare map for evaluation and write them to file
+		ImportTools tools=new ImportTools();
 		ClusteringOperator co=new ClusteringOperator();
 		ArrayList<HashMap<String, Vector<Integer>>> holdoutList=new ArrayList<HashMap<String, Vector<Integer>>>();
 		HashMap<String, Vector<Integer>> holdout;
