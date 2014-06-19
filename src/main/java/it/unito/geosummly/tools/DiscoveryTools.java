@@ -1,9 +1,11 @@
 package it.unito.geosummly.tools;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class DiscoveryTools {
+	
+	private double scaleFactor = 1; //Math.PI / 2;
+
 	
 	public DiscoveryTools() {}
 	
@@ -144,7 +146,6 @@ public class DiscoveryTools {
 		for(int i=0;i<mean.size();i++) {
 			mF=mean.get(i);
 			sD=std.get(i);
-			double scaleFactor = Math.PI / 2;
 			density=scaleFactor*mF-(1.96* (sD/Math.sqrt(n)) );
 			singleDensities.add(density);
 		}
@@ -223,7 +224,7 @@ public class DiscoveryTools {
 			// C = Q * (pi * 1/4 * 2 * 1/N^2) / (1/N^2)
 			//   = Q * pi * 1/2
 			//   = Q * 1.57
-			double scaleFactor = Math.PI / 2;
+			// double scaleFactor = Math.PI / 2;
 			
 			density=scaleFactor * mult-(1.96 * (sD/Math.sqrt(n))); 
 			toRet.add(density);

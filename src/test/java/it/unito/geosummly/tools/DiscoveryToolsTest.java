@@ -126,7 +126,7 @@ public class DiscoveryToolsTest extends TestCase {
 	public void testGetSingleDensities() {
 		
 		ArrayList<Double> expected = new ArrayList<Double>();
-		expected.add(31.02392654); expected.add(46.3398898); expected.add(61.65585307);
+		expected.add(19.608); expected.add(29.216); expected.add(38.824);
 		
 		ArrayList<Double> mean = new ArrayList<Double>();
 		mean.add(20.0); mean.add(30.0); mean.add(40.0);
@@ -145,8 +145,8 @@ public class DiscoveryToolsTest extends TestCase {
 	public void testGetDeltadCombinations() {
 		
 		ArrayList<Double> expected = new ArrayList<Double>();
-		expected.add(15.51196327); expected.add(24.85417289);
-		expected.add(62.47044693);
+		expected.add(9.804); expected.add(15.721431660090383);
+		expected.add(39.63859385727412);
 		
 		ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> record_1 = new ArrayList<Double>();
