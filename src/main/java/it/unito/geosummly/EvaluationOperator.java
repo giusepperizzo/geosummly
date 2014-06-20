@@ -101,7 +101,7 @@ public class EvaluationOperator {
 		//Group the venues and get the value of each cell
 		ArrayList<BoundingBox> data=eTools.getFocalPoints(matrix);
 		ArrayList<ArrayList<ArrayList<Double>>> allGrouped=eTools.groupFolds(data, allMatrices);
-		ArrayList<Double> bboxArea=eTools.getAreasFromFocalPoints(data, matrix);
+		ArrayList<Double> bboxArea=eTools.getAreasFromFocalPoints(data, matrix.size());
 
 		//Fill in the list of features for transformation
 		//Only the categories will be considered

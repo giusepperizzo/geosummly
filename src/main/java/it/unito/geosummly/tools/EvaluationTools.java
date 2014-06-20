@@ -2,6 +2,7 @@ package it.unito.geosummly.tools;
 
 import it.unito.geosummly.BoundingBox;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -143,15 +144,19 @@ public class EvaluationTools {
 	 * matrices of singles with N/fnum random venues for each matrix.
 	 */
 	public ArrayList<ArrayList<ArrayList<Double>>> createFolds(
-			ArrayList<ArrayList<Double>> matrix, int fnum) {
-		ArrayList<ArrayList<ArrayList<Double>>> allMatrices = new ArrayList<ArrayList<ArrayList<Double>>>();
+						ArrayList<ArrayList<Double>> matrix, int fnum) {
+		
+		ArrayList<ArrayList<ArrayList<Double>>> allMatrices = 
+							new ArrayList<ArrayList<ArrayList<Double>>>();
 		ArrayList<ArrayList<Double>> ithMatrix;
 		int dimension = matrix.size() / fnum;
 		int randomValue;
 		Random random = new Random();
-		for (int i = 0; i < fnum - 1; i++) {
+		
+		for(int i=0; i<fnum; i++) {
 			ithMatrix = new ArrayList<ArrayList<Double>>();
-			for (int j = 0; j < dimension; j++) {
+			
+			for(int j=0; j<dimension; j++) {
 				randomValue = random.nextInt(matrix.size()); // random number
 																// between 0
 																// (included)
@@ -160,10 +165,11 @@ public class EvaluationTools {
 																// (excluded)
 				ithMatrix.add(matrix.get(randomValue));
 			}
+			
 			allMatrices.add(ithMatrix);
 			matrix.removeAll(ithMatrix);
 		}
-		allMatrices.add(matrix);
+		
 		return allMatrices;
 	}
 
@@ -221,10 +227,11 @@ public class EvaluationTools {
 		return bbox;
 	}
 	
-	/** Haversine formula implementation. It returns the distance between 
-	 * two points given latitude and longitude values in meters
+	/** Haversine formula implementation. It returns the distance in kilometers between 
+	 * two points given their latitude and longitude values
 	 */
 	public double getDistance(double lat1, double lng1, double lat2, double lng2){
+		
 		double earthRadius = 6371; //in km
 	    double dLat = Math.toRadians(lat2-lat1);
 	    double dLng = Math.toRadians(lng2-lng1);
@@ -234,19 +241,27 @@ public class EvaluationTools {
 	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 	    double dist = earthRadius * c;
 
-	    return Math.floor(dist*1000)/1000;
+	    DecimalFormat df = new DecimalFormat("#.###");
+	    String value = df.format(dist);
+	    value = value.replace(",", ".");
+	    
+	    return Double.parseDouble(value);
 	}
 	
 	/**
-	 * Get all the areas of the grid cells by considering only the focal points
+	 * Get all the areas in (squared kilometers) of the grid cells 
+	 * by considering only the focal points
 	*/
-	public ArrayList<Double> getAreasFromFocalPoints(ArrayList<BoundingBox> data, ArrayList<ArrayList<Double>> matrix) {
+	public ArrayList<Double> getAreasFromFocalPoints(ArrayList<BoundingBox> data, 
+												     					int size) {
 		
 		ArrayList<Double> areas=new ArrayList<Double>();
-		double edgeValue = getDistance(data.get(0).getCenterLat(), data.get(0).getCenterLng(), data.get(1).getCenterLat(), data.get(1).getCenterLng());
+		
+		double edgeValue = getDistance(data.get(0).getCenterLat(), data.get(0).getCenterLng(), 
+									   data.get(1).getCenterLat(), data.get(1).getCenterLng());
 		double areaValue=Math.pow(edgeValue, 2);
 		
-		for(int i=0; i<matrix.size();i++)
+		for(int i=0; i<size ;i++)
 			areas.add(areaValue);
 		
 		return areas;
@@ -415,14 +430,19 @@ public class EvaluationTools {
 	 * density without timestamp column
 	 */
 	public ArrayList<String> getFeaturesLabelNoTimestamp(
-			CoordinatesNormalizationType type, String s,
-			ArrayList<String> features) {
+								CoordinatesNormalizationType type, 
+								String s,
+								ArrayList<String> features) {
+		
 		ArrayList<String> featuresLabel = new ArrayList<String>();
-		if (type.equals(CoordinatesNormalizationType.NORM)
-				|| type.equals(CoordinatesNormalizationType.NOTNORM)) {
+		
+		if (type.equals(CoordinatesNormalizationType.NORM) ||
+			type.equals(CoordinatesNormalizationType.NOTNORM)) {
+			
 			String label = "";
 			featuresLabel.add(features.get(0)); // Latitude
 			featuresLabel.add(features.get(1)); // Longitude
+			
 			for (int i = 2; i < features.size(); i++) {
 				label = s + "(" + features.get(i) + ")";
 				featuresLabel.add(label);
