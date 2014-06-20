@@ -21,6 +21,7 @@ Please refer to our [paper][paper] for a detailed description.
 * [foursquare-api-java v1.0.3][fi] (require mvn install)
 * [simjoin][simjoin] (require mvn install)
 * [common.csv][csv] (require mvn install)
+* [pareto-core][pareto] (require mvn install
 * [Foursquare app][4sqrApp] (requre to instanciate an app and to get two auth strings such as Client ID, Client Secret)
 
 ## Setting Up 
@@ -160,4 +161,5 @@ If you want to cite this work, please use the following citation.
 [fi]: https://github.com/wallabyfinancial/foursquare-api-java
 [simjoin]: https://code.google.com/p/similarity-join-tools
 [csv]: http://commons.apache.org/proper/commons-csv
+[pareto]:https://github.com/matthieu-vergne/Pareto-Efficiency/tree/master/pareto-core
 [4sqrApp]: https://developer.foursquare.com
