@@ -24,7 +24,11 @@ public class GeoJSONWriter implements IGeoWriter{
 	public void writeStream(BoundingBox bbox, HashMap<Integer, String> labels, 
 							HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
 							HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
-							double eps, String output, Calendar cal) {
+							HashMap<Integer, Double> cSSE,
+							double eps, 
+							String output, 
+							Calendar cal) 
+	{
 		try {
 			//Get the current date. Example: 2014-03-19T17:10:57.616Z
 			SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd'T'H:mm:ss.SSS'Z'");
@@ -114,6 +118,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	        	writer.beginObject();
 	    		writer.name("clusterId").value(key+1);
 	    		writer.name("name").value(name);
+	    		writer.name("sse").value(cSSE.get(key));
 	    		writer.name("venues");
 	    		writer.beginArray();
 

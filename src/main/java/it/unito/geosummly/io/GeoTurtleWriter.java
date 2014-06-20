@@ -23,6 +23,7 @@ import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
@@ -43,13 +44,16 @@ public class GeoTurtleWriter implements IGeoWriter {
 
 	
 	@Override
-	public void writeStream(BoundingBox bbox,
+	public void writeStream(
+							BoundingBox bbox,
 							HashMap<Integer, String> labels,
 							HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
 							HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
+							HashMap<Integer, Double> cSSE,
 							double eps,
 							String output, 
-							Calendar cal) 
+							Calendar cal
+						   ) 
 	{
 		
     	ArrayList<Integer> keys=new ArrayList<Integer>(labels.keySet()); //keys of clusters
@@ -85,7 +89,7 @@ public class GeoTurtleWriter implements IGeoWriter {
     		
     		multipoint=multipoint.substring(0, multipoint.length()-1); //remove last comma
     		multipoint=multipoint+")"; //concatenate parenthesis
-    		model=serializeAnnotation(multipoint, clusterLabel, sqrVenues, cal);
+    		model=serializeAnnotation(multipoint, clusterLabel, cSSE.get(i), sqrVenues, cal);
         	int index=i+1;
     		
 			//Create Turtle
@@ -176,6 +180,7 @@ public class GeoTurtleWriter implements IGeoWriter {
 
 	public Model serializeAnnotation (	String multipoint, 
 										String clusterLabel, 
+										double sse,
 										List<String> sqrVenues, 
 										Calendar cal) 
 	{
@@ -199,6 +204,8 @@ public class GeoTurtleWriter implements IGeoWriter {
 		model.setNsPrefix("oa", OPEN_ANNOTATION_URI);
 		model.setNsPrefix("prov", PROV_URI);
 		model.setNsPrefix("geosummly", GEOSUMMLY_URI);
+		OntProperty GeosummlySSE = model.createObjectProperty(GEOSUMMLY_URI + "hasSSE");
+
 		RDFDatatype wkttype = WKTType.type;
 		TypeMapper.getInstance().registerDatatype(wkttype);
 
@@ -246,7 +253,9 @@ public class GeoTurtleWriter implements IGeoWriter {
 		
 		fingerprint
 			.addProperty(RDF.type, GeoSpatialObject)
-			.addProperty(RDFS.label, clusterLabel);
+			.addProperty(RDFS.label, clusterLabel)
+			.addProperty(GeosummlySSE, ResourceFactory.createTypedLiteral(sse));
+		
 		// add all sqrVenues in there
 		for (String sqrVenue : sqrVenues)
 			fingerprint.addProperty(GeosfContains, model.createResource(sqrVenue));

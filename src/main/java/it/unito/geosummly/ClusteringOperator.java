@@ -94,6 +94,7 @@ public class ClusteringOperator {
 	    		cellsOfCluster=tools.putCompleteCellsOfCluster(cellsOfCluster, cluster, index, listDens); //get all the cell_ids for the selected cluster
 	    		cells=cellsOfCluster.get(index);
 	    		venuesOfCell=tools.putVenuesOfCells(cluster.getName(), index, venuesOfCell, cells, listSingles);
+	    		cSSE.put(index, tools.getClusterSSE(db, cluster));
 	    	}
 	    }
 	    
@@ -108,9 +109,9 @@ public class ClusteringOperator {
 	    
 	    //serialize the clustering output to geojson and turtle files
 	    GeoJSONWriter jWriter=new GeoJSONWriter();
-	    jWriter.writeStream(bbox, clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
+	    jWriter.writeStream(bbox, clustersName, cellsOfCluster, venuesOfCell, cSSE, eps, out, cal);
 	    GeoTurtleWriter tWriter=new GeoTurtleWriter();
-	    tWriter.writeStream(bbox, clustersName, cellsOfCluster, venuesOfCell, eps, out, cal);
+	    tWriter.writeStream(bbox, clustersName, cellsOfCluster, venuesOfCell, cSSE, eps, out, cal);
 	}
     
 	public HashMap<String, Vector<Integer>> executeForValidation(ArrayList<ArrayList<Double>> normalized, int length, ArrayList<String> labels, ArrayList<String> minpts, double eps) throws IOException {

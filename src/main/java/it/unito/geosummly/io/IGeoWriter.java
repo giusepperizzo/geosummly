@@ -13,6 +13,7 @@ public interface IGeoWriter {
     							String> labels, 
     							HashMap<Integer, ArrayList<ArrayList<Double>>> cells, 
     							HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
+    							HashMap<Integer, Double> cSSE,
     							double eps, 
     							String output,
     							Calendar cal) ; 

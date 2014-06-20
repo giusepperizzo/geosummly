@@ -513,6 +513,43 @@ public class ClusteringTools {
         return db;
     }
     
+    /*
+     *  Get SSE cluster
+     */
+    @SuppressWarnings("unchecked")
+	public <V extends NumberVector<?>> double getClusterSSE(Database db, Cluster<?> cluster) 
+    {
+    	double sse=0.0;
+    	Iterator<Relation<?>> iter=db.getRelations().iterator();
+		iter.next();
+		Relation<V> relation=(Relation<V>) iter.next();
+	    
+ 		double sum_distance = 0.0;
+    	int total_number = 0;
+    			
+		for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) {
+			V o1 = relation.get(i1);
+			
+			for (DBIDIter i2 = cluster.getIDs().iter(); i2.valid(); i2.advance()) {
+				V o2 = relation.get(i2);
+				int dimension = o1.getDimensionality();
+				double sum_squared = 0.0;
+				for (int i=0; i<dimension; i++) {
+					
+					double d1 = o1.doubleValue(i);
+					double d2 = o2.doubleValue(i);
+					sum_squared += (d1-d2)*(d1-d2);
+				}
+				sum_distance += sum_squared;
+			}
+			total_number++; //total number of points in a cluster
+		}
+		sse+= sum_distance * 1/(2*total_number);
+	
+    	return sse;
+    }
+    
+    
     /**
      * Get the SSE value of the clustering
     */
@@ -524,7 +561,7 @@ public class ClusteringTools {
     	Iterator<Relation<?>> iter=db.getRelations().iterator();
 		iter.next();
 		Relation<V> relation=(Relation<V>) iter.next();
-	    
+	    		
 	    for(Clustering<?> c: cs) 
 	    {	
 	    	for(Cluster<?> cluster: c.getAllClusters()) 
@@ -553,6 +590,7 @@ public class ClusteringTools {
     			nClusters ++;
 	    	}
 	    }
+	    System.out.println(sse/nClusters);
     	return sse/nClusters;
     }
 }
