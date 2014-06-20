@@ -468,7 +468,17 @@ public class ClusteringTools {
     }
 	
 	/**Set GEOSUBCLU parameters and run the algorithm*/
-    public Clustering<?> runGEOSUBCLU (Database db, HashMap<Integer, String> map, HashMap<String, Double>deltad, int density, double eps, StringBuilder sb) {
+    public Clustering<?> runGEOSUBCLU (
+										Database db, 
+										HashMap<Integer, 
+										String> map, 
+										HashMap<String, 
+										Double>deltad, 
+										int density, 
+										double eps, 
+										StringBuilder sb
+    								) 
+    {
         ListParameterization params = new ListParameterization();
         
         // setup algorithm
@@ -507,16 +517,18 @@ public class ClusteringTools {
      * Get the SSE value of the clustering
     */
     @SuppressWarnings("unchecked")
-	public <V extends NumberVector<?>> double getClusteringSSE(Database db, ArrayList<Clustering<?>> cs) {
+	public <V extends NumberVector<?>> double getClusteringSSE(Database db, ArrayList<Clustering<?>> cs) 
+    {
     	double sse=0.0;
+    	int nClusters = 0;
     	Iterator<Relation<?>> iter=db.getRelations().iterator();
 		iter.next();
 		Relation<V> relation=(Relation<V>) iter.next();
 	    
-	    for(Clustering<?> c: cs) {
-	    	
-	    	for(Cluster<?> cluster: c.getAllClusters()) {
-	    		
+	    for(Clustering<?> c: cs) 
+	    {	
+	    	for(Cluster<?> cluster: c.getAllClusters()) 
+	    	{	
     			double sum_distance = 0.0;
     			int total_number = 0;
     			
@@ -538,8 +550,9 @@ public class ClusteringTools {
     				total_number++; //total number of points in a cluster
 	    		}
     			sse+= sum_distance * 1/(2*total_number);
+    			nClusters ++;
 	    	}
 	    }
-    	return sse;
+    	return sse/nClusters;
     }
 }

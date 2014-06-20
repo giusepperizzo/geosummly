@@ -26,8 +26,18 @@ public class ClusteringOperator {
 
 	public static Logger logger = Logger.getLogger(ClusteringOperator.class.toString());
 
-	public void execute(ArrayList<Double> coord, String inDens, String inNorm, String inDeltad, String inSingles, String out, double eps, String method) throws IOException {
-		
+	public void execute(	
+							ArrayList<Double> coord, 
+							String inDens, 
+							String inNorm, 
+							String inDeltad, 
+							String inSingles, 
+							String out, 
+							double eps, 
+							String method
+						) 
+	throws IOException 
+	{
 		//Read all the csv files
 		CSVDataIO dataIO=new CSVDataIO();
 		List<CSVRecord> listDens=dataIO.readCSVFile(inDens);
@@ -74,6 +84,7 @@ public class ClusteringOperator {
 	    HashMap<Integer, String> clustersName=new HashMap<Integer, String>(); //key, cluster name
 	    HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster=new HashMap<Integer, ArrayList<ArrayList<Double>>>(); //key, cell_ids + lat + lng 
 	    HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell=new HashMap<Integer, ArrayList<ArrayList<String>>>(); //cell_id, venue_record
+	    HashMap<Integer, Double> cSSE = new HashMap<>(); 
 	    ArrayList<ArrayList<Double>> cells;
 	    
 	    for(Clustering<?> c: cs) {
