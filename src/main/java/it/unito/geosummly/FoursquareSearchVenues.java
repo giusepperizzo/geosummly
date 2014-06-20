@@ -4,6 +4,7 @@ import it.unito.geosummly.io.templates.FoursquareObjectTemplate;
 import it.unito.geosummly.utils.PropFactory;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,65 +43,71 @@ public class FoursquareSearchVenues {
 	}
 	
 	/**Search venues informations. Row and column informations are included*/
-	public ArrayList<FoursquareObjectTemplate> searchVenues(int row, int column, double north, double east, double south, double west) throws FoursquareApiException, UnknownHostException {
+	public ArrayList<FoursquareObjectTemplate> searchVenues(int row, 
+															int column, 
+															BigDecimal north, 
+															BigDecimal east, 
+															BigDecimal south, 
+															BigDecimal west) 
+															throws FoursquareApiException, 
+																   UnknownHostException {
+		
 		try {
-		String ne=north+","+east;
-		String sw=south+","+west;
-		Map<String, String> searchParams = new HashMap<String, String>(); 
-		searchParams.put("intent", "browse");
-		searchParams.put("ne", ne); 
-		searchParams.put("sw", sw);
-		ArrayList<FoursquareObjectTemplate> doclist=new ArrayList<FoursquareObjectTemplate>(); 
-	    
-	    //After client has been initialized we can make queries.
-	    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
-	    if(result.getMeta().getCode() == 200) {  	
-    		FoursquareObjectTemplate dataobj;
-	    	for(CompactVenue venue : result.getResult().getVenues()) {
-	    		dataobj=new FoursquareObjectTemplate(row, column, venue.getId(), venue.getName(), venue.getLocation().getLat(),
-	    				venue.getLocation().getLng(), venue.getCategories(), venue.getContact().getEmail(),
-	    				venue.getContact().getPhone(), venue.getContact().getFacebook(), venue.getContact().getTwitter(), 
-	    				venue.getVerified(), venue.getStats().getCheckinsCount(), venue.getStats().getUsersCount(), 
-	    				venue.getUrl(), venue.getHereNow().getCount(), this.timestamp);
-	    		doclist.add(dataobj);
-	    	}
-	    	return doclist;
-    	} 
-    	else {
-    			logger.log(Level.INFO, "Error occurred:\ncode: "+result.getMeta().getCode()+"\ntype: "+result.getMeta().getErrorType()+"\ndetail: "+result.getMeta().getErrorDetail());
-    			return doclist;
-	    }
-		}catch(Exception e) {e.printStackTrace(); return null;}
-	}
-	
-	/**Search venues informations. Row and column informations are not included*/
-	public ArrayList<FoursquareObjectTemplate> searchVenues(double north, double east, double south, double west) throws FoursquareApiException, UnknownHostException {
-		String ne=north+","+east;
-		String sw=south+","+west;
-		Map<String, String> searchParams = new HashMap<String, String>(); 
-		searchParams.put("intent", "browse");
-		searchParams.put("ne", ne); 
-		searchParams.put("sw", sw);
-		ArrayList<FoursquareObjectTemplate> doclist=new ArrayList<FoursquareObjectTemplate>(); 
-	    
-	    //After client has been initialized we can make queries.
-	    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
-	    if(result.getMeta().getCode() == 200) {  	
-    		FoursquareObjectTemplate dataobj;
-	    	for(CompactVenue venue : result.getResult().getVenues()) {
-	    		dataobj=new FoursquareObjectTemplate(venue.getId(), venue.getName(), venue.getLocation().getLat(),
-	    				venue.getLocation().getLng(), venue.getCategories(), venue.getContact().getEmail(),
-	    				venue.getContact().getPhone(), venue.getContact().getFacebook(), venue.getContact().getTwitter(), 
-	    				venue.getVerified(), venue.getStats().getCheckinsCount(), venue.getStats().getUsersCount(), 
-	    				venue.getUrl(), venue.getHereNow().getCount(), this.timestamp);
-	    		doclist.add(dataobj);
-	    	}
-	    	return doclist;
-    	} 
-    	else {
-    			logger.log(Level.INFO, "Error occurred:\ncode: "+result.getMeta().getCode()+"\ntype: "+result.getMeta().getErrorType()+"\ndetail: "+result.getMeta().getErrorDetail());
-    			return doclist;
-	    }
+			
+			String ne=north+","+east;
+			String sw=south+","+west;
+			Map<String, String> searchParams = new HashMap<String, String>(); 
+			searchParams.put("intent", "browse");
+			searchParams.put("ne", ne); 
+			searchParams.put("sw", sw);
+			ArrayList<FoursquareObjectTemplate> doclist = 
+									new ArrayList<FoursquareObjectTemplate>(); 
+		    
+		    //After client has been initialized we can make queries.
+		    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
+		    
+		    if(result.getMeta().getCode() == 200) {  	
+	    		
+		    	FoursquareObjectTemplate dataobj;
+		    	
+		    	for(CompactVenue venue : result.getResult().getVenues()) {
+		    		
+		    		dataobj=new FoursquareObjectTemplate(row, 
+		    											 column, 
+		    											 venue.getId(), 
+		    											 venue.getName(), 
+		    											 venue.getLocation().getLat(),
+		    											 venue.getLocation().getLng(), 
+		    											 venue.getCategories(), 
+		    											 venue.getContact().getEmail(),
+		    											 venue.getContact().getPhone(), 
+		    											 venue.getContact().getFacebook(), 
+		    											 venue.getContact().getTwitter(), 
+		    											 venue.getVerified(), 
+		    											 venue.getStats().getCheckinsCount(), 
+		    											 venue.getStats().getUsersCount(), 
+		    											 venue.getUrl(), 
+		    											 venue.getHereNow().
+		    											 getCount(), 
+		    											 this.timestamp);
+		    		doclist.add(dataobj);
+		    	}
+		    	
+		    	return doclist;
+	    	} 
+	    	else {
+	    			logger.log(Level.INFO, "Error occurred:\ncode: "+
+	    					   result.getMeta().getCode()+
+	    					   "\ntype: "+result.getMeta().getErrorType()+
+	    					   "\ndetail: "+result.getMeta().getErrorDetail());
+	    			
+	    			return doclist;
+		    }
+		} 
+		catch(Exception e) {
+			e.printStackTrace(); 
+			return null;
+		}
 	}
 	
 	/**

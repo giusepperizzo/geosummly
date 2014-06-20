@@ -2,6 +2,7 @@ package it.unito.geosummly.tools;
 
 import it.unito.geosummly.BoundingBox;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -205,8 +206,8 @@ public class EvaluationTools {
 	public ArrayList<BoundingBox> getFocalPoints(ArrayList<ArrayList<Double>> matrix) {
 		ArrayList<BoundingBox> bbox=new ArrayList<BoundingBox>();
 		BoundingBox b=new BoundingBox();
-		b.setCenterLat(matrix.get(0).get(2));
-		b.setCenterLng(matrix.get(0).get(3));
+		b.setCenterLat(new BigDecimal(matrix.get(0).get(2)));
+		b.setCenterLng(new BigDecimal(matrix.get(0).get(3)));
 		bbox.add(b);
 		double lat;
 		double lng;
@@ -219,8 +220,8 @@ public class EvaluationTools {
 			//consecutive venues have the same focal points
 			if((matrix.get(i-1).get(2)!=lat) || (matrix.get(i-1).get(3)!=lng)) {
 				b=new BoundingBox();
-				b.setCenterLat(lat);
-				b.setCenterLng(lng);
+				b.setCenterLat(new BigDecimal(lat));
+				b.setCenterLng(new BigDecimal(lng));
 				bbox.add(b);
 			}
 		}
@@ -257,8 +258,10 @@ public class EvaluationTools {
 		
 		ArrayList<Double> areas=new ArrayList<Double>();
 		
-		double edgeValue = getDistance(data.get(0).getCenterLat(), data.get(0).getCenterLng(), 
-									   data.get(1).getCenterLat(), data.get(1).getCenterLng());
+		double edgeValue = getDistance(data.get(0).getCenterLat().doubleValue(), 
+									   data.get(0).getCenterLng().doubleValue(), 
+									   data.get(1).getCenterLat().doubleValue(),
+									   data.get(1).getCenterLng().doubleValue());
 		double areaValue=Math.pow(edgeValue, 2);
 		
 		for(int i=0; i<size ;i++)
@@ -282,8 +285,8 @@ public class EvaluationTools {
 	public ArrayList<Double> groupSinglesToCell(BoundingBox b, ArrayList<ArrayList<Double>> matrix) {
 		
 		double value;
-		double cLat=b.getCenterLat(); //focal coordinates of the cell
-		double cLng=b.getCenterLng();
+		double cLat=b.getCenterLat().doubleValue(); //focal coordinates of the cell
+		double cLng=b.getCenterLng().doubleValue();
 		
 		ArrayList<Double> toRet=buildListZero(matrix.get(0).size());
 		toRet.set(0, cLat); //focal latitude of the cell

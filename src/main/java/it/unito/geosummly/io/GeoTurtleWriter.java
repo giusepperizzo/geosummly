@@ -153,10 +153,10 @@ public class GeoTurtleWriter implements IGeoWriter {
 							   .concat(UUID.randomUUID().toString());
 			
 
-		String ne = Double.toString(bbox.getNorth())
-						.concat(" " + Double.toString(bbox.getEast()) );
-		String sw = Double.toString(bbox.getSouth())
-				.concat(" " + Double.toString(bbox.getWest()) );
+		String ne = Double.toString(bbox.getNorth().doubleValue())
+						.concat(" " + Double.toString(bbox.getEast().doubleValue()) );
+		String sw = Double.toString(bbox.getSouth().doubleValue())
+				.concat(" " + Double.toString(bbox.getWest().doubleValue()) );
 
 				
 		String polygon = "Polygon(("

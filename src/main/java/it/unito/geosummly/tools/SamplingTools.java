@@ -2,6 +2,7 @@ package it.unito.geosummly.tools;
 
 import it.unito.geosummly.io.templates.FoursquareObjectTemplate;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,7 +24,7 @@ public class SamplingTools {
 	private HashMap<String, Integer> map;
 	private int totalSecondLevel;
 	private HashMap<String, Integer> mapSecondLevel;
-	private ArrayList<ArrayList<Double>> matrixSecondLevel;
+	private ArrayList<ArrayList<BigDecimal>> matrixSecondLevel;
 	
 	public static Logger logger = Logger.getLogger(SamplingTools.class.toString());
 	
@@ -36,7 +37,7 @@ public class SamplingTools {
 		this.map=new HashMap<String, Integer>();
 		this.totalSecondLevel=0;
 		this.mapSecondLevel=new HashMap<String, Integer>();
-		this.matrixSecondLevel=new ArrayList<ArrayList<Double>>();
+		this.matrixSecondLevel=new ArrayList<ArrayList<BigDecimal>>();
 	}
 	
 	public int getTotal() {
@@ -103,20 +104,20 @@ public class SamplingTools {
 		this.beenHere=beenHere;
 	}
 	
-	public ArrayList<ArrayList<Double>> getMatrixSecondLevel() {
+	public ArrayList<ArrayList<BigDecimal>> getMatrixSecondLevel() {
 		return matrixSecondLevel;
 	}
 	
-	public void setMatrixSecondLevel(ArrayList<ArrayList<Double>> matrixSecondLevel) {
+	public void setMatrixSecondLevel(ArrayList<ArrayList<BigDecimal>> matrixSecondLevel) {
 		this.matrixSecondLevel=matrixSecondLevel;
 	}
 
 	/**Get a list with all elements equal to zero*/
-	public ArrayList<Double> buildListZero(int size) {
-		ArrayList<Double> toRet=new ArrayList<Double>();
+	public ArrayList<BigDecimal> buildListZero(int size) {
+		ArrayList<BigDecimal> toRet=new ArrayList<BigDecimal>();
 		int i=0;
 		while(i<size) {
-			toRet.add(0.0);
+			toRet.add(new BigDecimal(0.0));
 			i++;
 		}
 		return toRet;
@@ -131,40 +132,53 @@ public class SamplingTools {
 		return map;
 	}
 	
-	/**Get a row of the matrix with latitude, longitude and occurrence value of a single venue*/
-	public ArrayList<Double> fillRowWithSingle(HashMap<String, Integer> map, String category, double lat, double lng) {
+	/**Get a row of the matrix with latitude, longitude 
+	 * and occurrence value of a single venue
+	*/
+	public ArrayList<BigDecimal> fillRowWithSingle(HashMap<String, Integer> map, 
+											   String category, 
+											   BigDecimal lat, 
+											   BigDecimal lng) {
 		int size=map.size()+2;
-		ArrayList<Double> row=buildListZero(size);
+		ArrayList<BigDecimal> row=buildListZero(size);
 		row.set(0, lat); //lat, lng and area are in position 0 and 1
 		row.set(1, lng);
+		
 		int index=map.get(category);
-		row.set(index, 1.0);
+		row.set(index, new BigDecimal(1.0));
+		
 		return row;
 	}
 	
 	/**Fix the matrix rows giving them the same size*/
-	public ArrayList<ArrayList<Double>> fixRowsLength(int totElem, ArrayList<ArrayList<Double>> matrix) {
+	public ArrayList<ArrayList<BigDecimal>> fixRowsLength(int totElem, ArrayList<ArrayList<BigDecimal>> matrix) {
 		int i;
-		for(ArrayList<Double> row: matrix) {
+		for(ArrayList<BigDecimal> row: matrix) {
 			i=row.size();
 			while(i<totElem) {
-				row.add(0.0);
+				row.add(new BigDecimal(0.0));
 				i++;
 			}
 		}
 		return matrix;
 	}
 	
-	/**Sort matrix of single venues in alphabetical order (column names)*/
-	public ArrayList<ArrayList<Double>> sortMatrixSingles(ArrayList<ArrayList<Double>> matrix, HashMap<String,Integer> map) {
-		ArrayList<ArrayList<Double>> sortedMatrix=new ArrayList<ArrayList<Double>>();
+	/**Sort matrix of single venues 
+	 * in alphabetical order (column names)
+	*/
+	public ArrayList<ArrayList<BigDecimal>> sortMatrixSingles(
+								ArrayList<ArrayList<BigDecimal>> matrix, 
+								HashMap<String,Integer> map) {
+		ArrayList<ArrayList<BigDecimal>> sortedMatrix = 
+							new ArrayList<ArrayList<BigDecimal>>();
 		int value;
-		ArrayList<Double> sortedRecord;
-		ArrayList<String> keys=new ArrayList<String>(map.keySet());
+		ArrayList<BigDecimal> sortedRecord;
+		ArrayList<String> keys = 
+						new ArrayList<String>(map.keySet());
 		Collections.sort(keys);
 		
-		for(ArrayList<Double> row: matrix) {
-			sortedRecord=new ArrayList<Double>();
+		for(ArrayList<BigDecimal> row: matrix) {
+			sortedRecord=new ArrayList<BigDecimal>();
 			sortedRecord.add(row.get(0));
 			sortedRecord.add(row.get(1));
 			sortedRecord.add(row.get(2));
@@ -179,13 +193,14 @@ public class SamplingTools {
 	}
 	
 	/**Get the informations of single venues of a cell*/
-	public ArrayList<ArrayList<Double>> getInformations(double lat, 
-						double lng, ArrayList<ArrayList<Double>> matrix, 
-						ArrayList<FoursquareObjectTemplate> cell,
-						HashMap<String, String> tree) {
+	public ArrayList<ArrayList<BigDecimal>> getInformations(BigDecimal lat, 
+									BigDecimal lng, 
+									ArrayList<ArrayList<BigDecimal>> matrix, 
+									ArrayList<FoursquareObjectTemplate> cell,
+									HashMap<String, String> tree) {
 		
-		ArrayList<Double> rowOfMatrix=new ArrayList<Double>();
-		ArrayList<Double> rowOfMatrixSecondLevel=new ArrayList<Double>();
+		ArrayList<BigDecimal> rowOfMatrix=new ArrayList<BigDecimal>();
+		ArrayList<BigDecimal> rowOfMatrixSecondLevel=new ArrayList<BigDecimal>();
 		
 		for(FoursquareObjectTemplate venue: cell) {
 			
@@ -206,10 +221,10 @@ public class SamplingTools {
 						this.total=rowOfMatrix.size(); //update the overall number of categories
 					if(this.totalSecondLevel<rowOfMatrixSecondLevel.size());
 						this.totalSecondLevel=rowOfMatrixSecondLevel.size();
-					rowOfMatrix.add(0, venue.getLatitude());
-					rowOfMatrix.add(1, venue.getLongitude());
-					rowOfMatrixSecondLevel.add(0, venue.getLatitude());
-					rowOfMatrixSecondLevel.add(1, venue.getLongitude());
+					rowOfMatrix.add(0, new BigDecimal(venue.getLatitude()));
+					rowOfMatrix.add(1, new BigDecimal(venue.getLongitude()));
+					rowOfMatrixSecondLevel.add(0, new BigDecimal(venue.getLatitude()));
+					rowOfMatrixSecondLevel.add(1, new BigDecimal(venue.getLongitude()));
 					this.singlesId.add(venue.getVenueId()); //memorize venue id
 					this.singlesTimestamps.add(venue.getTimestamp()); //memorize timestamp
 					this.beenHere.add(venue.getCheckinsCount()); //memorize check-ins count

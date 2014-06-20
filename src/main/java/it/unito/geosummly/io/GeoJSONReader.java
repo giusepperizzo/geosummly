@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.apache.commons.io.IOUtils;
@@ -71,7 +72,8 @@ public class GeoJSONReader {
 			south=polygon.getExteriorRing().getPointN(2).getCoordinate().y;
 			west=polygon.getExteriorRing().getPointN(3).getCoordinate().x;
 			
-			b=new BoundingBox(north, east, south, west);
+			b = new BoundingBox(new BigDecimal(north), new BigDecimal(east),
+								new BigDecimal(south), new BigDecimal(west));
 			data.add(b);
 		}
 		

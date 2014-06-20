@@ -1,6 +1,7 @@
 package it.unito.geosummly;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +26,13 @@ public class ImportOperator {
 		ImportTools tools=new ImportTools();
 		
 		//Get the grid
-		BoundingBox bbox=new BoundingBox(coord.get(0), coord.get(1), coord.get(2), coord.get(3));
-    	ArrayList<BoundingBox> data=new ArrayList<BoundingBox>();
+		BoundingBox bbox = new BoundingBox(
+									new BigDecimal(coord.get(0)),
+									new BigDecimal(coord.get(1)),
+									new BigDecimal(coord.get(2)),
+									new BigDecimal(coord.get(3)));
+		
+    	ArrayList<BoundingBox> data = new ArrayList<BoundingBox>();
     	Grid grid=new Grid();
     	grid.setCellsNumber(gnum);
     	grid.setBbox(bbox);
@@ -53,9 +59,15 @@ public class ImportOperator {
 		ArrayList<ArrayList<Double>> normalized=tools.buildNormalizedMatrix(ltype, density);
 		
 		//Write down the matrices to file
-		dataIO.printResultHorizontal(timestamp, frequency, tools.getFeaturesLabel(ltype, "f", features), outDir, "/frequency-transformation-matrix.csv");
-		dataIO.printResultHorizontal(timestamp, density, tools.getFeaturesLabel(ltype, "density", features), outDir, "/density-transformation-matrix.csv");
-		dataIO.printResultHorizontal(timestamp, normalized, tools.getFeaturesLabel(ltype, "normalized_density", features), outDir, "/normalized-transformation-matrix.csv");
+		dataIO.printResultHorizontal(timestamp, frequency, 
+									 tools.getFeaturesLabel(ltype, "f", features), 
+									 outDir, "/frequency-transformation-matrix.csv");
+		dataIO.printResultHorizontal(timestamp, density, 
+									 tools.getFeaturesLabel(ltype, "density", features), 
+									 outDir, "/density-transformation-matrix.csv");
+		dataIO.printResultHorizontal(timestamp, normalized, 
+									 tools.getFeaturesLabel(ltype, "normalized_density", features), 
+									 outDir, "/normalized-transformation-matrix.csv");
 		
 	}
 

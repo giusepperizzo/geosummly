@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,7 +130,7 @@ public class CSVDataIO {
 	public void printResultSingles(ArrayList<Long> timestamps, 
 									ArrayList<Integer> beenHere, 
 									ArrayList<String> singlesId, 
-									ArrayList<ArrayList<Double>> matrix, 
+									ArrayList<ArrayList<BigDecimal>> matrix, 
 									ArrayList<String> features, 
 									String directoryName, 
 									String fileName) {

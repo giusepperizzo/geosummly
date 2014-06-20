@@ -122,7 +122,7 @@ public class LogDataIO {
 	public void writeSamplingLog(BoundingBox bbox, ArrayList<BoundingBox> data, int categories_1st, int categories_2nd, String output) {
 		
 		int cellNumber=data.size();
-		double cellArea=data.get(0).getArea();
+		double cellArea=data.get(0).getArea().doubleValue();
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();

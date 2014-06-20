@@ -2,6 +2,7 @@ package it.unito.geosummly.tools;
 
 import it.unito.geosummly.BoundingBox;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
@@ -118,11 +119,11 @@ public class EvaluationToolsTest extends TestCase {
 		
 		ArrayList<BoundingBox> expected = new ArrayList<BoundingBox>();
 		BoundingBox b1 = new BoundingBox();
-		b1.setCenterLat(3.0); b1.setCenterLng(4.0);
+		b1.setCenterLat(new BigDecimal(3.0)); b1.setCenterLng(new BigDecimal(4.0));
 		BoundingBox b2 = new BoundingBox();
-		b2.setCenterLat(9.0); b2.setCenterLng(10.0);
+		b2.setCenterLat(new BigDecimal(9.0)); b2.setCenterLng(new BigDecimal(10.0));
 		BoundingBox b3 = new BoundingBox();
-		b3.setCenterLat(15.0); b3.setCenterLng(16.0);
+		b3.setCenterLat(new BigDecimal(15.0)); b3.setCenterLng(new BigDecimal(16.0));
 		expected.add(b1); expected.add(b2); expected.add(b3);
 		
 		ArrayList<ArrayList<Double>> matrix =
@@ -165,11 +166,11 @@ public class EvaluationToolsTest extends TestCase {
 		
 		ArrayList<BoundingBox> bbox = new ArrayList<BoundingBox>();
 		BoundingBox b1 = new BoundingBox();
-		b1.setCenterLat(45.51); b1.setCenterLng(7.5);
+		b1.setCenterLat(new BigDecimal(45.51)); b1.setCenterLng(new BigDecimal(7.5));
 		BoundingBox b2 = new BoundingBox();
-		b2.setCenterLat(45.52); b2.setCenterLng(7.5);
+		b2.setCenterLat(new BigDecimal(45.52)); b2.setCenterLng(new BigDecimal(7.5));
 		BoundingBox b3 = new BoundingBox();
-		b3.setCenterLat(45.53); b3.setCenterLng(7.5);
+		b3.setCenterLat(new BigDecimal(45.53)); b3.setCenterLng(new BigDecimal(7.5));
 		bbox.add(b1); bbox.add(b2); bbox.add(b3);
 		
 		EvaluationTools tools = new EvaluationTools();
@@ -200,8 +201,8 @@ public class EvaluationToolsTest extends TestCase {
 		expected.add(1.0);
 		
 		BoundingBox bbox = new BoundingBox();
-		bbox.setCenterLat(0.1);
-		bbox.setCenterLng(0.2);
+		bbox.setCenterLat(new BigDecimal(0.1));
+		bbox.setCenterLng(new BigDecimal(0.2));
 		ArrayList<ArrayList<Double>> matrix = 
 								new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> rec_1 = new ArrayList<Double>();
@@ -247,9 +248,9 @@ public class EvaluationToolsTest extends TestCase {
 		
 		ArrayList<BoundingBox> bbox = new ArrayList<BoundingBox>();
 		BoundingBox b_1 = new BoundingBox();
-		b_1.setCenterLat(0.1); b_1.setCenterLng(0.2);
+		b_1.setCenterLat(new BigDecimal(0.1)); b_1.setCenterLng(new BigDecimal(0.2));
 		BoundingBox b_2 = new BoundingBox();
-		b_2.setCenterLat(0.3); b_2.setCenterLng(0.4);
+		b_2.setCenterLat(new BigDecimal(0.3)); b_2.setCenterLng(new BigDecimal(0.4));
 		bbox.add(b_1); bbox.add(b_2);
 		
 		ArrayList<ArrayList<ArrayList<Double>>> folds =

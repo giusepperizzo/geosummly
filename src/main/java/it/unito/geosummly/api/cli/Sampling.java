@@ -5,6 +5,7 @@ import it.unito.geosummly.SamplingOperator;
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
@@ -28,7 +29,7 @@ public class Sampling {
 	
 	private String inFile=null;
 	private String outDir=null;
-	private ArrayList<Double> coordinates=new ArrayList<Double>();
+	private ArrayList<BigDecimal> coordinates=new ArrayList<BigDecimal>();
 	private int gridCells=20;
 	private int randomCells=-1;
 	private long sleepMs=0;
@@ -73,7 +74,7 @@ public class Sampling {
 			if(line.hasOption("coord") && line.hasOption("output")) {
 				String[] c=line.getOptionValues("coord");
 				for(String s: c)
-					coordinates.add(Double.parseDouble(s));
+					coordinates.add(new BigDecimal(Double.parseDouble(s)));
 				outDir=line.getOptionValue("output");
 				if(line.hasOption("gnum")) {
 					gridCells=Integer.parseInt(line.getOptionValue("gnum"));

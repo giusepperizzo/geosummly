@@ -8,6 +8,7 @@ import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.SamplingTools;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -30,22 +31,26 @@ public class SamplingOperator {
     	//Get the grid
     	GeoJSONReader reader=new GeoJSONReader();
 		ArrayList<BoundingBox> data=reader.decodeForSampling(in);
-		double bigNorth=data.get(0).getNorth(); //top left cell give ne coordinates
-		double bigEast=data.get(data.size()-1).getEast(); //bottom right cell give sw coordinates
-		double bigSouth=data.get(data.size()-1).getSouth();
-		double bigWest=data.get(0).getWest();
+		BigDecimal bigNorth=data.get(0).getNorth(); //top left cell give ne coordinates
+		BigDecimal bigEast=data.get(data.size()-1).getEast(); //bottom right cell give sw coordinates
+		BigDecimal bigSouth=data.get(data.size()-1).getSouth();
+		BigDecimal bigWest=data.get(0).getWest();
 		BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 		
 		collectAndTransform(global, data, out, sleep);
     }
     
     public void executeWithCoord(
-    			ArrayList<Double> coord, String out, int gnum, int rnum, 
+    			ArrayList<BigDecimal> coord, String out, int gnum, int rnum, 
     			CoordinatesNormalizationType ltype, long sleep) 
     				throws IOException, FoursquareApiException, InterruptedException {
     	
     	//Create the grid
-    	BoundingBox bbox=new BoundingBox(coord.get(0), coord.get(1), coord.get(2), coord.get(3));
+    	BoundingBox bbox = new BoundingBox(coord.get(0), 
+    					   				   coord.get(1), 
+    					   				   coord.get(2), 
+    					   				   coord.get(3));
+    	
     	ArrayList<BoundingBox> data=new ArrayList<BoundingBox>();
     	Grid grid=new Grid();
     	grid.setCellsNumber(gnum);
@@ -72,8 +77,8 @@ public class SamplingOperator {
     	
     	//Get the tools class and its support variables
 		SamplingTools tools=new SamplingTools();
-		ArrayList<ArrayList<Double>> venuesMatrix=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> venuesMatrixSecondLevel=new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<BigDecimal>> venuesMatrix=new ArrayList<ArrayList<BigDecimal>>();
+		ArrayList<ArrayList<BigDecimal>> venuesMatrixSecondLevel=new ArrayList<ArrayList<BigDecimal>>();
 		ArrayList<FoursquareObjectTemplate> cellVenue;
 		CSVDataIO dataIO=new CSVDataIO();
 		
@@ -85,7 +90,9 @@ public class SamplingOperator {
 		//Collect the geopoints
 		for(BoundingBox b: data){
 		    logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
-			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), b.getNorth(), b.getEast(), b.getSouth(), b.getWest());
+			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), 
+									   b.getNorth(), b.getEast(), 
+									   b.getSouth(), b.getWest());
 			
 			//Copy to cache
 			/*for(FoursquareObjectTemplate fdo: cellVenue){
