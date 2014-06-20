@@ -6,6 +6,7 @@ public class FeaturePropertiesTemplate {
 	
 	private int clusterId;
 	private String name;
+	private double sse;
 	private ArrayList<VenueTemplate> venues;
 	
 	public int getClusterId() {
@@ -22,6 +23,14 @@ public class FeaturePropertiesTemplate {
 	
 	public void setName(String name) {
 		this.name = name;
+	} 
+	
+	public double getSSE() {
+		return sse;
+	}
+
+	public void setSSE(double sse) {
+		this.sse = sse;
 	}
 	
 	public ArrayList<VenueTemplate> getVenues() {

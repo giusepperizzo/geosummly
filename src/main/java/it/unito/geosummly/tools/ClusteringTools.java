@@ -590,7 +590,6 @@ public class ClusteringTools {
     			nClusters ++;
 	    	}
 	    }
-	    System.out.println(sse/nClusters);
     	return sse/nClusters;
     }
 }

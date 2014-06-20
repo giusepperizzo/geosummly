@@ -14,9 +14,14 @@ import java.util.Map;
 
 public class OptimizationOperator {
 	
-	public void execute(String inGeo, String inLog, String output, 
-						ArrayList<Double> weights, int top) throws IOException {
-		
+	public void execute(	String inGeo, 
+							String inLog, 
+							String output, 
+							ArrayList<Double> weights, 
+							int top
+						) 
+	throws IOException 
+	{	
 		//Read input files
 		GeoJSONReader geoReader=new GeoJSONReader();
 		FeatureCollectionTemplate fct = geoReader.decodeForOptimization(inGeo);
@@ -45,9 +50,9 @@ public class OptimizationOperator {
 		
 		//Linear combination f0 = w1*f1 + w2*f2 + w3*f3 for each cluster
 		Map<Integer, Double> clusterMap = tools.getLinearCombination(spatialCoverage, 
-																		density, 
-																		heterogeneity, 
-																		weights);
+																	 density, 
+																	 heterogeneity, 
+																	 weights);
 		
 		//Sort values in decreasing order
 		Map<Integer, Double> sortedMap = tools.sortByValue(clusterMap);

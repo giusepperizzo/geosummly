@@ -133,10 +133,15 @@ public class OptimizationTools {
 	}
 	
 	
-	/**Compute the spatial coverage function for each cluster
+	/**
+	 * Compute the spatial coverage function for each cluster
 	 * For each cluster: sp_cov = #obj_of_cluster / #obj_of_bbox 
-	*/
-	public ArrayList<Double> getSpatialCoverage(ArrayList<ArrayList<ArrayList<Double>>> cells, int bboxObj) {
+	 */
+	public ArrayList<Double> getSpatialCoverage(
+									ArrayList<ArrayList<ArrayList<Double>>> cells, 
+									int bboxObj
+									) 
+	{
 		
 		ArrayList<Double> list=new ArrayList<Double>();
 		for(ArrayList<ArrayList<Double>> clObjs: cells) {
