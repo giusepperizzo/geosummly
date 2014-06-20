@@ -114,7 +114,10 @@ app.Legend = function() {
 						})
 						.map(function(cluster) {
 							var clusterId = cluster.properties.clusterId;
-							var label = 'cluster ' + clusterId + ' <em>(' + cluster.properties.venues.length + ' venues)</em>';
+							var sse = cluster.properties.sse ? cluster.properties.sse.toFixed(2) : 0;
+							var label = 'cluster ' + clusterId + 
+								' <em>(' + cluster.properties.venues.length + 
+								' venues, SSE = ' + sse  + ')</em>';
 							var hrefCluster = '#!' + params.location + '/clusters/' + clusterId;
 							var isChecked = params.clusters && params.clusters.indexOf(clusterId) >= 0;
 							isChecked = isChecked || selectAll;
