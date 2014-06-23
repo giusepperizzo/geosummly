@@ -1,8 +1,8 @@
 package it.unito.geosummly;
 
-import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.SamplingTools;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,12 +14,12 @@ public class TransformationToolsTest extends TestCase {
 		//Initialize the transformation matrix and execute the method
 		SamplingTools tm=new SamplingTools();
 		int size=5;
-		ArrayList<Double> actual=tm.buildListZero(size);
+		ArrayList<BigDecimal> actual=tm.buildListZero(size);
 		
 		//Construct the test case
-		ArrayList<Double> expected=new ArrayList<Double>();
+		ArrayList<BigDecimal> expected=new ArrayList<BigDecimal>();
 		for(int i=0;i<size;i++)
-			expected.add(0.0);
+			expected.add(new BigDecimal(0.0));
 		
 		//Start the test
 		assertEquals(expected, actual);
@@ -106,41 +106,41 @@ public class TransformationToolsTest extends TestCase {
 	public void testFixRowsLength() {
 		//Initialize the transformation matrix and execute the method
 		SamplingTools tm=new SamplingTools();
-		ArrayList<ArrayList<Double>> actual= new ArrayList<ArrayList<Double>>();
-		ArrayList<Double> row1=new ArrayList<Double>();
-		row1.add(0.1);
-		row1.add(0.2);
-		ArrayList<Double> row2=new ArrayList<Double>();
-		row2.add(0.5);
-		row2.add(0.3);
-		row2.add(0.0);
-		row2.add(0.4);
-		ArrayList<Double> row3=new ArrayList<Double>();
-		row3.add(0.2);
-		row3.add(0.0);
-		row3.add(0.1);
+		ArrayList<ArrayList<BigDecimal>> actual= new ArrayList<ArrayList<BigDecimal>>();
+		ArrayList<BigDecimal> row1=new ArrayList<BigDecimal>();
+		row1.add(new BigDecimal(0.1));
+		row1.add(new BigDecimal(0.2));
+		ArrayList<BigDecimal> row2=new ArrayList<BigDecimal>();
+		row2.add(new BigDecimal(0.5));
+		row2.add(new BigDecimal(0.3));
+		row2.add(new BigDecimal(0.0));
+		row2.add(new BigDecimal(0.4));
+		ArrayList<BigDecimal> row3=new ArrayList<BigDecimal>();
+		row3.add(new BigDecimal(0.2));
+		row3.add(new BigDecimal(0.0));
+		row3.add(new BigDecimal(0.1));
 		actual.add(row1);
 		actual.add(row2);
 		actual.add(row3);
 		actual=tm.fixRowsLength(row2.size(), actual);
 		
 		//Construct the test case
-		ArrayList<ArrayList<Double>> expected=new ArrayList<ArrayList<Double>>();
-		ArrayList<Double> e1=new ArrayList<Double>();
-		e1.add(0.1);
-		e1.add(0.2);
-		e1.add(0.0);
-		e1.add(0.0);
-		ArrayList<Double> e2=new ArrayList<Double>();
-		e2.add(0.5);
-		e2.add(0.3);
-		e2.add(0.0);
-		e2.add(0.4);
-		ArrayList<Double> e3=new ArrayList<Double>();
-		e3.add(0.2);
-		e3.add(0.0);
-		e3.add(0.1);
-		e3.add(0.0);
+		ArrayList<ArrayList<BigDecimal>> expected=new ArrayList<ArrayList<BigDecimal>>();
+		ArrayList<BigDecimal> e1=new ArrayList<BigDecimal>();
+		e1.add(new BigDecimal(0.1));
+		e1.add(new BigDecimal(0.2));
+		e1.add(new BigDecimal(0.0));
+		e1.add(new BigDecimal(0.0));
+		ArrayList<BigDecimal> e2=new ArrayList<BigDecimal>();
+		e2.add(new BigDecimal(0.5));
+		e2.add(new BigDecimal(0.3));
+		e2.add(new BigDecimal(0.0));
+		e2.add(new BigDecimal(0.4));
+		ArrayList<BigDecimal> e3=new ArrayList<BigDecimal>();
+		e3.add(new BigDecimal(0.2));
+		e3.add(new BigDecimal(0.0));
+		e3.add(new BigDecimal(0.1));
+		e3.add(new BigDecimal(0.0));
 		expected.add(e1);
 		expected.add(e2);
 		expected.add(e3);
