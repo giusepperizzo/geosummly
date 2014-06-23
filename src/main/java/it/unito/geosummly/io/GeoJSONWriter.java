@@ -43,7 +43,6 @@ public class GeoJSONWriter implements IGeoWriter{
 	    	ArrayList<Integer> keys=new ArrayList<Integer>(labels.keySet()); //keys of clusters
 	    	String name; //cluster label
 	    	int key; //cluster key
-	    	ArrayList<ArrayList<Double>> cellsOfCluster; //cells informations (cell_id, cell_lat, cell_lng) of a cluster
 	    	ArrayList<ArrayList<String>> venuesOfCell; //all venues of a cell
 	    	DecimalFormat df=new DecimalFormat("#.###############");
 	    	
@@ -60,7 +59,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	        {	
 	    		name=labels.get(i);
 	    		key=i;
-	    		cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i));
+	    		ArrayList<ArrayList<Double>> cellsOfCluster=new ArrayList<ArrayList<Double>>(cells.get(i));
 	    		ArrayList<VenueTemplate> vo_array=new ArrayList<VenueTemplate>();
 	    		
 	    		//iterate for each venue of the cluster
@@ -166,17 +165,26 @@ public class GeoJSONWriter implements IGeoWriter{
 		}
 	}
 	
-	public void writerAfterOptimization(BoundingBox bbox, List<Integer> selected, ArrayList<ArrayList<ArrayList<Double>>> multipoints, 
-										ArrayList<ArrayList<VenueTemplate>> venues, 
-										ArrayList<String[]> labels,
-										double eps, String date, String output) {
-		
+	public void writerAfterOptimization(
+											BoundingBox bbox, 
+											List<Integer> selected, 
+											ArrayList<ArrayList<ArrayList<Double>>> multipoints, 
+											ArrayList<Double> sse,
+											ArrayList<ArrayList<VenueTemplate>> venues, 
+											ArrayList<String[]> labels,
+											double eps, 
+											String date, 
+											String output,
+											String preamble
+										) 
+	{	
 		try {
 			
 			//Create GeoJSON
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
-        	OutputStream os= new FileOutputStream(new File(dir.getPath().concat("/opt-clustering-output-eps").concat(eps+"").concat(".geojson")));
+        	OutputStream os= new FileOutputStream(
+        			new File(dir.getPath().concat("/" + preamble + "-clustering-output-eps").concat(eps+"").concat(".geojson")));
 	    	String name=""; //cluster label
 	    	int key; //cluster key
 	    	ArrayList<ArrayList<Double>> multipointsOfCluster; //cells informations (cell_lat, cell_lng) of a cluster
@@ -190,8 +198,8 @@ public class GeoJSONWriter implements IGeoWriter{
 			writer.beginArray();
 			
 			//iterate for each cluster
-	        for(int i=0;i<multipoints.size();i++) {
-	    		
+	        for(int i=0;i<multipoints.size();i++) 
+	        {	
 	        	name="";
 	        	for(String s: labels.get(i))
 	    			name=name.concat(s).concat(",");
@@ -222,6 +230,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	        	writer.beginObject();
 	    		writer.name("clusterId").value(key);
 	    		writer.name("name").value(name);
+	    		writer.name("sse").value(sse.get(selected.get(i)-1));
 	    		writer.name("venues");
 	    		writer.beginArray();
 	    		

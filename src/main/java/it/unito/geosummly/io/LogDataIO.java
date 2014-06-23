@@ -1,6 +1,7 @@
 package it.unito.geosummly.io;
 
 import it.unito.geosummly.BoundingBox;
+import it.unito.geosummly.pareto.ParetoPoint;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -332,8 +334,8 @@ public class LogDataIO {
 									ArrayList<Double> f2,
 									ArrayList<Double> f3,
 									ArrayList<Double> f0,
-									String output) {
-		
+									String output) 
+	{	
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
@@ -374,5 +376,29 @@ public class LogDataIO {
     	} catch(IOException e){
     		e.printStackTrace();
     	}
+	}
+
+
+	public void writeParetoLog(Collection<ParetoPoint> paretoPoints, 
+							   List<Integer> selected, 
+							   String output) 
+	{	
+		try {
+			File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
+	    	File file=new File(dir.getPath().concat("/pareto.log"));
+	    	
+    		FileWriter fw = new FileWriter(file);
+	        BufferedWriter bw = new BufferedWriter(fw);
+	        
+	        bw.write("Clusters before optimization: "+ paretoPoints.size() +"\n");
+	        bw.write("Object on the Pareto Efficient Frontier: "+selected.size()+"\n");
+	        
+	        bw.flush();
+	        bw.close();
+	 
+    	} catch(IOException e){
+    		e.printStackTrace();
+    	}		
 	}
 }

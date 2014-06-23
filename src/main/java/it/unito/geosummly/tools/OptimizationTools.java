@@ -3,8 +3,10 @@ package it.unito.geosummly.tools;
 import it.unito.geosummly.io.templates.FeatureCollectionTemplate;
 import it.unito.geosummly.io.templates.FeatureTemplate;
 import it.unito.geosummly.io.templates.VenueTemplate;
+import it.unito.geosummly.pareto.ParetoPoint;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -19,9 +21,11 @@ public class OptimizationTools {
 	/**
 	 * Get the MultiPoints coordinates of all the clusters 
 	*/
-	public ArrayList<ArrayList<ArrayList<Double>>> getMultiPoints(FeatureCollectionTemplate fct) {
-
-		ArrayList<ArrayList<ArrayList<Double>>> objs = new ArrayList<ArrayList<ArrayList<Double>>>();
+	public ArrayList<ArrayList<ArrayList<Double>>> 
+					getMultiPoints(FeatureCollectionTemplate fct) 
+	{
+		ArrayList<ArrayList<ArrayList<Double>>> objs = 
+							new ArrayList<ArrayList<ArrayList<Double>>>();
 		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
 
 		//iterate for all clusters
@@ -277,14 +281,59 @@ public class OptimizationTools {
 	/**
 	 * Get the labels corresponding to the best #top clusters 
 	*/
-	public ArrayList<String[]> getTopLabels(ArrayList<String[]> allLabels,
-																List<Integer> selected) {
-		
+	public ArrayList<String[]> getTopLabels(
+											ArrayList<String[]> allLabels,
+											List<Integer> selected
+										   ) 
+	{
 		ArrayList<String[]> labels = new ArrayList<String[]>();
 		for(Integer i: selected) {
 			labels.add(allLabels.get(i-1));
 		}
 		
 		return labels;
+	}
+
+	public ArrayList<Double> getSSE(FeatureCollectionTemplate fct) 
+	{
+		ArrayList<Double> result = new ArrayList<>();
+		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
+		
+		//iterate for all clusters
+		for(FeatureTemplate ft: ft_array) {
+			result.add(ft.getProperties().getSSE());
+		}
+		
+		return result;
+	}
+
+	public Collection<ParetoPoint> getParetoPoints(
+			ArrayList<Double> spatialCoverage, 
+			ArrayList<Double> density,
+			ArrayList<Double> heterogeneity, 
+			ArrayList<Double> sse) 
+	{
+		ArrayList<ParetoPoint> result = new ArrayList<>();
+		
+		for (int i=0; i < spatialCoverage.size(); i++)
+			result.add(new ParetoPoint(i,
+									   spatialCoverage.get(i),
+									   density.get(i),
+									   heterogeneity.get(i),
+									   sse.get(i))
+					   );
+		
+		return result;
+	}
+
+	public List<Integer> listSelected(Collection<ParetoPoint> frontier) 
+	{
+		ArrayList<Integer> result = new ArrayList<>();
+		
+		for (ParetoPoint p : frontier) 
+			result.add(p.getIndex());	
+		
+		
+		return result;
 	}
 }

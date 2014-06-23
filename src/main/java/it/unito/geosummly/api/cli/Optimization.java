@@ -2,7 +2,6 @@ package it.unito.geosummly.api.cli;
 
 import it.unito.geosummly.OptimizationOperator;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
@@ -10,36 +9,46 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
 public class Optimization {
 	
+	private String type="";
 	private String inGeo=null;
 	private String inLog=null;
 	private String outDir=null;
 	private ArrayList<Double> fWeights=new ArrayList<Double>();
 	private int topCat=10;
 	
-	public void run (String[] args) throws IOException {
+	public void run (String[] args) 
+	{
 		Options options= initOptions(); //define list of options
 		CommandLineParser parser=new PosixParser(); //create the command line parser
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
-		String helpUsage="geosummly optimization -input <path/to/file.geojson> -infos <path/to/file.log> -output <path/to/dir> [options]";
+		String helpUsage="geosummly optimization -type pareto -input <path/to/file.geojson> -infos <path/to/file.log> -output <path/to/dir> [options]";
 		String helpFooter="\n------------------------------------------------------------------"
-				+ "\nThe options input, infos, output are mandatory."
+				+ "\nThe options type, input, infos, output are mandatory."
+				+ "\nTwo optimization methods are provided: pareto, linear. Specify one each using the type argument."
 				+ "\nInput file has to be a geojson file, output of the clustering state."
 				+ "\nInfos file has to be a log file, output of the sampling state."
 				+ "\nThe output consists of a geojson file with the clustering result after the optimization, a log file."
 				+ "\n------------------------------------------------------------------"
 				+ "\nExamples:"
-				+ "\ngeosummly optimization -input path/to/file.geojson -infos path/to/file1.log -output path/to/dir -weight 0.5,0.2,0.3 -top 5";
+				+ "\ngeosummly optimization -type pareto -input path/to/file.geojson -infos path/to/file1.log -output path/to/dir";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
 			
-			if(line.hasOption("input") && line.hasOption("infos") && line.hasOption("output")) {
+			if( line.hasOption("type") && line.hasOption("input") 
+					&& line.hasOption("infos") && line.hasOption("output")) 
+			{
+				type = line.getOptionValue("type");
+				if(!type.equals("pareto") && !type.equals("linear")) {
+					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
+					System.exit(-1);
+				}
+				
 				inGeo=line.getOptionValue("input");
 				//file extension has to be geojson
 				if(!inGeo.endsWith("geojson")) {
@@ -84,11 +93,20 @@ public class Optimization {
                 System.exit(-1);
             }
 			
-			OptimizationOperator o=new OptimizationOperator();
-			o.execute(inGeo, inLog, outDir, fWeights, topCat);
-			
+			OptimizationOperator o=new OptimizationOperator();	
+			switch (type) {
+			case "linear":
+				o.executeLinear(inGeo, inLog, outDir, fWeights, topCat);
+				break;
+			case "pareto":
+				o.executePareto(inGeo, inLog, outDir);
+				break;
+			default:
+                formatter.printHelp(helpUsage,"\ncommands list:", options, helpFooter);
+                System.exit(-1);
+			}
 		}
-		catch(ParseException | NumberFormatException e) {
+		catch(Exception e) {
 			System.out.println("Unexpected exception: " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -98,6 +116,11 @@ public class Optimization {
 	private Options initOptions() {
 			 
 		 Options options = new Options(); //define list of options
+
+		 //option input
+		 options.addOption(OptionBuilder.withLongOpt("type")
+				 .withDescription("specify the optimization funtion. Allowed types: pareto, linear")
+				 .hasArg().withArgName("pareto").create("T"));
 		 
 		 //option input
 		 options.addOption(OptionBuilder.withLongOpt("input").withDescription("set the geojson input file")
@@ -108,11 +131,11 @@ public class Optimization {
 					.hasArg().withArgName("path/to/file").create("i"));
 		 
 		 //option top
-		 options.addOption(OptionBuilder.withLongOpt("top").withDescription("set the number of clusters to hold in the fingerprint. Default 10")
+		 options.addOption(OptionBuilder.withLongOpt("top").withDescription("set the number of clusters to hold in the fingerprint. Default 10. Valid only for type=linear")
 					.hasArg().withArgName("arg").create("t"));
 		 
 		 //option weight
-		 options.addOption(OptionBuilder.withLongOpt("weight").withDescription("set the weights to assign to each optimization function. Default 0.3")
+		 options.addOption(OptionBuilder.withLongOpt("weight").withDescription("set the weights to assign to each optimization function. Default 0.3. Valid only for type=linear")
 					.hasArgs(3).withValueSeparator(',').withArgName("w1,w2,w3").create("w"));
 		 
 		 //option output
