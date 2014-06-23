@@ -112,7 +112,17 @@ app.Config = function() {
 					est: 9.312688264185255
 				},
 				zoom: 11
-			}),		
+			}),
+			milan_pareto: new Location({
+				jsonUrl: 'data/milan/pareto-clustering-output-eps0.014142135623730952.geojson',
+				bounds: {
+					north: 45.567794914783256,
+					sud:  45.35668565341512,
+					west: 9.011490619692509,
+					est: 9.312688264185255
+				},
+				zoom: 11
+			}),					
 			milan_eps002: new Location({
 				jsonUrl: 'data/milan/clustering-output-eps0.02.geojson',
 				bounds: {
