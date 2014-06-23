@@ -120,22 +120,23 @@ If *etype* argument is equal to validation, the *venues* option (csv file of sin
 
 ### optimization
 ```sh
--I –input    <path/to/file>  set the geojson input file
+-T -type     <function>      set the optimization function to use
+-I -input    <path/to/file>  set the geojson input file
 -i -infos    <path/to/file>  set the log input file
 -O -output   <path/to/dir>   set the output directory
 -t -top      <arg>           set the number of clusters to hold in the fingerprint. Default 10.
 -w -weight   <w1,w2,w3>      set the weights to assign to each optimization function. Default 0.3.
 ```
 
-The options *input*, *infos*, *output* are mandatory.
+The options *type*, *input*, *infos*, *output* are mandatory.
+Two optimization methods are provided: pareto, linear (alternatively).
 Input file has to be a geojson file, output of the clustering state.
 Infos file has to be a log file, output of the sampling state.
 The output consists of a log file, a geojson file with the clustering result after the optimization.
 
-    geosummly optimization -input path/to/file.geojson \
-     -infos path/to/file1.log -output path/to/dir \
-     -weight 0.5,0.2,0.3 -top 5
-
+    geosummly optimization -type pareto -input path/to/file.geojson \
+     -infos path/to/file1.log -output path/to/dir 
+     
 ## Web UI
 A web interface can be instantiated to visualize on a map the output of the geosummly.
 
