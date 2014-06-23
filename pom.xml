@@ -113,6 +113,11 @@
             <artifactId>elki</artifactId>
             <version>0.6</version>    
         </dependency>
+        <dependency>
+            <groupId>fr.vergne.pareto</groupId>
+            <artifactId>pareto-core</artifactId>
+            <version>1.0</version>   
+        </dependency>
 	</dependencies>
 
     <build>
