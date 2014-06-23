@@ -29,7 +29,7 @@ public class Optimization {
 		String helpUsage="geosummly optimization -type pareto -input <path/to/file.geojson> -infos <path/to/file.log> -output <path/to/dir> [options]";
 		String helpFooter="\n------------------------------------------------------------------"
 				+ "\nThe options type, input, infos, output are mandatory."
-				+ "\nTwo optimization methods are provided: pareto, linear. Specify one each using the type argument."
+				+ "\nTwo optimization methods are provided: pareto, linear (alternatively)."
 				+ "\nInput file has to be a geojson file, output of the clustering state."
 				+ "\nInfos file has to be a log file, output of the sampling state."
 				+ "\nThe output consists of a geojson file with the clustering result after the optimization, a log file."
@@ -119,7 +119,7 @@ public class Optimization {
 
 		 //option input
 		 options.addOption(OptionBuilder.withLongOpt("type")
-				 .withDescription("specify the optimization funtion. Allowed types: pareto, linear")
+				 .withDescription("set the optimization function to use")
 				 .hasArg().withArgName("pareto").create("T"));
 		 
 		 //option input
