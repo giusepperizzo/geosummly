@@ -1,0 +1,1031 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 11,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            35.33938393352815,
+            25.15477571880185
+          ],
+          [
+            35.33871287973662,
+            25.15353081803663
+          ],
+          [
+            35.3403650515096,
+            25.151100754737854
+          ],
+          [
+            35.3395423746908,
+            25.153144598007202
+          ],
+          [
+            35.339383,
+            25.154344
+          ],
+          [
+            35.33956487587046,
+            25.154602012009214
+          ],
+          [
+            35.339297320402295,
+            25.152994394302368
+          ],
+          [
+            35.34036744264504,
+            25.154989957049494
+          ],
+          [
+            35.33991364208377,
+            25.155881649835507
+          ],
+          [
+            35.339123,
+            25.155274
+          ],
+          [
+            35.339061017348826,
+            25.15615940093994
+          ],
+          [
+            35.33989,
+            25.160249
+          ],
+          [
+            35.33857746913188,
+            25.158852338790894
+          ],
+          [
+            35.339184382807204,
+            25.1562059011411
+          ],
+          [
+            35.33815108478425,
+            25.158834640652984
+          ],
+          [
+            35.33959722129081,
+            25.160594841803135
+          ],
+          [
+            35.340550523456045,
+            25.158307736448535
+          ],
+          [
+            35.33680571913556,
+            25.15848723138501
+          ],
+          [
+            35.33883570986162,
+            25.159002554997066
+          ],
+          [
+            35.337706862428355,
+            25.15852776248574
+          ],
+          [
+            35.33857528112432,
+            25.159120559692383
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 12,
+        "name": "c(Food,Professional & Other Places)",
+        "sse": 0.15029434079579002,
+        "venues": [
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 97,
+            "id": "4f92f9b7e4b04b1ee1d6187b",
+            "venueLatitude": 35.33938393352815,
+            "venueLongitude": 25.15477571880185,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.153552293777363,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 4,
+            "id": "5361516211d2ce8fc8098013",
+            "venueLatitude": 35.33871287973662,
+            "venueLongitude": 25.15353081803663,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.153552293777363,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 51,
+            "id": "4e258ee4ae6035bd16f67ea7",
+            "venueLatitude": 35.3403650515096,
+            "venueLongitude": 25.151100754737854,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.153552293777363,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 64,
+            "id": "4ec94c3dc2eec7ea95f02367",
+            "venueLatitude": 35.3395423746908,
+            "venueLongitude": 25.153144598007202,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.153552293777363,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 13,
+            "id": "526edb37498e45c0d037b456",
+            "venueLatitude": 35.339383,
+            "venueLongitude": 25.154344,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.153552293777363,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 31,
+            "id": "507aa2a3e4b00760cb90fb18",
+            "venueLatitude": 35.33956487587046,
+            "venueLongitude": 25.154602012009214,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.153552293777363,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 42,
+            "id": "4ec94cd0c2eec7ea95f03735",
+            "venueLatitude": 35.339297320402295,
+            "venueLongitude": 25.152994394302368,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.153552293777363,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 3,
+            "id": "5328aa60498e97389306c288",
+            "venueLatitude": 35.34036744264504,
+            "venueLongitude": 25.154989957049494,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.153552293777363,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 16,
+            "id": "4e786075aeb726a0e65237fe",
+            "venueLatitude": 35.33991364208377,
+            "venueLongitude": 25.155881649835507,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.153552293777363,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 7,
+            "id": "4e1214c262e1d997a6a55f3f",
+            "venueLatitude": 35.339123,
+            "venueLongitude": 25.155274,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.153552293777363,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 383,
+            "id": "4c51e1b29426c928846c7e74",
+            "venueLatitude": 35.339061017348826,
+            "venueLongitude": 25.15615940093994,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.15872359275811,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 568,
+            "id": "4cdb20c94006a1432a4dd6b2",
+            "venueLatitude": 35.33989,
+            "venueLongitude": 25.160249,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.15872359275811,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 205,
+            "id": "4eaeb85ee300f9b919ca8edb",
+            "venueLatitude": 35.33857746913188,
+            "venueLongitude": 25.158852338790894,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.15872359275811,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 3,
+            "id": "52cfe8c4498e0175904e93aa",
+            "venueLatitude": 35.339184382807204,
+            "venueLongitude": 25.1562059011411,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.15872359275811,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 15,
+            "id": "511c76eae4b0d31afe280f2b",
+            "venueLatitude": 35.33815108478425,
+            "venueLongitude": 25.158834640652984,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.15872359275811,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 1,
+            "id": "50ec126ce4b04732a972d313",
+            "venueLatitude": 35.33959722129081,
+            "venueLongitude": 25.160594841803135,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.15872359275811,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 50,
+            "id": "4f8afeb3e4b060b7f8d9cce6",
+            "venueLatitude": 35.340550523456045,
+            "venueLongitude": 25.158307736448535,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.15872359275811,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 26,
+            "id": "4d5c1e74524fa35d011b4635",
+            "venueLatitude": 35.33680571913556,
+            "venueLongitude": 25.15848723138501,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.15872359275811,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 15,
+            "id": "52151c6a11d206a58a4a920d",
+            "venueLatitude": 35.33883570986162,
+            "venueLongitude": 25.159002554997066,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.15872359275811,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 33,
+            "id": "50f3e1fee4b035124a10e985",
+            "venueLatitude": 35.337706862428355,
+            "venueLongitude": 25.15852776248574,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.15872359275811,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 256,
+            "id": "4e75cfb9ae60c3285149961f",
+            "venueLatitude": 35.33857528112432,
+            "venueLongitude": 25.159120559692383,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.15872359275811,
+            "category": "Food"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 16,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            35.33598570713262,
+            25.16795978868134
+          ],
+          [
+            35.33153924415793,
+            25.166865479504064
+          ],
+          [
+            35.336173,
+            25.161371
+          ],
+          [
+            35.33515116087575,
+            25.16514005316924
+          ],
+          [
+            35.32906450109068,
+            25.171954853762216
+          ],
+          [
+            35.32558967559582,
+            25.177698395671463
+          ],
+          [
+            35.319763,
+            25.177604
+          ],
+          [
+            35.315834045410156,
+            25.18102264404297
+          ],
+          [
+            35.31676483154297,
+            25.183185577392578
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 17,
+        "name": "c(Food,Professional & Other Places)",
+        "sse": 0.5689947908070955,
+        "venues": [
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 225,
+            "id": "4d007a421fcef04d0cf2cab9",
+            "venueLatitude": 35.33598570713262,
+            "venueLongitude": 25.16795978868134,
+            "centroidLatitude": 35.334269872528026,
+            "centroidLongitude": 25.169066190719608,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 168,
+            "id": "4eb8fb316c2590eb898832a0",
+            "venueLatitude": 35.33153924415793,
+            "venueLongitude": 25.166865479504064,
+            "centroidLatitude": 35.33005172641484,
+            "centroidLongitude": 25.169066190719608,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 38,
+            "id": "4dfde87e62e1a52ce915bb04",
+            "venueLatitude": 35.336173,
+            "venueLongitude": 25.161371,
+            "centroidLatitude": 35.334269872528026,
+            "centroidLongitude": 25.16389489173886,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 4,
+            "id": "4fbfdc81e4b0117b73022095",
+            "venueLatitude": 35.33515116087575,
+            "venueLongitude": 25.16514005316924,
+            "centroidLatitude": 35.334269872528026,
+            "centroidLongitude": 25.16389489173886,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 3,
+            "id": "4fd1c209e4b0f848178da9bc",
+            "venueLatitude": 35.32906450109068,
+            "venueLongitude": 25.171954853762216,
+            "centroidLatitude": 35.33005172641484,
+            "centroidLongitude": 25.174237489700356,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 9,
+            "id": "4f7a95d2e4b0be46386996a7",
+            "venueLatitude": 35.32558967559582,
+            "venueLongitude": 25.177698395671463,
+            "centroidLatitude": 35.32583358030165,
+            "centroidLongitude": 25.179408788681105,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 1,
+            "id": "503c87b0e4b09fbdb40ea677",
+            "venueLatitude": 35.319763,
+            "venueLongitude": 25.177604,
+            "centroidLatitude": 35.32161543418846,
+            "centroidLongitude": 25.179408788681105,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "id": "531edb9a498e5160c0288c10",
+            "venueLatitude": 35.315834045410156,
+            "venueLongitude": 25.18102264404297,
+            "centroidLatitude": 35.31739728807527,
+            "centroidLongitude": 25.179408788681105,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 2,
+            "id": "4fa77cabe4b039aeecd7a571",
+            "venueLatitude": 35.31676483154297,
+            "venueLongitude": 25.183185577392578,
+            "centroidLatitude": 35.31739728807527,
+            "centroidLongitude": 25.184580087661853,
+            "category": "Professional & Other Places"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 18,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            35.341037793477476,
+            25.119650292279086
+          ],
+          [
+            35.34068488305071,
+            25.11716021386447
+          ],
+          [
+            35.3379052332395,
+            25.114675907212835
+          ],
+          [
+            35.33770757950568,
+            25.112185790488237
+          ],
+          [
+            35.33591722552756,
+            25.115417147559025
+          ],
+          [
+            35.33528423718483,
+            25.117698767333945
+          ],
+          [
+            35.33112873929948,
+            25.117640858401796
+          ],
+          [
+            35.32848096650217,
+            25.119395494439043
+          ],
+          [
+            35.332895013799146,
+            25.121848583221436
+          ],
+          [
+            35.33633150839667,
+            25.122742595492547
+          ],
+          [
+            35.3331300122477,
+            25.127276761787353
+          ],
+          [
+            35.335121,
+            25.12985
+          ],
+          [
+            35.337197,
+            25.127645
+          ],
+          [
+            35.3372688293457,
+            25.129045486450195
+          ],
+          [
+            35.340994309202145,
+            25.12899081059588
+          ],
+          [
+            35.34147262573242,
+            25.128971099853516
+          ],
+          [
+            35.3316683081028,
+            25.133194824114963
+          ],
+          [
+            35.331521996028115,
+            25.13238413707565
+          ],
+          [
+            35.325023704333226,
+            25.129338251810353
+          ],
+          [
+            35.32725998313799,
+            25.127844251929556
+          ],
+          [
+            35.32284658815451,
+            25.123964452454015
+          ],
+          [
+            35.3233418006403,
+            25.123860218391396
+          ],
+          [
+            35.31795528727058,
+            25.116465304835977
+          ],
+          [
+            35.31829428256151,
+            25.117127895355225
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 19,
+        "name": "c(Outdoors & Recreation)",
+        "sse": 5.409370814909014,
+        "venues": [
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 60,
+            "id": "4dac10f9fa8cc7649759f51f",
+            "venueLatitude": 35.341037793477476,
+            "venueLongitude": 25.119650292279086,
+            "centroidLatitude": 35.342706164754404,
+            "centroidLongitude": 25.117353200912124,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 2,
+            "id": "52d1388111d27883c5449f23",
+            "venueLatitude": 35.34068488305071,
+            "venueLongitude": 25.11716021386447,
+            "centroidLatitude": 35.342706164754404,
+            "centroidLongitude": 25.117353200912124,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 101,
+            "id": "4f6dfd5ce4b08d8da651ce71",
+            "venueLatitude": 35.3379052332395,
+            "venueLongitude": 25.114675907212835,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.112181901931375,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 33,
+            "id": "4e67a4c518385016286a3018",
+            "venueLatitude": 35.33770757950568,
+            "venueLongitude": 25.112185790488237,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.112181901931375,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 972,
+            "id": "4e67a27ea80980267568b430",
+            "venueLatitude": 35.33591722552756,
+            "venueLongitude": 25.115417147559025,
+            "centroidLatitude": 35.334269872528026,
+            "centroidLongitude": 25.117353200912124,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 41,
+            "id": "5083df83e4b0975a3e5b178b",
+            "venueLatitude": 35.33528423718483,
+            "venueLongitude": 25.117698767333945,
+            "centroidLatitude": 35.334269872528026,
+            "centroidLongitude": 25.117353200912124,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 3,
+            "id": "519e19bf498e4bab67339b03",
+            "venueLatitude": 35.33112873929948,
+            "venueLongitude": 25.117640858401796,
+            "centroidLatitude": 35.33005172641484,
+            "centroidLongitude": 25.117353200912124,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 3,
+            "id": "535c0bef498e128236a6b4c7",
+            "venueLatitude": 35.32848096650217,
+            "venueLongitude": 25.119395494439043,
+            "centroidLatitude": 35.33005172641484,
+            "centroidLongitude": 25.117353200912124,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 1845,
+            "id": "50659a19e4b0b6cb78bbd7bb",
+            "venueLatitude": 35.332895013799146,
+            "venueLongitude": 25.121848583221436,
+            "centroidLatitude": 35.334269872528026,
+            "centroidLongitude": 25.122524499892872,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 57,
+            "id": "5068237ce4b064a76d145d2a",
+            "venueLatitude": 35.33633150839667,
+            "venueLongitude": 25.122742595492547,
+            "centroidLatitude": 35.334269872528026,
+            "centroidLongitude": 25.122524499892872,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 420,
+            "id": "4cd03a8b6449a093875ec9cf",
+            "venueLatitude": 35.3331300122477,
+            "venueLongitude": 25.127276761787353,
+            "centroidLatitude": 35.334269872528026,
+            "centroidLongitude": 25.12769579887362,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 2,
+            "id": "524728da11d2a9d32de84315",
+            "venueLatitude": 35.335121,
+            "venueLongitude": 25.12985,
+            "centroidLatitude": 35.334269872528026,
+            "centroidLongitude": 25.12769579887362,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 42,
+            "id": "51e692fe498e392abc7b18dd",
+            "venueLatitude": 35.337197,
+            "venueLongitude": 25.127645,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.12769579887362,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 176,
+            "id": "5224752311d2f18fa1fcce45",
+            "venueLatitude": 35.3372688293457,
+            "venueLongitude": 25.129045486450195,
+            "centroidLatitude": 35.338488018641215,
+            "centroidLongitude": 25.12769579887362,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 728,
+            "id": "509cf6dae4b08f34f7a45e84",
+            "venueLatitude": 35.340994309202145,
+            "venueLongitude": 25.12899081059588,
+            "centroidLatitude": 35.342706164754404,
+            "centroidLongitude": 25.12769579887362,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 1,
+            "id": "5310a37c498e422413e17095",
+            "venueLatitude": 35.34147262573242,
+            "venueLongitude": 25.128971099853516,
+            "centroidLatitude": 35.342706164754404,
+            "centroidLongitude": 25.12769579887362,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 842,
+            "id": "4d02148ae117f04d3c4b22bf",
+            "venueLatitude": 35.3316683081028,
+            "venueLongitude": 25.133194824114963,
+            "centroidLatitude": 35.33005172641484,
+            "centroidLongitude": 25.13286709785437,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 138,
+            "id": "4cf396c094feb1f7455223ba",
+            "venueLatitude": 35.331521996028115,
+            "venueLongitude": 25.13238413707565,
+            "centroidLatitude": 35.33005172641484,
+            "centroidLongitude": 25.13286709785437,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 1859,
+            "id": "4f2c8640e4b0d411ba18a650",
+            "venueLatitude": 35.325023704333226,
+            "venueLongitude": 25.129338251810353,
+            "centroidLatitude": 35.32583358030165,
+            "centroidLongitude": 25.12769579887362,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 1275,
+            "id": "4c9502e5f7cfa1cdbd4eb915",
+            "venueLatitude": 35.32725998313799,
+            "venueLongitude": 25.127844251929556,
+            "centroidLatitude": 35.32583358030165,
+            "centroidLongitude": 25.12769579887362,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 248,
+            "id": "4eab2d52cc217eb08ea84264",
+            "venueLatitude": 35.32284658815451,
+            "venueLongitude": 25.123964452454015,
+            "centroidLatitude": 35.32161543418846,
+            "centroidLongitude": 25.122524499892872,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 32,
+            "id": "4f1d642ce4b0e2eeed4dfb18",
+            "venueLatitude": 35.3233418006403,
+            "venueLongitude": 25.123860218391396,
+            "centroidLatitude": 35.32161543418846,
+            "centroidLongitude": 25.122524499892872,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 9,
+            "id": "5308b58a498e99b58d83f3fe",
+            "venueLatitude": 35.31795528727058,
+            "venueLongitude": 25.116465304835977,
+            "centroidLatitude": 35.31739728807527,
+            "centroidLongitude": 25.117353200912124,
+            "category": "Outdoors & Recreation"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 49,
+            "id": "4f9587cae4b00825673d1634",
+            "venueLatitude": 35.31829428256151,
+            "venueLongitude": 25.117127895355225,
+            "centroidLatitude": 35.31739728807527,
+            "centroidLongitude": 25.117353200912124,
+            "category": "Outdoors & Recreation"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            35.32705103213013,
+            25.13307901180582
+          ],
+          [
+            35.32706622101863,
+            25.13314270858101
+          ],
+          [
+            35.32474340404529,
+            25.133339589442762
+          ],
+          [
+            35.325982206707295,
+            25.133843372275752
+          ],
+          [
+            35.324973,
+            25.134983
+          ],
+          [
+            35.32693099975586,
+            25.132488250732422
+          ],
+          [
+            35.326365276492815,
+            25.13341426849365
+          ],
+          [
+            35.320897,
+            25.140028
+          ],
+          [
+            35.320150436383045,
+            25.1398076377788
+          ],
+          [
+            35.32206591354179,
+            25.136379646276037
+          ],
+          [
+            35.3210158966364,
+            25.138562678878035
+          ],
+          [
+            35.32240945498764,
+            25.14055461080283
+          ],
+          [
+            35.32083038639989,
+            25.14042142969327
+          ],
+          [
+            35.32240676879883,
+            25.139774322509766
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 11,
+        "name": "c(Food,Professional & Other Places)",
+        "sse": 0.37588395901052,
+        "venues": [
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 9,
+            "id": "515b3b22e4b00212a8459cf1",
+            "venueLatitude": 35.32705103213013,
+            "venueLongitude": 25.13307901180582,
+            "centroidLatitude": 35.32583358030165,
+            "centroidLongitude": 25.13286709785437,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 20,
+            "id": "5098b718e4b071356d7ef382",
+            "venueLatitude": 35.32706622101863,
+            "venueLongitude": 25.13314270858101,
+            "centroidLatitude": 35.32583358030165,
+            "centroidLongitude": 25.13286709785437,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 7,
+            "id": "4f5a27b6e4b0a5f214827d3b",
+            "venueLatitude": 35.32474340404529,
+            "venueLongitude": 25.133339589442762,
+            "centroidLatitude": 35.32583358030165,
+            "centroidLongitude": 25.13286709785437,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 3,
+            "id": "5116506ae4b06e75db843b2d",
+            "venueLatitude": 35.325982206707295,
+            "venueLongitude": 25.133843372275752,
+            "centroidLatitude": 35.32583358030165,
+            "centroidLongitude": 25.13286709785437,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 100,
+            "id": "4d962718744f3704200ab357",
+            "venueLatitude": 35.324973,
+            "venueLongitude": 25.134983,
+            "centroidLatitude": 35.32583358030165,
+            "centroidLongitude": 25.13286709785437,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 7,
+            "id": "5224948d498e080393218991",
+            "venueLatitude": 35.32693099975586,
+            "venueLongitude": 25.132488250732422,
+            "centroidLatitude": 35.32583358030165,
+            "centroidLongitude": 25.13286709785437,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 9,
+            "id": "51a5b8ea2fc65cbbdb7b69b9",
+            "venueLatitude": 35.326365276492815,
+            "venueLongitude": 25.13341426849365,
+            "centroidLatitude": 35.32583358030165,
+            "centroidLongitude": 25.13286709785437,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 141,
+            "id": "5009940ce4b0381c83a9e1d5",
+            "venueLatitude": 35.320897,
+            "venueLongitude": 25.140028,
+            "centroidLatitude": 35.32161543418846,
+            "centroidLongitude": 25.138038396835118,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 6,
+            "id": "52b1cb7c498e5a6579267393",
+            "venueLatitude": 35.320150436383045,
+            "venueLongitude": 25.1398076377788,
+            "centroidLatitude": 35.32161543418846,
+            "centroidLongitude": 25.138038396835118,
+            "category": "Food"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 9,
+            "id": "4fb8d066e4b07bf810bce5cb",
+            "venueLatitude": 35.32206591354179,
+            "venueLongitude": 25.136379646276037,
+            "centroidLatitude": 35.32161543418846,
+            "centroidLongitude": 25.138038396835118,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 10,
+            "id": "526f7d1211d2a553087bc7d5",
+            "venueLatitude": 35.3210158966364,
+            "venueLongitude": 25.138562678878035,
+            "centroidLatitude": 35.32161543418846,
+            "centroidLongitude": 25.138038396835118,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 18,
+            "id": "515920c8e4b0008695640105",
+            "venueLatitude": 35.32240945498764,
+            "venueLongitude": 25.14055461080283,
+            "centroidLatitude": 35.32161543418846,
+            "centroidLongitude": 25.138038396835118,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 14,
+            "id": "4f5f7582e4b06f48bfa4a8c9",
+            "venueLatitude": 35.32083038639989,
+            "venueLongitude": 25.14042142969327,
+            "centroidLatitude": 35.32161543418846,
+            "centroidLongitude": 25.138038396835118,
+            "category": "Professional & Other Places"
+          },
+          {
+            "timestamp": 1400520379305,
+            "beenHere": 1,
+            "id": "4fb22927e4b02fcbfcab59aa",
+            "venueLatitude": 35.32240676879883,
+            "venueLongitude": 25.139774322509766,
+            "centroidLatitude": 35.32161543418846,
+            "centroidLongitude": 25.138038396835118,
+            "category": "Professional & Other Places"
+          }
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "name": "geosummly",
+    "bbox": {
+      "north": 35.344815237811,
+      "east": 25.192337036133,
+      "south": 35.2773249,
+      "west": 25.109596252441
+    },
+    "date": "2014-05-19T17:26:19.305Z",
+    "eps": 0.1
+  }
+}
