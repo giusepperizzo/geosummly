@@ -9,8 +9,8 @@ The prototype is composed of 6 stages:
 * import: it generates a multidimensional tensor matrix, given the sampled data, where each dimension reports the magnitude of the Foursquare category venue, and each object shapes a portion (cell) of the original bounding box;
 * discovery: it estimates the parameter minpts;
 * clustering: it performs the clustering algorithm;
-* evaluation: it computes the SSE and the Jaccard as evaluation means of the obtained clustering output.
-* optimization: it performs the Pareto distribution on the clustering output by exploiting 3 optimization functions: cluster spatial coverage, cluster density, cluster heterogeneity.
+* evaluation: it computes the SSE and the Jaccard as evaluation means of the obtained clustering output;
+* optimization: it performs two multi objective functions: linear and Pareto. 
 
 Please refer to our [paper][paper] for a detailed description. 
 
