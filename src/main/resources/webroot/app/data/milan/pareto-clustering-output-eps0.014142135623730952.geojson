@@ -3,163 +3,163 @@
   "features": [
     {
       "type": "Feature",
-      "id": 21,
+      "id": 108,
       "geometry": {
         "type": "MultiPoint",
         "coordinates": [
           [
-            45.47976063250387,
-            9.189757704734802
+            45.54035186767578,
+            9.045183181762695
           ],
           [
-            45.4773449061093,
-            9.191837105383275
+            45.54036046427916,
+            9.045142005341177
           ],
           [
-            45.480327,
-            9.193875
+            45.540577,
+            9.045103
           ],
           [
-            45.477394178786994,
-            9.192668777017232
+            45.540391397537284,
+            9.045220049774962
           ],
           [
-            45.4774524,
-            9.1957309
+            45.54038619995117,
+            9.04518985748291
           ],
           [
-            45.475430623133654,
-            9.190389260977891
+            45.54017048318368,
+            9.044770575253192
           ],
           [
-            45.47497116835823,
-            9.186209508030952
+            45.54033279418945,
+            9.045304298400879
           ],
           [
-            45.47566189301831,
-            9.185048253628679
+            45.54032516479492,
+            9.045300483703613
           ],
           [
-            45.474824,
-            9.183331
+            45.540249,
+            9.045139
           ],
           [
-            45.4709,
-            9.183651
+            45.540281542007904,
+            9.045135560671573
           ]
         ]
       },
       "properties": {
-        "clusterId": 22,
-        "name": "c(Arts & Entertainment)",
-        "sse": 1.5181266945316787,
+        "clusterId": 109,
+        "name": "c(College & University)",
+        "sse": 0.005365143696845668,
         "venues": [
           {
             "timestamp": 1400521076500,
-            "beenHere": 247,
-            "id": "4e5839087d8bf55c17346af1",
-            "venueLatitude": 45.47976063250387,
-            "venueLongitude": 9.189757704734802,
-            "centroidLatitude": 45.480184571315476,
-            "centroidLongitude": 9.190703218165693,
-            "category": "Arts & Entertainment"
+            "beenHere": 9,
+            "id": "50c7264de4b0fd6d03d4c3f9",
+            "venueLatitude": 45.54035186767578,
+            "venueLongitude": 9.045183181762695,
+            "centroidLatitude": 45.54140625711224,
+            "centroidLongitude": 9.046128348809175,
+            "category": "College & University"
           },
           {
             "timestamp": 1400521076500,
-            "beenHere": 6,
-            "id": "4fc10bb5e4b0d89703152309",
-            "venueLatitude": 45.4773449061093,
-            "venueLongitude": 9.191837105383275,
-            "centroidLatitude": 45.4780734787018,
-            "centroidLongitude": 9.190703218165693,
-            "category": "Arts & Entertainment"
+            "beenHere": 17,
+            "id": "51122fe4e4b077779dce26d7",
+            "venueLatitude": 45.54036046427916,
+            "venueLongitude": 9.045142005341177,
+            "centroidLatitude": 45.54140625711224,
+            "centroidLongitude": 9.046128348809175,
+            "category": "College & University"
           },
           {
             "timestamp": 1400521076500,
-            "beenHere": 2,
-            "id": "5360ef08498e27bed213808b",
-            "venueLatitude": 45.480327,
-            "venueLongitude": 9.193875,
-            "centroidLatitude": 45.480184571315476,
-            "centroidLongitude": 9.19371519461062,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 131,
-            "id": "4d4ad18e11a36ea8c74d351c",
-            "venueLatitude": 45.477394178786994,
-            "venueLongitude": 9.192668777017232,
-            "centroidLatitude": 45.4780734787018,
-            "centroidLongitude": 9.19371519461062,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 2,
-            "id": "4faab60be4b006e8b31ae76b",
-            "venueLatitude": 45.4774524,
-            "venueLongitude": 9.1957309,
-            "centroidLatitude": 45.4780734787018,
-            "centroidLongitude": 9.196727171055548,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 7,
-            "id": "51f45215498ec045e76aec28",
-            "venueLatitude": 45.475430623133654,
-            "venueLongitude": 9.190389260977891,
-            "centroidLatitude": 45.47596238608811,
-            "centroidLongitude": 9.190703218165693,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 122,
-            "id": "4f6af6d0e4b07199a8cdb67d",
-            "venueLatitude": 45.47497116835823,
-            "venueLongitude": 9.186209508030952,
-            "centroidLatitude": 45.47596238608811,
-            "centroidLongitude": 9.187691241720765,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 20,
-            "id": "52e8de0311d2656b0facc9cc",
-            "venueLatitude": 45.47566189301831,
-            "venueLongitude": 9.185048253628679,
-            "centroidLatitude": 45.47596238608811,
-            "centroidLongitude": 9.184679265275838,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 39,
-            "id": "51652e1be4b0c8ebf0145714",
-            "venueLatitude": 45.474824,
-            "venueLongitude": 9.183331,
-            "centroidLatitude": 45.47385129347444,
-            "centroidLongitude": 9.184679265275838,
-            "category": "Arts & Entertainment"
+            "beenHere": 61,
+            "id": "518cb94d498e9eba1e6de10f",
+            "venueLatitude": 45.540577,
+            "venueLongitude": 9.045103,
+            "centroidLatitude": 45.54140625711224,
+            "centroidLongitude": 9.046128348809175,
+            "category": "College & University"
           },
           {
             "timestamp": 1400521076500,
             "beenHere": 9,
-            "id": "5346bb9f498e222dbfadac82",
-            "venueLatitude": 45.4709,
-            "venueLongitude": 9.183651,
-            "centroidLatitude": 45.47174020086075,
-            "centroidLongitude": 9.184679265275838,
-            "category": "Arts & Entertainment"
+            "id": "510626fde4b0840c16666f8a",
+            "venueLatitude": 45.540391397537284,
+            "venueLongitude": 9.045220049774962,
+            "centroidLatitude": 45.54140625711224,
+            "centroidLongitude": 9.046128348809175,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400521076500,
+            "beenHere": 4,
+            "id": "50fe822ee4b02fe3217a75b6",
+            "venueLatitude": 45.54038619995117,
+            "venueLongitude": 9.04518985748291,
+            "centroidLatitude": 45.54140625711224,
+            "centroidLongitude": 9.046128348809175,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400521076500,
+            "beenHere": 392,
+            "id": "50fd2d1ce4b08ca14a032868",
+            "venueLatitude": 45.54017048318368,
+            "venueLongitude": 9.044770575253192,
+            "centroidLatitude": 45.539295164498554,
+            "centroidLongitude": 9.046128348809175,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400521076500,
+            "beenHere": 5,
+            "id": "5134e346e4b0b7da6f11309a",
+            "venueLatitude": 45.54033279418945,
+            "venueLongitude": 9.045304298400879,
+            "centroidLatitude": 45.539295164498554,
+            "centroidLongitude": 9.046128348809175,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400521076500,
+            "beenHere": 2,
+            "id": "51249d82e4b0ca0a49c9ec20",
+            "venueLatitude": 45.54032516479492,
+            "venueLongitude": 9.045300483703613,
+            "centroidLatitude": 45.539295164498554,
+            "centroidLongitude": 9.046128348809175,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400521076500,
+            "beenHere": 8,
+            "id": "4f992452e4b00a8015670a94",
+            "venueLatitude": 45.540249,
+            "venueLongitude": 9.045139,
+            "centroidLatitude": 45.539295164498554,
+            "centroidLongitude": 9.046128348809175,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1400521076500,
+            "beenHere": 7,
+            "id": "4f4c9977e4b03af95fc2682f",
+            "venueLatitude": 45.540281542007904,
+            "venueLongitude": 9.045135560671573,
+            "centroidLatitude": 45.539295164498554,
+            "centroidLongitude": 9.046128348809175,
+            "category": "College & University"
           }
         ]
       }
     },
     {
       "type": "Feature",
-      "id": 187,
+      "id": 118,
       "geometry": {
         "type": "MultiPoint",
         "coordinates": [
@@ -310,7 +310,7 @@
         ]
       },
       "properties": {
-        "clusterId": 188,
+        "clusterId": 119,
         "name": "c(College & University)",
         "sse": 0.027744315659038062,
         "venues": [
@@ -678,521 +678,57 @@
     },
     {
       "type": "Feature",
-      "id": 209,
+      "id": 60,
       "geometry": {
         "type": "MultiPoint",
         "coordinates": [
           [
-            45.456420560876936,
-            9.170547723770142
+            45.42167282104492,
+            9.139814376831055
           ],
           [
-            45.45613906369444,
-            9.170083563779855
+            45.420143127441406,
+            9.135115623474121
           ],
           [
-            45.45636569702591,
-            9.170722082149805
-          ],
-          [
-            45.45616,
-            9.166005
-          ],
-          [
-            45.456078,
-            9.165397
-          ],
-          [
-            45.45689148657149,
-            9.167958315623085
-          ],
-          [
-            45.45548761527326,
-            9.168511877579405
-          ],
-          [
-            45.454224,
-            9.170849
-          ],
-          [
-            45.454117,
-            9.170986
-          ],
-          [
-            45.452534,
-            9.170021
-          ],
-          [
-            45.4536678972294,
-            9.168957710749522
-          ],
-          [
-            45.45203136666391,
-            9.1702817862123
-          ],
-          [
-            45.45265766934288,
-            9.166356923630964
-          ],
-          [
-            45.453277230262756,
-            9.167528
-          ],
-          [
-            45.452811,
-            9.166426
-          ],
-          [
-            45.45002428254508,
-            9.167447016550065
-          ],
-          [
-            45.44988,
-            9.167431
-          ],
-          [
-            45.45056955449721,
-            9.16731860300878
+            45.42063903808594,
+            9.142972946166992
           ]
         ]
       },
       "properties": {
-        "clusterId": 210,
-        "name": "c(Nightlife Spot)",
-        "sse": 1.1353960769033726,
-        "venues": [
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 1666,
-            "id": "4bad2b2af964a5200f353be3",
-            "venueLatitude": 45.456420560876936,
-            "venueLongitude": 9.170547723770142,
-            "centroidLatitude": 45.45696255256499,
-            "centroidLongitude": 9.1696193830512,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 490,
-            "id": "4bc9f5cab6c49c74345d8f91",
-            "venueLatitude": 45.45613906369444,
-            "venueLongitude": 9.170083563779855,
-            "centroidLatitude": 45.45696255256499,
-            "centroidLongitude": 9.1696193830512,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 102,
-            "id": "52447a4f498e2119a0032a4d",
-            "venueLatitude": 45.45636569702591,
-            "venueLongitude": 9.170722082149805,
-            "centroidLatitude": 45.45696255256499,
-            "centroidLongitude": 9.1696193830512,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 18,
-            "id": "51d2fe11498ec2af20956de2",
-            "venueLatitude": 45.45616,
-            "venueLongitude": 9.166005,
-            "centroidLatitude": 45.45696255256499,
-            "centroidLongitude": 9.166607406606273,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 62,
-            "id": "4cb805ef4c60a093f8e235ca",
-            "venueLatitude": 45.456078,
-            "venueLongitude": 9.165397,
-            "centroidLatitude": 45.45696255256499,
-            "centroidLongitude": 9.166607406606273,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 24,
-            "id": "4c6558ffe0c4be9a56d98758",
-            "venueLatitude": 45.45689148657149,
-            "venueLongitude": 9.167958315623085,
-            "centroidLatitude": 45.45696255256499,
-            "centroidLongitude": 9.166607406606273,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 318,
-            "id": "5154a2d1e4b0d3f3afcc263b",
-            "venueLatitude": 45.45548761527326,
-            "venueLongitude": 9.168511877579405,
-            "centroidLatitude": 45.4548514599513,
-            "centroidLongitude": 9.1696193830512,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 64,
-            "id": "4cd1e23206b54688a438e394",
-            "venueLatitude": 45.454224,
-            "venueLongitude": 9.170849,
-            "centroidLatitude": 45.4548514599513,
-            "centroidLongitude": 9.1696193830512,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 115,
-            "id": "4d50174dabb45941b825b818",
-            "venueLatitude": 45.454117,
-            "venueLongitude": 9.170986,
-            "centroidLatitude": 45.4548514599513,
-            "centroidLongitude": 9.1696193830512,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 565,
-            "id": "4d79eea47418a143288bc35b",
-            "venueLatitude": 45.452534,
-            "venueLongitude": 9.170021,
-            "centroidLatitude": 45.452740367337626,
-            "centroidLongitude": 9.1696193830512,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 43,
-            "id": "531bb661498ed1a93af497aa",
-            "venueLatitude": 45.4536678972294,
-            "venueLongitude": 9.168957710749522,
-            "centroidLatitude": 45.452740367337626,
-            "centroidLongitude": 9.1696193830512,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 7,
-            "id": "5321f5a6498e74bfb778626f",
-            "venueLatitude": 45.45203136666391,
-            "venueLongitude": 9.1702817862123,
-            "centroidLatitude": 45.452740367337626,
-            "centroidLongitude": 9.1696193830512,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 345,
-            "id": "504a8053e4b027ee7e3a2d71",
-            "venueLatitude": 45.45265766934288,
-            "venueLongitude": 9.166356923630964,
-            "centroidLatitude": 45.452740367337626,
-            "centroidLongitude": 9.166607406606273,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 659,
-            "id": "4bf85f6fb182c9b69d66775a",
-            "venueLatitude": 45.453277230262756,
-            "venueLongitude": 9.167528,
-            "centroidLatitude": 45.452740367337626,
-            "centroidLongitude": 9.166607406606273,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 16,
-            "id": "531262c2498e6faeaccc8554",
-            "venueLatitude": 45.452811,
-            "venueLongitude": 9.166426,
-            "centroidLatitude": 45.452740367337626,
-            "centroidLongitude": 9.166607406606273,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 1976,
-            "id": "4bd47cd94e32d13a9931bf80",
-            "venueLatitude": 45.45002428254508,
-            "venueLongitude": 9.167447016550065,
-            "centroidLatitude": 45.45062927472394,
-            "centroidLongitude": 9.166607406606273,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 9,
-            "id": "4f317425e4b013bb071cc8db",
-            "venueLatitude": 45.44988,
-            "venueLongitude": 9.167431,
-            "centroidLatitude": 45.45062927472394,
-            "centroidLongitude": 9.166607406606273,
-            "category": "Nightlife Spot"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 130,
-            "id": "516292f4e4b0a8ecbf8eb15e",
-            "venueLatitude": 45.45056955449721,
-            "venueLongitude": 9.16731860300878,
-            "centroidLatitude": 45.45062927472394,
-            "centroidLongitude": 9.166607406606273,
-            "category": "Nightlife Spot"
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 14,
-      "geometry": {
-        "type": "MultiPoint",
-        "coordinates": [
-          [
-            45.483829498291016,
-            9.219401359558105
-          ],
-          [
-            45.481889500327924,
-            9.2210054397583
-          ],
-          [
-            45.48564711318849,
-            9.220273421141446
-          ],
-          [
-            45.48140092222443,
-            9.217703799139011
-          ],
-          [
-            45.479845,
-            9.218446
-          ],
-          [
-            45.479686,
-            9.215198
-          ],
-          [
-            45.47849296235717,
-            9.2155210220493
-          ],
-          [
-            45.48119798301855,
-            9.21309843392222
-          ],
-          [
-            45.478995744439466,
-            9.211602906477797
-          ],
-          [
-            45.47517915650669,
-            9.214847087860107
-          ],
-          [
-            45.475273052629944,
-            9.212094413311675
-          ],
-          [
-            45.47314961189015,
-            9.212766272452981
-          ],
-          [
-            45.472609,
-            9.211063
-          ],
-          [
-            45.47091146298759,
-            9.20966152342998
-          ],
-          [
-            45.47104873819564,
-            9.214616417884827
-          ],
-          [
-            45.46904055470721,
-            9.214728048141945
-          ],
-          [
-            45.47953293988174,
-            9.209479946785052
-          ]
-        ]
-      },
-      "properties": {
-        "clusterId": 15,
+        "clusterId": 61,
         "name": "c(Arts & Entertainment)",
-        "sse": 1.4773539348218525,
+        "sse": 2.0406081012141653E-4,
         "venues": [
           {
             "timestamp": 1400521076500,
-            "beenHere": 1,
-            "id": "52d1937211d27afaeb131429",
-            "venueLatitude": 45.483829498291016,
-            "venueLongitude": 9.219401359558105,
-            "centroidLatitude": 45.48440675654284,
-            "centroidLongitude": 9.220822982614967,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 8,
-            "id": "4e822fac4fc674d87a50e6f1",
-            "venueLatitude": 45.481889500327924,
-            "venueLongitude": 9.2210054397583,
-            "centroidLatitude": 45.482295663929165,
-            "centroidLongitude": 9.220822982614967,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 16,
-            "id": "51ba0aa3498e2d505d698e1b",
-            "venueLatitude": 45.48564711318849,
-            "venueLongitude": 9.220273421141446,
-            "centroidLatitude": 45.48651784915653,
-            "centroidLongitude": 9.220822982614967,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 7,
-            "id": "4c446788dd1f2d7f46c37ff9",
-            "venueLatitude": 45.48140092222443,
-            "venueLongitude": 9.217703799139011,
-            "centroidLatitude": 45.482295663929165,
-            "centroidLongitude": 9.21781100617004,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 45,
-            "id": "4e5537ff6284ed0e1c1f71d4",
-            "venueLatitude": 45.479845,
-            "venueLongitude": 9.218446,
-            "centroidLatitude": 45.480184571315476,
-            "centroidLongitude": 9.21781100617004,
+            "beenHere": 2,
+            "id": "526253f811d2511d63e7753f",
+            "venueLatitude": 45.42167282104492,
+            "venueLongitude": 9.139814376831055,
+            "centroidLatitude": 45.4210739781324,
+            "centroidLongitude": 9.139499618601926,
             "category": "Arts & Entertainment"
           },
           {
             "timestamp": 1400521076500,
             "beenHere": 1,
-            "id": "53732a2e11d2eb2e00872d87",
-            "venueLatitude": 45.479686,
-            "venueLongitude": 9.215198,
-            "centroidLatitude": 45.480184571315476,
-            "centroidLongitude": 9.214799029725112,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 7,
-            "id": "4ede6bc96da1642c6168a01a",
-            "venueLatitude": 45.47849296235717,
-            "venueLongitude": 9.2155210220493,
-            "centroidLatitude": 45.4780734787018,
-            "centroidLongitude": 9.214799029725112,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 68,
-            "id": "4d7a073e1bf03704ba50dad5",
-            "venueLatitude": 45.48119798301855,
-            "venueLongitude": 9.21309843392222,
-            "centroidLatitude": 45.480184571315476,
-            "centroidLongitude": 9.211787053280185,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 102,
-            "id": "4b05887df964a52053c922e3",
-            "venueLatitude": 45.478995744439466,
-            "venueLongitude": 9.211602906477797,
-            "centroidLatitude": 45.4780734787018,
-            "centroidLongitude": 9.211787053280185,
+            "id": "5262477c11d22d57ef393f07",
+            "venueLatitude": 45.420143127441406,
+            "venueLongitude": 9.135115623474121,
+            "centroidLatitude": 45.4210739781324,
+            "centroidLongitude": 9.136487642156998,
             "category": "Arts & Entertainment"
           },
           {
             "timestamp": 1400521076500,
             "beenHere": 1,
-            "id": "4f7efc0d6b74b2a32c09285a",
-            "venueLatitude": 45.47517915650669,
-            "venueLongitude": 9.214847087860107,
-            "centroidLatitude": 45.47596238608811,
-            "centroidLongitude": 9.214799029725112,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 174,
-            "id": "4f9425b4e4b0b2dfd10916e9",
-            "venueLatitude": 45.475273052629944,
-            "venueLongitude": 9.212094413311675,
-            "centroidLatitude": 45.47596238608811,
-            "centroidLongitude": 9.211787053280185,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 19,
-            "id": "4f2da25fe4b006ef995d8960",
-            "venueLatitude": 45.47314961189015,
-            "venueLongitude": 9.212766272452981,
-            "centroidLatitude": 45.47385129347444,
-            "centroidLongitude": 9.211787053280185,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 1,
-            "id": "51b76266498e4bf56f509302",
-            "venueLatitude": 45.472609,
-            "venueLongitude": 9.211063,
-            "centroidLatitude": 45.47174020086075,
-            "centroidLongitude": 9.211787053280185,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 21,
-            "id": "4da0205e4977236acf77bc96",
-            "venueLatitude": 45.47091146298759,
-            "venueLongitude": 9.20966152342998,
-            "centroidLatitude": 45.47174020086075,
-            "centroidLongitude": 9.208775076835257,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 8,
-            "id": "4f416d7a121d9bea6d3624a4",
-            "venueLatitude": 45.47104873819564,
-            "venueLongitude": 9.214616417884827,
-            "centroidLatitude": 45.47174020086075,
-            "centroidLongitude": 9.214799029725112,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 10,
-            "id": "4b05887df964a5202dc922e3",
-            "venueLatitude": 45.46904055470721,
-            "venueLongitude": 9.214728048141945,
-            "centroidLatitude": 45.46962910824708,
-            "centroidLongitude": 9.214799029725112,
-            "category": "Arts & Entertainment"
-          },
-          {
-            "timestamp": 1400521076500,
-            "beenHere": 1661,
-            "id": "4bcaf9110687ef3bdad4dccc",
-            "venueLatitude": 45.47953293988174,
-            "venueLongitude": 9.209479946785052,
-            "centroidLatitude": 45.480184571315476,
-            "centroidLongitude": 9.208775076835257,
+            "id": "526257ce498e02e5617c6e03",
+            "venueLatitude": 45.42063903808594,
+            "venueLongitude": 9.142972946166992,
+            "centroidLatitude": 45.4210739781324,
+            "centroidLongitude": 9.142511595046853,
             "category": "Arts & Entertainment"
           }
         ]
@@ -1202,10 +738,10 @@
   "properties": {
     "name": "geosummly",
     "bbox": {
-      "north": 45.567794914783256,
-      "east": 9.312688264185255,
-      "south": 45.35668565341512,
-      "west": 9.011490619692509
+      "north": 45.56779491478325638809110387228429317474365234375,
+      "east": 9.312688264185254638505284674465656280517578125,
+      "south": 45.35668565341511992983214440755546092987060546875,
+      "west": 9.0114906196925090853255824185907840728759765625
     },
     "date": "2014-05-19T17:37:56.500Z",
     "eps": 0.014142135623730952

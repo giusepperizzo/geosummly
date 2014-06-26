@@ -244,7 +244,7 @@ app.Config = function() {
 				zoom: 12
 			}),
 			turin_pareto: new Location({
-				jsonUrl: 'data/turin/clustering-output-eps0.07071067811865477.geojson',
+				jsonUrl: 'data/turin/pareto-clustering-output-eps0.07071067811865477.geojson',
 				bounds: {
 					north: 45.10975600522702,
 					sud: 45.04393354716772,
