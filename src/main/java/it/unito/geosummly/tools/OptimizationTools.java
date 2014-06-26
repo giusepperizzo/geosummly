@@ -320,7 +320,7 @@ public class OptimizationTools {
 									   spatialCoverage.get(i),
 									   density.get(i),
 									   heterogeneity.get(i),
-									   sse.get(i))
+									   1/(1.0*sse.get(i)))
 					   );
 		
 		return result;

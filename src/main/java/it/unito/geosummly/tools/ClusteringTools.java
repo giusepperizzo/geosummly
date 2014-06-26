@@ -10,8 +10,10 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 import java.util.Vector;
+import java.util.Map.Entry;
 
 import org.apache.commons.csv.CSVRecord;
 
@@ -517,7 +519,10 @@ public class ClusteringTools {
      *  Get SSE cluster
      */
     @SuppressWarnings("unchecked")
-	public <V extends NumberVector<?>> double getClusterSSE(Database db, Cluster<?> cluster) 
+	public <V extends NumberVector<?>> double getClusterSSE(
+										Database db, 
+										Cluster<?> cluster,
+										HashMap<Integer, String> featuresMap ) 
     {
     	double sse=0.0;
     	Iterator<Relation<?>> iter=db.getRelations().iterator();
@@ -525,71 +530,91 @@ public class ClusteringTools {
 		Relation<V> relation=(Relation<V>) iter.next();
 	    
  		double sum_distance = 0.0;
-    	int total_number = 0;
+    	double total_number = 0.0;
     			
-		for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) {
-			V o1 = relation.get(i1);
-			
-			for (DBIDIter i2 = cluster.getIDs().iter(); i2.valid(); i2.advance()) {
+		//Vector<Integer> dimensions = getDimensions(cluster.getName(), featuresMap);  	
+    	
+		for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) 
+		{
+			V o1 = relation.get(i1);	
+			for (DBIDIter i2 = cluster.getIDs().iter(); i2.valid(); i2.advance()) 
+			{
 				V o2 = relation.get(i2);
-				int dimension = o1.getDimensionality();
 				double sum_squared = 0.0;
-				for (int i=0; i<dimension; i++) {
-					
+				int dimension = o1.getDimensionality();
+				for (int i=0; i<dimension; i++) 
+				{	
 					double d1 = o1.doubleValue(i);
 					double d2 = o2.doubleValue(i);
 					sum_squared += (d1-d2)*(d1-d2);
 				}
+//				for (Integer i : dimensions) 
+//				{
+//					double d1 = o1.doubleValue(i);
+//					double d2 = o2.doubleValue(i);
+//					sum_squared += (d1-d2)*(d1-d2);
+//				}
 				sum_distance += sum_squared;
 			}
+			
+//			for (int i=2; i<dimensions.size(); i++){
+//				total_number += o1.doubleValue(dimensions.get(i));
+//			}
 			total_number++; //total number of points in a cluster
 		}
 		sse+= sum_distance * 1/(2*total_number);
-	
+
     	return sse;
     }
-    
-    
-    /**
+
+	/**
      * Get the SSE value of the clustering
+     * @param featuresMap 
     */
-    @SuppressWarnings("unchecked")
-	public <V extends NumberVector<?>> double getClusteringSSE(Database db, ArrayList<Clustering<?>> cs) 
+	public <V extends NumberVector<?>> double getClusteringSSE(
+									Database db, 
+									ArrayList<Clustering<?>> cs, 
+									HashMap<Integer, String> featuresMap
+									) 
     {
     	double sse=0.0;
-    	int nClusters = 0;
-    	Iterator<Relation<?>> iter=db.getRelations().iterator();
-		iter.next();
-		Relation<V> relation=(Relation<V>) iter.next();
-	    		
-	    for(Clustering<?> c: cs) 
-	    {	
+    	//int nClusters = 0;
+    		
+	    for(Clustering<?> c: cs)     	
 	    	for(Cluster<?> cluster: c.getAllClusters()) 
-	    	{	
-    			double sum_distance = 0.0;
-    			int total_number = 0;
-    			
-    			for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) {
-    				V o1 = relation.get(i1);
-    				
-    				for (DBIDIter i2 = cluster.getIDs().iter(); i2.valid(); i2.advance()) {
-    					V o2 = relation.get(i2);
-    					int dimension = o1.getDimensionality();
-    					double sum_squared = 0.0;
-    					for (int i=0; i<dimension; i++) {
-    						
-    						double d1 = o1.doubleValue(i);
-    						double d2 = o2.doubleValue(i);
-    						sum_squared += (d1-d2)*(d1-d2);
-	    				}
-    					sum_distance += sum_squared;
-	    			}
-    				total_number++; //total number of points in a cluster
-	    		}
-    			sse+= sum_distance * 1/(2*total_number);
-    			nClusters ++;
+	    	{
+    			//nClusters ++;
+	    		sse += getClusterSSE(db, cluster, featuresMap);
 	    	}
-	    }
-    	return sse/nClusters;
+	    //return sse/nClusters;
+	    return sse;
     }
+    
+	private static <V, K> Map<V, K> invert(Map<K, V> map) 
+	{
+	    Map<V, K> inv = new HashMap<V, K>();
+
+	    for (Entry<K, V> entry : map.entrySet())
+	        inv.put(entry.getValue(), entry.getKey());
+
+	    return inv;
+	}
+	
+    private Vector<Integer> getDimensions(String clusterName, HashMap<Integer, String> featuresMap) 
+    {
+    	Vector<Integer> dimensions = new Vector<>();
+    	
+    	Map<String, Integer> inv = invert(featuresMap);
+		String[] features = clusterName.split(",");
+		dimensions.add(0);
+		dimensions.add(1);
+		for (String feature : features) {
+			String feat = feature
+							.replace("c(", "")
+							.replace(")", "")
+							.trim();
+			dimensions.add(inv.get(feat));
+		}
+		return dimensions;
+	}
 }

@@ -80,7 +80,8 @@ public class ClusteringOperator {
 		}
 	    
 		//Run GEOSUBCLU algorithm and get the clustering result
-	    Clustering<?> result = tools.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps, new StringBuilder());
+	    Clustering<?> result = tools
+	    		.runGEOSUBCLU(db, featuresMap, deltadMap, density.intValue(), eps, new StringBuilder());
 	    ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
 	    HashMap<Integer, String> clustersName=new HashMap<Integer, String>(); //key, cluster name
 	    HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster=new HashMap<Integer, ArrayList<ArrayList<Double>>>(); //key, cell_ids + lat + lng 
@@ -95,18 +96,17 @@ public class ClusteringOperator {
 	    		cellsOfCluster=tools.putCompleteCellsOfCluster(cellsOfCluster, cluster, index, listDens); //get all the cell_ids for the selected cluster
 	    		cells=cellsOfCluster.get(index);
 	    		venuesOfCell=tools.putVenuesOfCells(cluster.getName(), index, venuesOfCell, cells, listSingles);
-	    		cSSE.put(index, tools.getClusterSSE(db, cluster));
+	    		cSSE.put(index, tools.getClusterSSE(db, cluster, featuresMap));
 	    	}
 	    }
 	    
 	    //Get the SSE
-		double sse=tools.getClusteringSSE(db, cs);
+		double sse=tools.getClusteringSSE(db, cs, featuresMap);
 	    
 	    //serialize the log
 	    LogDataIO lWriter=new LogDataIO();
 	    StringBuilder sb=tools.getLog();
 	    lWriter.writeClusteringLog(sb, eps, sse, out);
-	    
 	    
 	    //serialize the clustering output to geojson and turtle files
 	    GeoJSONWriter jWriter=new GeoJSONWriter();
@@ -115,8 +115,14 @@ public class ClusteringOperator {
 	    tWriter.writeStream(bbox, clustersName, cellsOfCluster, venuesOfCell, cSSE, eps, out, cal);
 	}
     
-	public HashMap<String, Vector<Integer>> executeForValidation(ArrayList<ArrayList<Double>> normalized, int length, ArrayList<String> labels, ArrayList<String> minpts, double eps) throws IOException {
-				
+	public HashMap<String, Vector<Integer>> executeForValidation(
+								ArrayList<ArrayList<Double>> normalized, 
+								int length, ArrayList<String> labels, 
+								ArrayList<String> minpts, 
+								double eps
+								) 
+	throws IOException 
+	{			
 		ClusteringTools tools=new ClusteringTools();
 		
 		//build the database from the normalized matrix without considering timestamp values
@@ -160,8 +166,14 @@ public class ClusteringOperator {
 	    return holdout;
 	}
 	
-	public double executeForCorrectness(ArrayList<ArrayList<Double>> normalized, ArrayList<String> labels, ArrayList<String> minpts, double eps) throws IOException {
-		
+	public double executeForCorrectness(
+										ArrayList<ArrayList<Double>> normalized, 
+										ArrayList<String> labels, 
+										ArrayList<String> minpts, 
+										double eps
+										)
+	throws IOException 
+	{	
 		ClusteringTools tools=new ClusteringTools();
 		
 		//build the database from the normalized matrix without considering timestamp values
@@ -181,8 +193,8 @@ public class ClusteringOperator {
 	    ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
 	    
 	    //Get the SSE
-	    double sse=tools.getClusteringSSE(db, cs);
-	    
+	    double sse=tools.getClusteringSSE(db, cs, featuresMap);
+	        
 	    return sse;
 	}
 }
