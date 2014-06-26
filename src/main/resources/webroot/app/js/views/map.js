@@ -186,6 +186,7 @@ app.Map = function(params, callback) {
 
   function init(feature, params) {
     selectedFeature = feature;
+
     drawBorder(locationParams.bounds, map);
 
     if (selectedFeature.features.length > 0) {
