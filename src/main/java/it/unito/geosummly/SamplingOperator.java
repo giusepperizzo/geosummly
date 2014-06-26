@@ -24,26 +24,41 @@ public class SamplingOperator {
     
     public SamplingOperator() {}
        
-    public void executeWithInput(
-    		String in, String out, CoordinatesNormalizationType ltype, long sleep) 
-    			throws IOException, JSONException, FoursquareApiException, InterruptedException {
+    public void executeWithInput( String in, 
+    							  String out, 
+    							  CoordinatesNormalizationType ltype, 
+    							  long sleep) 
+    									  	throws IOException, 
+    									  	JSONException, 
+    									  	FoursquareApiException, 
+    									  	InterruptedException {
     	
     	//Get the grid
     	GeoJSONReader reader=new GeoJSONReader();
 		ArrayList<BoundingBox> data=reader.decodeForSampling(in);
-		BigDecimal bigNorth=data.get(0).getNorth(); //top left cell give ne coordinates
-		BigDecimal bigEast=data.get(data.size()-1).getEast(); //bottom right cell give sw coordinates
+		
+		//top left cell gives ne coordinates
+		BigDecimal bigNorth=data.get(0).getNorth();
+		BigDecimal bigEast=data.get(data.size()-1).getEast(); 
+		
+		//bottom right cell gives sw coordinates
 		BigDecimal bigSouth=data.get(data.size()-1).getSouth();
 		BigDecimal bigWest=data.get(0).getWest();
+		
 		BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 		
 		collectAndTransform(global, data, out, sleep);
     }
     
-    public void executeWithCoord(
-    			ArrayList<BigDecimal> coord, String out, int gnum, int rnum, 
-    			CoordinatesNormalizationType ltype, long sleep) 
-    				throws IOException, FoursquareApiException, InterruptedException {
+    public void executeWithCoord( ArrayList<BigDecimal> coord, 
+    							  String out, 
+    							  int gnum, 
+    							  int rnum, 
+    							  CoordinatesNormalizationType ltype, 
+    							  long sleep) 
+    									  throws IOException, 
+    									  FoursquareApiException, 
+    									  InterruptedException {
     	
     	//Create the grid
     	BoundingBox bbox = new BoundingBox(coord.get(0), 
@@ -65,8 +80,14 @@ public class SamplingOperator {
     }
     
     public void collectAndTransform(
-    		BoundingBox bbox, ArrayList<BoundingBox> data, String out, long sleep) 
-    			throws FoursquareApiException, InterruptedException, IOException {
+    								BoundingBox bbox, 
+    								ArrayList<BoundingBox> data, 
+    								String out, 
+    								long sleep) 
+    									throws FoursquareApiException, 
+    									InterruptedException, 
+    									IOException {
+    	
     	
     	//Cache system
 		/*MongoClient mongoClient=new MongoClient("localhost"); //MongoDB instance
@@ -77,8 +98,10 @@ public class SamplingOperator {
     	
     	//Get the tools class and its support variables
 		SamplingTools tools=new SamplingTools();
-		ArrayList<ArrayList<BigDecimal>> venuesMatrix=new ArrayList<ArrayList<BigDecimal>>();
-		ArrayList<ArrayList<BigDecimal>> venuesMatrixSecondLevel=new ArrayList<ArrayList<BigDecimal>>();
+		ArrayList<ArrayList<BigDecimal>> venuesMatrix = 
+									new ArrayList<ArrayList<BigDecimal>>();
+		ArrayList<ArrayList<BigDecimal>> venuesMatrixSecondLevel = 
+									new ArrayList<ArrayList<BigDecimal>>();
 		ArrayList<FoursquareObjectTemplate> cellVenue;
 		CSVDataIO dataIO=new CSVDataIO();
 		
@@ -89,6 +112,7 @@ public class SamplingOperator {
 		
 		//Collect the geopoints
 		for(BoundingBox b: data){
+			
 		    logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
 			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), 
 									   b.getNorth(), b.getEast(), 
@@ -101,23 +125,50 @@ public class SamplingOperator {
 				coll.insert(doc); //insert the document into MongoDB collection
 			}*/
 			
-			venuesMatrix=tools.getInformations(b.getCenterLat(), 
-					b.getCenterLng(), venuesMatrix, cellVenue, tree);
+			venuesMatrix = tools.getInformations(b.getCenterLat(), 
+												 b.getCenterLng(), 
+												 venuesMatrix, 
+												 cellVenue, 
+												 tree);
+			
 			Thread.sleep(sleep);
 		}
 		
 		//Sort the dataset alphabetically for column names
-		venuesMatrix=tools.fixRowsLength(tools.getTotal()+2, venuesMatrix); //update rows length for consistency
-		venuesMatrixSecondLevel=tools.fixRowsLength(tools.getTotalSecondLevel()+2, tools.getMatrixSecondLevel());
-		venuesMatrix=tools.sortMatrixSingles(venuesMatrix, tools.getMap());
-		venuesMatrixSecondLevel=tools.sortMatrixSingles(venuesMatrixSecondLevel, tools.getMapSecondLevel());
-		dataIO.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrix, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMap())), out, "/singles-matrix.csv");
-		dataIO.printResultSingles(tools.getSinglesTimestamps(), tools.getBeenHere(), tools.getSinglesId(), venuesMatrixSecondLevel, tools.getFeaturesForSingles(tools.sortFeatures(tools.getMapSecondLevel())), out, "/singles-matrix-2nd.csv");
+		venuesMatrix = tools.fixRowsLength(tools.getTotal()+2, 
+										   venuesMatrix); //update rows length for consistency
+		venuesMatrixSecondLevel = tools.fixRowsLength(tools.getTotalSecondLevel()+2, 
+													  tools.getMatrixSecondLevel());
+		venuesMatrix = tools.sortMatrixSingles(venuesMatrix, 
+											   tools.getMap());
+		venuesMatrixSecondLevel = tools.sortMatrixSingles(venuesMatrixSecondLevel, 
+														  tools.getMapSecondLevel());
+		dataIO.printResultSingles(tools.getSinglesTimestamps(), 
+								  tools.getBeenHere(), 
+								  tools.getSinglesId(), 
+								  venuesMatrix, 
+								  tools.getFeaturesForSingles(
+										  			tools.sortFeatures(tools.getMap())), 
+								  out, 
+								  "/singles-matrix.csv");
+		dataIO.printResultSingles(tools.getSinglesTimestamps(), 
+								  tools.getBeenHere(), 
+								  tools.getSinglesId(), 
+								  venuesMatrixSecondLevel, 
+								  tools.getFeaturesForSingles(
+										  			tools.sortFeatures(tools.getMapSecondLevel())), 
+								  out, 
+								  "/singles-matrix-2nd.csv");
 
 		
 		//Write down the log file
 		LogDataIO logIO=new LogDataIO();
-		logIO.writeSamplingLog(bbox, data, tools.getMap().keySet().size(), tools.getMapSecondLevel().keySet().size(), out);
+		logIO.writeSamplingLog( bbox, 
+								data, 
+								tools.getMap().keySet().size(), 
+								tools.getMapSecondLevel().keySet().size(), 
+								out);
+		
 		//dataIO.printCells(data, out, "/info-coord-celle.csv");
     
     }

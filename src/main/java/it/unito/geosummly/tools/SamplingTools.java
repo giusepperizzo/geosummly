@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  */
 
 public class SamplingTools {
+	
 	private int total;
 	private ArrayList<String> singlesId;
 	private ArrayList<Long> singlesTimestamps;
@@ -114,20 +115,27 @@ public class SamplingTools {
 
 	/**Get a list with all elements equal to zero*/
 	public ArrayList<BigDecimal> buildListZero(int size) {
+		
 		ArrayList<BigDecimal> toRet=new ArrayList<BigDecimal>();
 		int i=0;
+		
 		while(i<size) {
 			toRet.add(new BigDecimal(0.0));
 			i++;
 		}
+		
 		return toRet;
 	}
 	
-	/**Update the hash map given as parameter with new string values from a single venue*/
-	public HashMap<String, Integer> updateMap(HashMap<String, Integer> map, ArrayList<String> categories) {
+	/**Update the hash map given as parameter 
+	 * with new string values from a single venue
+	*/
+	public HashMap<String, Integer> updateMap(HashMap<String, Integer> map, 
+											  ArrayList<String> categories) {
 		
 		if(!map.containsKey(categories.get(0)))
-			map.put(categories.get(0), map.size()+2); //first value in the map has to be 2
+			//first value in the map has to be 2
+			map.put(categories.get(0), map.size()+2);
 		
 		return map;
 	}
@@ -136,9 +144,10 @@ public class SamplingTools {
 	 * and occurrence value of a single venue
 	*/
 	public ArrayList<BigDecimal> fillRowWithSingle(HashMap<String, Integer> map, 
-											   String category, 
-											   BigDecimal lat, 
-											   BigDecimal lng) {
+											   	   String category, 
+											   	   BigDecimal lat, 
+											   	   BigDecimal lng) {
+		
 		int size=map.size()+2;
 		ArrayList<BigDecimal> row=buildListZero(size);
 		row.set(0, lat); //lat, lng and area are in position 0 and 1
@@ -151,10 +160,14 @@ public class SamplingTools {
 	}
 	
 	/**Fix the matrix rows giving them the same size*/
-	public ArrayList<ArrayList<BigDecimal>> fixRowsLength(int totElem, ArrayList<ArrayList<BigDecimal>> matrix) {
+	public ArrayList<ArrayList<BigDecimal>> fixRowsLength(int totElem, 
+												ArrayList<ArrayList<BigDecimal>> matrix) {
+		
 		int i;
+		
 		for(ArrayList<BigDecimal> row: matrix) {
 			i=row.size();
+			
 			while(i<totElem) {
 				row.add(new BigDecimal(0.0));
 				i++;
@@ -167,68 +180,99 @@ public class SamplingTools {
 	 * in alphabetical order (column names)
 	*/
 	public ArrayList<ArrayList<BigDecimal>> sortMatrixSingles(
-								ArrayList<ArrayList<BigDecimal>> matrix, 
-								HashMap<String,Integer> map) {
+										ArrayList<ArrayList<BigDecimal>> matrix, 
+										HashMap<String,Integer> map) {
+		
 		ArrayList<ArrayList<BigDecimal>> sortedMatrix = 
 							new ArrayList<ArrayList<BigDecimal>>();
 		int value;
 		ArrayList<BigDecimal> sortedRecord;
-		ArrayList<String> keys = 
-						new ArrayList<String>(map.keySet());
+		ArrayList<String> keys = new ArrayList<String>(map.keySet());
 		Collections.sort(keys);
 		
+		//Put the coordinate values into the sorted record
 		for(ArrayList<BigDecimal> row: matrix) {
+			
 			sortedRecord=new ArrayList<BigDecimal>();
 			sortedRecord.add(row.get(0));
 			sortedRecord.add(row.get(1));
 			sortedRecord.add(row.get(2));
 			sortedRecord.add(row.get(3));
+			
 			for(String k: keys) {
 				value=map.get(k)+2;
 				sortedRecord.add(row.get(value));
 			}
+			
 			sortedMatrix.add(sortedRecord);
 		}
+		
 		return sortedMatrix;
 	}
 	
 	/**Get the informations of single venues of a cell*/
 	public ArrayList<ArrayList<BigDecimal>> getInformations(BigDecimal lat, 
-									BigDecimal lng, 
-									ArrayList<ArrayList<BigDecimal>> matrix, 
-									ArrayList<FoursquareObjectTemplate> cell,
-									HashMap<String, String> tree) {
+												BigDecimal lng, 
+									            ArrayList<ArrayList<BigDecimal>> matrix, 
+									            ArrayList<FoursquareObjectTemplate> cell,
+									            HashMap<String, String> tree) {
 		
-		ArrayList<BigDecimal> rowOfMatrix=new ArrayList<BigDecimal>();
-		ArrayList<BigDecimal> rowOfMatrixSecondLevel=new ArrayList<BigDecimal>();
+		ArrayList<BigDecimal> rowOfMatrix = 
+								new ArrayList<BigDecimal>();
+		ArrayList<BigDecimal> rowOfMatrixSecondLevel = 
+									new ArrayList<BigDecimal>();
 		
 		for(FoursquareObjectTemplate venue: cell) {
 			
 			if(venue.getCategories().length > 0) {
-				String category = getTopCategory(venue.getCategories()[0].getName(), tree);
-				String categorySecondLevel = getSubCategory(venue.getCategories()[0].getName(), tree);
+				String category = 
+						getTopCategory(venue.getCategories()[0].getName(), tree);
+				String categorySecondLevel = 
+						getSubCategory(venue.getCategories()[0].getName(), tree);
 				
-				if(category != null) { //update the matrix only if the category has a name
-					ArrayList<String>aux=new ArrayList<String>();
+				//update the matrix only if the category has a name
+				if(category != null) {
+					
+					ArrayList<String>aux = new ArrayList<String>();
 					aux.add(category);
-					ArrayList<String> auxSecondLevel=new ArrayList<String>();
-					auxSecondLevel.add(categorySecondLevel);
+					
 					updateMap(this.map, aux);//update the hash map
-					updateMap(this.mapSecondLevel, auxSecondLevel);
-					rowOfMatrix=fillRowWithSingle(this.map, category, lat, lng); //create a consistent row (related to the categories). row of the transformation matrix (one for each venue);
-					rowOfMatrixSecondLevel=fillRowWithSingle(this.mapSecondLevel, categorySecondLevel, lat, lng);
-					if(this.total<rowOfMatrix.size())
-						this.total=rowOfMatrix.size(); //update the overall number of categories
-					if(this.totalSecondLevel<rowOfMatrixSecondLevel.size());
-						this.totalSecondLevel=rowOfMatrixSecondLevel.size();
+					
+					//create a consistent row (related to the categories). 
+					//one row for each venue;
+					rowOfMatrix = fillRowWithSingle(this.map, category, lat, lng);
+					
+					//update the overall number of categories
+					if(this.total < rowOfMatrix.size())
+						this.total = rowOfMatrix.size();
+					
+					//add venue coordinates to the record
 					rowOfMatrix.add(0, new BigDecimal(venue.getLatitude()));
 					rowOfMatrix.add(1, new BigDecimal(venue.getLongitude()));
-					rowOfMatrixSecondLevel.add(0, new BigDecimal(venue.getLatitude()));
-					rowOfMatrixSecondLevel.add(1, new BigDecimal(venue.getLongitude()));
+					
 					this.singlesId.add(venue.getVenueId()); //memorize venue id
 					this.singlesTimestamps.add(venue.getTimestamp()); //memorize timestamp
 					this.beenHere.add(venue.getCheckinsCount()); //memorize check-ins count
+					
+					//add the complete record
 					matrix.add(rowOfMatrix);
+				}
+				
+				if(categorySecondLevel != null) {
+					
+					ArrayList<String> auxSecondLevel = new ArrayList<String>();
+					auxSecondLevel.add(categorySecondLevel);
+					updateMap(this.mapSecondLevel, auxSecondLevel);
+					
+					rowOfMatrixSecondLevel = 
+							fillRowWithSingle(this.mapSecondLevel, categorySecondLevel, lat, lng);
+					
+					if(this.totalSecondLevel < rowOfMatrixSecondLevel.size());
+						this.totalSecondLevel = rowOfMatrixSecondLevel.size();
+					
+					rowOfMatrixSecondLevel.add(0, new BigDecimal(venue.getLatitude()));
+					rowOfMatrixSecondLevel.add(1, new BigDecimal(venue.getLongitude()));
+					
 					this.matrixSecondLevel.add(rowOfMatrixSecondLevel);
 				}
 			}
@@ -237,46 +281,72 @@ public class SamplingTools {
 	}
 	
 	/**
-	 * Get the corresponding top category of the category "name" 
+	 * Get the corresponding top category of the category "name".
+	 * Totally there are 3 category levels. 
 	*/
 	public String getTopCategory(String name, HashMap<String, String> map) {
 		
-		String tmp=map.get(name); //Get the value corresponding to the key "name"
-		String category=map.get(tmp); //Check for more general category of the previous value
-		if(category == null)
-			return tmp;
-		else
-			return category;
+		//Get the value corresponding to the key "name"
+		//2nd or 1st or null category level
+		String tmp=map.get(name);
+		
+		
+		if(tmp != null) { //2nd category level
+			String category = map.get(tmp);
+			
+			if(category != null) //1st category level
+				return category;
+			else //already in the 1st category level
+				return tmp;
+		}	
+		else //already in the 1st category level
+			return name;
 	}
 	
 	/**
-	 * Get the corresponding sub category of the category "name" 
+	 * Get the corresponding sub category of the category "name".
+	 * Totally there are 3 category levels. 
 	*/
 	public String getSubCategory(String name, HashMap<String, String> map) {
 		
-		String tmp=map.get(name); //Get the value corresponding to the key "name"
-		String category=map.get(tmp); //Check for more general category of the previous value
-		if(category == null)
-			return name;
-		else
-			return tmp;
+		//Get the value corresponding to the key "name"
+		//2nd or 1st or null category level
+		String tmp=map.get(name);
+		
+		if(tmp !=null) { //2nd category level
+			String category = map.get(tmp); 
+			
+			if(category != null) //1st category level
+				return tmp; //return the 2nd category level
+			
+			else // already in the 2nd category level
+				return name;
+		}
+		else //already in the 1st category level, so return null
+			return null;
 	}
 	
 	
 	/**Sort the features in alphabetical order*/
 	public ArrayList<String> sortFeatures(HashMap<String,Integer> map) {
-		ArrayList<String> sortedFeatures=new ArrayList<String>();
-		ArrayList<String> keys= new ArrayList<String>(map.keySet());
+		
+		ArrayList<String> sortedFeatures = new ArrayList<String>();
+		ArrayList<String> keys = new ArrayList<String>(map.keySet());
+		
 		Collections.sort(keys);
+		
 		sortedFeatures.add("Latitude");
 		sortedFeatures.add("Longitude");
+		
 		for(String s: keys)
 			sortedFeatures.add(s);
+		
 		return sortedFeatures;
 	}
 	
 	/**Get the features list for the dataset of single venues*/
 	public ArrayList<String> getFeaturesForSingles(ArrayList<String> features) {
+		
 		features.add(0, "Timestamp (ms)");
 		features.add(1, "Been Here");
 		features.add(2, "Venue Id");
@@ -284,6 +354,7 @@ public class SamplingTools {
 		features.add(4, "Venue Longitude");
 		features.set(5, "Focal Latitude");
 		features.set(6, "Focal Longitude");
+		
 		return features;
 	}
 }
