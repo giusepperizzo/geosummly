@@ -79,7 +79,7 @@ public class Server {
         	
             final HttpServer server = startServer(null);
            
-            System.out.println(String.format("Ushuaia Web Server started.\n" + 
+            System.out.println(String.format("Geosummly Web Server started.\n" + 
                     "Access it at %s",
                     getAppUri()));
             
