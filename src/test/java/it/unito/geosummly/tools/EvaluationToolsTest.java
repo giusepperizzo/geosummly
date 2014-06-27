@@ -177,7 +177,7 @@ public class EvaluationToolsTest extends TestCase {
 		ArrayList<Double> actual = tools.getAreasFromFocalPoints(bbox, 3);
 		
 		for(int i=0; i<expected.size(); i++)
-			assertEquals(expected.get(i), actual.get(i), 0.0001);
+			assertEquals(expected.get(i), actual.get(i), 0.001);
 	}
 	
 	public void testBuildListZero() {

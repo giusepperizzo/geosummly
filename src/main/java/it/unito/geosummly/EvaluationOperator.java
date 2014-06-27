@@ -45,7 +45,7 @@ public class EvaluationOperator {
 		//Get the areas
 		ImportTools tools=new ImportTools();
 		ArrayList<BoundingBox> data=tools.getFocalPoints(matrix);
-		ArrayList<Double> bboxArea=tools.getAreasFromFocalPoints(data, matrix);
+		ArrayList<Double> bboxArea=tools.getAreasFromFocalPoints(data, matrix.size());
 
 		//Create the random matrices and print them to file
 		ArrayList<ArrayList<Double>> frequencyRandomMatrix;
@@ -77,7 +77,10 @@ public class EvaluationOperator {
 		logIO.writeSSEforR(SSEs, out);
 	}
 
-	public void executeValidation(String logFile, String inSingles, String out, int fnum) throws IOException {
+	public void executeValidation(String logFile, 
+								  String inSingles, 
+								  String out, 
+								  int fnum) throws IOException {
 
 		//Read input files
 		CSVDataIO dataIO=new CSVDataIO();
@@ -85,12 +88,13 @@ public class EvaluationOperator {
 		LogDataIO logIO=new LogDataIO();
 		ArrayList<ArrayList<String>> infos=logIO.readClusteringLog(logFile);
 		
-		//Get features labels, minpts and eps
+		//Get feature labels, minpts and eps
 		ArrayList<String> labels=infos.get(0);
 		ArrayList<String> minpts=infos.get(1);
 		double eps=Double.parseDouble(infos.get(2).get(0));
 
-		//Fill in the matrix of single venues without considering timestamp, been_here, venue_id
+		//Fill in the matrix of single venues 
+		//without considering timestamp, been_here, venue_id
 		ArrayList<ArrayList<Double>> matrix = eTools.buildSinglesFromList(list);
 
 		//Create fnum matrices of singles with N/fnum random venues for each matrix
@@ -107,29 +111,57 @@ public class EvaluationOperator {
 		//Only the categories will be considered
 		ArrayList<String> features = eTools.getFeaturesFromList(list);
 
-		//Transform all the random matrices, prepare map for evaluation and write them to file
+		//Transform all the random matrices, 
+		//repare map for evaluation 
+		//and write them to file
 		ImportTools tools=new ImportTools();
 		ClusteringOperator co=new ClusteringOperator();
-		ArrayList<HashMap<String, Vector<Integer>>> holdoutList=new ArrayList<HashMap<String, Vector<Integer>>>();
+		ArrayList<HashMap<String, Vector<Integer>>> holdoutList = 
+									new ArrayList<HashMap<String, Vector<Integer>>>();
 		HashMap<String, Vector<Integer>> holdout;
 		int index=0; //used for file name
 		int length=0;
+		
 		for(ArrayList<ArrayList<Double>> grouped: allGrouped) {
 
 			//create the transformed fold
-			ArrayList<ArrayList<Double>> density=tools.buildDensityMatrix(CoordinatesNormalizationType.NORM, grouped, bboxArea);
-			ArrayList<ArrayList<Double>> normalized=tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, density);
+			ArrayList<ArrayList<Double>> density = 
+							tools.buildDensityMatrix(CoordinatesNormalizationType.NORM, grouped, bboxArea);
+			ArrayList<ArrayList<Double>> normalized = 
+							tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, density);
 
 			//create map for the holdout evaluation
-			holdout=co.executeForValidation(normalized, length, labels, minpts, eps); //normalized_matrix, last_cellId, deltad_matrix, eps_value
+			//normalized_matrix, last_cellId, deltad_matrix, eps_value
+			holdout = co.executeForValidation(normalized, length, labels, minpts, eps);
 			holdoutList.add(holdout);
 			length+=normalized.size(); //update last_cellId value
 
 			//write down the transformation matrices to file
 			index++; //just for file name
-			dataIO.printResultHorizontal(null, grouped, eTools.getFeaturesLabelNoTimestamp(CoordinatesNormalizationType.NORM, "f", features), out, "/frequency-transformation-matrix-fold"+index+".csv");
-			dataIO.printResultHorizontal(null, density, eTools.getFeaturesLabelNoTimestamp(CoordinatesNormalizationType.NORM, "density", features), out, "/density-transformation-matrix-fold"+index+".csv");
-			dataIO.printResultHorizontal(null, normalized, eTools.getFeaturesLabelNoTimestamp(CoordinatesNormalizationType.NORM, "normalized_density", features), out, "/normalized-transformation-matrix-fold"+index+".csv");
+			dataIO.printResultHorizontal(null, 
+										grouped, 
+										eTools.getFeaturesLabelNoTimestamp(
+															CoordinatesNormalizationType.NORM, 
+															"f", 
+															features), 
+										out, 
+										"/frequency-transformation-matrix-fold"+index+".csv");
+			dataIO.printResultHorizontal(null, 
+										 density, 
+										 eTools.getFeaturesLabelNoTimestamp(
+												 			CoordinatesNormalizationType.NORM, 
+												 			"density", 
+												 			features), 
+										 out, 
+										 "/density-transformation-matrix-fold"+index+".csv");
+			dataIO.printResultHorizontal(null, 
+										 normalized, 
+										 eTools.getFeaturesLabelNoTimestamp(
+												 			CoordinatesNormalizationType.NORM, 
+												 			"normalized_density", 
+												 			features), 
+							 			 out, 
+							 			 "/normalized-transformation-matrix-fold"+index+".csv");
 
 			//write down the holdout to file
 			logIO.writeHoldoutLog(holdout, out);
