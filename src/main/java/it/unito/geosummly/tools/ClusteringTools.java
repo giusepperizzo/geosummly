@@ -540,7 +540,7 @@ public class ClusteringTools {
  		double sum_distance = 0.0;
     	double total_number = 0.0;
     			
-		//Vector<Integer> dimensions = getDimensions(cluster.getName(), featuresMap);  	
+		Vector<Integer> dimensions = getDimensions(cluster.getName(), featuresMap);  	
     	
 		for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) 
 		{
@@ -549,13 +549,24 @@ public class ClusteringTools {
 			{
 				V o2 = relation.get(i2);
 				double sum_squared = 0.0;
-				int dimension = o1.getDimensionality();
-				for (int i=0; i<dimension; i++) 
-				{	
-					double d1 = o1.doubleValue(i);
-					double d2 = o2.doubleValue(i);
-					sum_squared += (d1-d2)*(d1-d2);
+				
+				for (int i=0; i<dimensions.size(); i++) {
+					double d1 = o1.doubleValue(dimensions.get(i));
+					double d2 = o2.doubleValue(dimensions.get(i));
+					
+					double dist_lat_pow2 = Math.pow(o1.doubleValue(0) - o2.doubleValue(0), 2);
+					double dist_lng_pow2 = Math.pow(o1.doubleValue(1) - o2.doubleValue(1), 2);
+					
+					sum_squared += d1*d2*dist_lat_pow2 + d1*d2*dist_lng_pow2;
 				}
+				
+//				int dimension = o1.getDimensionality();
+//				for (int i=0; i<dimension; i++) 
+//				{	
+//					double d1 = o1.doubleValue(i);
+//					double d2 = o2.doubleValue(i);
+//					sum_squared += (d1-d2)*(d1-d2);
+//				}
 //				for (Integer i : dimensions) 
 //				{
 //					double d1 = o1.doubleValue(i);
@@ -572,6 +583,8 @@ public class ClusteringTools {
 		}
 		sse+= sum_distance * 1/(2*total_number);
 
+		//System.out.println("ClusteringTools586 - " + sse);
+		
     	return sse;
     }
 
@@ -614,8 +627,6 @@ public class ClusteringTools {
     	
     	Map<String, Integer> inv = invert(featuresMap);
 		String[] features = clusterName.split(",");
-		dimensions.add(0);
-		dimensions.add(1);
 		for (String feature : features) {
 			String feat = feature
 							.replace("c(", "")

@@ -179,7 +179,7 @@ public class LogDataIO {
 	/**
 	 * Write the log file of SSE values
 	*/
-	public void writeSSELog(ArrayList<Double> SSEs, double discard, String output) {
+	public void writeSSELog(ArrayList<Double> SSEs, double cl_sse, double pvalue, String output) {
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
         	dir.mkdirs();
@@ -198,7 +198,7 @@ public class LogDataIO {
 				index++;
 			}
 			
-			bw.write("\n\nDiscard between real SSE and minimum of SSE random values: "+ discard);
+			bw.write("\n\nPDF(X) evaluated at " + cl_sse + " is equal to: " + pvalue);
 			
 	        bw.flush();
 	        bw.close();
