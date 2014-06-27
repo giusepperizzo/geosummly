@@ -162,7 +162,11 @@ public class ClusteringTools {
 	 * Fill in the cells hashmap with the cells of a cluster.
 	 * Each entry of the map will be a couple: key, list_of_triple (cell_id, lat, lng).
 	*/
-	public HashMap<Integer, ArrayList<ArrayList<Double>>> putCompleteCellsOfCluster(HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster, Cluster<?> cluster, int index, List<CSVRecord> listDens) {
+	public HashMap<Integer, ArrayList<ArrayList<Double>>> putCompleteCellsOfCluster(
+										HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster, 
+										Cluster<?> cluster, 
+										int index, 
+										List<CSVRecord> listDens) {
 		int cellId=0;
 		String cellLat="";
 		String cellLng="";
@@ -211,8 +215,8 @@ public class ClusteringTools {
 														ArrayList<ArrayList<Double>> cells, 
 														List<CSVRecord> listSingles) {
 
-		String cellLat="";
-		String cellLng="";
+		double cellLat = 0.0;
+		double cellLng = 0.0;
 		ArrayList<ArrayList<String>> venuesInfo=new ArrayList<ArrayList<String>>();
 		ArrayList<String> venueRecord;
 	
@@ -227,22 +231,26 @@ public class ClusteringTools {
 			features.add(listSingles.get(0).get(i));
 		
 		for(ArrayList<Double> array: cells) {
-			cellLat=array.get(1)+"";
-			cellLng=array.get(2)+"";
-		
+			cellLat=array.get(1);
+			cellLng=array.get(2);
+			
 			//go through the venue dataset. i=1 because we don't have to consider the header
 			for(int i=1;i<listSingles.size();i++) {
 			
 				//check if the venue belong to the cell
-				CSVRecord r=listSingles.get(i);
-				if(r.get(5).equals(cellLat) && r.get(6).equals(cellLng)) {
+				CSVRecord r = listSingles.get(i);
+				
+				Double f_lat=Double.parseDouble(r.get(5));
+				Double f_lng=Double.parseDouble(r.get(6));
+				
+				if(f_lat==cellLat && f_lng==cellLng) {
 					venueRecord=getVenueRecord(str_array, features, r);
-					if(venueRecord.size()>0)
+					if(venueRecord.size()>0) {
 						venuesInfo.add(venueRecord);
+					}
 				}
 			}
 		}
-		
 		//add venue_id only if the venue exists in the cell
 		if(venuesInfo.size()>0)
 			venuesOfCell.put(index, venuesInfo);
@@ -287,7 +295,7 @@ public class ClusteringTools {
 		
 		for(int h=7;h<r.size() && !matched;h++) {
 		
-			if(r.get(h).equals("1.0")) {
+			if(r.get(h).equals("1")) {
 				matched=true;
 		
 				//keep only venues of the same labels of the cluster
