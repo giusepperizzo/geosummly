@@ -22,8 +22,8 @@ public class OptimizationTools {
 	 * Get the MultiPoints coordinates of all the clusters 
 	*/
 	public ArrayList<ArrayList<ArrayList<Double>>> 
-					getMultiPoints(FeatureCollectionTemplate fct) 
-	{
+					getMultiPoints(FeatureCollectionTemplate fct) {
+		
 		ArrayList<ArrayList<ArrayList<Double>>> objs = 
 							new ArrayList<ArrayList<ArrayList<Double>>>();
 		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
@@ -39,45 +39,52 @@ public class OptimizationTools {
 	/**
 	 * Get the cells of all the clusters 
 	*/
-	public ArrayList<ArrayList<ArrayList<Double>>> getObjectsOfClusters(ArrayList<ArrayList<VenueTemplate>> venues) {
+	public ArrayList<ArrayList<ArrayList<Double>>> getObjectsOfClusters(
+									ArrayList<ArrayList<VenueTemplate>> venues) {
 		
-		ArrayList<ArrayList<ArrayList<Double>>> objs = new ArrayList<ArrayList<ArrayList<Double>>>();
-		ArrayList<ArrayList<Double>> cells;
-		ArrayList<Double> couple;
+		ArrayList<ArrayList<ArrayList<Double>>> objs = 
+						new ArrayList<ArrayList<ArrayList<Double>>>();
+		ArrayList<ArrayList<Double>> cluster;
+		ArrayList<Double> cell;
 		
 		//iterate for all clusters
 		for(ArrayList<VenueTemplate> vt_array: venues) {
 			
-			cells = new ArrayList<ArrayList<Double>>();
+			cluster = new ArrayList<ArrayList<Double>>();
 			
 			for(VenueTemplate v: vt_array) {
 				
-				couple=new ArrayList<Double>();
-				couple.add(v.getCentroidLatitude());
-				couple.add(v.getCentroidLongitude());
+				cell = new ArrayList<Double>();
+				cell.add(v.getCentroidLatitude());
+				cell.add(v.getCentroidLongitude());
 				
 				//Create a list of distinct cells for each cluster
-				if(!isPresent(cells, couple))
-					cells.add(couple);
+				if(!isPresent(cluster, cell)) {
+					cluster.add(cell);
+				}
 			}
-			objs.add(cells);
+			
+			objs.add(cluster);
 		}
 		
 		return objs;
 	}
 	
 	/**
-	 * Check if a coordinates pair has been already selected
+	 * Check if a coordinates pair has been already selected.
+	 * It returns true if the coordinate pair is present.
 	*/
-	public boolean isPresent(ArrayList<ArrayList<Double>> source, ArrayList<Double> a) {
+	public boolean isPresent(ArrayList<ArrayList<Double>> source, 
+							 ArrayList<Double> a) {
 		
 		boolean present=false;
 		ArrayList<Double> tmp;
 		
-		for(int i=0;i<source.size() && !present;i++) {
+		for(int i=0; i<source.size() && !present; i++) {
 			
 			tmp = new ArrayList<Double>(source.get(i));
-			if(tmp.get(0) == a.get(0) && tmp.get(1) == a.get(1))
+			if(tmp.get(0).doubleValue() == a.get(0).doubleValue() && 
+					tmp.get(1).doubleValue() == a.get(1).doubleValue())
 				present=true;
 		}
 		
@@ -87,9 +94,11 @@ public class OptimizationTools {
 	/**
 	 * Get the venues of all the clusters 
 	*/
-	public ArrayList<ArrayList<VenueTemplate>> getVenuesOfClusters(FeatureCollectionTemplate fct) {
+	public ArrayList<ArrayList<VenueTemplate>> getVenuesOfClusters(
+											FeatureCollectionTemplate fct) {
 		
-		ArrayList<ArrayList<VenueTemplate>> venues = new ArrayList<ArrayList<VenueTemplate>>();
+		ArrayList<ArrayList<VenueTemplate>> venues = 
+						new ArrayList<ArrayList<VenueTemplate>>();
 		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
 		
 		//iterate for all clusters
@@ -111,6 +120,7 @@ public class OptimizationTools {
 		
 		//iterate for all clusters
 		for(FeatureTemplate ft: ft_array) {
+			
 			label=ft.getProperties().getName().trim().split(",");
 			labels.add(label);
 		}
@@ -129,6 +139,7 @@ public class OptimizationTools {
 		
 		//iterate for all clusters
 		for(FeatureTemplate ft: ft_array) {
+			
 			id=ft.getProperties().getClusterId();
 			ids.add(id);
 		}
