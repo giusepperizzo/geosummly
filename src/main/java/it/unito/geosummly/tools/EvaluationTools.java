@@ -15,6 +15,7 @@ import java.util.Vector;
 import java.util.Map.Entry;
 
 import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.math3.distribution.NormalDistribution;
 
 import jp.ndca.similarity.distance.Jaccard;
 
@@ -403,16 +404,56 @@ public class EvaluationTools {
 	}
 
 	/**
-	 * Compute the discard in percentage between the SSE of clustering output on
+	 * Compute the ratio in percentage between the SSE of clustering output on
 	 * the entire dataset (real_SSE) and the minimum SSE value of correctness
 	 * experiment (random_SSE). discard= (real_SSE * 100) / random_SSE
 	 */
-	public double getSSEDiscard(ArrayList<Double> SSEs, double cl_sse) {
+	public double getSSERatio(ArrayList<Double> SSEs, double cl_sse) 
+	{
 		Collections.sort(SSEs);
 		double min = SSEs.get(0); // get the minimum of SSEs
 		double discard = (cl_sse * 100) / min;
 
 		return discard;
+	}
+	
+	
+	public double getPvalue(ArrayList<Double> SSEs, double cl_sse) {
+		Collections.sort(SSEs);
+		
+		for (Double sse : SSEs) 
+			System.out.println("EvaluationTools425: " + sse);
+		
+		double mean = getMean(SSEs.toArray(new Double[] {}));
+		double std = getStd( getVariance(SSEs.toArray(new Double[] {}), mean) );
+
+		System.out.println("EvaluationTools427 -" + mean + " - " +  std);
+
+		
+	    /*
+	      	68,3% = P{ μ -      σ < X <  μ +      σ }
+			95,0% = P{ μ - 1,96 σ < X <  μ + 1,96 σ }	
+			95,5% = P{ μ - 2    σ < X <  μ + 2    σ }
+			99,0% = P{ μ - 2,58 σ < X <  μ + 2,58 σ }
+			99,7% = P{ μ - 3    σ < X <  μ + 3    σ }
+	     */
+		
+		//http://commons.apache.org/proper/commons-math/apidocs/org/apache/commons/math3/distribution/NormalDistribution.html
+		NormalDistribution norm = new NormalDistribution(mean, std);
+		double density = norm.density(cl_sse);
+		
+		System.out.println("EvaluationTools439 -" + density);
+		
+		return density;
+	}
+
+	private double getVariance(Double[] array, double mean) 
+	{
+		double value=0;
+		for(Double d: array) {
+			value+=(mean-d)*(mean-d);
+		}
+		return value/array.length;
 	}
 
 	/** Change the feature label by replacing 'old' with 'last' */
@@ -466,9 +507,6 @@ public class EvaluationTools {
 		}
 		return featuresLabel;
 	}
-	
-	
-	
 	
 	public ArrayList<ArrayList<Double>> build(List<CSVRecord> list) {
 		
@@ -532,5 +570,19 @@ public class EvaluationTools {
 		}
 		
 		return randomNorm;
+	}
+	
+	public double getMean(Double[] array) {
+		int total = 0;
+
+		for(int i = 0; i < array.length; i++){
+		   total += array[i]; // this is the calculation for summing up all the values
+		}
+
+		return total / array.length; //mean
+	}
+	
+	public double getStd(double variance) {
+		return Math.sqrt(variance);
 	}
 }

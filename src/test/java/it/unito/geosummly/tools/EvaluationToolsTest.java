@@ -291,7 +291,7 @@ public class EvaluationToolsTest extends TestCase {
 		
 	}
 	
-	public void testGetSSEDiscard() {
+	public void testGetSSERatio() {
 		
 		double expected = 50.0;
 		
@@ -300,7 +300,7 @@ public class EvaluationToolsTest extends TestCase {
 		values.add(0.9);
 		
 		EvaluationTools tools = new EvaluationTools();
-		double actual = tools.getSSEDiscard(values, 0.2);
+		double actual = tools.getSSERatio(values, 0.2);
 		
 		assertEquals(expected, actual);
 	}
