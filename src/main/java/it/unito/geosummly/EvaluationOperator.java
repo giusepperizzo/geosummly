@@ -37,34 +37,47 @@ public class EvaluationOperator {
 		double cl_sse=Double.parseDouble(infos.get(2).get(1)); //sse of clustering on entire dataset
 
 		//Fill in the matrix of aggregate (frequency) values without consider timestamp and coordinates
-		ArrayList<ArrayList<Double>> matrix=eTools.buildAggregatesFromList(list);
+		//ArrayList<ArrayList<Double>> matrix=eTools.buildAggregatesFromList(list);
+		
+		//Normalize coordinates
 
 		//Fill in the list of features
 		ArrayList<String> features=eTools.getFeaturesFormList(list);
+		
+		
+		//Matrix of normalized values with coordinates
+		ArrayList<ArrayList<Double>> matrix=eTools.build(list); /****NEW CORRECTNESS VARIABLE*****/
 
 		//Get the areas
-		ImportTools tools=new ImportTools();
-		ArrayList<BoundingBox> data=tools.getFocalPoints(matrix);
-		ArrayList<Double> bboxArea=tools.getAreasFromFocalPoints(data, matrix.size());
+		//ImportTools tools=new ImportTools();
+		//ArrayList<BoundingBox> data=tools.getFocalPoints(matrix);
+		//ArrayList<Double> bboxArea=tools.getAreasFromFocalPoints(data, matrix.size());
 
 		//Create the random matrices and print them to file
-		ArrayList<ArrayList<Double>> frequencyRandomMatrix;
-		ArrayList<ArrayList<Double>> densityRandomMatrix;
+		//ArrayList<ArrayList<Double>> frequencyRandomMatrix;
+		//ArrayList<ArrayList<Double>> densityRandomMatrix;
 		ArrayList<ArrayList<Double>> normalizedRandomMatrix;
-		ArrayList<Double> minArray=tools.getMinArray(matrix); //get min and max values of features occurrences
-		ArrayList<Double> maxArray=tools.getMaxArray(matrix);
+		//ArrayList<Double> minArray=tools.getMinArray(matrix); //get min and max values of features occurrences
+		//ArrayList<Double> maxArray=tools.getMaxArray(matrix);
 
 		ArrayList<Double> SSEs=new ArrayList<Double>();
 		ClusteringOperator co=new ClusteringOperator();
 
 		//mnum matrices
 		for(int i=0;i<mnum;i++) {
-			frequencyRandomMatrix=eTools.buildFrequencyRandomMatrix(matrix.size(), minArray, maxArray);
+			/*frequencyRandomMatrix=eTools.buildFrequencyRandomMatrix(matrix.size(), minArray, maxArray);
 			densityRandomMatrix=tools.buildDensityMatrix(CoordinatesNormalizationType.MISSING, frequencyRandomMatrix, bboxArea);
-			normalizedRandomMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.MISSING, densityRandomMatrix);
+			normalizedRandomMatrix=tools.buildNormalizedMatrix(CoordinatesNormalizationType.MISSING, densityRandomMatrix);*/
 			ArrayList<String>feat=eTools.changeFeaturesLabel("f", "", features);
-			dataIO.printResultHorizontal(null, densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", feat), out, "/random-density-transformation-matrix-"+i+".csv");
-			dataIO.printResultHorizontal(null, normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", feat), out, "/random-normalized-transformation-matrix-"+i+".csv");
+			/*dataIO.printResultHorizontal(null, densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", feat), out, "/random-density-transformation-matrix-"+i+".csv");
+			dataIO.printResultHorizontal(null, normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", feat), out, "/random-normalized-transformation-matrix-"+i+".csv");*/
+			
+			normalizedRandomMatrix = eTools.buildNorm(matrix); /****NEW CORRECTNESS VARIABLE*****/
+			dataIO.printResultHorizontal(null, 
+										 normalizedRandomMatrix, 
+										 eTools.getFeaturesLabel("normalized_density_rnd", feat), 
+										 out, 
+							             "/random-normalized-transformation-matrix-"+i+".csv"); /****NEW CORRECTNESS VARIABLE*****/
 
 			SSEs.add(co.executeForCorrectness(normalizedRandomMatrix, labels, minpts, eps));
 		}

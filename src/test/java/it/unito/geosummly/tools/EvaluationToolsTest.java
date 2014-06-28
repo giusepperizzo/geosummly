@@ -355,4 +355,50 @@ public class EvaluationToolsTest extends TestCase {
 		assertEquals(expected, actual);
 		assertEquals(expectedNoCoord, actualNoCoord);
 	}
+	
+	
+	public void testBuildNorm() {
+		
+		ArrayList<ArrayList<Double>> norm = new ArrayList<ArrayList<Double>>();
+		ArrayList<Double> rec_1 = new ArrayList<Double>();
+		rec_1.add(0.1); rec_1.add(0.2); rec_1.add(0.3); rec_1.add(0.4);
+		rec_1.add(0.5);
+		ArrayList<Double> rec_2 = new ArrayList<Double>();
+		rec_2.add(0.6); rec_2.add(0.7); rec_2.add(0.8); rec_2.add(0.9);
+		rec_2.add(0.09);
+		norm.add(rec_1); norm.add(rec_2);
+		
+		EvaluationTools tools = new EvaluationTools();
+		ArrayList<ArrayList<Double>> actual = tools.buildNorm(norm);
+		
+		assertEquals(2, actual.size());
+		for(ArrayList<Double> r: actual) {
+			assertEquals(5, r.size());
+			for(int i=0; i<r.size(); i++) {
+				assertTrue(r.get(i)<=1 && r.get(i)>=0);
+			}
+		}
+		
+		assertEquals(0.1, norm.get(0).get(0));
+		assertEquals(0.2, norm.get(0).get(1));
+		assertEquals(0.6, norm.get(1).get(0));
+		assertEquals(0.7, norm.get(1).get(1));
+	}
+	
+public void testGetFeaturesLabel() {
+		
+		ArrayList<String> expected=new ArrayList<String>();
+		expected.add("Latitude"); expected.add("Longitude");
+		expected.add("d(A)"); expected.add("d(B)");
+		expected.add("d(C)");
+		
+		ArrayList<String> a = new ArrayList<String>();
+		a.add("Latitude"); a.add("Longitude");
+		a.add("A"); a.add("B"); a.add("C");
+		
+		EvaluationTools tools = new EvaluationTools();
+		ArrayList<String> actual = tools.getFeaturesLabel("d", a);
+
+		assertEquals(expected, actual);
+	}
 }

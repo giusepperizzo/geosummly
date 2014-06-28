@@ -31,6 +31,7 @@ public class EvaluationTools {
 	public ArrayList<ArrayList<Double>> buildAggregatesFromList(
 			List<CSVRecord> list) {
 		ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();
+		
 		// remove the header, so i=1
 		for (int k = 1; k < list.size(); k++) {
 			ArrayList<Double> rec = new ArrayList<Double>();
@@ -415,16 +416,22 @@ public class EvaluationTools {
 	}
 
 	/** Change the feature label by replacing 'old' with 'last' */
-	public ArrayList<String> changeFeaturesLabel(String old, String last,
-			ArrayList<String> features) {
+	public ArrayList<String> changeFeaturesLabel(String old, 
+												 String last,
+												 ArrayList<String> features) {
+		
 		String label = "";
 		ArrayList<String> featuresLabel = new ArrayList<String>();
-		for (int i = 0; i < features.size(); i++) {
-			// remove character and parenthesis
+		
+		for (int i=0; i<features.size(); i++) {
+			
+			//remove character and parenthesis
 			label = features.get(i).replaceFirst(old, last)
 					.replaceAll("\\(", "").replaceAll("\\)", "");
+			
 			featuresLabel.add(label);
 		}
+		
 		return featuresLabel;
 	}
 
@@ -458,5 +465,72 @@ public class EvaluationTools {
 			}
 		}
 		return featuresLabel;
+	}
+	
+	
+	
+	
+	public ArrayList<ArrayList<Double>> build(List<CSVRecord> list) {
+		
+		ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();
+		
+		//remove the header, so i=1
+		for(int k=1; k<list.size(); k++) {
+			
+			ArrayList<Double> rec = new ArrayList<Double>();
+			
+			//remove timestamp comlumn, so j=1
+			for(int j=1; j<list.get(k).size(); j++)
+				rec.add(Double.parseDouble(list.get(k).get(j)));
+			
+			matrix.add(rec);
+		}
+		
+		return matrix;
+	}
+	
+	public ArrayList<String> getFeaturesLabel(String s, ArrayList<String> features) {
+
+		ArrayList<String> featuresLabel=new ArrayList<String>();
+		
+		String label="";
+		featuresLabel.add("Latitude"); //Latitude
+		featuresLabel.add("Longitude"); //Longitude
+	
+		//first 2 features area lat and lng so i=2 
+		for(int i=2; i<features.size(); i++) {
+	
+			label=s+"("+features.get(i)+")";
+			featuresLabel.add(label);
+		}
+		
+		return featuresLabel;
+	}
+	
+	public ArrayList<ArrayList<Double>> buildNorm(ArrayList<ArrayList<Double>> matrix) {
+		
+		Random r = new Random();
+		int r_size = matrix.get(0).size()-2; //we don't considerate coordinates
+		ArrayList<ArrayList<Double>> randomNorm = new ArrayList<ArrayList<Double>>();
+		
+		for(ArrayList<Double> record: matrix) {
+			ArrayList<Double> randomRec = new ArrayList<Double>();
+			randomRec.add(record.get(0)); //latitude
+			randomRec.add(record.get(1)); //longitude
+			
+			int i=0;
+			while (i < r_size) {
+				
+				double value = r.nextGaussian();
+				//increment record position only if the value is between 0 and 1 included
+				if( (value >= 0.0) && (value <= 1.0) ) {
+					randomRec.add(value);
+					i++;
+				}
+			}
+			randomNorm.add(randomRec);
+		}
+		
+		return randomNorm;
 	}
 }
