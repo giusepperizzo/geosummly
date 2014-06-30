@@ -72,7 +72,7 @@ public class EvaluationOperator {
 			/*dataIO.printResultHorizontal(null, densityRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "density_rnd", feat), out, "/random-density-transformation-matrix-"+i+".csv");
 			dataIO.printResultHorizontal(null, normalizedRandomMatrix, tools.getFeaturesLabel(CoordinatesNormalizationType.MISSING, "normalized_density_rnd", feat), out, "/random-normalized-transformation-matrix-"+i+".csv");*/
 			
-			normalizedRandomMatrix = eTools.buildNorm(matrix); /****NEW CORRECTNESS VARIABLE*****/
+			normalizedRandomMatrix = eTools.buildNormalizedUniformerly(matrix); /****NEW CORRECTNESS VARIABLE*****/
 			dataIO.printResultHorizontal(null, 
 										 normalizedRandomMatrix, 
 										 eTools.getFeaturesLabel("normalized_density_rnd", feat), 

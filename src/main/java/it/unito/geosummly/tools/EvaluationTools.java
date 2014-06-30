@@ -554,9 +554,9 @@ public class EvaluationTools {
 			randomRec.add(record.get(1)); //longitude
 			
 			int i=0;
-			while (i < r_size) {
-				
-				double value = r.nextGaussian();
+			while (i < r_size) 
+			{
+				double value = r.nextDouble(); //r.nextGaussian();
 				//increment record position only if the value is between 0 and 1 included
 				if( (value >= 0.0) && (value <= 1.0) ) {
 					randomRec.add(value);
@@ -565,9 +565,27 @@ public class EvaluationTools {
 			}
 			randomNorm.add(randomRec);
 		}
-		
 		return randomNorm;
 	}
+	
+	public ArrayList<ArrayList<Double>> buildNormalizedUniformerly(ArrayList<ArrayList<Double>> matrix) 
+	{
+		Random r = new Random();
+		int n_rows = matrix.size(); 
+		int n_columns = matrix.get(0).size();
+		ArrayList<ArrayList<Double>> randomNorm = new ArrayList<ArrayList<Double>>();
+		
+		for (int i=0; i<n_rows; i++){
+			ArrayList<Double> randomRec = new ArrayList<Double>();
+			
+			for (int j=0; j<n_columns; j++)
+				randomRec.add(r.nextDouble());
+
+			randomNorm.add(randomRec);
+
+		}
+		return randomNorm;
+	}	
 	
 	public double getMean(Double[] array) 
 	{
