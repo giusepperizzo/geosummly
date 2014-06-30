@@ -98,22 +98,22 @@ The options *density*, *normalized*, *deltad*, *venues*, *coord*, *output* are m
 
 ### evaluation
 ```sh
--E –etype      <arg>           set the operation to do. Allowed values: correctness, validation.
--I –input      <path/to/file>  set the log input file
--F -frequency  <path/to/file>  set the input file of frequency values
--V -venues     <path/to/file>  set the input file of single venues
--O –output     <path/to/dir>   set the output directory
--m –mnum       <arg>           set the random matrix number to create. Default 500.
--f –fnum       <arg>           set the fold number to create for the cross-validation. Default 10.
+-E –etype      <arg>            set the operation to do. Allowed values: correctness, validation.
+-I –input      <path/to/file>   set the log input file
+-F -normalized  <path/to/file>  set the input file of the normalized matrix
+-V -venues     <path/to/file>   set the input file of single venues
+-O –output     <path/to/dir>    set the output directory
+-m –mnum       <arg>            set the random matrix number to create. Default 500.
+-f –fnum       <arg>            set the fold number to create for the cross-validation. Default 10.
 ```
 
-The options *etype*, *input*, *frequency* (only if etype is equal to correctness), *venues* (only if etype is equal to validation), *output* are mandatory. 
+The options *etype*, *input*, *normalized* (only if etype is equal to correctness), *venues* (only if etype is equal to validation), *output* are mandatory. 
 The input file has to be the log file returned by the clustering state.
-If *etype* argument is equal to correctness, the *frequency* option (csv file of grid-shaped aggregates) is mandatory and, for each of the *mnum* matrices, the output is: a random grid-shaped aggregates, a grid of density values of the previous aggregates, a grid with intra-feature normalized density values shifted in [0,1]. In addition to the output a SSE log and a R script (visualization of SSE values) are provided. Moreover *venues* and *fnum* options cannot be used.
+If *etype* argument is equal to correctness, the *normalized* option (csv file of normalized density values) is mandatory and, for each of the *mnum* matrices, the output is a grid with intra-feature normalized density values shifted in [0,1]. In addition to the output a SSE log and a R script (visualization of SSE values) are provided. Moreover *venues* and *fnum* options cannot be used.
 If *etype* argument is equal to validation, the *venues* option (csv file of single venues) is mandatory and, for each fold, the output is a file of density values and a file with intra-feature normalized density values shifted in [0,1]. In addition to the output a Jaccard log is provided. Moreover *frequency* and *mnum* options cannot be used.
 
     geosummly evaluation –etype correctness –input path/to/file.log \
-     -frequency path/to/file.csv –output path/to/dir –mnum 300
+     -normalized path/to/file.csv –output path/to/dir –mnum 300
     geosummly evaluation –etype validation –input path/to/file.log \
      -venues path/to/file.csv –output path/to/dir
 
