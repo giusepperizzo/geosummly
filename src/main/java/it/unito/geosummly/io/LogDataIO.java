@@ -198,7 +198,7 @@ public class LogDataIO {
 				index++;
 			}
 			
-			bw.write("\n\nPDF(X) evaluated at " + cl_sse + " is equal to: " + pvalue);
+			bw.write("\n\nPDF(x) evaluated at " + cl_sse + " is equal to: " + pvalue);
 			
 	        bw.flush();
 	        bw.close();

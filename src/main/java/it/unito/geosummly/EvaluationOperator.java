@@ -83,13 +83,13 @@ public class EvaluationOperator {
 		}
 		
 		//Get the sse ratio
-		double ratio = eTools.getSSERatio(SSEs, cl_sse);
+		//double ratio = eTools.getSSERatio(SSEs, cl_sse);
 		
-		//double pvalue = eTools.getPvalue(SSEs, cl_sse);
+		double pvalue = eTools.getPvalue(SSEs, cl_sse);
 		
 		//Write down the log file with SSE values
 		//logIO.writeSSELog(SSEs, cl_sse, pvalue, out);
-		logIO.writeSSELog(SSEs, cl_sse, ratio, out);
+		logIO.writeSSELog(SSEs, cl_sse, pvalue, out);
 		logIO.writeSSEforR(SSEs, out);
 	}
 

@@ -16,7 +16,7 @@ public class Evaluation {
 	
 	private String evalType=null;
 	private String inLog=null;
-	private String inFreq=null;
+	private String inNorm=null;
 	private String inSingles=null;
 	private String outDir=null;
 	private int mnum=500;
@@ -47,7 +47,7 @@ public class Evaluation {
 				+ "\n--------------------------------------------------------"
 				+ "\nExamples:"
 				+ "\n1. geosummly evaluation -etype correctness -input path/to/file.log "
-				+ "-frequency path/to/file1.csv -output path/to/dir -mnum 300"
+				+ "-normalized path/to/file1.csv -output path/to/dir -mnum 300"
 				+ "\n2. geosummly evaluation -etype validation -input path/to/file.log "
 				+ "-venues path/to/file1.csv -output path/to/dir -fnum 5";
 		
@@ -66,9 +66,9 @@ public class Evaluation {
 					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
-				if(line.hasOption("frequency")) {
+				if(line.hasOption("normalized")) {
 					if(evalType.equals("correctness")) {
-						inFreq=line.getOptionValue("frequency");
+						inNorm=line.getOptionValue("normalized");
 						mandatory=true;
 					}
 					else {
@@ -122,7 +122,7 @@ public class Evaluation {
 			
 			EvaluationOperator eo=new EvaluationOperator();
 			if(evalType.equals("correctness")) {
-				eo.executeCorrectness(inLog, inFreq, outDir, mnum);
+				eo.executeCorrectness(inLog, inNorm, outDir, mnum);
 			}
 			else if(evalType.equals("validation"))
 				eo.executeValidation(inLog, inSingles, outDir, fnum);
@@ -140,32 +140,46 @@ public class Evaluation {
 		 Options options = new Options(); //define list of options
 		 
 		 //option etype
-		 options.addOption(OptionBuilder.withLongOpt("etype").withDescription("set the operation to do. Allowed values: correctness, validation")
-					.hasArg().withArgName("arg").create("E"));
+		 options.addOption(OptionBuilder.withLongOpt("etype")
+				 			.withDescription("set the operation to do. Allowed values: correctness, validation")
+				 			.hasArg().withArgName("arg").create("E")
+				 		   );
 		 
 		 //option input
-		 options.addOption(OptionBuilder.withLongOpt("input").withDescription("set the log input file")
-						.hasArg().withArgName("path/to/file").create("I"));
+		 options.addOption(OptionBuilder.withLongOpt("input")
+				 			.withDescription("set the clustering log as input file")
+				 			.hasArg().withArgName("path/to/file").create("I")
+				 		  );
 		 
-		 //option frequency
-		 options.addOption(OptionBuilder.withLongOpt("frequency").withDescription("set the input file of frequency values")
-						.hasArg().withArgName("path/to/file").create("F"));
+		 //option normalized
+		 options.addOption(OptionBuilder.withLongOpt("normalized")
+				 			.withDescription("set as input file the normalized matrix")
+				 			.hasArg().withArgName("path/to/file").create("N")
+				 		   );
 		 
 		 //option venues
-		 options.addOption(OptionBuilder.withLongOpt("venues").withDescription("set the input file of single venues")
-						.hasArg().withArgName("path/to/file").create("V"));
+		 options.addOption(OptionBuilder.withLongOpt("venues")
+				 			.withDescription("set the input file of single venues")
+				 			.hasArg().withArgName("path/to/file").create("V")
+				 		  );
 		 
 		 //option output
-		 options.addOption(OptionBuilder.withLongOpt("output").withDescription("set the output directory")
-					.hasArg().withArgName("path/to/dir").create("O"));
+		 options.addOption(OptionBuilder.withLongOpt("output")
+				 			.withDescription("set the output directory")
+				 			.hasArg().withArgName("path/to/dir").create("O")
+				 		  );
 		 
 		 //option mnum
-		 options.addOption(OptionBuilder.withLongOpt("mnum").withDescription("set the random matrix number to create. Default 500")
-					.hasArg().withArgName("arg").create("m"));
+		 options.addOption(OptionBuilder.withLongOpt("mnum")
+				 			.withDescription("set the random matrix number to create. Default 500")
+				 			.hasArg().withArgName("arg").create("m")
+				 		  );
 		 
 		//option fnum
-		 options.addOption(OptionBuilder.withLongOpt("fnum").withDescription("set the fold number to create for the cross-validation. Default 10")
-					.hasArg().withArgName("arg").create("f"));
+		 options.addOption(OptionBuilder.withLongOpt("fnum")
+				 			.withDescription("set the fold number to create for the cross-validation. Default 10")
+				 			.hasArg().withArgName("arg").create("f")
+				 		  );
 		 
 		//more options
 		options.addOption("H", "help", false, "print the command list");

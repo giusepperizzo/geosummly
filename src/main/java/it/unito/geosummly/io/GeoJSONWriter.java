@@ -25,6 +25,9 @@ public class GeoJSONWriter implements IGeoWriter{
 							HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
 							HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
 							HashMap<Integer, Double> cSSE,
+							HashMap<Integer, Double> cSurface, 
+							HashMap<Integer, Double> cHeterogeneity, 
+							HashMap<Integer, Double> cDensity, 
 							double eps, 
 							String output, 
 							Calendar cal) 
@@ -118,6 +121,9 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		writer.name("clusterId").value(key+1);
 	    		writer.name("name").value(name);
 	    		writer.name("sse").value(cSSE.get(key));
+	    		writer.name("surface").value(cSurface.get(key));
+	    		writer.name("heterogeneity").value(cHeterogeneity.get(key));
+	    		writer.name("density").value(cDensity.get(key));
 	    		writer.name("venues");
 	    		writer.beginArray();
 

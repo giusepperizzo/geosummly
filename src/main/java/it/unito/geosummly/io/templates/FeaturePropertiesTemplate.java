@@ -6,7 +6,11 @@ public class FeaturePropertiesTemplate {
 	
 	private int clusterId;
 	private String name;
+	private double surface;
+	private double heterogeneity;
+	private double density;
 	private double sse;
+	
 	private ArrayList<VenueTemplate> venues;
 	
 	public int getClusterId() {
@@ -45,5 +49,29 @@ public class FeaturePropertiesTemplate {
 	public String toString() {
 		return "\n\t\tFeatureProperties [clusterId=" + clusterId + ", name=" + name
 				+ ", venues=" + venues + "]";
+	}
+
+	public double getSurface() {
+		return surface;
+	}
+
+	public void setSurface(double surface) {
+		this.surface = surface;
+	}
+
+	public double getHeterogeneity() {
+		return heterogeneity;
+	}
+
+	public void setHeterogeneity(double heterogeneity) {
+		this.heterogeneity = heterogeneity;
+	}
+
+	public double getDensity() {
+		return density;
+	}
+
+	public void setDensity(double density) {
+		this.density = density;
 	}
 }

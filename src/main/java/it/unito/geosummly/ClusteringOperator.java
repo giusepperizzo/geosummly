@@ -88,6 +88,10 @@ public class ClusteringOperator {
 	    HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster=new HashMap<Integer, ArrayList<ArrayList<Double>>>(); //key, cell_ids + lat + lng 
 	    HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell=new HashMap<Integer, ArrayList<ArrayList<String>>>(); //cell_id, venue_record
 	    HashMap<Integer, Double> cSSE = new HashMap<>(); 
+	    HashMap<Integer, Double> cSurface = new HashMap<>();
+	    HashMap<Integer, Double> cHeterogeneity = new HashMap<>();
+	    HashMap<Integer, Double> cDensity = new HashMap<>();
+	    
 	    ArrayList<ArrayList<Double>> cells;
 	    
 	    for(Clustering<?> c: cs) {
@@ -97,7 +101,11 @@ public class ClusteringOperator {
 	    		cellsOfCluster=tools.putCompleteCellsOfCluster(cellsOfCluster, cluster, index, listDens); //get all the cell_ids for the selected cluster
 	    		cells=cellsOfCluster.get(index);
 	    		venuesOfCell=tools.putVenuesOfCells(cluster.getName(), index, venuesOfCell, cells, listSingles);
+	    		   	    		
 	    		cSSE.put(index, tools.getClusterSSE(db, cluster, featuresMap));
+	    		cSurface.put(index, tools.getClusterSurface(db, cluster));
+	    		cHeterogeneity.put(index, tools.getClusterHeterogeneity(cluster, featuresMap));
+	    		cDensity.put(index, tools.getClusterDensity(venuesOfCell.size(), cluster));
 	    	}
 	    }
 	    
@@ -111,9 +119,30 @@ public class ClusteringOperator {
 	    
 	    //serialize the clustering output to geojson and turtle files
 	    GeoJSONWriter jWriter=new GeoJSONWriter();
-	    jWriter.writeStream(bbox, clustersName, cellsOfCluster, venuesOfCell, cSSE, eps, out, cal);
+	        
+	    jWriter.writeStream(bbox, 
+	    					clustersName, 
+	    					cellsOfCluster, 
+	    					venuesOfCell, 
+	    					cSSE,
+	    					cSurface,
+	    					cHeterogeneity,
+	    					cDensity,
+	    					eps, 
+	    					out, 
+	    					cal);
 	    GeoTurtleWriter tWriter=new GeoTurtleWriter();
-	    tWriter.writeStream(bbox, clustersName, cellsOfCluster, venuesOfCell, cSSE, eps, out, cal);
+	    tWriter.writeStream(bbox, 
+	    					clustersName, 
+	    					cellsOfCluster, 
+	    					venuesOfCell, 
+	    					cSSE,
+	    					cSurface,
+	    					cHeterogeneity,
+	    					cDensity,	    					
+	    					eps, 
+	    					out, 
+	    					cal);
 	}
     
 	public HashMap<String, Vector<Integer>> executeForValidation(
