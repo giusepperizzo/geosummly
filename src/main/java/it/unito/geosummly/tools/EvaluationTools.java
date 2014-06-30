@@ -421,14 +421,11 @@ public class EvaluationTools {
 	public double getPvalue(ArrayList<Double> SSEs, double cl_sse) {
 		Collections.sort(SSEs);
 		
-		for (Double sse : SSEs) 
-			System.out.println("EvaluationTools425: " + sse);
+//		for (Double sse : SSEs) 
+//			System.out.println("EvaluationTools425: " + sse);
 		
 		double mean = getMean(SSEs.toArray(new Double[] {}));
 		double std = getStd( getVariance(SSEs.toArray(new Double[] {}), mean) );
-
-		System.out.println("EvaluationTools427 -" + mean + " - " +  std);
-
 		
 	    /*
 	      	68,3% = P{ μ -      σ < X <  μ +      σ }
@@ -442,7 +439,7 @@ public class EvaluationTools {
 		NormalDistribution norm = new NormalDistribution(mean, std);
 		double density = norm.density(cl_sse);
 		
-		System.out.println("EvaluationTools439 -" + density);
+//		System.out.println("EvaluationTools439: " + density + " having mean=" + mean + " and std=" + std);
 		
 		return density;
 	}
@@ -572,14 +569,14 @@ public class EvaluationTools {
 		return randomNorm;
 	}
 	
-	public double getMean(Double[] array) {
-		int total = 0;
+	public double getMean(Double[] array) 
+	{
+		double total = 0;
 
 		for(int i = 0; i < array.length; i++){
 		   total += array[i]; // this is the calculation for summing up all the values
 		}
-
-		return total / array.length; //mean
+		return total / (1.0 *array.length); //mean
 	}
 	
 	public double getStd(double variance) {

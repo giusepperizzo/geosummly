@@ -582,8 +582,6 @@ public class ClusteringTools {
 			total_number++; //total number of points in a cluster
 		}
 		sse+= sum_distance * 1/(2*total_number);
-
-		//System.out.println("ClusteringTools586 - " + sse);
 		
     	return sse;
     }
