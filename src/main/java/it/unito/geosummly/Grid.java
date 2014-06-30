@@ -6,13 +6,12 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 /**
- * @author James
- *
  * Creation of a bounding box of N*N cells.
  * N is a parameter given by the user.
  */
 
 public class Grid {
+	
 	private BoundingBox bbox; //Bounding box
 	private int cellsNumber; //Number N of cells
 	private ArrayList<BoundingBox> structure; //Data structure which contains the bounding box
@@ -61,7 +60,7 @@ public class Grid {
 		//coordinates of the first cell (top-left side of the bounding box)
 		BigDecimal northSingleCell=b.getNorth();
 		BigDecimal southSingleCell;
-		BigDecimal westSingleCell=b.getWest(); //west coordinate of the first cell (top-left side of bounding box)
+		BigDecimal westSingleCell=b.getWest();
 		BigDecimal eastSingleCell;
 		int row=1;
 		int column=1;
@@ -76,7 +75,10 @@ public class Grid {
 				eastSingleCell = westSingleCell.add(cellWidth);
 				
 				//set cell coordinates and position
-				singleCell=new BoundingBox(northSingleCell, eastSingleCell, southSingleCell, westSingleCell);
+				singleCell=new BoundingBox(northSingleCell, 
+										   eastSingleCell, 
+										   southSingleCell, 
+										   westSingleCell);
 				singleCell.setRow(row);
 				singleCell.setColumn(column);
 				
@@ -127,8 +129,8 @@ public class Grid {
 			
 			//integer number in [1, cellnum-1] in order to 
 			//not exceed the grid coordinate values
-			randomSouthFactor = ((int) (Math.random()*(num-1)))+1;
-			randomEastFactor = ((int) (Math.random()*(num-1)))+1;
+			randomSouthFactor = random.nextInt(num-1)+1;
+			randomEastFactor = random.nextInt(num-1)+1;
 			
 			southSingleCell = b.getNorth().subtract(
 									cellHeight.multiply(new BigDecimal(randomSouthFactor))
@@ -149,9 +151,12 @@ public class Grid {
 	}
 	
 	public String toString() {
-		String s= "Bounding box coordinates: "+bbox+"\nCells number:"+structure.size()+"\nAll cells coordinates:";
+		String s= "Bounding box coordinates: "+ bbox +
+				"\nCells number:" + structure.size() + "\nAll cells coordinates:";
+		
 		for(BoundingBox b : structure)
 			s+="\n"+b;
+		
 		return s;
 	}
 	
