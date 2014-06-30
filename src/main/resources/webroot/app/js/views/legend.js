@@ -114,10 +114,17 @@ app.Legend = function() {
 						})
 						.map(function(cluster) {
 							var clusterId = cluster.properties.clusterId;
+							var heterogeneity = cluster.properties.heterogeneity ? cluster.properties.heterogeneity.toFixed(2) : 0;
+							var surface = cluster.properties.heterogeneity ? cluster.properties.surface.toFixed(2) : 0;
+							var density = cluster.properties.density ? cluster.properties.density.toFixed(2) : 0;
 							var sse = cluster.properties.sse ? cluster.properties.sse.toFixed(2) : 0;
 							var label = 'cluster ' + clusterId + 
 								' <em>(' + cluster.properties.venues.length + 
-								' venues, SSE = ' + sse  + ')</em>';
+								' venues; SSE=' + sse  +
+								', surface=' + surface +
+								', density=' + density + 
+								', heterogeneity=' + heterogeneity +
+								')</em>';
 							var hrefCluster = '#!' + params.location + '/clusters/' + clusterId;
 							var isChecked = params.clusters && params.clusters.indexOf(clusterId) >= 0;
 							isChecked = isChecked || selectAll;
