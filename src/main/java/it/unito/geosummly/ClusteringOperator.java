@@ -56,6 +56,7 @@ public class ClusteringOperator {
 		ClusteringTools tools=new ClusteringTools();
 		
 		//fill in the matrix of normalized values
+		//the column timestamp is not included in normMatrix
 		ArrayList<ArrayList<Double>> normMatrix=tools.buildNormalizedFromCSV(listNorm);
 		
 		//build the database from the normalized matrix
@@ -176,7 +177,8 @@ public class ClusteringOperator {
 	{	
 		ClusteringTools tools=new ClusteringTools();
 		
-		//build the database from the normalized matrix without considering timestamp values
+		//build the database from the normalized matrix
+		//the column of timestamp values is not present in the variable "normalized"
 		Database db=tools.buildDatabaseFromMatrix(normalized);
 		
 		//fill in the feature hashmap only with single features
