@@ -254,7 +254,7 @@ public class ClusteringTools {
 		//add venue_id only if the venue exists in the cell
 		if(venuesInfo.size()>0)
 			venuesOfCell.put(index, venuesInfo);
-		
+						
 		return venuesOfCell;
 	}
 	
@@ -633,5 +633,29 @@ public class ClusteringTools {
 			dimensions.add(inv.get(feat));
 		}
 		return dimensions;
+	}
+
+	public Double getClusterSurface(Database db, Cluster<?> cluster) 
+	{
+		int objects = 0;
+		for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) 
+			objects ++;
+		
+		return objects/(1.0 * db.getRelations().size());
+	}
+
+	public Double getClusterHeterogeneity(Cluster<?> cluster,
+										  HashMap<Integer, String> featuresMap)
+	{
+		int cCategories = cluster.getName().split(",").length;
+		return cCategories/(1.0*featuresMap.size());
+	}
+
+	public Double getClusterDensity(int i, Cluster<?> cluster) 
+	{
+		int objects = 0;
+		for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) 
+			objects ++;
+		return i/(1.0*objects);
 	}
 }
