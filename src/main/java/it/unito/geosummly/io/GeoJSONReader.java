@@ -77,6 +77,24 @@ public class GeoJSONReader {
 			data.add(b);
 		}
 		
+		//Set the matrix indices
+		//First row and col indices are equal to 1
+		int size = (int) Math.sqrt(data.size());
+		int i=1;
+		int j=1;
+		for(BoundingBox box: data) {
+			
+			box.setRow(i);
+			box.setColumn(j);
+			j++;
+			
+			
+			if(j>size) { //row complete, continue with the next row
+				i++;
+				j=1;
+			}	
+		}
+		
     	return data;
     }
     
