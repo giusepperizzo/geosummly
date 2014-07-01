@@ -22,8 +22,8 @@ public class OptimizationTools {
 	 * Get the MultiPoints coordinates of all the clusters 
 	*/
 	public ArrayList<ArrayList<ArrayList<Double>>> 
-					getMultiPoints(FeatureCollectionTemplate fct) {
-		
+					getMultiPoints(FeatureCollectionTemplate fct) 
+	{	
 		ArrayList<ArrayList<ArrayList<Double>>> objs = 
 							new ArrayList<ArrayList<ArrayList<Double>>>();
 		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
@@ -147,11 +147,11 @@ public class OptimizationTools {
 		return ids;
 	}
 	
-	
 	/**
 	 * Compute the spatial coverage function for each cluster
 	 * For each cluster: sp_cov = #obj_of_cluster / #obj_of_bbox 
 	 */
+	@Deprecated
 	public ArrayList<Double> getSpatialCoverage(
 									ArrayList<ArrayList<ArrayList<Double>>> cells, 
 									int bboxObj
@@ -171,6 +171,7 @@ public class OptimizationTools {
 	 * For each cluster: dens = #venues_of_cluster / #obj_of_cluster
 	 * #obj_of_cluster represents the dimension of the cluster 
 	*/
+	@Deprecated
 	public ArrayList<Double> getDensity(ArrayList<ArrayList<VenueTemplate>> venues, 
 										ArrayList<ArrayList<ArrayList<Double>>> cells) {
 		
@@ -189,6 +190,7 @@ public class OptimizationTools {
 	 * #categories_of_cluster is the number of cluster labels
 	 * #total_categories is the number of categories found in the sampling state
 	*/
+	@Deprecated
 	public ArrayList<Double> getHeterogeneity(ArrayList<String[]> labels, int totCat) {
 		
 		ArrayList<Double> list= new ArrayList<Double>();
@@ -345,6 +347,42 @@ public class OptimizationTools {
 			result.add(p.getIndex());	
 		
 		
+		return result;
+	}
+
+	public ArrayList<Double> getSpatialCoverage(FeatureCollectionTemplate fct) 
+	{
+		ArrayList<Double> result = new ArrayList<Double>();
+		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
+
+		//iterate for all clusters
+		for(FeatureTemplate ft: ft_array) 
+			result.add(ft.getProperties().getSurface());
+
+		return result;
+	}
+
+	public ArrayList<Double> getDensity(FeatureCollectionTemplate fct) 
+	{
+		ArrayList<Double> result = new ArrayList<Double>();
+		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
+
+		//iterate for all clusters
+		for(FeatureTemplate ft: ft_array) 
+			result.add(ft.getProperties().getDensity());
+
+		return result;
+	}
+
+	public ArrayList<Double> getHeterogeneity(FeatureCollectionTemplate fct) 
+	{
+		ArrayList<Double> result = new ArrayList<Double>();
+		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
+
+		//iterate for all clusters
+		for(FeatureTemplate ft: ft_array) 
+			result.add(ft.getProperties().getHeterogeneity());
+
 		return result;
 	}
 }

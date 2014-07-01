@@ -15,7 +15,7 @@ public class Optimization {
 	
 	private String type="";
 	private String inGeo=null;
-	private String inLog=null;
+	//private String inLog=null;
 	private String outDir=null;
 	private ArrayList<Double> fWeights=new ArrayList<Double>();
 	private int topCat=10;
@@ -28,20 +28,18 @@ public class Optimization {
 		Boolean mandatory=false; //check the presence of mandatory options
 		String helpUsage="geosummly optimization -type pareto -input <path/to/file.geojson> -infos <path/to/file.log> -output <path/to/dir> [options]";
 		String helpFooter="\n------------------------------------------------------------------"
-				+ "\nThe options type, input, infos, output are mandatory."
+				+ "\nThe options type, input, output are mandatory."
 				+ "\nTwo optimization methods are provided: pareto, linear (alternatively)."
 				+ "\nInput file has to be a geojson file, output of the clustering state."
-				+ "\nInfos file has to be a log file, output of the sampling state."
 				+ "\nThe output consists of a geojson file with the clustering result after the optimization, a log file."
 				+ "\n------------------------------------------------------------------"
 				+ "\nExamples:"
-				+ "\ngeosummly optimization -type pareto -input path/to/file.geojson -infos path/to/file1.log -output path/to/dir";
+				+ "\ngeosummly optimization -type pareto -input path/to/file.geojson -output path/to/dir";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
 			
-			if( line.hasOption("type") && line.hasOption("input") 
-					&& line.hasOption("infos") && line.hasOption("output")) 
+			if( line.hasOption("type") && line.hasOption("input") && line.hasOption("output")) 
 			{
 				type = line.getOptionValue("type");
 				if(!type.equals("pareto") && !type.equals("linear")) {
@@ -56,12 +54,12 @@ public class Optimization {
 					System.exit(-1);
 				}
 				
-				inLog=line.getOptionValue("infos");
-				//file extension has to be geojson
-				if(!inLog.endsWith("log")) {
-					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
-					System.exit(-1);
-				}
+//				inLog=line.getOptionValue("infos");
+//				//file extension has to be geojson
+//				if(!inLog.endsWith("log")) {
+//					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
+//					System.exit(-1);
+//				}
 				
 				outDir=line.getOptionValue("output");
 				mandatory=true;
@@ -96,10 +94,10 @@ public class Optimization {
 			OptimizationOperator o=new OptimizationOperator();	
 			switch (type) {
 			case "linear":
-				o.executeLinear(inGeo, inLog, outDir, fWeights, topCat);
+				o.executeLinear(inGeo, outDir, fWeights, topCat);
 				break;
 			case "pareto":
-				o.executePareto(inGeo, inLog, outDir);
+				o.executePareto(inGeo, outDir);
 				break;
 			default:
                 formatter.printHelp(helpUsage,"\ncommands list:", options, helpFooter);
@@ -126,9 +124,9 @@ public class Optimization {
 		 options.addOption(OptionBuilder.withLongOpt("input").withDescription("set the geojson input file")
 						.hasArg().withArgName("path/to/file").create("I"));
 		 
-		 //option infos
-		 options.addOption(OptionBuilder.withLongOpt("infos").withDescription("set the log input file")
-					.hasArg().withArgName("path/to/file").create("i"));
+//		 //option infos
+//		 options.addOption(OptionBuilder.withLongOpt("infos").withDescription("set the log input file")
+//					.hasArg().withArgName("path/to/file").create("i"));
 		 
 		 //option top
 		 options.addOption(OptionBuilder.withLongOpt("top").withDescription("set the number of clusters to hold in the fingerprint. Default 10. Valid only for type=linear")

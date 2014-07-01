@@ -22,7 +22,6 @@ public class OptimizationOperator {
 	
 	
 	public void executePareto(	String inGeo, 
-								String inLog, 
 								String output
 							 )
 	throws Exception
@@ -31,38 +30,39 @@ public class OptimizationOperator {
 		GeoJSONReader geoReader=new GeoJSONReader();
 		FeatureCollectionTemplate fct = geoReader.decodeForOptimization(inGeo);
 		LogDataIO logIO=new LogDataIO();
-		ArrayList<Integer> s_infos=logIO.readSamplingLog(inLog);
+		//ArrayList<Integer> s_infos=logIO.readSamplingLog(inLog);
 		
 		OptimizationTools tools=new OptimizationTools();
 		
 		//Get the clustering infos
 		ArrayList<ArrayList<ArrayList<Double>>> multiPoints = tools.getMultiPoints(fct);
-		ArrayList<ArrayList<VenueTemplate>> venues = tools.getVenuesOfClusters(fct);
-		ArrayList<ArrayList<ArrayList<Double>>> cells = tools.getObjectsOfClusters(venues);
-		ArrayList<String[]> labels = tools.getLabelsOfClusters(fct);
+		ArrayList<ArrayList<VenueTemplate>> 	venues = tools.getVenuesOfClusters(fct);
+		//ArrayList<ArrayList<ArrayList<Double>>> cells = tools.getObjectsOfClusters(venues);
+		ArrayList<String[]> 					labels = tools.getLabelsOfClusters(fct);
+		
+		//Function 1: Spatial Coverage
+		ArrayList<Double> surface=tools.getSpatialCoverage(fct);//getSpatialCoverage(cells, s_infos.get(0));
+		//Function 2: Density
+		ArrayList<Double> density = tools.getDensity(fct);
+		//Function 3: Heterogeneity
+		ArrayList<Double> heterogeneity = tools.getHeterogeneity(fct);
+		//Function 4: SSE
+		ArrayList<Double> sse = tools.getSSE(fct);
+		
+		
 		String date=fct.getProperties().getDate();
 		double eps=fct.getProperties().getEps();
 		BoundingBox bbox=fct.getProperties().getBbox();		
 		
-		//Function 1: Spatial Coverage
-		ArrayList<Double> spatialCoverage=tools.getSpatialCoverage(cells, s_infos.get(0));
+
 		
-		//Function 2: Density
-		ArrayList<Double> density = tools.getDensity(venues, cells);
-		
-		//Function 3: Heterogeneity
-		ArrayList<Double> heterogeneity = tools.getHeterogeneity(labels, s_infos.get(1));
-				
-		//Function 4: SSE
-		ArrayList<Double> sse = tools.getSSE(fct);
-		
-		if(spatialCoverage.size() != density.size() &&
-		   spatialCoverage.size() != heterogeneity.size() &&
-		   spatialCoverage.size() != sse.size())
+		if(surface.size() != density.size() &&
+		   surface.size() != heterogeneity.size() &&
+		   surface.size() != sse.size())
 			throw new Exception("The objective functions are not aligned");
 		
 		Collection<ParetoPoint> paretoPoints = 
-								tools.getParetoPoints(  spatialCoverage,
+								tools.getParetoPoints(  surface,
 										 			    density,
 										 			    heterogeneity,
 										 			    sse);
@@ -104,6 +104,9 @@ public class OptimizationOperator {
 		geoWriter.writerAfterOptimization( bbox, 
 										   selected, 
 										   multiPoints, 
+										   surface,
+										   density,
+										   heterogeneity,
 										   sse, 
 										   venues, 
 										   labels, 
@@ -118,7 +121,6 @@ public class OptimizationOperator {
 	}
 	
 	public void executeLinear(	String inGeo, 
-								String inLog, 
 								String output, 
 								ArrayList<Double> weights, 
 								int top
@@ -129,33 +131,33 @@ public class OptimizationOperator {
 		GeoJSONReader geoReader=new GeoJSONReader();
 		FeatureCollectionTemplate fct = geoReader.decodeForOptimization(inGeo);
 		LogDataIO logIO=new LogDataIO();
-		ArrayList<Integer> s_infos=logIO.readSamplingLog(inLog);
+		//ArrayList<Integer> s_infos=logIO.readSamplingLog(inLog);
 		
 		OptimizationTools tools=new OptimizationTools();
 		
 		//Get the clustering infos
 		ArrayList<ArrayList<ArrayList<Double>>> multiPoints = tools.getMultiPoints(fct);
 		ArrayList<ArrayList<VenueTemplate>> venues = tools.getVenuesOfClusters(fct);
-		ArrayList<ArrayList<ArrayList<Double>>> cells = tools.getObjectsOfClusters(venues);
+		//ArrayList<ArrayList<ArrayList<Double>>> cells = tools.getObjectsOfClusters(venues);
 		ArrayList<String[]> labels = tools.getLabelsOfClusters(fct);
 		String date=fct.getProperties().getDate();
 		double eps=fct.getProperties().getEps();
 		BoundingBox bbox=fct.getProperties().getBbox();
 		
 		//Function 1: Spatial Coverage
-		ArrayList<Double> spatialCoverage=tools.getSpatialCoverage(cells, s_infos.get(0));
+		ArrayList<Double> surface=tools.getSpatialCoverage(fct);
 		
 		//Function 2: Density
-		ArrayList<Double> density = tools.getDensity(venues, cells);
+		ArrayList<Double> density = tools.getDensity(fct);
 		
 		//Function 3: Heterogeneity
-		ArrayList<Double> heterogeneity = tools.getHeterogeneity(labels, s_infos.get(1));
+		ArrayList<Double> heterogeneity = tools.getHeterogeneity(fct);
 		
 		//Function 4: SSE
 		ArrayList<Double> sse = tools.getSSE(fct);
 				
 		//Linear combination f0 = w1*f1 + w2*f2 + w3*f3 for each cluster
-		Map<Integer, Double> clusterMap = tools.getLinearCombination(spatialCoverage, 
+		Map<Integer, Double> clusterMap = tools.getLinearCombination(surface, 
 																	 density, 
 																	 heterogeneity, 
 																	 weights);
@@ -180,6 +182,9 @@ public class OptimizationOperator {
 											bbox, 
 											selected, 
 											multiPoints, 
+  										    surface,
+											density,
+											heterogeneity,											
 											sse, 
 											venues, 
 											labels, 
@@ -188,7 +193,7 @@ public class OptimizationOperator {
 											output,
 											"linear"
    										 );
-		logIO.writeOptimizationLog(selected, sortedMap, weights, spatialCoverage, 
+		logIO.writeOptimizationLog(selected, sortedMap, weights, surface, 
 				density, heterogeneity, new ArrayList<Double>(clusterMap.values()), output);
 	}
 }

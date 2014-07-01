@@ -120,10 +120,10 @@ public class GeoJSONWriter implements IGeoWriter{
 	        	writer.beginObject();
 	    		writer.name("clusterId").value(key+1);
 	    		writer.name("name").value(name);
-	    		writer.name("sse").value(cSSE.get(key));
 	    		writer.name("surface").value(cSurface.get(key));
-	    		writer.name("heterogeneity").value(cHeterogeneity.get(key));
 	    		writer.name("density").value(cDensity.get(key));
+	    		writer.name("heterogeneity").value(cHeterogeneity.get(key));
+	    		writer.name("sse").value(cSSE.get(key));
 	    		writer.name("venues");
 	    		writer.beginArray();
 
@@ -175,6 +175,9 @@ public class GeoJSONWriter implements IGeoWriter{
 											BoundingBox bbox, 
 											List<Integer> selected, 
 											ArrayList<ArrayList<ArrayList<Double>>> multipoints, 
+											ArrayList<Double> surface,
+											ArrayList<Double> density,
+											ArrayList<Double> heterogeneity,											
 											ArrayList<Double> sse,
 											ArrayList<ArrayList<VenueTemplate>> venues, 
 											ArrayList<String[]> labels,
@@ -236,6 +239,9 @@ public class GeoJSONWriter implements IGeoWriter{
 	        	writer.beginObject();
 	    		writer.name("clusterId").value(key);
 	    		writer.name("name").value(name);
+	    		writer.name("surface").value(surface.get(selected.get(i)-1));
+	    		writer.name("density").value(density.get(selected.get(i)-1));
+	    		writer.name("heterogeneity").value(heterogeneity.get(selected.get(i)-1));
 	    		writer.name("sse").value(sse.get(selected.get(i)-1));
 	    		writer.name("venues");
 	    		writer.beginArray();
