@@ -115,16 +115,17 @@ app.Legend = function() {
 						.map(function(cluster) {
 							var clusterId = cluster.properties.clusterId;
 							var heterogeneity = cluster.properties.heterogeneity ? cluster.properties.heterogeneity.toFixed(2) : 0;
-							var surface = cluster.properties.heterogeneity ? cluster.properties.surface.toFixed(2) : 0;
-							var density = cluster.properties.density ? cluster.properties.density.toFixed(2) : 0;
-							var sse = cluster.properties.sse ? cluster.properties.sse.toFixed(2) : 0;
+							var surface = cluster.properties.heterogeneity ? cluster.properties.surface.toFixed(3) : 0;
+							var density = cluster.properties.density ? cluster.properties.density : 0;
+							//var sse = cluster.properties.sse ? cluster.properties.sse.toFixed(6) : 0;
+							var distance = cluster.properties.distance ? cluster.properties.distance.toFixed(3) : 0;
 							var label = 'cluster ' + clusterId + 
-								' <em>(' + cluster.properties.venues.length + 
-								' venues; SSE=' + sse  +
-								', surface=' + surface +
-								', density=' + density + 
-								', heterogeneity=' + heterogeneity +
-								')</em>';
+								' <em> venue: number=' + cluster.properties.venues.length + 
+								' , avg_distance=' + distance  + "Km" +
+ 								' , density=' + (1/5*density).toFixed(3) + "/Km^2; " +  //the 1/5=0.2 is just an ACK
+								' cluster: surface=' + surface + "%" + 
+								', heterogeneity=' + heterogeneity + "%" +
+								'</em>';
 							var hrefCluster = '#!' + params.location + '/clusters/' + clusterId;
 							var isChecked = params.clusters && params.clusters.indexOf(clusterId) >= 0;
 							isChecked = isChecked || selectAll;
