@@ -518,11 +518,11 @@ public class ImportTools {
 	}
 	
 	/** Haversine formula implementation. It returns the distance between 
-	 * two points given latitude and longitude values in meters
+	 * two points given latitude and longitude values in Km
 	 */
 	public double getDistance(double lat1, double lng1, double lat2, double lng2){
 		
-		double earthRadius = 6371; //in km
+		double earthRadius = 6372.8; //in Km
 	    double dLat = Math.toRadians(lat2-lat1);
 	    double dLng = Math.toRadians(lng2-lng1);
 	    double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -531,6 +531,12 @@ public class ImportTools {
 	    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 	    double dist = earthRadius * c;
 
+	    //round to the 3rd digit
 	    return Math.floor(dist*1000)/1000;
 	}		
+	
+    public static void main(String[] args) {
+    	ImportTools tools = new ImportTools();
+        System.out.println(tools.getDistance(36.12, -86.67, 33.94, -118.40));
+    }
 }

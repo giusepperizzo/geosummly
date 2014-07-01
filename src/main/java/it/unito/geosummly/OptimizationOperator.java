@@ -49,13 +49,12 @@ public class OptimizationOperator {
 		//Function 4: SSE
 		ArrayList<Double> sse = tools.getSSE(fct);
 		
+		ArrayList<Double> distance = tools.getDistance(fct);
 		
 		String date=fct.getProperties().getDate();
 		double eps=fct.getProperties().getEps();
 		BoundingBox bbox=fct.getProperties().getBbox();		
-		
-
-		
+				
 		if(surface.size() != density.size() &&
 		   surface.size() != heterogeneity.size() &&
 		   surface.size() != sse.size())
@@ -108,6 +107,7 @@ public class OptimizationOperator {
 										   density,
 										   heterogeneity,
 										   sse, 
+										   distance,
 										   venues, 
 										   labels, 
 										   eps, 
@@ -156,6 +156,9 @@ public class OptimizationOperator {
 		//Function 4: SSE
 		ArrayList<Double> sse = tools.getSSE(fct);
 				
+		ArrayList<Double> distance = tools.getDistance(fct);
+
+		
 		//Linear combination f0 = w1*f1 + w2*f2 + w3*f3 for each cluster
 		Map<Integer, Double> clusterMap = tools.getLinearCombination(surface, 
 																	 density, 
@@ -186,6 +189,7 @@ public class OptimizationOperator {
 											density,
 											heterogeneity,											
 											sse, 
+											distance,
 											venues, 
 											labels, 
 											eps, 

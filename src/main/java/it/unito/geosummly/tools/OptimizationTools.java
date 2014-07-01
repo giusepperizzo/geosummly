@@ -385,4 +385,16 @@ public class OptimizationTools {
 
 		return result;
 	}
+
+	public ArrayList<Double> getDistance(FeatureCollectionTemplate fct) 
+	{
+		ArrayList<Double> result = new ArrayList<Double>();
+		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
+
+		//iterate for all clusters
+		for(FeatureTemplate ft: ft_array) 
+			result.add(ft.getProperties().getDistance());
+
+		return result;
+	}
 }

@@ -49,6 +49,7 @@ public class GeoTurtleWriter implements IGeoWriter {
 							HashMap<Integer, String> labels,
 							HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
 							HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
+							HashMap<Integer, Double> cDistance,							
 							HashMap<Integer, Double> cSSE,
 							HashMap<Integer, Double> cSurface, 
 							HashMap<Integer, Double> cHeterogeneity, 

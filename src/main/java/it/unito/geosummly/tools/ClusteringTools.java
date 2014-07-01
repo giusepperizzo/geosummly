@@ -27,9 +27,11 @@ import de.lmu.ifi.dbs.elki.database.Database;
 import de.lmu.ifi.dbs.elki.database.ids.DBIDIter;
 import de.lmu.ifi.dbs.elki.database.ids.DBIDUtil;
 import de.lmu.ifi.dbs.elki.database.relation.Relation;
+import de.lmu.ifi.dbs.elki.database.relation.RelationUtil;
 import de.lmu.ifi.dbs.elki.datasource.ArrayAdapterDatabaseConnection;
 import de.lmu.ifi.dbs.elki.datasource.filter.FixedDBIDsFilter;
 import de.lmu.ifi.dbs.elki.utilities.ClassGenericsUtil;
+import de.lmu.ifi.dbs.elki.utilities.DatabaseUtil;
 import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameterization.ListParameterization;
 
 public class ClusteringTools {
@@ -523,6 +525,59 @@ public class ClusteringTools {
         return db;
     }
     
+    @SuppressWarnings("unchecked")
+	public <V extends NumberVector<?>> double getDistance(	
+											Database db, 
+											Cluster<?> cluster,
+											HashMap<Integer, String> featuresMap, 
+											List<CSVRecord> listDens 
+										) 
+	{
+	
+    	double distance=0.0;
+    	Iterator<Relation<?>> iter=db.getRelations().iterator();
+		iter.next();
+		Relation<V> relation=(Relation<V>) iter.next();
+	    
+ 		double sum_distance = 0.0;
+    	double total_number = 0.0;
+    			
+		Vector<Integer> dimensions = getDimensions(cluster.getName(), featuresMap);  	
+    	
+		for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) 
+		{
+			V o1 = relation.get(i1);	
+			int cellId1 = Integer.parseInt(DBIDUtil.toString(i1));
+			double lat1 = Double.parseDouble( listDens.get(cellId1).get(1) ); //latitude
+			double lng1 = Double.parseDouble( listDens.get(cellId1).get(2) ); //longitude
+			
+			for (DBIDIter i2 = cluster.getIDs().iter(); i2.valid(); i2.advance()) 
+			{
+				V o2 = relation.get(i2);
+				int cellId2 = Integer.parseInt(DBIDUtil.toString(i2));
+				double lat2 = Double.parseDouble( listDens.get(cellId2).get(1) ); //latitude
+				double lng2 = Double.parseDouble( listDens.get(cellId2).get(2) ); //longitude
+				
+				double sum = 0.0;
+				
+				for (int i=0; i<dimensions.size(); i++) {
+					double d1 = o1.doubleValue(dimensions.get(i));
+					double d2 = o2.doubleValue(dimensions.get(i));
+					
+					ImportTools tools = new ImportTools();
+					sum += d1*d2* ( tools.getDistance(lat1, lng1, lat2, lng2) ); //convert to Km
+				}
+				
+				sum_distance += sum;
+			}
+			
+			total_number++; //total number of points in a cluster
+		}
+		distance+= sum_distance * 1/(2*total_number);
+		
+    	return distance;
+    }
+    
     /*
      *  Get SSE cluster
      */
@@ -585,7 +640,7 @@ public class ClusteringTools {
 		
     	return sse;
     }
-
+    
 	/**
      * Get the SSE value of the clustering
      * @param featuresMap 
@@ -635,13 +690,13 @@ public class ClusteringTools {
 		return dimensions;
 	}
 
-	public Double getClusterSurface(Database db, Cluster<?> cluster) 
+	public Double getClusterSurface(Database db, Cluster<?> cluster, int size) 
 	{
 		int objects = 0;
 		for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) 
 			objects ++;
 		
-		return objects/(1.0 * db.getRelations().size());
+		return objects/(1.0 * size);
 	}
 
 	public Double getClusterHeterogeneity(Cluster<?> cluster,

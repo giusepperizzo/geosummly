@@ -10,6 +10,7 @@ public class FeaturePropertiesTemplate {
 	private double heterogeneity;
 	private double density;
 	private double sse;
+	private double distance;
 	
 	private ArrayList<VenueTemplate> venues;
 	
@@ -73,5 +74,13 @@ public class FeaturePropertiesTemplate {
 
 	public void setDensity(double density) {
 		this.density = density;
+	}
+
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
 	}
 }

@@ -87,6 +87,7 @@ public class ClusteringOperator {
 	    HashMap<Integer, String> clustersName=new HashMap<Integer, String>(); //key, cluster name
 	    HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster=new HashMap<Integer, ArrayList<ArrayList<Double>>>(); //key, cell_ids + lat + lng 
 	    HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell=new HashMap<Integer, ArrayList<ArrayList<String>>>(); //cell_id, venue_record
+	    HashMap<Integer, Double> cDistance = new HashMap<>();
 	    HashMap<Integer, Double> cSSE = new HashMap<>(); 
 	    HashMap<Integer, Double> cSurface = new HashMap<>();
 	    HashMap<Integer, Double> cHeterogeneity = new HashMap<>();
@@ -102,10 +103,12 @@ public class ClusteringOperator {
 	    		cells=cellsOfCluster.get(index);
 	    		venuesOfCell=tools.putVenuesOfCells(cluster.getName(), index, venuesOfCell, cells, listSingles);
 	    		   	    		
+	    		cDistance.put(index, new Double(tools.getDistance(db, cluster, featuresMap, listDens)));
 	    		cSSE.put(index, tools.getClusterSSE(db, cluster, featuresMap));
-	    		cSurface.put(index, tools.getClusterSurface(db, cluster));
+	    		cSurface.put(index, tools.getClusterSurface(db, cluster, normMatrix.size()));
 	    		cHeterogeneity.put(index, tools.getClusterHeterogeneity(cluster, featuresMap));
 	    		cDensity.put(index, tools.getClusterDensity(venuesOfCell.size(), cluster));
+	    		
 	    	}
 	    }
 	    
@@ -124,6 +127,7 @@ public class ClusteringOperator {
 	    					clustersName, 
 	    					cellsOfCluster, 
 	    					venuesOfCell, 
+	    					cDistance,
 	    					cSSE,
 	    					cSurface,
 	    					cHeterogeneity,
@@ -136,6 +140,7 @@ public class ClusteringOperator {
 	    					clustersName, 
 	    					cellsOfCluster, 
 	    					venuesOfCell, 
+	    					cDistance,
 	    					cSSE,
 	    					cSurface,
 	    					cHeterogeneity,

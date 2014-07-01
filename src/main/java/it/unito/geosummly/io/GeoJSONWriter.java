@@ -24,6 +24,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	public void writeStream(BoundingBox bbox, HashMap<Integer, String> labels, 
 							HashMap<Integer, ArrayList<ArrayList<Double>>> cells,
 							HashMap<Integer, ArrayList<ArrayList<String>>> venues, 
+							HashMap<Integer, Double> cDistance,
 							HashMap<Integer, Double> cSSE,
 							HashMap<Integer, Double> cSurface, 
 							HashMap<Integer, Double> cHeterogeneity, 
@@ -124,6 +125,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		writer.name("density").value(cDensity.get(key));
 	    		writer.name("heterogeneity").value(cHeterogeneity.get(key));
 	    		writer.name("sse").value(cSSE.get(key));
+	    		writer.name("distance").value(cDistance.get(key));
 	    		writer.name("venues");
 	    		writer.beginArray();
 
@@ -179,6 +181,7 @@ public class GeoJSONWriter implements IGeoWriter{
 											ArrayList<Double> density,
 											ArrayList<Double> heterogeneity,											
 											ArrayList<Double> sse,
+											ArrayList<Double> distance,
 											ArrayList<ArrayList<VenueTemplate>> venues, 
 											ArrayList<String[]> labels,
 											double eps, 
@@ -243,6 +246,7 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		writer.name("density").value(density.get(selected.get(i)-1));
 	    		writer.name("heterogeneity").value(heterogeneity.get(selected.get(i)-1));
 	    		writer.name("sse").value(sse.get(selected.get(i)-1));
+	    		writer.name("distance").value(distance.get(selected.get(i)-1));
 	    		writer.name("venues");
 	    		writer.beginArray();
 	    		
