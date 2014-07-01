@@ -568,7 +568,7 @@ public class EvaluationTools {
 		return randomNorm;
 	}
 	
-	public ArrayList<ArrayList<Double>> buildNormalizedUniformerly(ArrayList<ArrayList<Double>> matrix) 
+	public ArrayList<ArrayList<Double>> buildNormalizedUniformly(ArrayList<ArrayList<Double>> matrix) 
 	{
 		Random r = new Random();
 		int n_rows = matrix.size(); 

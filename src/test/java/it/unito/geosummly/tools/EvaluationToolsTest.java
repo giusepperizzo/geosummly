@@ -397,7 +397,7 @@ public class EvaluationToolsTest extends TestCase {
 		norm.add(rec_1); norm.add(rec_2);
 		
 		EvaluationTools tools = new EvaluationTools();
-		ArrayList<ArrayList<Double>> actual = tools.buildNormalizedUniformerly(norm);
+		ArrayList<ArrayList<Double>> actual = tools.buildNormalizedUniformly(norm);
 		
 		assertEquals(2, actual.size());
 		for(ArrayList<Double> r: actual) {
