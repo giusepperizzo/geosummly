@@ -127,7 +127,7 @@ public class CSVDataIO {
 	/**
 	 * Print result of single matrix to csv file.
 	*/
-	public void printResultSingles(ArrayList<Long> timestamps, 
+	public void printResultSingles(long timestamp, 
 									ArrayList<Integer> beenHere, 
 									ArrayList<String> singlesId, 
 									ArrayList<ArrayList<BigDecimal>> matrix, 
@@ -148,7 +148,7 @@ public class CSVDataIO {
             
             //iterate per each row of the matrix
             for(int i=0; i<matrix.size();i++) {
-            	csv.print(timestamps.get(0));
+            	csv.print(timestamp);
             	csv.print(beenHere.get(i));
             	csv.print(singlesId.get(i));
             	for(int j=0;j<matrix.get(i).size();j++) {

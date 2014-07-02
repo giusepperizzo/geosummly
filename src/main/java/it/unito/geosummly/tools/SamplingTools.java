@@ -17,28 +17,37 @@ import java.util.logging.Logger;
 
 public class SamplingTools {
 	
+	//Variables of the 1st category level
 	private int total;
-	private ArrayList<String> singlesId;
-	private ArrayList<Long> singlesTimestamps;
-	private ArrayList<Long> cellsTimestamps;
+	private ArrayList<String> ids;
+	private ArrayList<Long> timestamps;
 	private ArrayList<Integer> beenHere;
 	private HashMap<String, Integer> map;
-	private int totalSecondLevel;
-	private HashMap<String, Integer> mapSecondLevel;
-	private ArrayList<ArrayList<BigDecimal>> matrixSecondLevel;
+	
+	//Variables of the 2nd category level
+	private int totalSecond;
+	private ArrayList<String> idsSecond;
+	private ArrayList<Long> timestampsSecond;
+	private ArrayList<Integer> beenHereSecond;
+	private HashMap<String, Integer> mapSecond;
+	private ArrayList<ArrayList<BigDecimal>> matrixSecond;
 	
 	public static Logger logger = Logger.getLogger(SamplingTools.class.toString());
 	
 	public SamplingTools() {
-		this.total=0;
-		this.singlesId=new ArrayList<String>();
-		this.singlesTimestamps=new ArrayList<Long>();
-		this.cellsTimestamps=new ArrayList<Long>();
-		this.beenHere=new ArrayList<Integer>();
-		this.map=new HashMap<String, Integer>();
-		this.totalSecondLevel=0;
-		this.mapSecondLevel=new HashMap<String, Integer>();
-		this.matrixSecondLevel=new ArrayList<ArrayList<BigDecimal>>();
+		
+		this.total = 0;
+		this.ids = new ArrayList<String>();
+		this.timestamps = new ArrayList<Long>();
+		this.beenHere = new ArrayList<Integer>();
+		this.map = new HashMap<String, Integer>();
+		
+		this.totalSecond = 0;
+		this.idsSecond = new ArrayList<String>();
+		this.timestampsSecond = new ArrayList<Long>();
+		this.beenHereSecond = new ArrayList<Integer>();
+		this.mapSecond = new HashMap<String, Integer>();
+		this.matrixSecond = new ArrayList<ArrayList<BigDecimal>>();
 	}
 	
 	public int getTotal() {
@@ -57,44 +66,20 @@ public class SamplingTools {
 		this.map = map;
 	}
 	
-	public int getTotalSecondLevel() {
-		return totalSecondLevel;
-	}
-
-	public void setTotalSecondLevel(int totalSecondLevel) {
-		this.totalSecondLevel = totalSecondLevel;
+	public ArrayList<String> getIds() {
+		return ids;
 	}
 	
-	public HashMap<String, Integer> getMapSecondLevel() {
-		return mapSecondLevel;
-	}
-
-	public void setMapSecondoLevel(HashMap<String, Integer> mapSecondLevel) {
-		this.mapSecondLevel = mapSecondLevel;
+	public void setIds(ArrayList<String> ids) {
+		this.ids = ids;
 	}
 	
-	public ArrayList<String> getSinglesId() {
-		return singlesId;
+	public ArrayList<Long> getTimestamps() {
+		return timestamps;
 	}
 	
-	public void setSinglesId(ArrayList<String> singlesId) {
-		this.singlesId=singlesId;
-	}
-	
-	public ArrayList<Long> getSinglesTimestamps() {
-		return singlesTimestamps;
-	}
-	
-	public void setSinglesTimestamps(ArrayList<Long> singlesTimestamps) {
-		this.singlesTimestamps=singlesTimestamps;
-	}
-	
-	public ArrayList<Long> getCellsTimestamps() {
-		return cellsTimestamps;
-	}
-	
-	public void setCellsTimestamps(ArrayList<Long> cellsTimestamps) {
-		this.cellsTimestamps=cellsTimestamps;
+	public void setTimestamps(ArrayList<Long> timestamps) {
+		this.timestamps = timestamps;
 	}
 	
 	public ArrayList<Integer> getBeenHere() {
@@ -105,12 +90,52 @@ public class SamplingTools {
 		this.beenHere=beenHere;
 	}
 	
-	public ArrayList<ArrayList<BigDecimal>> getMatrixSecondLevel() {
-		return matrixSecondLevel;
+	public int getTotalSecond() {
+		return totalSecond;
 	}
 	
-	public void setMatrixSecondLevel(ArrayList<ArrayList<BigDecimal>> matrixSecondLevel) {
-		this.matrixSecondLevel=matrixSecondLevel;
+	public void setTotalSecond(int totalSecond) {
+		this.totalSecond = totalSecond;
+	}
+	
+	public ArrayList<String> getIdsSecond() {
+		return idsSecond;
+	}
+	
+	public void setIdsSecond(ArrayList<String> idsSecond) {
+		this.idsSecond = idsSecond;
+	}
+
+	public ArrayList<Long> getTimestampsSecond() {
+		return timestampsSecond;
+	}
+	
+	public void setTimestampsSecond(ArrayList<Long> timestampsSecond) {
+		this.timestampsSecond = timestampsSecond;
+	}
+
+	public ArrayList<Integer> getBeenHereSecond() {
+		return beenHereSecond;
+	}
+
+	public void setBeenHereSecond(ArrayList<Integer> beenHereSecond) {
+		this.beenHereSecond = beenHereSecond;
+	}
+
+	public HashMap<String, Integer> getMapSecond() {
+		return mapSecond;
+	}
+
+	public void setMapSecond(HashMap<String, Integer> mapSecond) {
+		this.mapSecond = mapSecond;
+	}
+
+	public ArrayList<ArrayList<BigDecimal>> getMatrixSecond() {
+		return matrixSecond;
+	}
+
+	public void setMatrixSecond(ArrayList<ArrayList<BigDecimal>> matrixSecond) {
+		this.matrixSecond = matrixSecond;
 	}
 
 	/**Get a list with all elements equal to zero*/
@@ -250,8 +275,8 @@ public class SamplingTools {
 					rowOfMatrix.add(0, new BigDecimal(venue.getLatitude()));
 					rowOfMatrix.add(1, new BigDecimal(venue.getLongitude()));
 					
-					this.singlesId.add(venue.getVenueId()); //memorize venue id
-					this.singlesTimestamps.add(venue.getTimestamp()); //memorize timestamp
+					this.ids.add(venue.getVenueId()); //memorize venue id
+					this.timestamps.add(venue.getTimestamp()); //memorize timestamp
 					this.beenHere.add(venue.getCheckinsCount()); //memorize check-ins count
 					
 					//add the complete record
@@ -262,18 +287,22 @@ public class SamplingTools {
 					
 					ArrayList<String> auxSecondLevel = new ArrayList<String>();
 					auxSecondLevel.add(categorySecondLevel);
-					updateMap(this.mapSecondLevel, auxSecondLevel);
+					updateMap(this.mapSecond, auxSecondLevel);
 					
 					rowOfMatrixSecondLevel = 
-							fillRowWithSingle(this.mapSecondLevel, categorySecondLevel, lat, lng);
+							fillRowWithSingle(this.mapSecond, categorySecondLevel, lat, lng);
 					
-					if(this.totalSecondLevel < rowOfMatrixSecondLevel.size());
-						this.totalSecondLevel = rowOfMatrixSecondLevel.size();
+					if(this.totalSecond < rowOfMatrixSecondLevel.size());
+						this.totalSecond = rowOfMatrixSecondLevel.size();
 					
 					rowOfMatrixSecondLevel.add(0, new BigDecimal(venue.getLatitude()));
 					rowOfMatrixSecondLevel.add(1, new BigDecimal(venue.getLongitude()));
 					
-					this.matrixSecondLevel.add(rowOfMatrixSecondLevel);
+					this.idsSecond.add(venue.getVenueId()); //memorize venue id
+					this.timestampsSecond.add(venue.getTimestamp()); //memorize timestamp
+					this.beenHereSecond.add(venue.getCheckinsCount()); //memorize check-ins count
+					
+					this.matrixSecond.add(rowOfMatrixSecondLevel);
 				}
 			}
 		}

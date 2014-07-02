@@ -121,7 +121,12 @@ public class LogDataIO {
 	/**
 	 * Write the log file of sampling process 
 	*/
-	public void writeSamplingLog(BoundingBox bbox, ArrayList<BoundingBox> data, int categories_1st, int categories_2nd, String output) {
+	public void writeSamplingLog(BoundingBox bbox, 
+								 ArrayList<BoundingBox> data, 
+								 int categories_1st, 
+								 int categories_2nd, 
+								 String output,
+								 boolean secondLevel) {
 		
 		int cellNumber=data.size();
 		double cellArea=data.get(0).getArea().doubleValue();
@@ -138,7 +143,8 @@ public class LogDataIO {
 	        bw.write("Number of cells of the grid: "+cellNumber+"\n");
 	        bw.write("Area of a cell (km^2): "+cellArea+"\n");
 	        bw.write("Categories number (1st level): "+categories_1st+"\n");
-	        bw.write("Categories number (2nd level): "+categories_2nd);
+	        if(secondLevel)
+	        	bw.write("Categories number (2nd level): "+categories_2nd);
 			
 	        bw.flush();
 	        bw.close();
@@ -296,6 +302,79 @@ public class LogDataIO {
     		e.printStackTrace();
     	}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Write the log file of holdouts 
+	*/
+	public void writeHoldoutLog2(HashMap<String, Vector<Integer>> holdout, String output, char set, int index) {
+	    try {
+	    	File dir=new File(output); //create the output directory if it doesn't exist
+        	dir.mkdirs();
+	    	File file=new File(dir.getPath().concat("/holdout_results.log"));
+	 
+    		//if file doesn't exist, then create it
+			if(!file.exists()){
+				file.createNewFile();
+			}
+			
+			//get the last line to know the last fold number created
+			BufferedReader br = new BufferedReader(new FileReader(dir.getPath().concat("/holdout_results.log")));
+			String currentLine="";
+			String lastLine="";
+    		int lastFold=0;
+    		
+    	    while ((currentLine=br.readLine())!=null) {
+    	        lastLine = currentLine;
+    	    }
+    	    br.close();
+ 
+    		FileWriter fw = new FileWriter(file, true); //true=append
+	        BufferedWriter bw = new BufferedWriter(fw);
+	        
+	        if(lastLine.length() > 0)
+	        	bw.write("\n");
+	        ArrayList<String> keys=new ArrayList<String>(holdout.keySet());
+	        for(String label: keys) {
+	        	bw.write(label+";");
+	        	for(Integer i: holdout.get(label)) {
+	        		bw.write(i/*-length*/+" ");
+	        	}
+	        	bw.write("\n");
+	        }
+	        bw.write("_END_HO"+set);
+	        
+	        if(set == 'B'){
+	        	
+	        	bw.write("\n");
+	        	bw.write("_END_FOLD"+index);
+	        }
+	        bw.close();
+	        fw.close();
+	 
+    	} catch(IOException e){
+    		e.printStackTrace();
+    	}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Write the log file of Jaccard evaluation 
