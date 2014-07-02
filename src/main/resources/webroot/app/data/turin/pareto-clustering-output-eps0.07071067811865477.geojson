@@ -3,381 +3,60 @@
   "features": [
     {
       "type": "Feature",
-      "id": 6,
-      "geometry": {
-        "type": "MultiPoint",
-        "coordinates": [
-          [
-            45.0511666885307,
-            7.678424150821515
-          ],
-          [
-            45.052109559081174,
-            7.681349713501299
-          ],
-          [
-            45.052437723623974,
-            7.682089896663098
-          ],
-          [
-            45.05103994089823,
-            7.680100669135353
-          ],
-          [
-            45.05317356850053,
-            7.682147026062012
-          ],
-          [
-            45.05323559538503,
-            7.67799666671032
-          ],
-          [
-            45.05136509363529,
-            7.680962463907417
-          ],
-          [
-            45.05353110810721,
-            7.685263981930723
-          ],
-          [
-            45.05364150703365,
-            7.685301872781329
-          ],
-          [
-            45.052233767987225,
-            7.684286322386927
-          ],
-          [
-            45.05256282369155,
-            7.682603060856941
-          ],
-          [
-            45.05332946777344,
-            7.684282779693604
-          ],
-          [
-            45.052857072784676,
-            7.682998385581538
-          ],
-          [
-            45.053253,
-            7.68288
-          ]
-        ]
-      },
-      "properties": {
-        "clusterId": 7,
-        "name": "c(College & University)",
-        "sse": 0.2726637096699475,
-        "venues": [
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 1296,
-            "id": "4c31ecb1213c2d7f2694345d",
-            "venueLatitude": 45.0511666885307,
-            "venueLongitude": 7.678424150821515,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.679915428161621,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 836,
-            "id": "4bf0f18721072d7fc17a208b",
-            "venueLatitude": 45.052109559081174,
-            "venueLongitude": 7.681349713501299,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.679915428161621,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 119,
-            "id": "4e8075e79a528a7d4d5089cc",
-            "venueLatitude": 45.052437723623974,
-            "venueLongitude": 7.682089896663098,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.679915428161621,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 18,
-            "id": "4dd6df0b1fc7d8d8663f18c7",
-            "venueLatitude": 45.05103994089823,
-            "venueLongitude": 7.680100669135353,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.679915428161621,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 97,
-            "id": "4d4a1014031f59414c4cf6c0",
-            "venueLatitude": 45.05317356850053,
-            "venueLongitude": 7.682147026062012,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.679915428161621,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 30,
-            "id": "51360ed4e4b082d2741e845f",
-            "venueLatitude": 45.05323559538503,
-            "venueLongitude": 7.67799666671032,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.679915428161621,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 524,
-            "id": "4d4bae85b9a2a1433c1a5623",
-            "venueLatitude": 45.05136509363529,
-            "venueLongitude": 7.680962463907417,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.679915428161621,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 176,
-            "id": "4daea5b7fa8cf04fbe038961",
-            "venueLatitude": 45.05353110810721,
-            "venueLongitude": 7.685263981930723,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.685151100158691,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 41,
-            "id": "4f8e9fd7e4b018d8f66a6918",
-            "venueLatitude": 45.05364150703365,
-            "venueLongitude": 7.685301872781329,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.685151100158691,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 93,
-            "id": "4c2f5f9a66e40f4773bec18b",
-            "venueLatitude": 45.052233767987225,
-            "venueLongitude": 7.684286322386927,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.685151100158691,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 3,
-            "id": "517655f1e4b0e18a756f99b3",
-            "venueLatitude": 45.05256282369155,
-            "venueLongitude": 7.682603060856941,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.685151100158691,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 2,
-            "id": "51e8e447498ef95689747005",
-            "venueLatitude": 45.05332946777344,
-            "venueLongitude": 7.684282779693604,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.685151100158691,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 12,
-            "id": "51877aa7498ebe737ce7550b",
-            "venueLatitude": 45.052857072784676,
-            "venueLongitude": 7.682998385581538,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.685151100158691,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 3,
-            "id": "4c3ecc7ab037952140469ba7",
-            "venueLatitude": 45.053253,
-            "venueLongitude": 7.68288,
-            "centroidLatitude": 45.05216135442513,
-            "centroidLongitude": 7.685151100158691,
-            "category": "College & University"
-          }
-        ]
-      }
-    },
-    {
-      "type": "Feature",
       "id": 8,
       "geometry": {
         "type": "MultiPoint",
         "coordinates": [
           [
-            45.07292962169707,
-            7.697725296020508
+            45.09189738181573,
+            7.654197566524249
           ],
           [
-            45.07313507806902,
-            7.697930187334313
+            45.08785224163403,
+            7.653708311432407
           ],
           [
-            45.070916880370206,
-            7.694700633184356
-          ],
-          [
-            45.0731586470927,
-            7.697876345570307
-          ],
-          [
-            45.072281,
-            7.697561
-          ],
-          [
-            45.06812721185687,
-            7.694598770325952
-          ],
-          [
-            45.06808996144617,
-            7.694662238259354
-          ],
-          [
-            45.067970275878906,
-            7.695291996002197
-          ],
-          [
-            45.06706864256936,
-            7.693499519623796
-          ],
-          [
-            45.068303220155684,
-            7.695386638242574
-          ],
-          [
-            45.06705542736078,
-            7.695286737642179
+            45.090278186254004,
+            7.658565657497507
           ]
         ]
       },
       "properties": {
         "clusterId": 9,
         "name": "c(College & University)",
-        "sse": 0.11408943781138434,
+        "surface": 1.5,
+        "density": 3.0,
+        "heterogeneity": 0.1,
+        "sse": 6.981935986119902E-6,
         "venues": [
           {
-            "timestamp": 1400071690519,
-            "beenHere": 1241,
-            "id": "4d6bbb60dc858cfa8af87573",
-            "venueLatitude": 45.07292962169707,
-            "venueLongitude": 7.697725296020508,
-            "centroidLatitude": 45.07190809184292,
-            "centroidLongitude": 7.695622444152832,
+            "timestamp": 1404141894859,
+            "beenHere": 3,
+            "id": "51cd4126498e0080ecac980a",
+            "venueLatitude": 45.09189738181573,
+            "venueLongitude": 7.654197566524249,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.65373706817627,
             "category": "College & University"
           },
           {
-            "timestamp": 1400071690519,
-            "beenHere": 37,
-            "id": "5069a8e8e4b05564fcf13e02",
-            "venueLatitude": 45.07313507806902,
-            "venueLongitude": 7.697930187334313,
-            "centroidLatitude": 45.07190809184292,
-            "centroidLongitude": 7.695622444152832,
+            "timestamp": 1404141894859,
+            "beenHere": 429,
+            "id": "4ca0e3a819e4236aca846589",
+            "venueLatitude": 45.08785224163403,
+            "venueLongitude": 7.653708311432407,
+            "centroidLatitude": 45.08836370635775,
+            "centroidLongitude": 7.65373706817627,
             "category": "College & University"
           },
           {
-            "timestamp": 1400071690519,
-            "beenHere": 17,
-            "id": "4e9542e8d22df0eb8bab5a70",
-            "venueLatitude": 45.070916880370206,
-            "venueLongitude": 7.694700633184356,
-            "centroidLatitude": 45.07190809184292,
-            "centroidLongitude": 7.695622444152832,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 11,
-            "id": "53147dc7498e32844af04f27",
-            "venueLatitude": 45.0731586470927,
-            "venueLongitude": 7.697876345570307,
-            "centroidLatitude": 45.07190809184292,
-            "centroidLongitude": 7.695622444152832,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 15,
-            "id": "5191e334498eb731c054f8e4",
-            "venueLatitude": 45.072281,
-            "venueLongitude": 7.697561,
-            "centroidLatitude": 45.07190809184292,
-            "centroidLongitude": 7.695622444152832,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 3922,
-            "id": "4bec10dba9900f47c8801840",
-            "venueLatitude": 45.06812721185687,
-            "venueLongitude": 7.694598770325952,
-            "centroidLatitude": 45.068616968939956,
-            "centroidLongitude": 7.695622444152832,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 1119,
-            "id": "4cb2c2cfdedbef3bcc7f9d40",
-            "venueLatitude": 45.06808996144617,
-            "venueLongitude": 7.694662238259354,
-            "centroidLatitude": 45.068616968939956,
-            "centroidLongitude": 7.695622444152832,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 23,
-            "id": "526fb7b911d21684919709c4",
-            "venueLatitude": 45.067970275878906,
-            "venueLongitude": 7.695291996002197,
-            "centroidLatitude": 45.068616968939956,
-            "centroidLongitude": 7.695622444152832,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 83,
-            "id": "4ffafed0e4b07a70ba8aa479",
-            "venueLatitude": 45.06706864256936,
-            "venueLongitude": 7.693499519623796,
-            "centroidLatitude": 45.068616968939956,
-            "centroidLongitude": 7.695622444152832,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 110,
-            "id": "50a9e88ce4b0354e5d1a1f00",
-            "venueLatitude": 45.068303220155684,
-            "venueLongitude": 7.695386638242574,
-            "centroidLatitude": 45.068616968939956,
-            "centroidLongitude": 7.695622444152832,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 1135,
-            "id": "4c32202316adc928fc99c19c",
-            "venueLatitude": 45.06705542736078,
-            "venueLongitude": 7.695286737642179,
-            "centroidLatitude": 45.068616968939956,
-            "centroidLongitude": 7.695622444152832,
+            "timestamp": 1404141894859,
+            "beenHere": 276,
+            "id": "4ee749e66da14e7d9c56e775",
+            "venueLatitude": 45.090278186254004,
+            "venueLongitude": 7.658565657497507,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.65897274017334,
             "category": "College & University"
           }
         ]
@@ -390,16 +69,329 @@
         "type": "MultiPoint",
         "coordinates": [
           [
-            45.079689207974184,
-            7.690608333353125
+            45.08360622388373,
+            7.655496551838247
           ],
           [
-            45.077911,
-            7.695738
+            45.0821505435502,
+            7.653002965635516
           ],
+          [
+            45.083538,
+            7.64755
+          ],
+          [
+            45.085757933719364,
+            7.660420604383115
+          ],
+          [
+            45.082535,
+            7.6479
+          ],
+          [
+            45.08187279922969,
+            7.659763737224407
+          ],
+          [
+            45.07960662041349,
+            7.652762231017668
+          ],
+          [
+            45.08319974530017,
+            7.662088570281388
+          ],
+          [
+            45.07891885290959,
+            7.650721721779068
+          ],
+          [
+            45.076082397932666,
+            7.652351552809956
+          ],
+          [
+            45.07374811769446,
+            7.647873749569671
+          ],
+          [
+            45.0748369549471,
+            7.661463418197295
+          ],
+          [
+            45.071331203221355,
+            7.649342937717178
+          ],
+          [
+            45.07851596734883,
+            7.64564406783242
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 17,
+        "name": "c(Nightlife Spot)",
+        "surface": 7.0,
+        "density": 1.2142857142857142,
+        "heterogeneity": 0.1,
+        "sse": 6.052971107307356E-4,
+        "venues": [
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 38,
+            "id": "4bae1cbbf964a520a0853be3",
+            "venueLatitude": 45.08360622388373,
+            "venueLongitude": 7.655496551838247,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 165,
+            "id": "4cfbe75420fe3704aabd56f8",
+            "venueLatitude": 45.0821505435502,
+            "venueLongitude": 7.653002965635516,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "id": "51df3073498e4cf558ca216c",
+            "venueLatitude": 45.083538,
+            "venueLongitude": 7.64755,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 95,
+            "id": "517b035f498e8b833c020225",
+            "venueLatitude": 45.085757933719364,
+            "venueLongitude": 7.660420604383115,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 450,
+            "id": "4ba554cbf964a52098fb38e3",
+            "venueLatitude": 45.082535,
+            "venueLongitude": 7.6479,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 1130,
+            "id": "4c7d78a52079b7135bd9e4f5",
+            "venueLatitude": 45.08187279922969,
+            "venueLongitude": 7.659763737224407,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 85,
+            "id": "4e4116d952b17005f5c58aee",
+            "venueLatitude": 45.07960662041349,
+            "venueLongitude": 7.652762231017668,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 41,
+            "id": "4f11efa3e4b0456267b4c6aa",
+            "venueLatitude": 45.08319974530017,
+            "venueLongitude": 7.662088570281388,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 3,
+            "id": "5043c09ce4b0b9943efc595e",
+            "venueLatitude": 45.07891885290959,
+            "venueLongitude": 7.650721721779068,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 8,
+            "id": "4d6e54aa134ea1434c778e1a",
+            "venueLatitude": 45.076082397932666,
+            "venueLongitude": 7.652351552809956,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.65373706817627,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 169,
+            "id": "4d82ae69e83fa14357293da1",
+            "venueLatitude": 45.07374811769446,
+            "venueLongitude": 7.647873749569671,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 50,
+            "id": "4ed2551a77c8ea62fe5f7aff",
+            "venueLatitude": 45.0748369549471,
+            "venueLongitude": 7.661463418197295,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 9,
+            "id": "4df91bba88778675b54abb10",
+            "venueLatitude": 45.071331203221355,
+            "venueLongitude": 7.649342937717178,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.648501396179199,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 159,
+            "id": "4d8e6b061716a143666532f7",
+            "venueLatitude": 45.07851596734883,
+            "venueLongitude": 7.64564406783242,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Nightlife Spot"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 10,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.08115,
+            7.672834
+          ],
+          [
+            45.080045119298745,
+            7.676359065037087
+          ],
+          [
+            45.08482163797747,
+            7.675216374565189
+          ],
+          [
+            45.084590876907285,
+            7.67599694593615
+          ],
+          [
+            45.079799274343074,
+            7.669723113485705
+          ],
+          [
+            45.07487301235965,
+            7.675765668442267
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 11,
+        "name": "c(College & University)",
+        "surface": 2.5,
+        "density": 2.2,
+        "heterogeneity": 0.1,
+        "sse": 5.1317229497981346E-5,
+        "venues": [
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 2,
+            "id": "515217c1e4b04c8e58fdf7bc",
+            "venueLatitude": 45.08115,
+            "venueLongitude": 7.672834,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 16,
+            "id": "4f3cfac0e4b08f6e584ebe56",
+            "venueLatitude": 45.080045119298745,
+            "venueLongitude": 7.676359065037087,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 160,
+            "id": "4f853714e4b04695defda33b",
+            "venueLatitude": 45.08482163797747,
+            "venueLongitude": 7.675216374565189,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 32,
+            "id": "4f8536fce4b0928ce7fe06fe",
+            "venueLatitude": 45.084590876907285,
+            "venueLongitude": 7.67599694593615,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 393,
+            "id": "4cd0a0347f56a1439f6fcfa6",
+            "venueLatitude": 45.079799274343074,
+            "venueLongitude": 7.669723113485705,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.66944408416748,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 328,
+            "id": "4c84b13051ada1cd442f3110",
+            "venueLatitude": 45.07487301235965,
+            "venueLongitude": 7.675765668442267,
+            "centroidLatitude": 45.075199214745886,
+            "centroidLongitude": 7.674679756164551,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 11,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
           [
             45.07507398294716,
             7.69027615698623
+          ],
+          [
+            45.079689207974184,
+            7.690608333353125
           ],
           [
             45.07127422801322,
@@ -410,79 +402,26 @@
             7.692958770061194
           ],
           [
-            45.067595326618004,
-            7.689743041992188
+            45.07292962169707,
+            7.697725296020508
           ],
           [
-            45.069427771987755,
-            7.68936206578604
-          ],
-          [
-            45.06910628524022,
-            7.69172499963704
-          ],
-          [
-            45.06523110481639,
-            7.688541412353516
-          ],
-          [
-            45.06586,
-            7.692066
-          ],
-          [
-            45.06482165576889,
-            7.691281964806311
-          ],
-          [
-            45.0621379960155,
-            7.690254638528056
-          ],
-          [
-            45.060969084438824,
-            7.69228449444853
-          ],
-          [
-            45.06363366504119,
-            7.685658882254705
-          ],
-          [
-            45.062089,
-            7.683843
-          ],
-          [
-            45.058471891654435,
-            7.685398788093147
+            45.070916880370206,
+            7.694700633184356
           ]
         ]
       },
       "properties": {
-        "clusterId": 17,
+        "clusterId": 12,
         "name": "c(College & University)",
-        "sse": 2.998734604475857,
+        "surface": 2.0,
+        "density": 3.0,
+        "heterogeneity": 0.1,
+        "sse": 3.796427692452699E-5,
         "venues": [
           {
-            "timestamp": 1400071690519,
-            "beenHere": 1042,
-            "id": "4bc2d6eab492d13ac5fea760",
-            "venueLatitude": 45.079689207974184,
-            "venueLongitude": 7.690608333353125,
-            "centroidLatitude": 45.07849033764885,
-            "centroidLongitude": 7.690386772155762,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 2,
-            "id": "4d6befed79476dcb9c058268",
-            "venueLatitude": 45.077911,
-            "venueLongitude": 7.695738,
-            "centroidLatitude": 45.07849033764885,
-            "centroidLongitude": 7.695622444152832,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 2,
+            "timestamp": 1404141894859,
+            "beenHere": 4,
             "id": "525ecb99498e7caa12d89b27",
             "venueLatitude": 45.07507398294716,
             "venueLongitude": 7.69027615698623,
@@ -491,7 +430,17 @@
             "category": "College & University"
           },
           {
-            "timestamp": 1400071690519,
+            "timestamp": 1404141894859,
+            "beenHere": 1049,
+            "id": "4bc2d6eab492d13ac5fea760",
+            "venueLatitude": 45.079689207974184,
+            "venueLongitude": 7.690608333353125,
+            "centroidLatitude": 45.07849033764885,
+            "centroidLongitude": 7.690386772155762,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
             "beenHere": 3,
             "id": "50914986e4b019e9fb979e18",
             "venueLatitude": 45.07127422801322,
@@ -501,7 +450,7 @@
             "category": "College & University"
           },
           {
-            "timestamp": 1400071690519,
+            "timestamp": 1404141894859,
             "beenHere": 3,
             "id": "529ddb79498e94afd23a66ba",
             "venueLatitude": 45.072108750089626,
@@ -511,113 +460,23 @@
             "category": "College & University"
           },
           {
-            "timestamp": 1400071690519,
-            "beenHere": 293,
-            "id": "4d8e1a5ad4ec8cfad2656a89",
-            "venueLatitude": 45.067595326618004,
-            "venueLongitude": 7.689743041992188,
-            "centroidLatitude": 45.068616968939956,
-            "centroidLongitude": 7.690386772155762,
+            "timestamp": 1404141894859,
+            "beenHere": 1261,
+            "id": "4d6bbb60dc858cfa8af87573",
+            "venueLatitude": 45.07292962169707,
+            "venueLongitude": 7.697725296020508,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.695622444152832,
             "category": "College & University"
           },
           {
-            "timestamp": 1400071690519,
-            "beenHere": 43,
-            "id": "5187d4e8498ed26597cfad18",
-            "venueLatitude": 45.069427771987755,
-            "venueLongitude": 7.68936206578604,
-            "centroidLatitude": 45.068616968939956,
-            "centroidLongitude": 7.690386772155762,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 777,
-            "id": "4cb45d58cbab236aad93bd73",
-            "venueLatitude": 45.06910628524022,
-            "venueLongitude": 7.69172499963704,
-            "centroidLatitude": 45.068616968939956,
-            "centroidLongitude": 7.690386772155762,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 297,
-            "id": "4dfb308f8130db594dfe56c1",
-            "venueLatitude": 45.06523110481639,
-            "venueLongitude": 7.688541412353516,
-            "centroidLatitude": 45.06532584603699,
-            "centroidLongitude": 7.690386772155762,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 213,
-            "id": "4d2d84f9aa5c6ea852baad04",
-            "venueLatitude": 45.06586,
-            "venueLongitude": 7.692066,
-            "centroidLatitude": 45.06532584603699,
-            "centroidLongitude": 7.690386772155762,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 41,
-            "id": "4f96721ce4b08e75f2de08d3",
-            "venueLatitude": 45.06482165576889,
-            "venueLongitude": 7.691281964806311,
-            "centroidLatitude": 45.06532584603699,
-            "centroidLongitude": 7.690386772155762,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 10,
-            "id": "516331efe4b09d06ff0f2b57",
-            "venueLatitude": 45.0621379960155,
-            "venueLongitude": 7.690254638528056,
-            "centroidLatitude": 45.062034723134026,
-            "centroidLongitude": 7.690386772155762,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 2,
-            "id": "533d408d498e6581bad1f669",
-            "venueLatitude": 45.060969084438824,
-            "venueLongitude": 7.69228449444853,
-            "centroidLatitude": 45.062034723134026,
-            "centroidLongitude": 7.690386772155762,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 420,
-            "id": "4cebcb94f1c6236ae0d471f0",
-            "venueLatitude": 45.06363366504119,
-            "venueLongitude": 7.685658882254705,
-            "centroidLatitude": 45.062034723134026,
-            "centroidLongitude": 7.685151100158691,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 10,
-            "id": "51111b24e4b0f145256bc1bb",
-            "venueLatitude": 45.062089,
-            "venueLongitude": 7.683843,
-            "centroidLatitude": 45.062034723134026,
-            "centroidLongitude": 7.685151100158691,
-            "category": "College & University"
-          },
-          {
-            "timestamp": 1400071690519,
-            "beenHere": 45,
-            "id": "4e00ae3952b1ac66aac7b88c",
-            "venueLatitude": 45.058471891654435,
-            "venueLongitude": 7.685398788093147,
-            "centroidLatitude": 45.05874360023106,
-            "centroidLongitude": 7.685151100158691,
+            "timestamp": 1404141894859,
+            "beenHere": 18,
+            "id": "4e9542e8d22df0eb8bab5a70",
+            "venueLatitude": 45.070916880370206,
+            "venueLongitude": 7.694700633184356,
+            "centroidLatitude": 45.07190809184292,
+            "centroidLongitude": 7.695622444152832,
             "category": "College & University"
           }
         ]
@@ -625,44 +484,412 @@
     },
     {
       "type": "Feature",
-      "id": 1,
+      "id": 13,
       "geometry": {
         "type": "MultiPoint",
         "coordinates": [
           [
-            45.10771560668945,
-            7.661352157592773
+            45.08455445793663,
+            7.661487304483023
           ],
           [
-            45.109649,
-            7.663486
+            45.0835,
+            7.6581
+          ],
+          [
+            45.081756591796875,
+            7.660110473632812
+          ],
+          [
+            45.085342765471914,
+            7.662109098079054
           ]
         ]
       },
       "properties": {
-        "clusterId": 2,
+        "clusterId": 14,
         "name": "c(College & University)",
-        "sse": 0.08045606656453458,
+        "surface": 1.5,
+        "density": 4.666666666666667,
+        "heterogeneity": 0.1,
+        "sse": 1.0472903979179854E-5,
         "venues": [
           {
-            "timestamp": 1400071690519,
-            "beenHere": 61,
-            "id": "50f0644ee4b0d9e04b9e0400",
-            "venueLatitude": 45.10771560668945,
-            "venueLongitude": 7.661352157592773,
-            "centroidLatitude": 45.10811044377554,
+            "timestamp": 1404141894859,
+            "beenHere": 37,
+            "id": "4dee4a8bae6052cbed1a1f63",
+            "venueLatitude": 45.08455445793663,
+            "venueLongitude": 7.661487304483023,
+            "centroidLatitude": 45.08507258345478,
             "centroidLongitude": 7.65897274017334,
             "category": "College & University"
           },
           {
-            "timestamp": 1400071690519,
-            "beenHere": 5,
-            "id": "4da3fded22a5f04d6f7e2f55",
-            "venueLatitude": 45.109649,
-            "venueLongitude": 7.663486,
-            "centroidLatitude": 45.10811044377554,
+            "timestamp": 1404141894859,
+            "beenHere": 1,
+            "id": "522ae81811d235eb9f1af7b1",
+            "venueLatitude": 45.0835,
+            "venueLongitude": 7.6581,
+            "centroidLatitude": 45.08507258345478,
+            "centroidLongitude": 7.65897274017334,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 49,
+            "id": "52b06fa5498e02b78252ec41",
+            "venueLatitude": 45.081756591796875,
+            "venueLongitude": 7.660110473632812,
+            "centroidLatitude": 45.08178146055182,
+            "centroidLongitude": 7.65897274017334,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 61,
+            "id": "4d6eaa29134ea14322f7931a",
+            "venueLatitude": 45.085342765471914,
+            "venueLongitude": 7.662109098079054,
+            "centroidLatitude": 45.08507258345478,
             "centroidLongitude": 7.66420841217041,
             "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 7,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.053096771240234,
+            7.631691455841064
+          ],
+          [
+            45.05127591238001,
+            7.63936995111411
+          ],
+          [
+            45.054616436391385,
+            7.634493430765538
+          ],
+          [
+            45.05407818191089,
+            7.63375914519158
+          ],
+          [
+            45.053699,
+            7.641941
+          ],
+          [
+            45.048014,
+            7.637602970406108
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 8,
+        "name": "c(College & University)",
+        "surface": 2.5,
+        "density": 1.6,
+        "heterogeneity": 0.1,
+        "sse": 3.87497447229655E-5,
+        "venues": [
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 1,
+            "id": "52344c8b11d20a2812dfea63",
+            "venueLatitude": 45.053096771240234,
+            "venueLongitude": 7.631691455841064,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.632794380187988,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 4,
+            "id": "501c60a3e4b00e1d086650a3",
+            "venueLatitude": 45.05127591238001,
+            "venueLongitude": 7.63936995111411,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.638030052185059,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 205,
+            "id": "4e6da3b9d4c0af8b79230347",
+            "venueLatitude": 45.054616436391385,
+            "venueLongitude": 7.634493430765538,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.632794380187988,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 19,
+            "id": "5057424ee4b0001ed512646a",
+            "venueLatitude": 45.05407818191089,
+            "venueLongitude": 7.63375914519158,
+            "centroidLatitude": 45.055452477328096,
+            "centroidLongitude": 7.632794380187988,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 1,
+            "id": "53490a64498e0f29cc1b401c",
+            "venueLatitude": 45.053699,
+            "venueLongitude": 7.641941,
+            "centroidLatitude": 45.05216135442513,
+            "centroidLongitude": 7.643265724182129,
+            "category": "College & University"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 78,
+            "id": "4d008d2af160548101de9eea",
+            "venueLatitude": 45.048014,
+            "venueLongitude": 7.637602970406108,
+            "centroidLatitude": 45.048870231522166,
+            "centroidLongitude": 7.638030052185059,
+            "category": "College & University"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 17,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.10186011285097,
+            7.666651801391594
+          ],
+          [
+            45.10373345461133,
+            7.664997113024464
+          ],
+          [
+            45.10194003582001,
+            7.667197
+          ],
+          [
+            45.097468622256486,
+            7.664752560825982
+          ],
+          [
+            45.096144,
+            7.66302
+          ],
+          [
+            45.09682556602013,
+            7.672008508206623
+          ],
+          [
+            45.096182,
+            7.671958
+          ],
+          [
+            45.091709007174586,
+            7.66412874743181
+          ],
+          [
+            45.089470994014185,
+            7.663010293375479
+          ],
+          [
+            45.09210983871466,
+            7.658338933088594
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 18,
+        "name": "c(Nightlife Spot)",
+        "surface": 5.0,
+        "density": 1.8,
+        "heterogeneity": 0.1,
+        "sse": 4.278057335802915E-4,
+        "venues": [
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 178,
+            "id": "4cc0ad725684a35d3103b40d",
+            "venueLatitude": 45.10186011285097,
+            "venueLongitude": 7.666651801391594,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 43,
+            "id": "4e6fc5527d8b1d2ba7211b33",
+            "venueLatitude": 45.10373345461133,
+            "venueLongitude": 7.664997113024464,
+            "centroidLatitude": 45.10481932087257,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 301,
+            "id": "4ccc9577b571b60cadd9d365",
+            "venueLatitude": 45.10194003582001,
+            "venueLongitude": 7.667197,
+            "centroidLatitude": 45.10152819796961,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 23,
+            "id": "4e3308221495fa2def4ecdcc",
+            "venueLatitude": 45.097468622256486,
+            "venueLongitude": 7.664752560825982,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 1,
+            "id": "507ade58e4b0e1c7adf6cb76",
+            "venueLatitude": 45.096144,
+            "venueLongitude": 7.66302,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 148,
+            "id": "4e8c8c44823129f4e0f423f8",
+            "venueLatitude": 45.09682556602013,
+            "venueLongitude": 7.672008508206623,
+            "centroidLatitude": 45.09823707506664,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 305,
+            "id": "4d32288e5c2db60c7452bf6c",
+            "venueLatitude": 45.096182,
+            "venueLongitude": 7.671958,
+            "centroidLatitude": 45.09494595216368,
+            "centroidLongitude": 7.66944408416748,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 8,
+            "id": "51e14fe5498ed9e32bc7c92a",
+            "venueLatitude": 45.091709007174586,
+            "venueLongitude": 7.66412874743181,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 10,
+            "id": "51d8bc2f498e78da60c9e78a",
+            "venueLatitude": 45.089470994014185,
+            "venueLongitude": 7.663010293375479,
+            "centroidLatitude": 45.08836370635775,
+            "centroidLongitude": 7.66420841217041,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 32,
+            "id": "50056fd0e4b0a2a87c7b6806",
+            "venueLatitude": 45.09210983871466,
+            "venueLongitude": 7.658338933088594,
+            "centroidLatitude": 45.09165482926071,
+            "centroidLongitude": 7.65897274017334,
+            "category": "Nightlife Spot"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": 15,
+      "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [
+          [
+            45.046954,
+            7.640321
+          ],
+          [
+            45.047297270997596,
+            7.639641295950903
+          ],
+          [
+            45.04521634405465,
+            7.631514905991745
+          ],
+          [
+            45.04712677001953,
+            7.645325183868408
+          ]
+        ]
+      },
+      "properties": {
+        "clusterId": 16,
+        "name": "c(Nightlife Spot)",
+        "surface": 2.0,
+        "density": 4.0,
+        "heterogeneity": 0.1,
+        "sse": 4.5075316756544115E-5,
+        "venues": [
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 1,
+            "id": "53347e90498e68acda526349",
+            "venueLatitude": 45.046954,
+            "venueLongitude": 7.640321,
+            "centroidLatitude": 45.0455791086192,
+            "centroidLongitude": 7.638030052185059,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 285,
+            "id": "4d658e50b470a14387f527fe",
+            "venueLatitude": 45.047297270997596,
+            "venueLongitude": 7.639641295950903,
+            "centroidLatitude": 45.048870231522166,
+            "centroidLongitude": 7.638030052185059,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 23,
+            "id": "4ce998e3f1c6236a556066f0",
+            "venueLatitude": 45.04521634405465,
+            "venueLongitude": 7.631514905991745,
+            "centroidLatitude": 45.0455791086192,
+            "centroidLongitude": 7.632794380187988,
+            "category": "Nightlife Spot"
+          },
+          {
+            "timestamp": 1404141894859,
+            "beenHere": 1,
+            "id": "52fd5b1b498eb3b341639517",
+            "venueLatitude": 45.04712677001953,
+            "venueLongitude": 7.645325183868408,
+            "centroidLatitude": 45.0455791086192,
+            "centroidLongitude": 7.643265724182129,
+            "category": "Nightlife Spot"
           }
         ]
       }
@@ -676,7 +903,7 @@
       "south": 45.04393354716771824541865498758852481842041015625,
       "west": 7.630176544189453125
     },
-    "date": "2014-05-14T12:48:10.519Z",
+    "date": "2014-06-30T15:24:54.859Z",
     "eps": 0.07071067811865477
   }
 }

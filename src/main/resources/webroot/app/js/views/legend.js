@@ -114,8 +114,8 @@ app.Legend = function() {
 						})
 						.map(function(cluster) {
 							var clusterId = cluster.properties.clusterId;
-							var heterogeneity = cluster.properties.heterogeneity ? cluster.properties.heterogeneity.toFixed(2) : 0;
-							var surface = cluster.properties.heterogeneity ? cluster.properties.surface.toFixed(3) : 0;
+							var heterogeneity = cluster.properties.heterogeneity ? cluster.properties.heterogeneity : 0;
+							var surface = cluster.properties.heterogeneity ? cluster.properties.surface : 0;
 							var density = cluster.properties.density ? cluster.properties.density : 0;
 							//var sse = cluster.properties.sse ? cluster.properties.sse.toFixed(6) : 0;
 							var distance = cluster.properties.distance ? cluster.properties.distance.toFixed(3) : 0;
@@ -123,8 +123,8 @@ app.Legend = function() {
 								' <em> venue: number=' + cluster.properties.venues.length + 
 								' , avg_distance=' + distance  + "Km" +
  								' , density=' + (1/5*density).toFixed(3) + "/Km^2; " +  //the 1/5=0.2 is just an ACK
-								' cluster: surface=' + surface + "%" + 
-								', heterogeneity=' + heterogeneity + "%" +
+								' cluster: surface=' + (surface * 100).toFixed(2) + "%" + 
+								', heterogeneity=' + (heterogeneity * 100).toFixed(2) + "%" +
 								'</em>';
 							var hrefCluster = '#!' + params.location + '/clusters/' + clusterId;
 							var isChecked = params.clusters && params.clusters.indexOf(clusterId) >= 0;
