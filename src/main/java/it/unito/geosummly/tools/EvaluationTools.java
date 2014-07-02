@@ -600,4 +600,38 @@ public class EvaluationTools {
 	public double getStd(double variance) {
 		return Math.sqrt(variance);
 	}
+
+	//TODO
+	//yet to complete
+	public ArrayList<ArrayList<ArrayList<Double>>> doHoldOut( 
+					ArrayList<ArrayList<Double>> matrix, 
+					int num) 
+	{
+		ArrayList<ArrayList<ArrayList<Double>>> result = 
+				new ArrayList<ArrayList<ArrayList<Double>>>();
+		
+		ArrayList<ArrayList<Double>> ithMatrix;
+		int dimension = matrix.size() / num;
+		int randomValue;
+		Random random = new Random();
+		
+		for(int i=0; i<num; i++) {
+		ithMatrix = new ArrayList<ArrayList<Double>>();
+		
+		for(int j=0; j<dimension; j++) {
+			randomValue = random.nextInt(matrix.size()); // random number
+															// between 0
+															// (included)
+															// and current
+															// matrix.size()
+															// (excluded)
+			ithMatrix.add(matrix.get(randomValue));
+		}
+		
+		result.add(ithMatrix);
+		matrix.removeAll(ithMatrix);
+		}
+		
+		return result;
+	}
 }

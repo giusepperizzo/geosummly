@@ -92,12 +92,46 @@ public class EvaluationOperator {
 		logIO.writeSSELog(SSEs, cl_sse, pvalue, out);
 		logIO.writeSSEforR(SSEs, out);
 	}
+	
+	
+	//TODO
+	// update Jaccard with this logic. Yet to complet
+	public void executeValidation2(String logFile,
+								  String inSingles,
+								  String out,
+								  int fnum) throws IOException 
+	{
+		//Read input files
+		CSVDataIO dataIO=new CSVDataIO();
+		List<CSVRecord> list=dataIO.readCSVFile(inSingles);
+		LogDataIO logIO=new LogDataIO();
+		ArrayList<ArrayList<String>> infos=logIO.readClusteringLog(logFile);
+		
+		//Get feature labels, minpts and eps
+		ArrayList<String> labels=infos.get(0);
+		ArrayList<String> minpts=infos.get(1);
+		double eps=Double.parseDouble(infos.get(2).get(0));
+
+		//Fill in the matrix of single venues 
+		//without considering timestamp, been_here, venue_id
+		ArrayList<ArrayList<Double>> matrix = eTools.buildSinglesFromList(list);
+		//Group the venues and get the value of each cell
+		ArrayList<BoundingBox> data=eTools.getFocalPoints(matrix);
+		ArrayList<Double> bboxArea=eTools.getAreasFromFocalPoints(data, matrix.size());
+		
+		ArrayList<ArrayList<ArrayList<Double>>> holdout=eTools.doHoldOut(matrix, 2);
+		ArrayList<ArrayList<Double>> D_A = holdout.get(0);
+		ArrayList<ArrayList<Double>> D_B = holdout.get(1);
+
+		ArrayList<ArrayList<ArrayList<Double>>> sets = eTools.groupFolds(data, holdout);
+		
+    }
 
 	public void executeValidation(String logFile, 
 								  String inSingles, 
 								  String out, 
-								  int fnum) throws IOException {
-
+								  int fnum) throws IOException 
+	{
 		//Read input files
 		CSVDataIO dataIO=new CSVDataIO();
 		List<CSVRecord> list=dataIO.readCSVFile(inSingles);
