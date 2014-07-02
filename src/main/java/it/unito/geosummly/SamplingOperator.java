@@ -27,8 +27,8 @@ public class SamplingOperator {
     public void executeWithInput( String in, 
     							  String out, 
     							  CoordinatesNormalizationType ltype, 
-    							  long sleep,
-    							  boolean secondLevel) 
+    							  long sleep/*,
+    							  boolean secondLevel*/) 
     									  	throws IOException, 
     									  	JSONException, 
     									  	FoursquareApiException, 
@@ -48,7 +48,7 @@ public class SamplingOperator {
 		
 		BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 		
-		collectAndTransform(global, data, out, sleep, secondLevel);
+		collectAndTransform(global, data, out, sleep/*, secondLevel*/);
     }
     
     public void executeWithCoord( ArrayList<BigDecimal> coord, 
@@ -56,8 +56,8 @@ public class SamplingOperator {
     							  int gnum, 
     							  int rnum, 
     							  CoordinatesNormalizationType ltype, 
-    							  long sleep,
-    							  boolean secondLevel) 
+    							  long sleep/*,
+    							  boolean secondLevel*/) 
     									  throws IOException, 
     									  FoursquareApiException, 
     									  InterruptedException {
@@ -78,15 +78,15 @@ public class SamplingOperator {
     	else
     		grid.createCells();
     	
-    	collectAndTransform(bbox, data, out, sleep, secondLevel);
+    	collectAndTransform(bbox, data, out, sleep/*, secondLevel*/);
     }
     
     public void collectAndTransform(
     								BoundingBox bbox, 
     								ArrayList<BoundingBox> data, 
     								String out, 
-    								long sleep,
-    								boolean secondLevel) 
+    								long sleep/*,
+    								boolean secondLevel*/) 
     									throws FoursquareApiException, 
     									InterruptedException, 
     									IOException {
@@ -153,7 +153,7 @@ public class SamplingOperator {
 								data, 
 								tools.getMap().keySet().size(), 
 								tools.getMapSecond().keySet().size(), 
-								out, secondLevel);
+								out/*, secondLevel*/);
 		
 		//Serialize the matrices to file
 		dataIO.printResultSingles(tools.getTimestamps().get(0), 
@@ -165,7 +165,7 @@ public class SamplingOperator {
 								  out, 
 								  "/singles-matrix.csv");
 		
-		if(secondLevel) { //print only if the CLi option is true
+		/*if(secondLevel) { //print only if the CLi option is true
 			dataIO.printResultSingles(tools.getTimestampsSecond().get(0), 
 									  tools.getBeenHereSecond(), 
 									  tools.getIdsSecond(), 
@@ -174,7 +174,7 @@ public class SamplingOperator {
 											  			tools.sortFeatures(tools.getMapSecond())), 
 									  out, 
 									  "/singles-matrix-2nd.csv");
-		}
+		}*/
 		
 		//dataIO.printCells(data, out, "/info-coord-celle.csv");
     

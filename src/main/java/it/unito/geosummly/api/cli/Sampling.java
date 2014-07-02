@@ -141,9 +141,9 @@ public class Sampling {
 			
 			SamplingOperator so=new SamplingOperator();
 			if(inputFlag)
-				so.executeWithInput(inFile, outDir, coordType, sleepMs, secondLevel);
+				so.executeWithInput(inFile, outDir, coordType, sleepMs/*, secondLevel*/);
 			else
-				so.executeWithCoord(coordinates, outDir, gridCells, randomCells, coordType, sleepMs, secondLevel);
+				so.executeWithCoord(coordinates, outDir, gridCells, randomCells, coordType, sleepMs/*, secondLevel*/);
 			
 		}
 		catch(ParseException | NumberFormatException | FoursquareApiException | IOException | JSONException | InterruptedException e) {

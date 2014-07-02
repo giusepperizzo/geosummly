@@ -23,6 +23,7 @@ public class SamplingTools {
 	private ArrayList<Long> timestamps;
 	private ArrayList<Integer> beenHere;
 	private HashMap<String, Integer> map;
+	private ArrayList<ArrayList<BigDecimal>> coordinates;
 	
 	//Variables of the 2nd category level
 	private int totalSecond;
@@ -31,6 +32,7 @@ public class SamplingTools {
 	private ArrayList<Integer> beenHereSecond;
 	private HashMap<String, Integer> mapSecond;
 	private ArrayList<ArrayList<BigDecimal>> matrixSecond;
+	private ArrayList<ArrayList<BigDecimal>> coordinatesSecond;
 	
 	public static Logger logger = Logger.getLogger(SamplingTools.class.toString());
 	
@@ -41,12 +43,14 @@ public class SamplingTools {
 		this.timestamps = new ArrayList<Long>();
 		this.beenHere = new ArrayList<Integer>();
 		this.map = new HashMap<String, Integer>();
+		this.coordinates = new ArrayList<ArrayList<BigDecimal>>();
 		
 		this.totalSecond = 0;
 		this.idsSecond = new ArrayList<String>();
 		this.timestampsSecond = new ArrayList<Long>();
 		this.beenHereSecond = new ArrayList<Integer>();
 		this.mapSecond = new HashMap<String, Integer>();
+		this.coordinatesSecond = new ArrayList<ArrayList<BigDecimal>>();
 		this.matrixSecond = new ArrayList<ArrayList<BigDecimal>>();
 	}
 	
@@ -90,6 +94,14 @@ public class SamplingTools {
 		this.beenHere=beenHere;
 	}
 	
+	public ArrayList<ArrayList<BigDecimal>> getCooridnates() {
+		return coordinates;
+	}
+
+	public void setCoordinates(ArrayList<ArrayList<BigDecimal>> coordinates) {
+		this.coordinates = coordinates;
+	}
+	
 	public int getTotalSecond() {
 		return totalSecond;
 	}
@@ -130,6 +142,14 @@ public class SamplingTools {
 		this.mapSecond = mapSecond;
 	}
 
+	public ArrayList<ArrayList<BigDecimal>> getCooridnatesSecond() {
+		return coordinatesSecond;
+	}
+
+	public void setCoordinatesSecond(ArrayList<ArrayList<BigDecimal>> coordinatesSecond) {
+		this.coordinatesSecond = coordinatesSecond;
+	}
+	
 	public ArrayList<ArrayList<BigDecimal>> getMatrixSecond() {
 		return matrixSecond;
 	}
@@ -242,6 +262,8 @@ public class SamplingTools {
 									            ArrayList<FoursquareObjectTemplate> cell,
 									            HashMap<String, String> tree) {
 		
+		ArrayList<BigDecimal> coord = new ArrayList<BigDecimal>();
+		
 		ArrayList<BigDecimal> rowOfMatrix = 
 								new ArrayList<BigDecimal>();
 		ArrayList<BigDecimal> rowOfMatrixSecondLevel = 
@@ -274,6 +296,13 @@ public class SamplingTools {
 					//add venue coordinates to the record
 					rowOfMatrix.add(0, new BigDecimal(venue.getLatitude()));
 					rowOfMatrix.add(1, new BigDecimal(venue.getLongitude()));
+					
+					coord.add(new BigDecimal(venue.getLatitude()));
+					coord.add(new BigDecimal(venue.getLongitude()));
+					coord.add(lat);
+					coord.add(lng);
+					
+					//----> this.coordinates.add(coord);
 					
 					this.ids.add(venue.getVenueId()); //memorize venue id
 					this.timestamps.add(venue.getTimestamp()); //memorize timestamp
