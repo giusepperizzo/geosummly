@@ -93,9 +93,6 @@ public class EvaluationOperator {
 		logIO.writeSSEforR(SSEs, out);
 	}
 	
-	
-	//TODO
-	// update Jaccard with this logic. Yet to complet
 	public void executeValidation2(String logFile,
 								  String inSingles,
 								  String out,
@@ -115,16 +112,91 @@ public class EvaluationOperator {
 		//Fill in the matrix of single venues 
 		//without considering timestamp, been_here, venue_id
 		ArrayList<ArrayList<Double>> matrix = eTools.buildSinglesFromList(list);
+		
+		//Fill in the list of features for transformation
+		//Only the categories will be considered
+		ArrayList<String> features = eTools.getFeaturesFromList(list);
+		
+		//Create fnum matrices of singles with N/fnum random venues for each matrix
+		//and remove also the columns venue_latitude and venue_longitude
+		ArrayList<ArrayList<ArrayList<Double>>> folds = eTools.createFolds(matrix, fnum);
+		folds = eTools.removeVenueCoordinates(folds);
+		
 		//Group the venues and get the value of each cell
 		ArrayList<BoundingBox> data=eTools.getFocalPoints(matrix);
 		ArrayList<Double> bboxArea=eTools.getAreasFromFocalPoints(data, matrix.size());
 		
-		ArrayList<ArrayList<ArrayList<Double>>> holdout=eTools.doHoldOut(matrix, 2);
-		ArrayList<ArrayList<Double>> D_A = holdout.get(0);
-		ArrayList<ArrayList<Double>> D_B = holdout.get(1);
-
-		ArrayList<ArrayList<ArrayList<Double>>> sets = eTools.groupFolds(data, holdout);
+		ImportTools tools = new ImportTools();
+		ClusteringOperator co=new ClusteringOperator();
+		int index = 0;
+		int length = 0;
 		
+		//For each fold
+		for(ArrayList<ArrayList<Double>> fold: folds) {
+			
+			index++; //just for file name
+			
+			//Do the holdout
+			ArrayList<ArrayList<ArrayList<Double>>> holdout = eTools.doHoldOut(fold, 2);
+	
+			//Group the sets to cell
+			ArrayList<ArrayList<ArrayList<Double>>> sets = eTools.groupFolds(data, holdout);
+			
+			//For each set this variable will contain the cells of the resulting clustering
+			//ArrayList<HashMap<String, Vector<Integer>>> holdoutClustering = 
+				//	new ArrayList<HashMap<String, Vector<Integer>>>();
+			
+			char name = 'A';
+			
+			//For each set
+			for(ArrayList<ArrayList<Double>> set: sets) {
+				
+				//create the density and normalized matrix
+				ArrayList<ArrayList<Double>> density = 
+								tools.buildDensityMatrix(CoordinatesNormalizationType.NORM, set, bboxArea);
+				ArrayList<ArrayList<Double>> normalized = 
+								tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, density);
+				
+				//write down the matrices to file
+				dataIO.printResultHorizontal(null, 
+											set, 
+											eTools.getFeaturesLabelNoTimestamp(
+																CoordinatesNormalizationType.NORM, 
+																"f", 
+																features), 
+											out+"/fold_"+index, 
+											"/"+name+"-frequency-transformation-matrix.csv");
+				dataIO.printResultHorizontal(null, 
+											 density, 
+											 eTools.getFeaturesLabelNoTimestamp(
+													 			CoordinatesNormalizationType.NORM, 
+													 			"density", 
+													 			features), 
+											 out+"/fold_"+index, 
+											 "/"+name+"-density-transformation-matrix.csv");
+				dataIO.printResultHorizontal(null, 
+											 normalized, 
+											 eTools.getFeaturesLabelNoTimestamp(
+													 			CoordinatesNormalizationType.NORM, 
+													 			"normalized_density", 
+													 			features), 
+								 			 out+"/fold_"+index, 
+								 			 "/"+name+"-normalized-transformation-matrix.csv");
+				
+				//Clustering of the sets
+				HashMap<String, Vector<Integer>> setClustering = 
+								co.executeForValidation(normalized, length, labels, minpts, eps);
+				//holdoutClustering.add(setClustering);
+				
+				//write down the clustering of the resulting holdout to file
+				logIO.writeHoldoutLog2(setClustering, out, name, index);
+				
+				//switch the set name from 'A' to 'B'
+				name++;
+				
+				length+=normalized.size(); //update last_cellId value
+			}
+		}
     }
 
 	public void executeValidation(String logFile, 

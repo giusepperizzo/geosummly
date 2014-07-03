@@ -488,16 +488,17 @@ public class EvaluationTools {
 			type.equals(CoordinatesNormalizationType.NOTNORM)) {
 			
 			String label = "";
-			featuresLabel.add(features.get(0)); // Latitude
-			featuresLabel.add(features.get(1)); // Longitude
+			featuresLabel.add("Latitude");
+			featuresLabel.add("Longitude");
 			
-			for (int i = 2; i < features.size(); i++) {
+			for (int i = 0; i < features.size(); i++) {
 				label = s + "(" + features.get(i) + ")";
 				featuresLabel.add(label);
 			}
 		} else if (type.equals(CoordinatesNormalizationType.MISSING)) {
+			
 			String label = "";
-			for (int i = 2; i < features.size(); i++) {
+			for (int i = 0; i < features.size(); i++) {
 				label = s + "(" + features.get(i) + ")";
 				featuresLabel.add(label);
 			}
