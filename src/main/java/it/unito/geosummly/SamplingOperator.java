@@ -27,7 +27,8 @@ public class SamplingOperator {
     public void executeWithInput( String in, 
     							  String out, 
     							  CoordinatesNormalizationType ltype, 
-    							  long sleep) 
+    							  long sleep/*,
+    							  boolean secondLevel*/) 
     									  	throws IOException, 
     									  	JSONException, 
     									  	FoursquareApiException, 
@@ -47,7 +48,7 @@ public class SamplingOperator {
 		
 		BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 		
-		collectAndTransform(global, data, out, sleep);
+		collectAndTransform(global, data, out, sleep/*, secondLevel*/);
     }
     
     public void executeWithCoord( ArrayList<BigDecimal> coord, 
@@ -55,7 +56,8 @@ public class SamplingOperator {
     							  int gnum, 
     							  int rnum, 
     							  CoordinatesNormalizationType ltype, 
-    							  long sleep) 
+    							  long sleep/*,
+    							  boolean secondLevel*/) 
     									  throws IOException, 
     									  FoursquareApiException, 
     									  InterruptedException {
@@ -76,14 +78,15 @@ public class SamplingOperator {
     	else
     		grid.createCells();
     	
-    	collectAndTransform(bbox, data, out, sleep);
+    	collectAndTransform(bbox, data, out, sleep/*, secondLevel*/);
     }
     
     public void collectAndTransform(
     								BoundingBox bbox, 
     								ArrayList<BoundingBox> data, 
     								String out, 
-    								long sleep) 
+    								long sleep/*,
+    								boolean secondLevel*/) 
     									throws FoursquareApiException, 
     									InterruptedException, 
     									IOException {
@@ -137,37 +140,41 @@ public class SamplingOperator {
 		//Sort the dataset alphabetically for column names
 		venuesMatrix = tools.fixRowsLength(tools.getTotal()+2, 
 										   venuesMatrix); //update rows length for consistency
-		venuesMatrixSecondLevel = tools.fixRowsLength(tools.getTotalSecondLevel()+2, 
-													  tools.getMatrixSecondLevel());
+		venuesMatrixSecondLevel = tools.fixRowsLength(tools.getTotalSecond()+2, 
+													  tools.getMatrixSecond());
 		venuesMatrix = tools.sortMatrixSingles(venuesMatrix, 
 											   tools.getMap());
 		venuesMatrixSecondLevel = tools.sortMatrixSingles(venuesMatrixSecondLevel, 
-														  tools.getMapSecondLevel());
-		dataIO.printResultSingles(tools.getSinglesTimestamps(), 
-								  tools.getBeenHere(), 
-								  tools.getSinglesId(), 
-								  venuesMatrix, 
-								  tools.getFeaturesForSingles(
-										  			tools.sortFeatures(tools.getMap())), 
-								  out, 
-								  "/singles-matrix.csv");
-		dataIO.printResultSingles(tools.getSinglesTimestamps(), 
-								  tools.getBeenHere(), 
-								  tools.getSinglesId(), 
-								  venuesMatrixSecondLevel, 
-								  tools.getFeaturesForSingles(
-										  			tools.sortFeatures(tools.getMapSecondLevel())), 
-								  out, 
-								  "/singles-matrix-2nd.csv");
-
+														  tools.getMapSecond());
 		
 		//Write down the log file
 		LogDataIO logIO=new LogDataIO();
 		logIO.writeSamplingLog( bbox, 
 								data, 
 								tools.getMap().keySet().size(), 
-								tools.getMapSecondLevel().keySet().size(), 
-								out);
+								tools.getMapSecond().keySet().size(), 
+								out/*, secondLevel*/);
+		
+		//Serialize the matrices to file
+		dataIO.printResultSingles(tools.getTimestamps().get(0), 
+								  tools.getBeenHere(), 
+								  tools.getIds(), 
+								  venuesMatrix, 
+								  tools.getFeaturesForSingles(
+										  			tools.sortFeatures(tools.getMap())), 
+								  out, 
+								  "/singles-matrix.csv");
+		
+		/*if(secondLevel) { //print only if the CLi option is true
+			dataIO.printResultSingles(tools.getTimestampsSecond().get(0), 
+									  tools.getBeenHereSecond(), 
+									  tools.getIdsSecond(), 
+									  venuesMatrixSecondLevel, 
+									  tools.getFeaturesForSingles(
+											  			tools.sortFeatures(tools.getMapSecond())), 
+									  out, 
+									  "/singles-matrix-2nd.csv");
+		}*/
 		
 		//dataIO.printCells(data, out, "/info-coord-celle.csv");
     

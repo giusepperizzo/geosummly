@@ -34,6 +34,7 @@ public class Sampling {
 	private int randomCells=-1;
 	private long sleepMs=0;
 	private CoordinatesNormalizationType coordType=CoordinatesNormalizationType.NORM;
+	private boolean secondLevel=false;
 	//private String socNet="foursquare";
 	
 	public void run (String[] args) {
@@ -54,7 +55,7 @@ public class Sampling {
 				+ "\n------------------------------------------------------------------"
 				+ "\nExamples:"
 				+ "\n1. geosummly sampling -input path/to/file.geojson -output path/to/dir -sleep 730 -ctype missing"
-				+ "\n2. geosummly sampling -coord 45.01,8.3,44.0,7.2856 -output path/to/dir -gnum 40 -srnum 100";
+				+ "\n2. geosummly sampling -coord 45.01,8.3,44.0,7.2856 -output path/to/dir -gnum 40 -rnum 100";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
@@ -123,15 +124,26 @@ public class Sampling {
 				}
 			}
 			
+			if(line.hasOption("taxonomy")) {
+				String result = line.getOptionValue("taxonomy").toLowerCase();
+				if(result.equals("2"))
+				secondLevel = true;
+				if(!result.equals("2") && !result.equals("1")) {
+					formatter.printHelp(helpUsage,"\ncommands list:", options, helpFooter);
+	                System.exit(-1);
+				}
+			}
+			
 			if (line.hasOption("help") || !mandatory) {
                 formatter.printHelp(helpUsage,"\ncommands list:", options, helpFooter);
                 System.exit(-1);
             }
+			
 			SamplingOperator so=new SamplingOperator();
 			if(inputFlag)
-				so.executeWithInput(inFile, outDir, coordType, sleepMs);
+				so.executeWithInput(inFile, outDir, coordType, sleepMs/*, secondLevel*/);
 			else
-				so.executeWithCoord(coordinates, outDir, gridCells, randomCells, coordType, sleepMs);
+				so.executeWithCoord(coordinates, outDir, gridCells, randomCells, coordType, sleepMs/*, secondLevel*/);
 			
 		}
 		catch(ParseException | NumberFormatException | FoursquareApiException | IOException | JSONException | InterruptedException e) {
@@ -180,6 +192,9 @@ public class Sampling {
 							.hasArg().withArgName("arg").create("s"));
 		 options.addOption(OptionBuilder.withLongOpt( "sleep" ).withDescription("set the milliseconds between two calls to social media server. Default 0")
 					.hasArg().withArgName("arg").create("z"));
+		 options.addOption(OptionBuilder.withLongOpt("taxonomy").withDescription("set the level to reach on the "
+		 		+ "Foursquare category hierarchy. "
+		 		+ "Allowed values: 1, 2. Default 1").hasArg().withArgName("arg").create("t"));
 		 options.addOption("C", "cache", false, "cache activation. Default deactivated");
 		 
 		//more options
