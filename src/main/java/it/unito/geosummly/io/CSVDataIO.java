@@ -127,7 +127,7 @@ public class CSVDataIO {
 	/**
 	 * Print result of single matrix to csv file.
 	*/
-	public void printResultSingles(long timestamp, 
+	/*public void printResultSingles(long timestamp, 
 									ArrayList<Integer> beenHere, 
 									ArrayList<String> singlesId, 
 									ArrayList<ArrayList<BigDecimal>> matrix, 
@@ -171,6 +171,65 @@ public class CSVDataIO {
             outputStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}*/
+	
+	/**
+	 * Print result of single matrix to csv file.
+	*/
+	public void printResultSingles2(long timestamp, 
+									ArrayList<Integer> beenHere, 
+									ArrayList<String> singlesId, 
+									ArrayList<ArrayList<BigDecimal>> coord,
+									ArrayList<ArrayList<Byte>> matrix,
+									ArrayList<String> features, 
+									String directoryName, 
+									String fileName) {
+		
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+		OutputStreamWriter osw = new OutputStreamWriter(bout);
+        try {
+            CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
+            
+            //print the header of the matrix
+            for(String f: features) {
+            	csv.print(f);
+            }
+            csv.println();
+            
+            //iterate per each row of the matrix
+            for(int i=0; i<matrix.size();i++) {
+            	csv.print(timestamp);
+            	csv.print(beenHere.get(i));
+            	csv.print(singlesId.get(i));
+            	for(int k=0; k<coord.get(i).size(); k++)
+            		csv.print(coord.get(i).get(k));
+            	for(int j=0;j<matrix.get(i).size();j++) {
+            		csv.print(matrix.get(i).get(j));
+            	}
+            	csv.println();
+            }
+            csv.flush();
+            csv.close();
+            
+        } catch (IOException e1) {
+    		e1.printStackTrace();
+        }
+        
+        OutputStream outputStream;
+        try {
+        	File dir=new File(directoryName); //create the output directory if it doesn't exist
+        	dir.mkdirs();
+            outputStream = new FileOutputStream (dir.getPath().concat(fileName));
+            bout.writeTo(outputStream);
+            bout.close();
+            outputStream.close();
+            
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

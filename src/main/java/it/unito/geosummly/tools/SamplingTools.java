@@ -20,7 +20,7 @@ public class SamplingTools {
 	//Variables of the 1st category level
 	private int total;
 	private ArrayList<String> ids;
-	private ArrayList<Long> timestamps;
+	private long timestamp;
 	private ArrayList<Integer> beenHere;
 	private HashMap<String, Integer> map;
 	private ArrayList<ArrayList<BigDecimal>> coordinates;
@@ -28,10 +28,10 @@ public class SamplingTools {
 	//Variables of the 2nd category level
 	private int totalSecond;
 	private ArrayList<String> idsSecond;
-	private ArrayList<Long> timestampsSecond;
+	private long timestampSecond;
 	private ArrayList<Integer> beenHereSecond;
 	private HashMap<String, Integer> mapSecond;
-	private ArrayList<ArrayList<BigDecimal>> matrixSecond;
+	private ArrayList<ArrayList<Byte>> matrixSecond;
 	private ArrayList<ArrayList<BigDecimal>> coordinatesSecond;
 	
 	public static Logger logger = Logger.getLogger(SamplingTools.class.toString());
@@ -40,18 +40,18 @@ public class SamplingTools {
 		
 		this.total = 0;
 		this.ids = new ArrayList<String>();
-		this.timestamps = new ArrayList<Long>();
+		this.timestamp = (long) 0;
 		this.beenHere = new ArrayList<Integer>();
 		this.map = new HashMap<String, Integer>();
 		this.coordinates = new ArrayList<ArrayList<BigDecimal>>();
 		
 		this.totalSecond = 0;
 		this.idsSecond = new ArrayList<String>();
-		this.timestampsSecond = new ArrayList<Long>();
+		this.timestampSecond = (long) 0;
 		this.beenHereSecond = new ArrayList<Integer>();
 		this.mapSecond = new HashMap<String, Integer>();
 		this.coordinatesSecond = new ArrayList<ArrayList<BigDecimal>>();
-		this.matrixSecond = new ArrayList<ArrayList<BigDecimal>>();
+		this.matrixSecond = new ArrayList<ArrayList<Byte>>();
 	}
 	
 	public int getTotal() {
@@ -78,12 +78,12 @@ public class SamplingTools {
 		this.ids = ids;
 	}
 	
-	public ArrayList<Long> getTimestamps() {
-		return timestamps;
+	public long getTimestamp() {
+		return timestamp;
 	}
 	
-	public void setTimestamps(ArrayList<Long> timestamps) {
-		this.timestamps = timestamps;
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 	public ArrayList<Integer> getBeenHere() {
@@ -118,12 +118,12 @@ public class SamplingTools {
 		this.idsSecond = idsSecond;
 	}
 
-	public ArrayList<Long> getTimestampsSecond() {
-		return timestampsSecond;
+	public long getTimestampSecond() {
+		return timestampSecond;
 	}
 	
-	public void setTimestampsSecond(ArrayList<Long> timestampsSecond) {
-		this.timestampsSecond = timestampsSecond;
+	public void setTimestampsSecond(long timestampSecond) {
+		this.timestampSecond = timestampSecond;
 	}
 
 	public ArrayList<Integer> getBeenHereSecond() {
@@ -150,16 +150,16 @@ public class SamplingTools {
 		this.coordinatesSecond = coordinatesSecond;
 	}
 	
-	public ArrayList<ArrayList<BigDecimal>> getMatrixSecond() {
+	public ArrayList<ArrayList<Byte>> getMatrixSecond() {
 		return matrixSecond;
 	}
 
-	public void setMatrixSecond(ArrayList<ArrayList<BigDecimal>> matrixSecond) {
+	public void setMatrixSecond(ArrayList<ArrayList<Byte>> matrixSecond) {
 		this.matrixSecond = matrixSecond;
 	}
 
 	/**Get a list with all elements equal to zero*/
-	public ArrayList<BigDecimal> buildListZero(int size) {
+	/*public ArrayList<BigDecimal> buildListZero(int size) {
 		
 		ArrayList<BigDecimal> toRet=new ArrayList<BigDecimal>();
 		int i=0;
@@ -170,12 +170,31 @@ public class SamplingTools {
 		}
 		
 		return toRet;
+	}*/
+	
+	
+	/**Get a list with all elements equal to zero.
+	 * Only categories, no coordinates. 
+	*/
+	public ArrayList<Byte> buildListZero2(int size) {
+		
+		ArrayList<Byte> toRet=new ArrayList<Byte>();
+		int i=0;
+		
+		while(i<size) {
+			toRet.add((byte) 0);
+			i++;
+		}
+		
+		return toRet;
 	}
+	
+	
 	
 	/**Update the hash map given as parameter 
 	 * with new string values from a single venue
 	*/
-	public HashMap<String, Integer> updateMap(HashMap<String, Integer> map, 
+	/*public HashMap<String, Integer> updateMap(HashMap<String, Integer> map, 
 											  ArrayList<String> categories) {
 		
 		if(!map.containsKey(categories.get(0)))
@@ -183,12 +202,29 @@ public class SamplingTools {
 			map.put(categories.get(0), map.size()+2);
 		
 		return map;
+	}*/
+	
+	
+	
+	/**Update the hash map given as parameter 
+	 * with new string values from a single venue.
+	 * Only categories, no coordinates.
+	*/
+	public HashMap<String, Integer> updateMap2(HashMap<String, Integer> map, 
+											  ArrayList<String> categories) {
+		
+		if(!map.containsKey(categories.get(0)))
+			map.put(categories.get(0), map.size());
+		
+		return map;
 	}
+	
+	
 	
 	/**Get a row of the matrix with latitude, longitude 
 	 * and occurrence value of a single venue
 	*/
-	public ArrayList<BigDecimal> fillRowWithSingle(HashMap<String, Integer> map, 
+	/*public ArrayList<BigDecimal> fillRowWithSingle(HashMap<String, Integer> map, 
 											   	   String category, 
 											   	   BigDecimal lat, 
 											   	   BigDecimal lng) {
@@ -202,10 +238,27 @@ public class SamplingTools {
 		row.set(index, new BigDecimal(1.0));
 		
 		return row;
+	}*/
+	
+	
+	
+	/**Get a row of the matrix with latitude, longitude 
+	 * and occurrence value of a single venue.
+	*/
+	public ArrayList<Byte> fillRowWithSingle2(HashMap<String, Integer> map, 
+											   	   String category) {
+		
+		int size = map.size();
+		ArrayList<Byte> row = buildListZero2(size);
+		
+		int index = map.get(category);
+		row.set(index, (byte) 1);
+		
+		return row;
 	}
 	
 	/**Fix the matrix rows giving them the same size*/
-	public ArrayList<ArrayList<BigDecimal>> fixRowsLength(int totElem, 
+	/*public ArrayList<ArrayList<BigDecimal>> fixRowsLength(int totElem, 
 												ArrayList<ArrayList<BigDecimal>> matrix) {
 		
 		int i;
@@ -219,12 +272,29 @@ public class SamplingTools {
 			}
 		}
 		return matrix;
+	}*/
+	
+	public ArrayList<ArrayList<Byte>> fixRowsLength2(int totElem, 
+			ArrayList<ArrayList<Byte>> matrix) {
+
+		int i;
+		
+		for(ArrayList<Byte> row: matrix) {
+			i = row.size();
+		
+			while(i<totElem) {
+				row.add((byte) 0);
+				i++;
+			}
+		}
+		
+		return matrix;
 	}
 	
 	/**Sort matrix of single venues 
 	 * in alphabetical order (column names)
 	*/
-	public ArrayList<ArrayList<BigDecimal>> sortMatrixSingles(
+	/*public ArrayList<ArrayList<BigDecimal>> sortMatrixSingles(
 										ArrayList<ArrayList<BigDecimal>> matrix, 
 										HashMap<String,Integer> map) {
 		
@@ -253,10 +323,39 @@ public class SamplingTools {
 		}
 		
 		return sortedMatrix;
+	}*/
+	
+	/**Sort matrix of single venues in alphabetical order (column names)
+	*/
+	public ArrayList<ArrayList<Byte>> sortMatrixSingles2(
+										ArrayList<ArrayList<Byte>> matrix, 
+										HashMap<String,Integer> map) {
+		
+		ArrayList<ArrayList<Byte>> sortedMatrix = 
+							new ArrayList<ArrayList<Byte>>();
+		int value;
+		ArrayList<Byte> sortedRecord;
+		ArrayList<String> keys = new ArrayList<String>(map.keySet());
+		Collections.sort(keys);
+		
+		//Put the coordinate values into the sorted record
+		for(ArrayList<Byte> row: matrix) {
+			
+			sortedRecord = new ArrayList<Byte>();
+			
+			for(String k: keys) {
+				value = map.get(k);
+				sortedRecord.add(row.get(value));
+			}
+			
+			sortedMatrix.add(sortedRecord);
+		}
+		
+		return sortedMatrix;
 	}
 	
 	/**Get the informations of single venues of a cell*/
-	public ArrayList<ArrayList<BigDecimal>> getInformations(BigDecimal lat, 
+	/*public ArrayList<ArrayList<BigDecimal>> getInformations(BigDecimal lat, 
 												BigDecimal lng, 
 									            ArrayList<ArrayList<BigDecimal>> matrix, 
 									            ArrayList<FoursquareObjectTemplate> cell,
@@ -336,6 +435,95 @@ public class SamplingTools {
 			}
 		}
 		return matrix;
+	}*/
+	
+	/**Get the informations of single venues of a cell*/
+	public ArrayList<ArrayList<Byte>> getInformations2(BigDecimal lat, 
+												BigDecimal lng, 
+									            ArrayList<ArrayList<Byte>> matrix, 
+									            ArrayList<FoursquareObjectTemplate> cell,
+									            HashMap<String, String> tree) {
+		
+		ArrayList<BigDecimal> coord = new ArrayList<BigDecimal>();
+		
+		ArrayList<BigDecimal> coordSecond = new ArrayList<BigDecimal>();
+		
+		ArrayList<Byte> rowOfMatrix = 
+								new ArrayList<Byte>();
+		ArrayList<Byte> rowOfMatrixSecondLevel = 
+									new ArrayList<Byte>();
+		
+		for(FoursquareObjectTemplate venue: cell) {
+			
+			if(venue.getCategories().length > 0) {
+				String category = 
+						getTopCategory(venue.getCategories()[0].getName(), tree);
+				String categorySecondLevel = 
+						getSubCategory(venue.getCategories()[0].getName(), tree);
+				
+				//update the matrix only if the category has a name
+				if(category != null) {
+					
+					ArrayList<String> aux = new ArrayList<String>();
+					aux.add(category);
+					
+					updateMap2(this.map, aux);//update the hash map
+					
+					//create a consistent row (related to the categories). 
+					//one row for each venue;
+					rowOfMatrix = fillRowWithSingle2(this.map, category);
+					
+					//update the overall number of categories
+					if(this.total < rowOfMatrix.size())
+						this.total = rowOfMatrix.size();
+					
+					//add venue and cell coordinates to the record
+					coord.add(new BigDecimal(venue.getLatitude()));
+					coord.add(new BigDecimal(venue.getLongitude()));
+					coord.add(lat);
+					coord.add(lng);
+					
+					this.coordinates.add(coord);
+					
+					this.ids.add(venue.getVenueId()); //memorize venue id
+					if(this.timestamp == (long) 0)
+						this.timestamp = venue.getTimestamp(); //memorize timestamp
+					this.beenHere.add(venue.getCheckinsCount()); //memorize check-ins count
+					
+					//add the complete record
+					matrix.add(rowOfMatrix);
+				}
+				
+				if(categorySecondLevel != null) {
+					
+					ArrayList<String> auxSecondLevel = new ArrayList<String>();
+					auxSecondLevel.add(categorySecondLevel);
+					updateMap2(this.mapSecond, auxSecondLevel);
+					
+					rowOfMatrixSecondLevel = 
+							fillRowWithSingle2(this.mapSecond, categorySecondLevel);
+					
+					if(this.totalSecond < rowOfMatrixSecondLevel.size());
+						this.totalSecond = rowOfMatrixSecondLevel.size();
+						
+					//add venue and cell coordinates to the record
+					coordSecond.add(new BigDecimal(venue.getLatitude()));
+					coordSecond.add(new BigDecimal(venue.getLongitude()));
+					coordSecond.add(lat);
+					coordSecond.add(lng);
+					
+					this.coordinatesSecond.add(coordSecond);
+					
+					this.idsSecond.add(venue.getVenueId()); //memorize venue id
+					if(this.timestampSecond == (long) 0)
+						this.timestampSecond = venue.getTimestamp(); //memorize timestamp
+					this.beenHereSecond.add(venue.getCheckinsCount()); //memorize check-ins count
+					
+					this.matrixSecond.add(rowOfMatrixSecondLevel);
+				}
+			}
+		}
+		return matrix;
 	}
 	
 	/**
@@ -384,9 +572,8 @@ public class SamplingTools {
 			return null;
 	}
 	
-	
 	/**Sort the features in alphabetical order*/
-	public ArrayList<String> sortFeatures(HashMap<String,Integer> map) {
+	/*public ArrayList<String> sortFeatures(HashMap<String,Integer> map) {
 		
 		ArrayList<String> sortedFeatures = new ArrayList<String>();
 		ArrayList<String> keys = new ArrayList<String>(map.keySet());
@@ -400,10 +587,24 @@ public class SamplingTools {
 			sortedFeatures.add(s);
 		
 		return sortedFeatures;
+	}*/
+	
+	/**Sort the features in alphabetical order*/
+	public ArrayList<String> sortFeatures2(HashMap<String,Integer> map) {
+		
+		ArrayList<String> sortedFeatures = new ArrayList<String>();
+		ArrayList<String> keys = new ArrayList<String>(map.keySet());
+		
+		Collections.sort(keys);
+		
+		for(String s: keys)
+			sortedFeatures.add(s);
+		
+		return sortedFeatures;
 	}
 	
 	/**Get the features list for the dataset of single venues*/
-	public ArrayList<String> getFeaturesForSingles(ArrayList<String> features) {
+	/*public ArrayList<String> getFeaturesForSingles(ArrayList<String> features) {
 		
 		features.add(0, "Timestamp (ms)");
 		features.add(1, "Been Here");
@@ -412,6 +613,20 @@ public class SamplingTools {
 		features.add(4, "Venue Longitude");
 		features.set(5, "Focal Latitude");
 		features.set(6, "Focal Longitude");
+		
+		return features;
+	}*/
+	
+	/**Get the features list for the dataset of single venues*/
+	public ArrayList<String> getFeaturesForSingles2(ArrayList<String> features) {
+		
+		features.add(0, "Timestamp (ms)");
+		features.add(1, "Been Here");
+		features.add(2, "Venue Id");
+		features.add(3, "Venue Latitude");
+		features.add(4, "Venue Longitude");
+		features.add(5, "Focal Latitude");
+		features.add(6, "Focal Longitude");
 		
 		return features;
 	}

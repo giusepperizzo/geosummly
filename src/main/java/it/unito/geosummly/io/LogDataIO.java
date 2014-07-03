@@ -125,8 +125,8 @@ public class LogDataIO {
 								 ArrayList<BoundingBox> data, 
 								 int categories_1st, 
 								 int categories_2nd, 
-								 String output/*,
-								 boolean secondLevel*/) {
+								 String output,
+								 boolean secondLevel) {
 		
 		int cellNumber=data.size();
 		double cellArea=data.get(0).getArea().doubleValue();
@@ -143,8 +143,8 @@ public class LogDataIO {
 	        bw.write("Number of cells of the grid: "+cellNumber+"\n");
 	        bw.write("Area of a cell (km^2): "+cellArea+"\n");
 	        bw.write("Categories number (1st level): "+categories_1st+"\n");
-	        //if(secondLevel)
-	        	//bw.write("Categories number (2nd level): "+categories_2nd);
+	        if(secondLevel)
+	        	bw.write("Categories number (2nd level): "+categories_2nd);
 			
 	        bw.flush();
 	        bw.close();

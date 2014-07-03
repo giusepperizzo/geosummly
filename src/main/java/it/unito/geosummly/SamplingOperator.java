@@ -27,8 +27,8 @@ public class SamplingOperator {
     public void executeWithInput( String in, 
     							  String out, 
     							  CoordinatesNormalizationType ltype, 
-    							  long sleep/*,
-    							  boolean secondLevel*/) 
+    							  long sleep,
+    							  boolean secondLevel) 
     									  	throws IOException, 
     									  	JSONException, 
     									  	FoursquareApiException, 
@@ -48,7 +48,7 @@ public class SamplingOperator {
 		
 		BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 		
-		collectAndTransform(global, data, out, sleep/*, secondLevel*/);
+		collectAndTransform(global, data, out, sleep, secondLevel);
     }
     
     public void executeWithCoord( ArrayList<BigDecimal> coord, 
@@ -56,8 +56,8 @@ public class SamplingOperator {
     							  int gnum, 
     							  int rnum, 
     							  CoordinatesNormalizationType ltype, 
-    							  long sleep/*,
-    							  boolean secondLevel*/) 
+    							  long sleep,
+    							  boolean secondLevel) 
     									  throws IOException, 
     									  FoursquareApiException, 
     									  InterruptedException {
@@ -78,15 +78,15 @@ public class SamplingOperator {
     	else
     		grid.createCells();
     	
-    	collectAndTransform(bbox, data, out, sleep/*, secondLevel*/);
+    	collectAndTransform(bbox, data, out, sleep, secondLevel);
     }
     
     public void collectAndTransform(
     								BoundingBox bbox, 
     								ArrayList<BoundingBox> data, 
     								String out, 
-    								long sleep/*,
-    								boolean secondLevel*/) 
+    								long sleep,
+    								boolean secondLevel) 
     									throws FoursquareApiException, 
     									InterruptedException, 
     									IOException {
@@ -101,10 +101,14 @@ public class SamplingOperator {
     	
     	//Get the tools class and its support variables
 		SamplingTools tools=new SamplingTools();
-		ArrayList<ArrayList<BigDecimal>> venuesMatrix = 
+		/*ArrayList<ArrayList<BigDecimal>> venuesMatrix = 
 									new ArrayList<ArrayList<BigDecimal>>();
 		ArrayList<ArrayList<BigDecimal>> venuesMatrixSecondLevel = 
-									new ArrayList<ArrayList<BigDecimal>>();
+									new ArrayList<ArrayList<BigDecimal>>();*/
+		ArrayList<ArrayList<Byte>> venuesMatrix = 
+									new ArrayList<ArrayList<Byte>>();
+		ArrayList<ArrayList<Byte>> venuesMatrixSecondLevel = 
+									new ArrayList<ArrayList<Byte>>();
 		ArrayList<FoursquareObjectTemplate> cellVenue;
 		CSVDataIO dataIO=new CSVDataIO();
 		
@@ -128,7 +132,7 @@ public class SamplingOperator {
 				coll.insert(doc); //insert the document into MongoDB collection
 			}*/
 			
-			venuesMatrix = tools.getInformations(b.getCenterLat(), 
+			venuesMatrix = tools.getInformations2(b.getCenterLat(), 
 												 b.getCenterLng(), 
 												 venuesMatrix, 
 												 cellVenue, 
@@ -138,13 +142,13 @@ public class SamplingOperator {
 		}
 		
 		//Sort the dataset alphabetically for column names
-		venuesMatrix = tools.fixRowsLength(tools.getTotal()+2, 
+		venuesMatrix = tools.fixRowsLength2(tools.getTotal(), 
 										   venuesMatrix); //update rows length for consistency
-		venuesMatrixSecondLevel = tools.fixRowsLength(tools.getTotalSecond()+2, 
+		venuesMatrixSecondLevel = tools.fixRowsLength2(tools.getTotalSecond(), 
 													  tools.getMatrixSecond());
-		venuesMatrix = tools.sortMatrixSingles(venuesMatrix, 
+		venuesMatrix = tools.sortMatrixSingles2(venuesMatrix, 
 											   tools.getMap());
-		venuesMatrixSecondLevel = tools.sortMatrixSingles(venuesMatrixSecondLevel, 
+		venuesMatrixSecondLevel = tools.sortMatrixSingles2(venuesMatrixSecondLevel, 
 														  tools.getMapSecond());
 		
 		//Write down the log file
@@ -153,28 +157,30 @@ public class SamplingOperator {
 								data, 
 								tools.getMap().keySet().size(), 
 								tools.getMapSecond().keySet().size(), 
-								out/*, secondLevel*/);
+								out, secondLevel);
 		
 		//Serialize the matrices to file
-		dataIO.printResultSingles(tools.getTimestamps().get(0), 
+		dataIO.printResultSingles2(tools.getTimestamp(), 
 								  tools.getBeenHere(), 
-								  tools.getIds(), 
+								  tools.getIds(),
+								  tools.getCooridnates(),
 								  venuesMatrix, 
-								  tools.getFeaturesForSingles(
-										  			tools.sortFeatures(tools.getMap())), 
+								  tools.getFeaturesForSingles2(
+										  			tools.sortFeatures2(tools.getMap())), 
 								  out, 
 								  "/singles-matrix.csv");
 		
-		/*if(secondLevel) { //print only if the CLi option is true
-			dataIO.printResultSingles(tools.getTimestampsSecond().get(0), 
+		if(secondLevel) { //print only if the CLi option is true
+			dataIO.printResultSingles2(tools.getTimestampSecond(), 
 									  tools.getBeenHereSecond(), 
-									  tools.getIdsSecond(), 
+									  tools.getIdsSecond(),
+									  tools.getCooridnatesSecond(),
 									  venuesMatrixSecondLevel, 
-									  tools.getFeaturesForSingles(
-											  			tools.sortFeatures(tools.getMapSecond())), 
+									  tools.getFeaturesForSingles2(
+											  			tools.sortFeatures2(tools.getMapSecond())), 
 									  out, 
 									  "/singles-matrix-2nd.csv");
-		}*/
+		}
 		
 		//dataIO.printCells(data, out, "/info-coord-celle.csv");
     
