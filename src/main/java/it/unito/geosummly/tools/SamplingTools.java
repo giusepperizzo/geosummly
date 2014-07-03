@@ -444,10 +444,6 @@ public class SamplingTools {
 									            ArrayList<FoursquareObjectTemplate> cell,
 									            HashMap<String, String> tree) {
 		
-		ArrayList<BigDecimal> coord = new ArrayList<BigDecimal>();
-		
-		ArrayList<BigDecimal> coordSecond = new ArrayList<BigDecimal>();
-		
 		ArrayList<Byte> rowOfMatrix = 
 								new ArrayList<Byte>();
 		ArrayList<Byte> rowOfMatrixSecondLevel = 
@@ -478,6 +474,7 @@ public class SamplingTools {
 						this.total = rowOfMatrix.size();
 					
 					//add venue and cell coordinates to the record
+					ArrayList<BigDecimal> coord = new ArrayList<BigDecimal>();
 					coord.add(new BigDecimal(venue.getLatitude()));
 					coord.add(new BigDecimal(venue.getLongitude()));
 					coord.add(lat);
@@ -507,6 +504,7 @@ public class SamplingTools {
 						this.totalSecond = rowOfMatrixSecondLevel.size();
 						
 					//add venue and cell coordinates to the record
+					ArrayList<BigDecimal> coordSecond = new ArrayList<BigDecimal>();
 					coordSecond.add(new BigDecimal(venue.getLatitude()));
 					coordSecond.add(new BigDecimal(venue.getLongitude()));
 					coordSecond.add(lat);
