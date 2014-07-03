@@ -8,16 +8,16 @@ import junit.framework.TestCase;
 
 public class SamplingToolsTest extends TestCase{
 	
-	/*public void testbuildListZero() {
+	public void testbuildListZero() {
 		
 		int size=5;
 		
-		ArrayList<BigDecimal> expected=new ArrayList<BigDecimal>();
+		ArrayList<Byte> expected=new ArrayList<Byte>();
 		for(int i=0; i<size; i++)
-			expected.add(new BigDecimal(0.0));
+			expected.add((byte)(0));
 		
 		SamplingTools tools = new SamplingTools();
-		ArrayList<BigDecimal> actual = tools.buildListZero(size);
+		ArrayList<Byte> actual = tools.buildListZero2(size);
 		
 		assertEquals(expected, actual);
 	}
@@ -25,7 +25,7 @@ public class SamplingToolsTest extends TestCase{
 	public void testUpdateMap() {
 		
 		HashMap<String, Integer> expected=new HashMap<String, Integer>();
-		expected.put("Cat 1", 2); expected.put("Cat 5", 3);
+		expected.put("Cat 1", 0); expected.put("Cat 5", 1);;
 		
 		SamplingTools tools = new SamplingTools();
 		HashMap<String, Integer> actual = 
@@ -33,17 +33,17 @@ public class SamplingToolsTest extends TestCase{
 		ArrayList<String> a = new ArrayList<String>();
 		a.add("Cat 1"); a.add("Cat 1"); a.add("Cat 2");
 		
-		actual = tools.updateMap(actual,a);
+		actual = tools.updateMap2(actual,a);
 		
 		a.set(0, "Cat 5");
 		
-		actual = tools.updateMap(actual,a);
+		actual = tools.updateMap2(actual,a);
 		
 		assertNotNull(actual);
 		assertEquals(expected, actual);
 	}
 	
-	public void testFillRowWithSingle() {
+	/*public void testFillRowWithSingle() {
 		
 		ArrayList<BigDecimal> expected = new ArrayList<BigDecimal>();
 		expected.add(new BigDecimal(10.0));
