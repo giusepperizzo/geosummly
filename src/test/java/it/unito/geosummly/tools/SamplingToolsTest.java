@@ -1,6 +1,5 @@
 package it.unito.geosummly.tools;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -43,26 +42,22 @@ public class SamplingToolsTest extends TestCase{
 		assertEquals(expected, actual);
 	}
 	
-	/*public void testFillRowWithSingle() {
+	public void testFillRowWithSingle() {
 		
-		ArrayList<BigDecimal> expected = new ArrayList<BigDecimal>();
-		expected.add(new BigDecimal(10.0));
-		expected.add(new BigDecimal(20.0));
-		expected.add(new BigDecimal(0.0));
-		expected.add(new BigDecimal(1.0));
-		expected.add(new BigDecimal(0.0));
-		expected.add(new BigDecimal(0.0));
+		ArrayList<Byte> expected = new ArrayList<Byte>();
+		expected.add((byte) 0);
+		expected.add((byte) 1);
+		expected.add((byte) 0);
+		expected.add((byte) 0);
 		
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Cat 1", 2);
-		map.put("Cat 2", 3);
-		map.put("Cat 3", 4);
-		map.put("Cat 4", 5);
-		BigDecimal lat = new BigDecimal(10.0);
-		BigDecimal lng = new BigDecimal(20.0);
+		map.put("Cat 1", 0);
+		map.put("Cat 2", 1);
+		map.put("Cat 3", 2);
+		map.put("Cat 4", 3);
 		
 		SamplingTools tools = new SamplingTools();
-		ArrayList<BigDecimal> actual = tools.fillRowWithSingle(map, "Cat 2", lat, lng);
+		ArrayList<Byte> actual = tools.fillRowWithSingle2(map, "Cat 2");
 		
 		//Start the tests
 		assertNotNull(actual);
@@ -71,95 +66,78 @@ public class SamplingToolsTest extends TestCase{
 	
 	public void testFixRowsLength() {
 		
-		ArrayList<ArrayList<BigDecimal>> expected = 
-							new ArrayList<ArrayList<BigDecimal>>();
-		ArrayList<BigDecimal> e1=new ArrayList<BigDecimal>();
-		e1.add(new BigDecimal(0.1)); e1.add(new BigDecimal(0.2));
-		e1.add(new BigDecimal(0.0)); e1.add(new BigDecimal(0.0));
+		ArrayList<ArrayList<Byte>> expected = 
+							new ArrayList<ArrayList<Byte>>();
+		ArrayList<Byte> e1=new ArrayList<Byte>();
+		e1.add((byte)(0)); e1.add((byte)(0)); e1.add((byte)(0));
 		
-		ArrayList<BigDecimal> e2=new ArrayList<BigDecimal>();
-		e2.add(new BigDecimal(0.5)); e2.add(new BigDecimal(0.3));
-		e2.add(new BigDecimal(0.0)); e2.add(new BigDecimal(0.4));
+		ArrayList<Byte> e2=new ArrayList<Byte>();
+		e2.add((byte)(0)); e2.add((byte)(0.4)); e2.add((byte)(0));
 		
-		ArrayList<BigDecimal> e3=new ArrayList<BigDecimal>();
-		e3.add(new BigDecimal(0.2)); e3.add(new BigDecimal(0.0));
-		e3.add(new BigDecimal(0.1)); e3.add(new BigDecimal(0.0));
+		ArrayList<Byte> e3=new ArrayList<Byte>();
+		e3.add((byte)(0.1)); e3.add((byte)(0)); e3.add((byte)(0));
 		
 		expected.add(e1); expected.add(e2); expected.add(e3);
 		
-		ArrayList<ArrayList<BigDecimal>> actual = 
-						new ArrayList<ArrayList<BigDecimal>>();
-		ArrayList<BigDecimal> row1=new ArrayList<BigDecimal>();
-		row1.add(new BigDecimal(0.1)); row1.add(new BigDecimal(0.2));
+		ArrayList<ArrayList<Byte>> actual = 
+						new ArrayList<ArrayList<Byte>>();
+		ArrayList<Byte> row1=new ArrayList<Byte>();
+		row1.add((byte)(0)); row1.add((byte)(0));
 		
-		ArrayList<BigDecimal> row2=new ArrayList<BigDecimal>();
-		row2.add(new BigDecimal(0.5)); row2.add(new BigDecimal(0.3));
-		row2.add(new BigDecimal(0.0)); row2.add(new BigDecimal(0.4));
+		ArrayList<Byte> row2=new ArrayList<Byte>();
+		row2.add((byte) 0); row2.add((byte) 0.4); row2.add((byte) 0);
 		
-		ArrayList<BigDecimal> row3=new ArrayList<BigDecimal>();
-		row3.add(new BigDecimal(0.2)); row3.add(new BigDecimal(0.0));
-		row3.add(new BigDecimal(0.1));
+		ArrayList<Byte> row3=new ArrayList<Byte>();
+		row3.add((byte) 0.1); row3.add((byte) 0);
 		
 		actual.add(row1); actual.add(row2); actual.add(row3);
 		
 		SamplingTools tools = new SamplingTools();
-		actual = tools.fixRowsLength(row2.size(), actual);
+		actual = tools.fixRowsLength2(row2.size(), actual);
 		
 		assertEquals(expected, actual);
 	}
 	
 	public void testSortMatrix() {
 		
-		ArrayList<ArrayList<BigDecimal>> expected = 
-							new ArrayList<ArrayList<BigDecimal>>();
-		ArrayList<BigDecimal> exp1 = new ArrayList<BigDecimal>();
-		exp1.add(new BigDecimal(0.1)); exp1.add(new BigDecimal(0.11));
-		exp1.add(new BigDecimal(40.0)); exp1.add(new BigDecimal(45.0));
-		exp1.add(new BigDecimal(0.0)); exp1.add(new BigDecimal(1.0));
-		exp1.add(new BigDecimal(0.0)); exp1.add(new BigDecimal(0.0));
+		ArrayList<ArrayList<Byte>> expected = 
+							new ArrayList<ArrayList<Byte>>();
+		ArrayList<Byte> exp1 = new ArrayList<Byte>();
+		exp1.add((byte) 0.0); exp1.add((byte) 1.0);
+		exp1.add((byte) 0.0); exp1.add((byte) 0.0);
 		
-		ArrayList<BigDecimal> exp2 = new ArrayList<BigDecimal>();
-		exp2.add(new BigDecimal(0.2)); exp2.add(new BigDecimal(0.12));
-		exp2.add(new BigDecimal(50.0)); exp2.add(new BigDecimal(55.0));
-		exp2.add(new BigDecimal(0.0)); exp2.add(new BigDecimal(0.0));
-		exp2.add(new BigDecimal(0.0)); exp2.add(new BigDecimal(1.0));
+		ArrayList<Byte> exp2 = new ArrayList<Byte>();
+		exp2.add((byte) 0.0); exp2.add((byte) 0.0);
+		exp2.add((byte) 0.0); exp2.add((byte) 1.0);
 		
-		ArrayList<BigDecimal> exp3 = new ArrayList<BigDecimal>();
-		exp3.add(new BigDecimal(0.3)); exp3.add(new BigDecimal(0.13));
-		exp3.add(new BigDecimal(60.0)); exp3.add(new BigDecimal(65.0));
-		exp3.add(new BigDecimal(0.0)); exp3.add(new BigDecimal(0.0));
-		exp3.add(new BigDecimal(1.0)); exp3.add(new BigDecimal(0.0));
+		ArrayList<Byte> exp3 = new ArrayList<Byte>();
+		exp3.add((byte) 0.0); exp3.add((byte) 0.0);
+		exp3.add((byte) 1.0); exp3.add((byte) 0.0);
 		
 		expected.add(exp1); expected.add(exp2); expected.add(exp3);
 		
-		ArrayList<ArrayList<BigDecimal>> matrix = 
-						new ArrayList<ArrayList<BigDecimal>>();
-		ArrayList<BigDecimal> rec1=new ArrayList<BigDecimal>();
-		rec1.add(new BigDecimal(0.1)); rec1.add(new BigDecimal(0.11));
-		rec1.add(new BigDecimal(40.0)); rec1.add(new BigDecimal(45.0));
-		rec1.add(new BigDecimal(1.0)); rec1.add(new BigDecimal(0.0));
-		rec1.add(new BigDecimal(0.0)); rec1.add(new BigDecimal(0.0));
+		ArrayList<ArrayList<Byte>> matrix = 
+						new ArrayList<ArrayList<Byte>>();
+		ArrayList<Byte> rec1=new ArrayList<Byte>();
+		rec1.add((byte) 1.0); rec1.add((byte) 0.0);
+		rec1.add((byte) 0.0); rec1.add((byte) 0.0);
 		
-		ArrayList<BigDecimal> rec2=new ArrayList<BigDecimal>();
-		rec2.add(new BigDecimal(0.2)); rec2.add(new BigDecimal(0.12));
-		rec2.add(new BigDecimal(50.0)); rec2.add(new BigDecimal(55.0));
-		rec2.add(new BigDecimal(0.0)); rec2.add(new BigDecimal(0.0));
-		rec2.add(new BigDecimal(0.0)); rec2.add(new BigDecimal(1.0));
+		ArrayList<Byte> rec2=new ArrayList<Byte>();
+		rec2.add((byte) 0.0); rec2.add((byte) 0.0);
+		rec2.add((byte) 0.0); rec2.add((byte) 1.0);
 		
-		ArrayList<BigDecimal> rec3=new ArrayList<BigDecimal>();
-		rec3.add(new BigDecimal(0.3)); rec3.add(new BigDecimal(0.13));
-		rec3.add(new BigDecimal(60.0)); rec3.add(new BigDecimal(65.0));
-		rec3.add(new BigDecimal(0.0)); rec3.add(new BigDecimal(1.0));
-		rec3.add(new BigDecimal(0.0)); rec3.add(new BigDecimal(0.0));
+		ArrayList<Byte> rec3=new ArrayList<Byte>();
+		rec3.add((byte) 0.0); rec3.add((byte) 1.0);
+		rec3.add((byte) 0.0); rec3.add((byte) 0.0);
 		
 		matrix.add(rec1); matrix.add(rec2); matrix.add(rec3);
 		
 		HashMap<String, Integer> map=new HashMap<String, Integer>();
-		map.put("B", 2); map.put("C", 3); map.put("A", 4); map.put("D", 5);
+		map.put("B", 0); map.put("C", 1); map.put("A", 2); map.put("D", 3);
 		
 		SamplingTools tools = new SamplingTools();
-		ArrayList<ArrayList<BigDecimal>> actual = 
-						tools.sortMatrixSingles(matrix, map);
+		ArrayList<ArrayList<Byte>> actual = 
+						tools.sortMatrixSingles2(matrix, map);
 		
 		//Start the test
 		assertEquals(expected, actual);
@@ -211,14 +189,13 @@ public class SamplingToolsTest extends TestCase{
 	public void testSortFeatures() {
 		
 		ArrayList<String> expected=new ArrayList<String>();
-		expected.add("Latitude"); expected.add("Longitude");
 		expected.add("A"); expected.add("B"); expected.add("C");
 		
 		HashMap<String, Integer> map=new HashMap<String, Integer>();
-		map.put("B", 2); map.put("C", 3); map.put("A", 4);
+		map.put("B", 0); map.put("C", 1); map.put("A", 2);
 		
 		SamplingTools tools = new SamplingTools();
-		ArrayList<String> actual = tools.sortFeatures(map);
+		ArrayList<String> actual = tools.sortFeatures2(map);
 		
 		assertEquals(expected, actual);
 	}
@@ -233,12 +210,11 @@ public class SamplingToolsTest extends TestCase{
 		expected.add("B"); expected.add("C");
 		
 		ArrayList<String> a=new ArrayList<String>();
-		a.add("Latitude"); a.add("Longitude"); a.add("A");
-		a.add("B"); a.add("C");
+		a.add("A"); a.add("B"); a.add("C");
 		
 		SamplingTools tools = new SamplingTools();
-		ArrayList<String> actual = tools.getFeaturesForSingles(a);
+		ArrayList<String> actual = tools.getFeaturesForSingles2(a);
 		
 		assertEquals(expected, actual);
-	}*/
+	}
 }
