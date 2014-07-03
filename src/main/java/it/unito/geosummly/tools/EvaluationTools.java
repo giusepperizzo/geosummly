@@ -1,6 +1,7 @@
 package it.unito.geosummly.tools;
 
 import it.unito.geosummly.BoundingBox;
+import it.unito.geosummly.utils.Pair;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -402,6 +403,86 @@ public class EvaluationTools {
 		}
 		return builder;
 	}
+	
+	/**
+	 * Compute the Jaccard similarity coefficient between the pair of holdouts, computed 
+	 * in a x-fold cross validation 
+	 */
+	public StringBuilder computeJaccard2(List<Pair<?,?>> folds) 
+	{
+		StringBuilder builder = new StringBuilder();
+		Jaccard jacc = new Jaccard();
+		Double jaccOnLabels = 0.0;
+		Double jaccOnSet = 0.0;
+		
+		HashMap<String, Vector<Double>> jaccOnSets = new HashMap<>();
+
+		for (int i=0; i < folds.size(); i++)
+		{
+			Pair<?,?> fold = folds.get(i);
+			
+			// locally copy set A
+			HashMap<String, Vector<Integer>> ho1 = (HashMap<String, Vector<Integer>>) fold.getFirst();
+			// locally copy set B
+			HashMap<String, Vector<Integer>> ho2 = (HashMap<String, Vector<Integer>>) fold.getSecond();
+			builder.append("pair (A,B) of fold=" + (i+1) + "\n");
+	
+			builder.append("\tjaccard_labels=" + 
+					jacc.calc(ho1.keySet().toArray(), ho2.keySet().toArray()) + "\n");
+			
+			// get cluster names from first set
+			Set<String> cluster_names = new HashSet<String>();
+			cluster_names.addAll(ho1.keySet());
+			// get cluster names from second set
+			cluster_names.addAll(ho2.keySet());
+	
+			Double jaccOnPair = 0.0;
+			for (String name : cluster_names) 
+			{
+				Vector<Integer> ho1_objects = (ho1.get(name) == null) ? new Vector<Integer>()
+						: ho1.get(name);
+				Vector<Integer> ho2_objects = (ho2.get(name) == null) ? new Vector<Integer>()
+						: ho2.get(name);
+				builder.append("\tjaccard_on_set(" + name + ")="
+						+ jacc.calc(ho1_objects, ho2_objects) + "\n");
+	
+				if (!jaccOnSets.containsKey(name)) {
+					Vector<Double> v = new Vector<>();
+					v.add(jacc.calc(ho1_objects, ho2_objects));
+					jaccOnSets.put(name, v);
+				} else {
+					Vector<Double> v = jaccOnSets.get(name);
+					jaccOnSets.remove(name);
+					v.add(jacc.calc(ho1_objects, ho2_objects));
+					jaccOnSets.put(name, v);
+				}
+	
+				jaccOnPair += jacc.calc(ho1_objects, ho2_objects);
+			}
+			builder.append("\tjaccard_on_set_average=" + 
+					jaccOnPair / cluster_names.size() + "\n");
+			
+			jaccOnLabels += jacc.calc(ho1.keySet().toArray(), ho2.keySet()
+					.toArray());
+			jaccOnSet += jaccOnPair / cluster_names.size();
+		}
+	
+		//end x folds
+		builder.append("#####\n#  Totals\n####\n");
+		builder.append("avg_jaccard_labels=" + jaccOnLabels / folds.size() + "\n");
+		builder.append("avg_jaccard_objects=" + jaccOnSet / folds.size() + "\n");
+		for (Entry<String, Vector<Double>> entry : jaccOnSets.entrySet()) 
+		{
+			Double counter = 0.0;
+			for (Double d : entry.getValue()) {
+				counter += d;
+			}
+			builder.append("avg_jaccard_cluster(" + entry.getKey() + ")="
+					+ counter / entry.getValue().size() + "\n");
+		}
+		return builder;
+	}	
+	
 
 	/**
 	 * Compute the ratio in percentage between the SSE of clustering output on
