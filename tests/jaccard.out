@@ -1,0 +1,39 @@
+pair (A,B) of fold=1
+	jaccard_labels=0.625
+	jaccard_on_set(c(Travel & Transport))=1.0
+	jaccard_on_set(c(Arts & Entertainment))=1.0
+	jaccard_on_set(c(Professional & Other Places))=1.0
+	jaccard_on_set(c(Shop & Service))=0.0
+	jaccard_on_set(c(Outdoors & Recreation))=0.0
+	jaccard_on_set(c(Residence))=0.0
+	jaccard_on_set(c(Nightlife Spot))=1.0
+	jaccard_on_set(c(Arts & Entertainment,Nightlife Spot))=1.0
+	jaccard_on_set_average=0.625
+pair (A,B) of fold=2
+	jaccard_labels=0.6666666666666666
+	jaccard_on_set(c(Travel & Transport))=1.0
+	jaccard_on_set(c(Arts & Entertainment))=1.0
+	jaccard_on_set(c(Professional & Other Places))=0.8415841584158416
+	jaccard_on_set(c(Shop & Service))=0.4186046511627907
+	jaccard_on_set(c(Outdoors & Recreation))=0.0
+	jaccard_on_set(c(Residence))=0.0
+	jaccard_on_set_average=0.5433648015964386
+pair (A,B) of fold=3
+	jaccard_labels=1.0
+	jaccard_on_set(c(Travel & Transport))=0.7368421052631579
+	jaccard_on_set(c(Arts & Entertainment))=0.8787878787878788
+	jaccard_on_set(c(Professional & Other Places))=0.9621212121212122
+	jaccard_on_set_average=0.8592503987240829
+#####
+#  Totals
+####
+avg_jaccard_labels=0.7638888888888888
+avg_jaccard_objects=0.6758717334401738
+avg_jaccard_cluster(c(Travel & Transport))=0.912280701754386
+avg_jaccard_cluster(c(Arts & Entertainment))=0.9595959595959597
+avg_jaccard_cluster(c(Shop & Service))=0.20930232558139536
+avg_jaccard_cluster(c(Professional & Other Places))=0.9345684568456845
+avg_jaccard_cluster(c(Outdoors & Recreation))=0.0
+avg_jaccard_cluster(c(Residence))=0.0
+avg_jaccard_cluster(c(Nightlife Spot))=1.0
+avg_jaccard_cluster(c(Arts & Entertainment,Nightlife Spot))=1.0
