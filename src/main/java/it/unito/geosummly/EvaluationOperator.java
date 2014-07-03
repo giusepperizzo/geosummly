@@ -5,6 +5,7 @@ import it.unito.geosummly.io.LogDataIO;
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.EvaluationTools;
 import it.unito.geosummly.tools.ImportTools;
+import it.unito.geosummly.utils.Pair;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -126,6 +127,9 @@ public class EvaluationOperator {
 		ArrayList<BoundingBox> data=eTools.getFocalPoints(matrix);
 		ArrayList<Double> bboxArea=eTools.getAreasFromFocalPoints(data, matrix.size());
 		
+		//This  variable will contain all the pairs of sets of the folds
+		ArrayList<Pair<?,?>> pairs = new ArrayList<>();
+		
 		ImportTools tools = new ImportTools();
 		ClusteringOperator co=new ClusteringOperator();
 		int index = 0;
@@ -142,9 +146,10 @@ public class EvaluationOperator {
 			//Group the sets to cell
 			ArrayList<ArrayList<ArrayList<Double>>> sets = eTools.groupFolds(data, holdout);
 			
-			//For each set this variable will contain the cells of the resulting clustering
-			//ArrayList<HashMap<String, Vector<Integer>>> holdoutClustering = 
-				//	new ArrayList<HashMap<String, Vector<Integer>>>();
+			//This variable will contain the cells of the resulting clustering
+			//for the pair of sets
+			Pair<HashMap<String, Vector<Integer>>, 
+				 HashMap<String, Vector<Integer>>> pair = new Pair<>(null, null);
 			
 			char name = 'A';
 			
@@ -186,7 +191,11 @@ public class EvaluationOperator {
 				//Clustering of the sets
 				HashMap<String, Vector<Integer>> setClustering = 
 								co.executeForValidation(normalized, length, labels, minpts, eps);
-				//holdoutClustering.add(setClustering);
+				
+				if(name == 'A')
+					pair.setFirst(setClustering);
+				else
+					pair.setSecond(setClustering);
 				
 				//write down the clustering of the resulting holdout to file
 				logIO.writeHoldoutLog2(setClustering, out, name, index);
@@ -196,7 +205,14 @@ public class EvaluationOperator {
 				
 				length+=normalized.size(); //update last_cellId value
 			}
+			
+			//Add the pair to the list
+			pairs.add(pair);
 		}
+		
+		//Compute jaccard and write the result to file
+		StringBuilder builder=eTools.computeJaccard2(pairs);
+		logIO.writeJaccardLog(builder, out);
     }
 
 	public void executeValidation(String logFile, 
