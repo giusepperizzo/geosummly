@@ -57,6 +57,10 @@ public class ClusteringOperator {
 		//-1 because of the header
 		int cellNum = listDens.size()-1;
 		
+		//get the option -combination
+		//that is the maximum number of categories considered in a combination
+		int comb = 3;
+		
 		ClusteringTools tools=new ClusteringTools();
 		
 		//fill in the matrix of normalized values

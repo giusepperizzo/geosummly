@@ -820,4 +820,47 @@ public class EvaluationTools {
 		
 		return result;
 	}
+	
+	public ArrayList<ArrayList<ArrayList<Double>>> 
+						doHoldoutDensity(ArrayList<ArrayList<Double>> matrix) {
+		
+		ArrayList<ArrayList<ArrayList<Double>>> result = 
+				new ArrayList<ArrayList<ArrayList<Double>>>();
+		
+		ArrayList<ArrayList<Double>> setA = new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> setB = new ArrayList<ArrayList<Double>>();
+		     
+		Random r = new Random();
+		
+		for(ArrayList<Double> record: matrix) {
+			
+			ArrayList<Double> recA = new ArrayList<Double>();
+			ArrayList<Double> recB = new ArrayList<Double>();
+			recA.add(record.get(0)); //lat for set A
+			recA.add(record.get(1)); //lng
+			recB.add(record.get(0)); //lat for set B
+			recB.add(record.get(1)); //lng
+			
+			//fill the rest of the record
+			for(int i=2; i<record.size();i++) {
+				
+				double random = r.nextDouble();
+				double d = 0;
+				if(random > 0)
+					d = record.get(i) * random;
+				else
+					d = 0.0;
+				
+				recA.add(d);
+				recB.add(record.get(i)-d);
+			}
+			setA.add(recA);
+			setB.add(recB);
+		}
+		 
+		result.add(setA);
+		result.add(setB);
+		
+		return result;
+	}
 }

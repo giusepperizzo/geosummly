@@ -8,7 +8,6 @@ import it.unito.geosummly.tools.ImportTools;
 import it.unito.geosummly.utils.Pair;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,7 +122,132 @@ public class EvaluationOperator {
 		logIO.writeSSEforR(SSEs, out);
 	}
 	
-	public void executeValidation2(String logFile,
+	public void executeValidation(String logFile,
+								   String inDens,
+								   String out,
+								   int fnum) throws IOException {
+		
+		//Read input files
+		CSVDataIO dataIO=new CSVDataIO();
+		List<CSVRecord> list=dataIO.readCSVFile(inDens);
+		LogDataIO logIO=new LogDataIO();
+		ArrayList<ArrayList<String>> infos=logIO.readClusteringLog(logFile);
+		
+		//Get feature labels, minpts and eps
+		ArrayList<String> labels=infos.get(0);
+		ArrayList<String> minpts=infos.get(1);
+		double eps=Double.parseDouble(infos.get(2).get(0));
+		
+		//minpts/2
+		/*ArrayList<String> minpts = new ArrayList<String>();
+		for(String s: minptsS) {
+			
+			Double d = Double.parseDouble(s)/2;
+			minpts.add(d.toString());
+		}*/
+		
+		//Features (without coordinates)
+		ArrayList<String> features = new ArrayList<String>();
+		for(String s: list.get(0))
+			features.add(s);
+		features.remove(0); //remove timestamp
+		features.remove(0); //remove lat
+		features.remove(0); //remove lng
+		
+		//Density matrix (convert values from string to double)
+		ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();
+		//i=1 --> no header
+		for(int i=1; i<list.size(); i++) {
+			
+			ArrayList<Double> record = new ArrayList<Double>();
+			//j=1 --> no timestamp
+			for(int j=1; j<list.get(i).size(); j++) {
+				
+				record.add(Double.parseDouble(list.get(i).get(j)));
+			}
+			
+			matrix.add(record);
+		}
+		
+		//Get labels and minpts
+		DiscoveryOperator dO = new DiscoveryOperator();
+		ArrayList<ArrayList<String>> deltad = dO.executeForValidation(inDens, 3);
+		labels = new ArrayList<String>(deltad.get(0));
+		minpts = new ArrayList<String>(deltad.get(1));
+		
+		//This  variable will contain all the pairs of sets of the folds
+		ArrayList<Pair<?,?>> pairs = new ArrayList<>();
+		
+		ImportTools tools = new ImportTools();
+		ClusteringOperator co=new ClusteringOperator();
+		int index = 1;
+		int length = 0;
+		
+		//Create the folds
+		for(int i=0; i<fnum; i++) {
+			
+			//Do the holdout
+			ArrayList<ArrayList<ArrayList<Double>>> sets = eTools.doHoldoutDensity(matrix);
+			
+			//This variable will contain the cells of the resulting clustering
+			//for the pair of sets
+			Pair<HashMap<String, Vector<Integer>>, 
+				 HashMap<String, Vector<Integer>>> pair = new Pair<>(null, null);
+			
+			char name = 'A';
+			
+			//For each set
+			for(ArrayList<ArrayList<Double>> set: sets) {
+				
+				ArrayList<ArrayList<Double>> normalized = 
+								tools.buildNormalizedMatrix(CoordinatesNormalizationType.NORM, set);
+				dataIO.printResultHorizontal(null, 
+											 set, 
+											 eTools.getFeaturesLabelNoTimestamp(
+													 			CoordinatesNormalizationType.NORM, 
+													 			"density", 
+													 			features), 
+											 out+"/fold_"+index, 
+											 "/"+name+"-density-transformation-matrix.csv");
+				dataIO.printResultHorizontal(null, 
+											 normalized, 
+											 eTools.getFeaturesLabelNoTimestamp(
+													 			CoordinatesNormalizationType.NORM, 
+													 			"normalized_density", 
+													 			features), 
+								 			 out+"/fold_"+index, 
+								 			 "/"+name+"-normalized-transformation-matrix.csv");
+				
+				//Clustering of the sets
+				HashMap<String, Vector<Integer>> setClustering = 
+								co.executeForValidation(normalized, length, labels, minpts, eps);
+				
+				if(name == 'A')
+					pair.setFirst(setClustering);
+				else
+					pair.setSecond(setClustering);
+				
+				//write down the clustering of the resulting holdout to file
+				logIO.writeHoldoutLog2(setClustering, out, name, index);
+				
+				//switch the set name from 'A' to 'B'
+				name++;
+				
+				length+=normalized.size(); //update last_cellId value
+			}
+			
+			index++; //just for file name
+			
+			//Add the pair to the list
+			pairs.add(pair);
+		}
+		
+		//Compute jaccard and write the result to file
+		StringBuilder builder=eTools.computeJaccard2(pairs);
+		logIO.writeJaccardLog(builder, out);
+	}
+	
+	/*public void executeValidation2(String logFile,
 								  String inSingles,
 								  String out,
 								  int fnum) throws IOException 
@@ -155,7 +279,7 @@ public class EvaluationOperator {
     	grid.setBbox(bbox);
     	grid.setStructure(data);
     	grid.createCells();
-
+    	
 		//Fill in the matrix of single venues
 		//All the columns will be considered.
 		ArrayList<ArrayList<String>> matrix = eTools.buildSinglesFromList(list);
@@ -202,7 +326,8 @@ public class EvaluationOperator {
 			ArrayList<ArrayList<ArrayList<Double>>> initialSets = eTools.groupFolds(data, holdout);
 			
 			//Check if all the cells are included in each set
-			ArrayList<ArrayList<ArrayList<Double>>> sets = eTools.checkCells(data, initialSets);
+			//ArrayList<ArrayList<ArrayList<Double>>> sets = eTools.checkCells(data, initialSets);
+			ArrayList<ArrayList<ArrayList<Double>>> sets = new ArrayList<ArrayList<ArrayList<Double>>>(initialSets);
 			
 			//This variable will contain the cells of the resulting clustering
 			//for the pair of sets
@@ -273,5 +398,5 @@ public class EvaluationOperator {
 		//Compute jaccard and write the result to file
 		StringBuilder builder=eTools.computeJaccard2(pairs);
 		logIO.writeJaccardLog(builder, out);
-    }
+    }*/
 }

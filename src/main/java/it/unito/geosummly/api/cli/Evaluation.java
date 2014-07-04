@@ -124,7 +124,7 @@ public class Evaluation {
 				eo.executeCorrectness(inLog, inNorm, outDir, mnum);
 			}
 			else if(evalType.equals("validation"))
-				eo.executeValidation2(inLog, inSingles, outDir, fnum);
+				eo.executeValidation(inLog, inSingles, outDir, fnum);
 			
 		}
 		catch(ParseException | NumberFormatException | IOException e) {

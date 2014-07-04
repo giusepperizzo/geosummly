@@ -130,4 +130,76 @@ public class DiscoveryOperator {
 		//dataIO.printResultHorizontal(null, stdMatrix, dt.getFeaturesLabel("std", feat), out, "/std-values.csv");*/
 		dataIO.printResultVertical(deltadValues, featuresDeltad, out, "/deltad-values.csv");
 	}
+	
+	public ArrayList<ArrayList<String>> executeForValidation(String in, int comb) throws IOException {
+		
+		//Read csv file and create the dataset without coordinate values
+		CSVDataIO dataIO=new CSVDataIO();
+		List<CSVRecord> list=dataIO.readCSVFile(in);
+		
+		ArrayList<String> features=new ArrayList<String>();
+		ArrayList<ArrayList<Double>> dataset = new ArrayList<ArrayList<Double>>();
+		int index=1;
+		if(list.get(0).get(1).contains("Latitude") || list.get(0).get(1).contains("Longitude"))
+			index=3;
+		
+		for(int k=index;k<list.get(0).size();k++) {
+			features.add(list.get(0).get(k));
+		}
+		
+		for(int k=1;k<list.size();k++) {
+			ArrayList<Double> rec=new ArrayList<Double>();
+			for(int j=index;j<list.get(k).size(); j++)
+				rec.add(Double.parseDouble(list.get(k).get(j)));
+			dataset.add(rec);
+		}
+		
+		DiscoveryTools dt=new DiscoveryTools();
+		
+		ArrayList<Double> meanDensities=dt.getMeanArray(dataset);
+		ArrayList<ArrayList<Double>> stdMatrix=dt.getStdMatrix(dataset);
+		ArrayList<Double> stdSingles=new ArrayList<Double>(stdMatrix.get(0));
+		double n=dataset.size();
+		
+		//The option combination have to be less or equal than the number of features
+		if(comb > features.size())
+			comb=features.size();
+		
+		//Deltad values of single features
+		ArrayList<Double> deltadValues=new ArrayList<Double>();
+		deltadValues.addAll(dt.getSingleDensities(meanDensities, stdSingles, n)); //add deltad values of singles
+		
+		//Deltad values of feature combinations
+		for(int j=2;j<=comb;j++) {
+			int[] combinations=new int[j]; //array which will contain the indices of the values to combine
+			Arrays.fill(combinations, -1);
+			deltadValues.addAll(dt.getDeltadCombinations(dataset, new ArrayList<Double>(), meanDensities, combinations, 0, 0, n));
+		}
+		
+		//Label of single features
+		ArrayList<String >feat=dt.changeFeaturesLabel("density", "", features);
+		ArrayList<String> featuresDeltad=new ArrayList<String>();
+		featuresDeltad.addAll(dt.getFeaturesLabel("deltad", feat));
+		
+		//Label of feature combinations
+		for(int j=2;j<=comb;j++) {
+			int[] combinations=new int[j]; //array which will contain the indices of the features to combine
+			Arrays.fill(combinations, -1);
+			featuresDeltad.addAll(dt.getFeaturesForCombinations(new ArrayList<String>(), feat, combinations, 0, 0));
+		}
+		
+		
+		//Change deltad to string
+		ArrayList<String> deltadValuesString = new ArrayList<String>();
+		for(Double d: deltadValues)
+			deltadValuesString.add(d.toString());
+		
+		//Write down the matrices to file
+		//dataIO.printResultHorizontal(null, stdMatrix, dt.getFeaturesLabel("std", feat), out, "/std-values.csv");*/
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+		result.add(featuresDeltad);
+		result.add(deltadValuesString);
+		
+		return result;
+	}
 }
