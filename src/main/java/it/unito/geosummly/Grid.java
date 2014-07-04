@@ -1,6 +1,7 @@
 package it.unito.geosummly;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -52,10 +53,10 @@ public class Grid {
 		BoundingBox singleCell;
 		
 		//width of a single cell
-		BigDecimal cellWidth = (b.getEast().subtract(b.getWest())).divide(num);
+		BigDecimal cellWidth = (b.getEast().subtract(b.getWest())).divide(num,RoundingMode.HALF_UP);
 		
 		//height of a single cell
-		BigDecimal cellHeight=(b.getNorth().subtract(b.getSouth())).divide(num);
+		BigDecimal cellHeight=(b.getNorth().subtract(b.getSouth())).divide(num, RoundingMode.HALF_UP);
 		
 		//coordinates of the first cell (top-left side of the bounding box)
 		BigDecimal northSingleCell=b.getNorth();
