@@ -2,7 +2,6 @@ package it.unito.geosummly.tools;
 
 import it.unito.geosummly.BoundingBox;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
@@ -29,11 +28,11 @@ public class ImportToolsTest extends TestCase {
 		expected.add(10.0); expected.add(20.0); expected.add(30.0);
 		
 		BoundingBox b1 = new BoundingBox();
-		b1.setArea(new BigDecimal(10));
+		b1.setArea(new Double(10));
 		BoundingBox b2 = new BoundingBox();
-		b2.setArea(new BigDecimal(20));
+		b2.setArea(new Double(20));
 		BoundingBox b3 = new BoundingBox();
-		b3.setArea(new BigDecimal(30));
+		b3.setArea(new Double(30));
 		ArrayList<BoundingBox> bbox = new ArrayList<BoundingBox>();
 		bbox.add(b1); bbox.add(b2); bbox.add(b3);
 		
@@ -50,11 +49,11 @@ public class ImportToolsTest extends TestCase {
 		
 		ArrayList<BoundingBox> bbox = new ArrayList<BoundingBox>();
 		BoundingBox b1 = new BoundingBox();
-		b1.setCenterLat(new BigDecimal(45.51)); b1.setCenterLng(new BigDecimal(7.5));
+		b1.setCenterLat(new Double(45.51)); b1.setCenterLng(new Double(7.5));
 		BoundingBox b2 = new BoundingBox();
-		b2.setCenterLat(new BigDecimal(45.52)); b2.setCenterLng(new BigDecimal(7.5));
+		b2.setCenterLat(new Double(45.52)); b2.setCenterLng(new Double(7.5));
 		BoundingBox b3 = new BoundingBox();
-		b3.setCenterLat(new BigDecimal(45.53)); b3.setCenterLng(new BigDecimal(7.5));
+		b3.setCenterLat(new Double(45.53)); b3.setCenterLng(new Double(7.5));
 		bbox.add(b1); bbox.add(b2); bbox.add(b3);
 		
 		ImportTools tools = new ImportTools();
@@ -68,11 +67,11 @@ public class ImportToolsTest extends TestCase {
 		
 		ArrayList<BoundingBox> expected = new ArrayList<BoundingBox>();
 		BoundingBox b1 = new BoundingBox();
-		b1.setCenterLat(new BigDecimal(3.0)); b1.setCenterLng(new BigDecimal(4.0));
+		b1.setCenterLat(new Double(3.0)); b1.setCenterLng(new Double(4.0));
 		BoundingBox b2 = new BoundingBox();
-		b2.setCenterLat(new BigDecimal(9.0)); b2.setCenterLng(new BigDecimal(10.0));
+		b2.setCenterLat(new Double(9.0)); b2.setCenterLng(new Double(10.0));
 		BoundingBox b3 = new BoundingBox();
-		b3.setCenterLat(new BigDecimal(15.0)); b3.setCenterLng(new BigDecimal(16.0));
+		b3.setCenterLat(new Double(15.0)); b3.setCenterLng(new Double(16.0));
 		expected.add(b1); expected.add(b2); expected.add(b3);
 		
 		ArrayList<ArrayList<Double>> matrix =
@@ -106,8 +105,8 @@ public class ImportToolsTest extends TestCase {
 		expected.add(1.0);
 		
 		BoundingBox bbox = new BoundingBox();
-		bbox.setCenterLat(new BigDecimal(0.1));
-		bbox.setCenterLng(new BigDecimal(0.2));
+		bbox.setCenterLat(new Double(0.1));
+		bbox.setCenterLng(new Double(0.2));
 		ArrayList<ArrayList<Double>> matrix = 
 								new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> rec_1 = new ArrayList<Double>();
@@ -153,11 +152,11 @@ public class ImportToolsTest extends TestCase {
 		expected.add(r_1); expected.add(r_2);
 		
 		BoundingBox b1 = new BoundingBox();
-		b1.setCenterLat(new BigDecimal(0.1));
-		b1.setCenterLng(new BigDecimal(0.2));
+		b1.setCenterLat(new Double(0.1));
+		b1.setCenterLng(new Double(0.2));
 		BoundingBox b2 = new BoundingBox();
-		b2.setCenterLat(new BigDecimal(0.1));
-		b2.setCenterLng(new BigDecimal(0.2));
+		b2.setCenterLat(new Double(0.1));
+		b2.setCenterLng(new Double(0.2));
 		ArrayList<BoundingBox> bbox = new ArrayList<BoundingBox>();
 		bbox.add(b1); bbox.add(b2);
 		

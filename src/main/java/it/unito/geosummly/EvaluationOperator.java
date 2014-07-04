@@ -262,10 +262,10 @@ public class EvaluationOperator {
 		ArrayList<String> labels=infos.get(0);
 		ArrayList<String> minpts=infos.get(1);
 		double eps=Double.parseDouble(infos.get(2).get(0));
-		BigDecimal north = new BigDecimal(infos.get(3).get(0)); //north of bbox
-		BigDecimal east = new BigDecimal(infos.get(3).get(1));
-		BigDecimal south = new BigDecimal(infos.get(3).get(2));
-		BigDecimal west = new BigDecimal(infos.get(3).get(3));
+		Double north = new Double(infos.get(3).get(0)); //north of bbox
+		Double east = new Double(infos.get(3).get(1));
+		Double south = new Double(infos.get(3).get(2));
+		Double west = new Double(infos.get(3).get(3));
 		
 		//number of cell of a side of the bbox
 		int gnum = (int) Math.sqrt(Integer.parseInt(infos.get(3).get(4)));

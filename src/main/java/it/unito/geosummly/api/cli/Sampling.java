@@ -5,15 +5,14 @@ import it.unito.geosummly.SamplingOperator;
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.OptionGroup;
-import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
@@ -29,7 +28,7 @@ public class Sampling {
 	
 	private String inFile=null;
 	private String outDir=null;
-	private ArrayList<BigDecimal> coordinates=new ArrayList<BigDecimal>();
+	private ArrayList<Double> coordinates=new ArrayList<Double>();
 	private int gridCells=20;
 	private int randomCells=-1;
 	private long sleepMs=0;
@@ -75,7 +74,7 @@ public class Sampling {
 			if(line.hasOption("coord") && line.hasOption("output")) {
 				String[] c=line.getOptionValues("coord");
 				for(String s: c)
-					coordinates.add(new BigDecimal(Double.parseDouble(s)));
+					coordinates.add(Double.parseDouble(s));
 				outDir=line.getOptionValue("output");
 				if(line.hasOption("gnum")) {
 					gridCells=Integer.parseInt(line.getOptionValue("gnum"));

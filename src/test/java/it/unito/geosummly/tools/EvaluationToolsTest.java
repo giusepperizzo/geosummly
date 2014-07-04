@@ -2,7 +2,6 @@ package it.unito.geosummly.tools;
 
 import it.unito.geosummly.BoundingBox;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
@@ -205,8 +204,8 @@ public class EvaluationToolsTest extends TestCase {
 		expected.add(1.0);
 		
 		BoundingBox bbox = new BoundingBox();
-		bbox.setCenterLat(new BigDecimal(0.1));
-		bbox.setCenterLng(new BigDecimal(0.2));
+		bbox.setCenterLat(new Double(0.1));
+		bbox.setCenterLng(new Double(0.2));
 		ArrayList<ArrayList<Double>> matrix = 
 								new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> rec_1 = new ArrayList<Double>();
@@ -252,9 +251,9 @@ public class EvaluationToolsTest extends TestCase {
 		
 		ArrayList<BoundingBox> bbox = new ArrayList<BoundingBox>();
 		BoundingBox b_1 = new BoundingBox();
-		b_1.setCenterLat(new BigDecimal(0.1)); b_1.setCenterLng(new BigDecimal(0.2));
+		b_1.setCenterLat(new Double(0.1)); b_1.setCenterLng(new Double(0.2));
 		BoundingBox b_2 = new BoundingBox();
-		b_2.setCenterLat(new BigDecimal(0.3)); b_2.setCenterLng(new BigDecimal(0.4));
+		b_2.setCenterLat(new Double(0.3)); b_2.setCenterLng(new Double(0.4));
 		bbox.add(b_1); bbox.add(b_2);
 		
 		ArrayList<ArrayList<ArrayList<Double>>> folds =

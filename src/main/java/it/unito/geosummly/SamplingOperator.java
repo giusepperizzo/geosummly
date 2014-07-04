@@ -1,5 +1,6 @@
 package it.unito.geosummly;
 
+import fi.foyt.foursquare.api.FoursquareApiException;
 import it.unito.geosummly.io.CSVDataIO;
 import it.unito.geosummly.io.GeoJSONReader;
 import it.unito.geosummly.io.LogDataIO;
@@ -8,15 +9,12 @@ import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.SamplingTools;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.json.JSONException;
-
-import fi.foyt.foursquare.api.FoursquareApiException;
 
 
 public class SamplingOperator {
@@ -39,19 +37,19 @@ public class SamplingOperator {
 		ArrayList<BoundingBox> data=reader.decodeForSampling(in);
 		
 		//top left cell gives ne coordinates
-		BigDecimal bigNorth=data.get(0).getNorth();
-		BigDecimal bigEast=data.get(data.size()-1).getEast(); 
+		Double bigNorth=data.get(0).getNorth();
+		Double bigEast=data.get(data.size()-1).getEast(); 
 		
 		//bottom right cell gives sw coordinates
-		BigDecimal bigSouth=data.get(data.size()-1).getSouth();
-		BigDecimal bigWest=data.get(0).getWest();
+		Double bigSouth=data.get(data.size()-1).getSouth();
+		Double bigWest=data.get(0).getWest();
 		
 		BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 		
 		collectAndTransform(global, data, out, sleep, secondLevel);
     }
     
-    public void executeWithCoord( ArrayList<BigDecimal> coord, 
+    public void executeWithCoord( ArrayList<Double> coord, 
     							  String out, 
     							  int gnum, 
     							  int rnum, 
@@ -101,10 +99,10 @@ public class SamplingOperator {
     	
     	//Get the tools class and its support variables
 		SamplingTools tools=new SamplingTools();
-		/*ArrayList<ArrayList<BigDecimal>> venuesMatrix = 
-									new ArrayList<ArrayList<BigDecimal>>();
-		ArrayList<ArrayList<BigDecimal>> venuesMatrixSecondLevel = 
-									new ArrayList<ArrayList<BigDecimal>>();*/
+		/*ArrayList<ArrayList<Double>> venuesMatrix = 
+									new ArrayList<ArrayList<Double>>();
+		ArrayList<ArrayList<Double>> venuesMatrixSecondLevel = 
+									new ArrayList<ArrayList<Double>>();*/
 		ArrayList<ArrayList<Byte>> venuesMatrix = 
 									new ArrayList<ArrayList<Byte>>();
 		ArrayList<ArrayList<Byte>> venuesMatrixSecondLevel = 

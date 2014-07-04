@@ -2,7 +2,6 @@ package it.unito.geosummly.tools;
 
 import it.unito.geosummly.BoundingBox;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,8 +59,8 @@ public class ImportTools {
 		
 		ArrayList<BoundingBox> bbox=new ArrayList<BoundingBox>();
 		BoundingBox b=new BoundingBox();
-		b.setCenterLat(new BigDecimal(matrix.get(0).get(2)));
-		b.setCenterLng(new BigDecimal(matrix.get(0).get(3)));
+		b.setCenterLat( matrix.get(0).get(2) );
+		b.setCenterLng( matrix.get(0).get(3) );
 		bbox.add(b);
 		double lat;
 		double lng;
@@ -73,8 +72,8 @@ public class ImportTools {
 			
 			if((matrix.get(i-1).get(2)!=lat) || (matrix.get(i-1).get(3)!=lng)) {
 				b=new BoundingBox();
-				b.setCenterLat(new BigDecimal(lat));
-				b.setCenterLng(new BigDecimal(lng));
+				b.setCenterLat(lat);
+				b.setCenterLng(lng);
 				bbox.add(b);
 			}
 		}

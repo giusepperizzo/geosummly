@@ -1,6 +1,5 @@
 package it.unito.geosummly;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
@@ -12,13 +11,13 @@ import java.util.logging.Logger;
 
 public class BoundingBox {
 	
-	private BigDecimal north;
-	private BigDecimal east;
-	private BigDecimal south;
-	private BigDecimal west;
-	private BigDecimal centerLat; //Latitude of central point
-	private BigDecimal centerLng; //Longitude of central point
-	private BigDecimal area; //area of the bbox
+	private Double north;
+	private Double east;
+	private Double south;
+	private Double west;
+	private Double centerLat; //Latitude of central point
+	private Double centerLng; //Longitude of central point
+	private Double area; //area of the bbox
 	private int row; //row of the cell (position)
 	private int column; //column of the cell (position)
 	
@@ -27,71 +26,71 @@ public class BoundingBox {
 	
 	public BoundingBox(){}
 	
-	public BoundingBox(BigDecimal n, BigDecimal e, BigDecimal s, BigDecimal w){
+	public BoundingBox(Double n, Double e, Double s, Double w){
 		this.north = n;
 		this.east = e;
 		this.south = s;
 		this.west = w;
-		this.centerLat = (n.add(s)).divide(new BigDecimal(2.0));
-		this.centerLng = (e.add(w)).divide(new BigDecimal(2));;
-		this.area = new BigDecimal(getDistance(s, w, n, w) * getDistance(n, w, n, e));
+		this.centerLat = ( n + s ) / 2;
+		this.centerLng = ( e + w ) / 2;
+		this.area = new Double(getDistance(s, w, n, w) * getDistance(n, w, n, e));
 	}
 
-	public void setNorth(BigDecimal north){
+	public void setNorth(Double north){
 		this.north=north;
 	}
 
-	public BigDecimal getNorth(){
+	public Double getNorth(){
 		return north;
 	}
 	
-	public void setEast(BigDecimal east){
+	public void setEast(Double east){
 		this.east=east;
 	}
 	
-	public BigDecimal getEast(){
+	public Double getEast(){
 		return east;
 	}
 	
 
-	public void setSouth(BigDecimal south){
+	public void setSouth(Double south){
 		this.south=south;
 	}
 
-	public BigDecimal getSouth(){
+	public Double getSouth(){
 		return south;
 	}
 	
-	public void setWest(BigDecimal west){
+	public void setWest(Double west){
 		this.west=west;
 	}
 
-	public BigDecimal getWest(){
+	public Double getWest(){
 		return west;
 	}
 	
-	public void setCenterLat(BigDecimal centerLat){
+	public void setCenterLat(Double centerLat){
 		this.centerLat=centerLat;
 	}
 
-	public BigDecimal getCenterLat(){
+	public Double getCenterLat(){
 		return centerLat;
 	}
 	
-	public void setCenterLng(BigDecimal centerLng){
+	public void setCenterLng(Double centerLng){
 		this.centerLng=centerLng;
 	}
 
-	public BigDecimal getCenterLng(){
+	public Double getCenterLng(){
 		return centerLng;
 	}
 	
 	
-	public BigDecimal getArea() {
+	public Double getArea() {
 		return area;
 	}
 
-	public void setArea(BigDecimal area) {
+	public void setArea(Double area) {
 		this.area = area;
 	}
 
@@ -118,8 +117,8 @@ public class BoundingBox {
 	/** Haversine formula implementation. It returns the distance (in kilometers) between 
 	 * two points given latitude and longitude values
 	 */
-	public double getDistance(BigDecimal Blat1, BigDecimal Blng1, 
-						 	  BigDecimal Blat2, BigDecimal Blng2){
+	public double getDistance(Double Blat1, Double Blng1, 
+						 	  Double Blat2, Double Blng2){
 		
 		double lat1 = Blat1.doubleValue();
 		double lng1 = Blng1.doubleValue();
