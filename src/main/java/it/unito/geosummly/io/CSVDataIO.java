@@ -180,7 +180,7 @@ public class CSVDataIO {
 	public void printResultSingles2(long timestamp, 
 									ArrayList<Integer> beenHere, 
 									ArrayList<String> singlesId, 
-									ArrayList<ArrayList<BigDecimal>> coord,
+									ArrayList<ArrayList<Double>> coord,
 									ArrayList<ArrayList<Byte>> matrix,
 									ArrayList<String> features, 
 									String directoryName, 

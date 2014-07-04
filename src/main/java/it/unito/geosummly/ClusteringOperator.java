@@ -7,7 +7,6 @@ import it.unito.geosummly.io.LogDataIO;
 import it.unito.geosummly.tools.ClusteringTools;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -47,10 +46,10 @@ public class ClusteringOperator {
 		List<CSVRecord> listSingles=dataIO.readCSVFile(inSingles);
 		
 		//Get the bounding box
-		BigDecimal north = new BigDecimal(coord.get(0));
-		BigDecimal east = new BigDecimal(coord.get(1));
-		BigDecimal south = new BigDecimal(coord.get(2));
-		BigDecimal west = new BigDecimal(coord.get(3));
+		Double north = new Double(coord.get(0));
+		Double east = new Double(coord.get(1));
+		Double south = new Double(coord.get(2));
+		Double west = new Double(coord.get(3));
 		BoundingBox bbox=new BoundingBox(north, east, south, west);
 		
 		//get the number of cell

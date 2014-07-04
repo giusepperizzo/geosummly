@@ -2,7 +2,6 @@ package it.unito.geosummly;
 
 import it.unito.geosummly.io.templates.FoursquareObjectTemplate;
 
-import java.math.BigDecimal;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class FoursquareSearchVenuesTest extends TestCase {
 		Gson gson=new Gson();
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareObjectTemplate> array;
-		array=fsv.searchVenues(1, 1, new BigDecimal(45.057), new BigDecimal(7.6613), new BigDecimal(45.0561), new BigDecimal(7.6600));
+		array=fsv.searchVenues(1, 1, new Double(45.057), new Double(7.6613), new Double(45.0561), new Double(7.6600));
 		String s=gson.toJson(array.get(1));
 		s=s.replace("\"","");
 		s=s.substring(0, 48);

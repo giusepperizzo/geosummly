@@ -23,7 +23,7 @@ public class SamplingTools {
 	private long timestamp;
 	private ArrayList<Integer> beenHere;
 	private HashMap<String, Integer> map;
-	private ArrayList<ArrayList<BigDecimal>> coordinates;
+	private ArrayList<ArrayList<Double>> coordinates;
 	
 	//Variables of the 2nd category level
 	private int totalSecond;
@@ -32,7 +32,7 @@ public class SamplingTools {
 	private ArrayList<Integer> beenHereSecond;
 	private HashMap<String, Integer> mapSecond;
 	private ArrayList<ArrayList<Byte>> matrixSecond;
-	private ArrayList<ArrayList<BigDecimal>> coordinatesSecond;
+	private ArrayList<ArrayList<Double>> coordinatesSecond;
 	
 	public static Logger logger = Logger.getLogger(SamplingTools.class.toString());
 	
@@ -43,14 +43,14 @@ public class SamplingTools {
 		this.timestamp = (long) 0;
 		this.beenHere = new ArrayList<Integer>();
 		this.map = new HashMap<String, Integer>();
-		this.coordinates = new ArrayList<ArrayList<BigDecimal>>();
+		this.coordinates = new ArrayList<ArrayList<Double>>();
 		
 		this.totalSecond = 0;
 		this.idsSecond = new ArrayList<String>();
 		this.timestampSecond = (long) 0;
 		this.beenHereSecond = new ArrayList<Integer>();
 		this.mapSecond = new HashMap<String, Integer>();
-		this.coordinatesSecond = new ArrayList<ArrayList<BigDecimal>>();
+		this.coordinatesSecond = new ArrayList<ArrayList<Double>>();
 		this.matrixSecond = new ArrayList<ArrayList<Byte>>();
 	}
 	
@@ -94,11 +94,11 @@ public class SamplingTools {
 		this.beenHere=beenHere;
 	}
 	
-	public ArrayList<ArrayList<BigDecimal>> getCooridnates() {
+	public ArrayList<ArrayList<Double>> getCooridnates() {
 		return coordinates;
 	}
 
-	public void setCoordinates(ArrayList<ArrayList<BigDecimal>> coordinates) {
+	public void setCoordinates(ArrayList<ArrayList<Double>> coordinates) {
 		this.coordinates = coordinates;
 	}
 	
@@ -142,11 +142,11 @@ public class SamplingTools {
 		this.mapSecond = mapSecond;
 	}
 
-	public ArrayList<ArrayList<BigDecimal>> getCooridnatesSecond() {
+	public ArrayList<ArrayList<Double>> getCooridnatesSecond() {
 		return coordinatesSecond;
 	}
 
-	public void setCoordinatesSecond(ArrayList<ArrayList<BigDecimal>> coordinatesSecond) {
+	public void setCoordinatesSecond(ArrayList<ArrayList<Double>> coordinatesSecond) {
 		this.coordinatesSecond = coordinatesSecond;
 	}
 	
@@ -438,8 +438,8 @@ public class SamplingTools {
 	}*/
 	
 	/**Get the informations of single venues of a cell*/
-	public ArrayList<ArrayList<Byte>> getInformations2(BigDecimal lat, 
-												BigDecimal lng, 
+	public ArrayList<ArrayList<Byte>> getInformations2(Double lat, 
+												Double lng, 
 									            ArrayList<ArrayList<Byte>> matrix, 
 									            ArrayList<FoursquareObjectTemplate> cell,
 									            HashMap<String, String> tree) {
@@ -474,9 +474,9 @@ public class SamplingTools {
 						this.total = rowOfMatrix.size();
 					
 					//add venue and cell coordinates to the record
-					ArrayList<BigDecimal> coord = new ArrayList<BigDecimal>();
-					coord.add(new BigDecimal(venue.getLatitude()));
-					coord.add(new BigDecimal(venue.getLongitude()));
+					ArrayList<Double> coord = new ArrayList<Double>();
+					coord.add(venue.getLatitude());
+					coord.add(venue.getLongitude());
 					coord.add(lat);
 					coord.add(lng);
 					
@@ -504,9 +504,9 @@ public class SamplingTools {
 						this.totalSecond = rowOfMatrixSecondLevel.size();
 						
 					//add venue and cell coordinates to the record
-					ArrayList<BigDecimal> coordSecond = new ArrayList<BigDecimal>();
-					coordSecond.add(new BigDecimal(venue.getLatitude()));
-					coordSecond.add(new BigDecimal(venue.getLongitude()));
+					ArrayList<Double> coordSecond = new ArrayList<Double>();
+					coordSecond.add(venue.getLatitude());
+					coordSecond.add(venue.getLongitude());
 					coordSecond.add(lat);
 					coordSecond.add(lng);
 					

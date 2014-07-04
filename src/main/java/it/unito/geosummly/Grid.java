@@ -1,6 +1,5 @@
 package it.unito.geosummly;
 
-import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Random;
@@ -49,31 +48,32 @@ public class Grid {
 	public void createCells() {
 		
 		BoundingBox b=this.bbox;
-		BigDecimal num = new BigDecimal(this.cellsNumber);
+
 		BoundingBox singleCell;
+		int num = this.cellsNumber;
 		
 		//width of a single cell
-		BigDecimal cellWidth = (b.getEast().subtract(b.getWest())).divide(num, RoundingMode.HALF_UP);
+		Double cellWidth = (b.getEast() - b.getWest()) / num;
 		
 		//height of a single cell
-		BigDecimal cellHeight=(b.getNorth().subtract(b.getSouth())).divide(num, RoundingMode.HALF_UP);
+		Double cellHeight= (b.getNorth() - b.getSouth() ) / num;
 		
 		//coordinates of the first cell (top-left side of the bounding box)
-		BigDecimal northSingleCell=b.getNorth();
-		BigDecimal southSingleCell;
-		BigDecimal westSingleCell=b.getWest();
-		BigDecimal eastSingleCell;
+		Double northSingleCell=b.getNorth();
+		Double southSingleCell;
+		Double westSingleCell=b.getWest();
+		Double eastSingleCell;
 		int row=1;
 		int column=1;
 		
-		while( (northSingleCell.compareTo(b.getSouth())==1) && (row <= num.intValue()) ) {
+		while( (northSingleCell.compareTo(b.getSouth())==1) && (row <= num) ) {
 			//set the rows
-			southSingleCell=northSingleCell.subtract(cellHeight);
+			southSingleCell=northSingleCell - cellHeight;
 			column=1;
 			
-			while( (westSingleCell.compareTo(b.getEast())==-1) && (column <= num.intValue()) ) {
+			while( (westSingleCell.compareTo(b.getEast())==-1) && (column <= num) ) {
 				//set the columns
-				eastSingleCell = westSingleCell.add(cellWidth);
+				eastSingleCell = westSingleCell + cellWidth;
 				
 				//set cell coordinates and position
 				singleCell=new BoundingBox(northSingleCell, 
@@ -112,15 +112,15 @@ public class Grid {
 		int num=this.cellsNumber;
 		
 		//width of a single cell
-		BigDecimal cellWidth = (b.getEast().subtract(b.getWest())).divide(new BigDecimal(num));
+		Double cellWidth = (b.getEast() - b.getWest()) / num;
 		
 		//height of a single cell
-		BigDecimal cellHeight = (b.getNorth().subtract(b.getSouth())).divide(new BigDecimal(num));
+		Double cellHeight = (b.getNorth() - b.getSouth()) / num;
 		
-		BigDecimal northSingleCell;
-		BigDecimal southSingleCell;
-		BigDecimal westSingleCell;
-		BigDecimal eastSingleCell;
+		Double northSingleCell;
+		Double southSingleCell;
+		Double westSingleCell;
+		Double eastSingleCell;
 		int randomEastFactor;
 		int randomSouthFactor;
 		int i=0;
@@ -133,15 +133,10 @@ public class Grid {
 			randomSouthFactor = random.nextInt(num-1)+1;
 			randomEastFactor = random.nextInt(num-1)+1;
 			
-			southSingleCell = b.getNorth().subtract(
-									cellHeight.multiply(new BigDecimal(randomSouthFactor))
-							  );
-			northSingleCell = southSingleCell.add(cellHeight);
-			eastSingleCell = b.getWest().add(
-									cellWidth.multiply(
-									new BigDecimal(randomEastFactor))
-							 );
-			westSingleCell = eastSingleCell.subtract(cellWidth);
+			southSingleCell = b.getNorth() - (cellHeight * randomSouthFactor);
+			northSingleCell = southSingleCell + cellHeight;
+			eastSingleCell = b.getWest() + (cellWidth * randomEastFactor);
+			westSingleCell = eastSingleCell - cellWidth;
 			
 			singleCell = new BoundingBox(northSingleCell, eastSingleCell, 
 									     southSingleCell, westSingleCell);

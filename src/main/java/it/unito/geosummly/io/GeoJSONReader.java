@@ -72,8 +72,7 @@ public class GeoJSONReader {
 			south=polygon.getExteriorRing().getPointN(2).getCoordinate().y;
 			west=polygon.getExteriorRing().getPointN(3).getCoordinate().x;
 			
-			b = new BoundingBox(new BigDecimal(north), new BigDecimal(east),
-								new BigDecimal(south), new BigDecimal(west));
+			b = new BoundingBox(north, east, south, west);
 			data.add(b);
 		}
 		

@@ -1,15 +1,14 @@
 package it.unito.geosummly;
 
+import it.unito.geosummly.io.CSVDataIO;
+import it.unito.geosummly.tools.CoordinatesNormalizationType;
+import it.unito.geosummly.tools.ImportTools;
+
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.csv.CSVRecord;
-
-import it.unito.geosummly.io.CSVDataIO;
-import it.unito.geosummly.tools.CoordinatesNormalizationType;
-import it.unito.geosummly.tools.ImportTools;
 
 public class ImportOperator {
 	
@@ -27,10 +26,10 @@ public class ImportOperator {
 		
 		//Get the grid
 		BoundingBox bbox = new BoundingBox(
-									new BigDecimal(coord.get(0)),
-									new BigDecimal(coord.get(1)),
-									new BigDecimal(coord.get(2)),
-									new BigDecimal(coord.get(3)));
+									coord.get(0),
+								    coord.get(1),
+									coord.get(2),
+									coord.get(3));
 		
     	ArrayList<BoundingBox> data = new ArrayList<BoundingBox>();
     	Grid grid=new Grid();

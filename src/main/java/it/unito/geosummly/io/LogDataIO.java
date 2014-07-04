@@ -180,10 +180,10 @@ public class LogDataIO {
 	public void writeClusteringLog(StringBuilder sb, 
 								   double eps, 
 								   double sse,
-								   BigDecimal north,
-								   BigDecimal east,
-								   BigDecimal south,
-								   BigDecimal west,
+								   Double north,
+								   Double east,
+								   Double south,
+								   Double west,
 								   int cellNum,
 								   String output) {
 		

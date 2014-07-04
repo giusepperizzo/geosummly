@@ -45,10 +45,10 @@ public class FoursquareSearchVenues {
 	/**Search venues informations. Row and column informations are included*/
 	public ArrayList<FoursquareObjectTemplate> searchVenues(int row, 
 															int column, 
-															BigDecimal north, 
-															BigDecimal east, 
-															BigDecimal south, 
-															BigDecimal west) 
+															Double north, 
+															Double east, 
+															Double south, 
+															Double west) 
 															throws FoursquareApiException, 
 																   UnknownHostException {
 		
