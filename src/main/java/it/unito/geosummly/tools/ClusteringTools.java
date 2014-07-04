@@ -86,8 +86,7 @@ public class ClusteringTools {
 		ArrayList<Double> record;
 		for(ArrayList<Double> array: inputMatrix) {
 			record=new ArrayList<Double>();
-			//we don't have to consider timestamps, so j=1
-			for(int j=1;j<array.size();j++) {
+			for(int j=0;j<array.size();j++) {
 				record.add(array.get(j));
 			}
 			matrix.add(record);

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -56,16 +57,18 @@ public class LogDataIO {
 	 * Read the clustering log file
 	*/
 	public ArrayList<ArrayList<String>> readClusteringLog(String logFile) throws IOException {
-		ArrayList<String> labels=new ArrayList<String>();
-		ArrayList<String> minpts=new ArrayList<String>();
-		ArrayList<String> eps_sse=new ArrayList<String>(); //eps value and sse value
+		ArrayList<String> labels = new ArrayList<String>();
+		ArrayList<String> minpts = new ArrayList<String>();
+		ArrayList<String> eps_sse = new ArrayList<String>(); //eps value and sse value
+		ArrayList<String> coord_cells = new ArrayList<String>(); //coordinates of the bbox and
+																 //number of cells of the bbox
 			 
 		String current;
  
 		BufferedReader br = new BufferedReader(new FileReader(logFile));
 		Pattern p1=Pattern.compile("\\.(.*)\\."); //regex for feature label
 		Pattern p2=Pattern.compile("=(.*)"); //regex for minpts value
-		Pattern p3=Pattern.compile(":(.*)"); //regex for eps value
+		Pattern p3=Pattern.compile(":(.*)"); //regex for the other values
 		Matcher matcher;
 		
 		//read the file
@@ -106,6 +109,22 @@ public class LogDataIO {
 				if(matcher.find())
 					eps_sse.add(matcher.group(1).trim());
 			}
+			
+			//get the bbox coordinates
+			else if(current.startsWith("north") || current.startsWith("east") ||
+					current.startsWith("south") || current.startsWith("west")) {
+				matcher=p3.matcher(current);
+				if(matcher.find())
+					coord_cells.add(matcher.group(1).trim());
+			}
+			
+			//get the cell number
+			//get the SSE
+			else if (current.startsWith("Cells of the grid")) {
+				matcher=p3.matcher(current);
+				if(matcher.find())
+					coord_cells.add(matcher.group(1).trim());
+			}
 		}
 		
 		br.close();
@@ -114,6 +133,7 @@ public class LogDataIO {
 		logInfo.add(labels);
 		logInfo.add(minpts);
 		logInfo.add(eps_sse);
+		logInfo.add(coord_cells);
 		
 		return logInfo;
 	}
@@ -157,9 +177,24 @@ public class LogDataIO {
 	/**
 	 * Write the log file of clustering process 
 	*/
-	public void writeClusteringLog(StringBuilder sb, double eps, double sse, String output) {
-		sb.append("\n\neps value: "+eps);
-		sb.append("\nSSE value: "+sse);
+	public void writeClusteringLog(StringBuilder sb, 
+								   double eps, 
+								   double sse,
+								   BigDecimal north,
+								   BigDecimal east,
+								   BigDecimal south,
+								   BigDecimal west,
+								   int cellNum,
+								   String output) {
+		
+		sb.append("\n\neps value: "+ eps);
+		sb.append("\nSSE value: "+ sse);
+		sb.append("\n\nBounding Box");
+		sb.append("\nnorth: "+ north);
+		sb.append("\neast: "+ east );
+		sb.append("\nsouth: "+ south);
+		sb.append("\nwest: "+ west);
+		sb.append("\n\nCells of the grid: "+ cellNum);
 		
 		try {
 			File dir=new File(output); //create the output directory if it doesn't exist
@@ -332,7 +367,6 @@ public class LogDataIO {
 			BufferedReader br = new BufferedReader(new FileReader(dir.getPath().concat("/holdout_results.log")));
 			String currentLine="";
 			String lastLine="";
-    		int lastFold=0;
     		
     	    while ((currentLine=br.readLine())!=null) {
     	        lastLine = currentLine;
@@ -357,7 +391,11 @@ public class LogDataIO {
 	        if(set == 'B'){
 	        	
 	        	bw.write("\n");
-	        	bw.write("_END_FOLD"+index);
+	        	
+	        	if(index==10)
+	        		bw.write("_END_F"+index);
+	        	else
+	        		bw.write("_END_F0"+index);
 	        }
 	        bw.close();
 	        fw.close();

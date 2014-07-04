@@ -13,7 +13,7 @@ public class ClusteringToolsTest extends TestCase {
 		
 		ArrayList<ArrayList<Double>> input = new ArrayList<ArrayList<Double>>();
 		ArrayList<Double> row_1 = new ArrayList<Double>();
-		row_1.add(123456.0); row_1.add(1.0); row_1.add(0.1); row_1.add(0.5);
+		row_1.add(1.0); row_1.add(0.1); row_1.add(0.5);
 		input.add(row_1);
 		
 		ClusteringTools tools = new ClusteringTools();

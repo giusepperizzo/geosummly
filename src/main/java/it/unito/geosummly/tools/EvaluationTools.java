@@ -47,20 +47,23 @@ public class EvaluationTools {
 
 	/**
 	 * Fill in the matrix of single venues from a list of CSV records. The
-	 * header won't be considered. Timestamp, been here and venue id columns
-	 * won't be considered.
+	 * header won't be considered.
 	 */
-	public ArrayList<ArrayList<Double>> buildSinglesFromList(
+	public ArrayList<ArrayList<String>> buildSinglesFromList(
 			List<CSVRecord> list) {
-		ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();
-		// remove the header, so i=1
-		for (int k = 1; k < list.size(); k++) {
-			ArrayList<Double> rec = new ArrayList<Double>();
-			// remove timestamp, been_here, id_venue columns, so j=3
-			for (int j = 3; j < list.get(k).size(); j++)
-				rec.add(Double.parseDouble(list.get(k).get(j)));
+		ArrayList<ArrayList<String>> matrix = new ArrayList<ArrayList<String>>();
+		
+		//remove the header, so i=1
+		for (int k=1; k<list.size(); k++) {
+			
+			ArrayList<String> rec = new ArrayList<String>();
+			
+			for (int j=0; j<list.get(k).size(); j++)
+				rec.add(list.get(k).get(j));
+			
 			matrix.add(rec);
 		}
+		
 		return matrix;
 	}
 
@@ -68,7 +71,7 @@ public class EvaluationTools {
 	 * Fill in the list of features from a list of CSV records. Timestamp column
 	 * won't be considered.
 	 */
-	public ArrayList<String> getFeaturesFormList(List<CSVRecord> list) {
+	public ArrayList<String> getFeaturesFromListC(List<CSVRecord> list) {
 		ArrayList<String> features = new ArrayList<String>();
 		// remove timestamp column, so i=1
 		for (int i = 1; i < list.get(0).size(); i++) {
@@ -120,7 +123,7 @@ public class EvaluationTools {
 	 * here, venue id, venue latitude, venue longitude, centroid latitude and
 	 * centroid longitude columns won't be considered.
 	 */
-	public ArrayList<String> getFeaturesFromList(List<CSVRecord> list) {
+	public ArrayList<String> getFeaturesFromListV(List<CSVRecord> list) {
 
 		ArrayList<String> features = new ArrayList<String>();
 
@@ -130,6 +133,19 @@ public class EvaluationTools {
 			features.add(list.get(0).get(i));
 
 		return features;
+	}
+	
+	/**
+	 * Get the header of a list of CSV records.
+	 */
+	public ArrayList<String> getHeaderFromList(List<CSVRecord> list) {
+
+		ArrayList<String> header = new ArrayList<String>();
+
+		for (int i=0; i < list.get(0).size(); i++)
+			header.add(list.get(0).get(i));
+
+		return header;
 	}
 
 	/**
@@ -178,58 +194,69 @@ public class EvaluationTools {
 	}
 
 	/**
-	 * Remove the columns venue_latitude and venue_longitude from the folds
+	 * Remove the columns: timestamp, been_here_venue_id,
+	 * venue_latitude and venue_longitude from the holdout
 	 */
-	public ArrayList<ArrayList<ArrayList<Double>>> removeVenueCoordinates(ArrayList<ArrayList<ArrayList<Double>>> folds) {
+	public ArrayList<ArrayList<ArrayList<Double>>> removeVenueInformations(
+										ArrayList<ArrayList<ArrayList<String>>> holdout) {
 		
-		ArrayList<ArrayList<ArrayList<Double>>> newFolds = 
+		ArrayList<ArrayList<ArrayList<Double>>> newHoldout = 
 								new ArrayList<ArrayList<ArrayList<Double>>>();
-		ArrayList<ArrayList<Double>> newF;
+		ArrayList<ArrayList<Double>> newSet;
 		ArrayList<Double> newRecord;
 		
-		for(ArrayList<ArrayList<Double>> f: folds)  {
-			//create the new fold
-			newF = new ArrayList<ArrayList<Double>>();
-			for(ArrayList<Double> rec: f) {
+		for(ArrayList<ArrayList<String>> set: holdout)  {
+			
+			//create the new set
+			newSet = new ArrayList<ArrayList<Double>>();
+			for(ArrayList<String> rec: set) {
 				newRecord = new ArrayList<Double>();
-				//create the new record without venue coordinates
-				for(int i=2; i<rec.size(); i++) {
-					newRecord.add(rec.get(i));
+				
+				//create the new record without timestamp, been_here,
+				//venue_id, venue_lat, venue_lng
+				for(int i=5; i<rec.size(); i++) {
+					newRecord.add(Double.parseDouble(rec.get(i)));
 				}
-				newF.add(newRecord);
+				newSet.add(newRecord);
 			}
-			//add the new fold to the folds list
-			newFolds.add(newF);
+			//add the set to the holdout list
+			newHoldout.add(newSet);
 		}
 		
-		return newFolds;
+		return newHoldout;
 	}
 	
 	/**Get (as bounding boxes) all the distinct focal coordinates of singles*/
-	public ArrayList<BoundingBox> getFocalPoints(ArrayList<ArrayList<Double>> matrix) {
+	/*public ArrayList<BoundingBox> getFocalPoints(ArrayList<ArrayList<String>> matrix) {
+		
 		ArrayList<BoundingBox> bbox=new ArrayList<BoundingBox>();
 		BoundingBox b=new BoundingBox();
-		b.setCenterLat(new BigDecimal(matrix.get(0).get(2)));
-		b.setCenterLng(new BigDecimal(matrix.get(0).get(3)));
+		b.setCenterLat(new BigDecimal(matrix.get(0).get(5)));
+		b.setCenterLng(new BigDecimal(matrix.get(0).get(6)));
 		bbox.add(b);
-		double lat;
-		double lng;
+		
+		BigDecimal lat;
+		BigDecimal lng;
 		
 		for(int i=1;i<matrix.size();i++) {
-			lat=matrix.get(i).get(2);
-			lng=matrix.get(i).get(3);
+			
+			lat = new BigDecimal(matrix.get(i).get(5));
+			lng = new BigDecimal(matrix.get(i).get(6));
 			
 			//control only the previous venue because only
 			//consecutive venues have the same focal points
-			if((matrix.get(i-1).get(2)!=lat) || (matrix.get(i-1).get(3)!=lng)) {
+			if(!(new BigDecimal(matrix.get(i-1).get(5)).equals(lat)) || 
+				!(new BigDecimal(matrix.get(i-1).get(6)).equals(lng))) {
+				
 				b=new BoundingBox();
-				b.setCenterLat(new BigDecimal(lat));
-				b.setCenterLng(new BigDecimal(lng));
+				b.setCenterLat(lat);
+				b.setCenterLng(lng);
 				bbox.add(b);
 			}
 		}
+		
 		return bbox;
-	}
+	}*/
 	
 	/** Haversine formula implementation. It returns the distance in kilometers between 
 	 * two points given their latitude and longitude values
@@ -256,7 +283,7 @@ public class EvaluationTools {
 	 * Get all the areas in (squared kilometers) of the grid cells 
 	 * by considering only the focal points
 	*/
-	public ArrayList<Double> getAreasFromFocalPoints(ArrayList<BoundingBox> data, 
+	/*public ArrayList<Double> getAreasFromFocalPoints(ArrayList<BoundingBox> data, 
 												     					int size) {
 		
 		ArrayList<Double> areas=new ArrayList<Double>();
@@ -269,6 +296,18 @@ public class EvaluationTools {
 		
 		for(int i=0; i<size ;i++)
 			areas.add(areaValue);
+		
+		return areas;
+	}*/
+	
+	public ArrayList<Double> getAreas(ArrayList<BoundingBox> data) {
+		
+		ArrayList<Double> areas = new ArrayList<Double>();
+		
+		for(BoundingBox b: data) {
+			
+			areas.add(b.getArea().doubleValue());
+		}
 		
 		return areas;
 	}
@@ -330,6 +369,71 @@ public class EvaluationTools {
 		}
 		
 		return allGrouped;
+	}
+	
+	/**
+	 * Check whether all the cells exist in the holdouts 
+	*/
+	public ArrayList<ArrayList<ArrayList<Double>>> checkCells(ArrayList<BoundingBox> data,
+											ArrayList<ArrayList<ArrayList<Double>>> initialSets) {
+		
+		ArrayList<ArrayList<ArrayList<Double>>> sets = 
+								new ArrayList<ArrayList<ArrayList<Double>>>();
+		
+		double cLat = 0;
+		double cLng = 0;
+		boolean maxLength = false;
+		
+		//For each set
+		for(ArrayList<ArrayList<Double>> set : initialSets) {
+			
+			//For each bbox
+			for(int i=0; i<data.size() && !maxLength; i++) {
+					
+				//If I've still cells in the set to control
+				if(i < set.size()) {
+					
+					cLat = data.get(i).getCenterLat().doubleValue();
+					cLng = data.get(i).getCenterLng().doubleValue();
+					
+					//Check if the ith bbox coordinates match with the ith cell of the set.
+					//If no, then add the cell
+					if( ! (set.get(i).get(0)==cLat && 
+						   set.get(i).get(1)==cLng) ) {
+						
+						ArrayList<Double> record = buildListZero(10);
+						record.add(0, cLat);
+						record.add(1, cLng);
+						
+						set.add(i, record);
+					}
+				}
+				
+				//Else add the rest of the cells to the set
+				else {
+					
+					maxLength = true;
+					for(; i<data.size(); i++) {
+						
+						cLat = data.get(i).getCenterLat().doubleValue();
+						cLng = data.get(i).getCenterLng().doubleValue();
+						
+						ArrayList<Double> record = buildListZero(10);
+						record.add(0, cLat);
+						record.add(1, cLng);
+						
+						set.add(i, record);
+					}
+				}
+			}
+			
+			maxLength = false;
+			cLat = 0;
+			cLng = 0;
+			sets.add(set);
+		}
+		
+		return sets;
 	}
 
 	/**
@@ -685,33 +789,33 @@ public class EvaluationTools {
 
 	//TODO
 	//yet to complete
-	public ArrayList<ArrayList<ArrayList<Double>>> doHoldOut( 
-					ArrayList<ArrayList<Double>> matrix, 
-					int num) 
-	{
-		ArrayList<ArrayList<ArrayList<Double>>> result = 
-				new ArrayList<ArrayList<ArrayList<Double>>>();
+	public ArrayList<ArrayList<ArrayList<String>>> doHoldOut( 
+										ArrayList<ArrayList<String>> matrix, 
+										int num) {
 		
-		ArrayList<ArrayList<Double>> ithMatrix;
+		ArrayList<ArrayList<ArrayList<String>>> result = 
+								new ArrayList<ArrayList<ArrayList<String>>>();
+		
+		ArrayList<ArrayList<String>> ithMatrix;
 		int dimension = matrix.size() / num;
 		int randomValue;
 		Random random = new Random();
 		
 		for(int i=0; i<num; i++) {
-		ithMatrix = new ArrayList<ArrayList<Double>>();
+		ithMatrix = new ArrayList<ArrayList<String>>();
 		
-		for(int j=0; j<dimension; j++) {
-			randomValue = random.nextInt(matrix.size()); // random number
-															// between 0
-															// (included)
-															// and current
-															// matrix.size()
-															// (excluded)
-			ithMatrix.add(matrix.get(randomValue));
-		}
+			for(int j=0; j<dimension; j++) {
+				randomValue = random.nextInt(matrix.size()); // random number
+																// between 0
+																// (included)
+																// and current
+																// matrix.size()
+																// (excluded)
+				ithMatrix.add(matrix.get(randomValue));
+			}
 		
-		result.add(ithMatrix);
-		matrix.removeAll(ithMatrix);
+			result.add(ithMatrix);
+			matrix.removeAll(ithMatrix);
 		}
 		
 		return result;
