@@ -53,7 +53,7 @@ public class Grid {
 		BoundingBox singleCell;
 		
 		//width of a single cell
-		BigDecimal cellWidth = (b.getEast().subtract(b.getWest())).divide(num,RoundingMode.HALF_UP);
+		BigDecimal cellWidth = (b.getEast().subtract(b.getWest())).divide(num, RoundingMode.HALF_UP);
 		
 		//height of a single cell
 		BigDecimal cellHeight=(b.getNorth().subtract(b.getSouth())).divide(num, RoundingMode.HALF_UP);
