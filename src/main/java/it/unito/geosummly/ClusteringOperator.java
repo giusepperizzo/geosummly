@@ -53,6 +53,10 @@ public class ClusteringOperator {
 		BigDecimal west = new BigDecimal(coord.get(3));
 		BoundingBox bbox=new BoundingBox(north, east, south, west);
 		
+		//get the number of cell
+		//-1 because of the header
+		int cellNum = listDens.size()-1;
+		
 		ClusteringTools tools=new ClusteringTools();
 		
 		//fill in the matrix of normalized values
@@ -118,7 +122,7 @@ public class ClusteringOperator {
 	    //serialize the log
 	    LogDataIO lWriter=new LogDataIO();
 	    StringBuilder sb=tools.getLog();
-	    lWriter.writeClusteringLog(sb, eps, sse, out);
+	    lWriter.writeClusteringLog(sb, eps, sse, north, east, south, west, cellNum, out);
 	    
 	    //serialize the clustering output to geojson and turtle files
 	    GeoJSONWriter jWriter=new GeoJSONWriter();

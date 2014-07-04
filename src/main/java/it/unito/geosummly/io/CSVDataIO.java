@@ -125,15 +125,12 @@ public class CSVDataIO {
 	}
 	
 	/**
-	 * Print result of single matrix to csv file.
+	 * Print result of single matrix of the validation step to csv file.
 	*/
-	/*public void printResultSingles(long timestamp, 
-									ArrayList<Integer> beenHere, 
-									ArrayList<String> singlesId, 
-									ArrayList<ArrayList<BigDecimal>> matrix, 
-									ArrayList<String> features, 
-									String directoryName, 
-									String fileName) {
+	public void printSinglesForValidation(ArrayList<ArrayList<String>> matrix, 
+											ArrayList<String> header,
+											String directoryName, 
+											String fileName) {
 		
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(bout);
@@ -141,26 +138,25 @@ public class CSVDataIO {
             CSVPrinter csv = new CSVPrinter(osw, CSVFormat.DEFAULT);
             
             //print the header of the matrix
-            for(String f: features) {
-            	csv.print(f);
+            for(String h: header) {
+            	csv.print(h);
             }
             csv.println();
             
             //iterate per each row of the matrix
-            for(int i=0; i<matrix.size();i++) {
-            	csv.print(timestamp);
-            	csv.print(beenHere.get(i));
-            	csv.print(singlesId.get(i));
-            	for(int j=0;j<matrix.get(i).size();j++) {
-            		csv.print(matrix.get(i).get(j));
+            for(ArrayList<String> rec: matrix) {
+            	for(String s: rec) {
+            		csv.print(s);
             	}
             	csv.println();
             }
             csv.flush();
             csv.close();
+            
         } catch (IOException e1) {
     		e1.printStackTrace();
         }
+        
         OutputStream outputStream;
         try {
         	File dir=new File(directoryName); //create the output directory if it doesn't exist
@@ -169,12 +165,14 @@ public class CSVDataIO {
             bout.writeTo(outputStream);
             bout.close();
             outputStream.close();
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
-	}*/
+	}
 	
 	/**
 	 * Print result of single matrix to csv file.
