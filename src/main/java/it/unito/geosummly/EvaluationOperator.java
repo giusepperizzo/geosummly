@@ -146,7 +146,7 @@ public class EvaluationOperator {
 			minpts.add(d.toString());
 		}*/
 		
-		//Features (without coordinates)
+		// Build feature list (timestamp and coordinates are not considered)
 		ArrayList<String> features = new ArrayList<String>();
 		for(String s: list.get(0))
 			features.add(s);
@@ -158,14 +158,11 @@ public class EvaluationOperator {
 		ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>>();
 		//i=1 --> no header
 		for(int i=1; i<list.size(); i++) {
-			
 			ArrayList<Double> record = new ArrayList<Double>();
 			//j=1 --> no timestamp
 			for(int j=1; j<list.get(i).size(); j++) {
-				
 				record.add(Double.parseDouble(list.get(i).get(j)));
 			}
-			
 			matrix.add(record);
 		}
 		
@@ -175,7 +172,7 @@ public class EvaluationOperator {
 		labels = new ArrayList<String>(deltad.get(0));
 		minpts = new ArrayList<String>(deltad.get(1));
 		
-		//This  variable will contain all the pairs of sets of the folds
+		//This variable contains all the pairs of sets of the folds
 		ArrayList<Pair<?,?>> pairs = new ArrayList<>();
 		
 		ImportTools tools = new ImportTools();
@@ -185,7 +182,6 @@ public class EvaluationOperator {
 		
 		//Create the folds
 		for(int i=0; i<fnum; i++) {
-			
 			//Do the holdout
 			ArrayList<ArrayList<ArrayList<Double>>> sets = eTools.doHoldoutDensity(matrix);
 			

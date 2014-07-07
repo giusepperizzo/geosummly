@@ -830,8 +830,10 @@ public class EvaluationTools {
 		ArrayList<ArrayList<Double>> setA = new ArrayList<ArrayList<Double>>();
 		ArrayList<ArrayList<Double>> setB = new ArrayList<ArrayList<Double>>();
 		     
-		Random r = new Random();
-		
+		// Normal (0.5, 0.1) 
+		// value ranges: [0 ... 1] aprox 
+		NormalDistribution normal = new NormalDistribution(0.5, 0.1);
+				
 		for(ArrayList<Double> record: matrix) {
 			
 			ArrayList<Double> recA = new ArrayList<Double>();
@@ -843,14 +845,8 @@ public class EvaluationTools {
 			
 			//fill the rest of the record
 			for(int i=2; i<record.size();i++) {
-				
-				double random = r.nextDouble();
-				double d = 0;
-				if(random > 0)
-					d = record.get(i) * random;
-				else
-					d = 0.0;
-				
+				//the Math.abs can isn't needed
+				double d = Math.abs( normal.sample() * record.get(i) ) ;			
 				recA.add(d);
 				recB.add(record.get(i)-d);
 			}
