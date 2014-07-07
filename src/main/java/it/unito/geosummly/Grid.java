@@ -1,6 +1,5 @@
 package it.unito.geosummly;
 
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Logger;

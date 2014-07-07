@@ -4,7 +4,6 @@ import it.unito.geosummly.io.templates.FoursquareObjectTemplate;
 import it.unito.geosummly.utils.PropFactory;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;

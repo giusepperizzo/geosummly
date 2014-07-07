@@ -13,9 +13,9 @@ import java.util.logging.Logger;
 
 import org.apache.commons.csv.CSVRecord;
 
+
 public class DiscoveryOperator {
 	
-	private final int SAMPLES=50;
 	public static Logger logger = Logger.getLogger(SamplingOperator.class.toString());
 	
 	public void execute(String in, String out, int comb, int rnum) throws IOException {
