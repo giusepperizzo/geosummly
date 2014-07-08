@@ -24,13 +24,13 @@ public class EvaluationOperator {
 	}
 
 	public void executeCorrectness(String inLog, 
-								   String inFreq, 
+								   String inNorm, 
 								   String out, 
 								   int mnum) throws IOException{
 
 		//Read input files
 		CSVDataIO dataIO=new CSVDataIO();
-		List<CSVRecord> list=dataIO.readCSVFile(inFreq);
+		List<CSVRecord> list=dataIO.readCSVFile(inNorm);
 		LogDataIO logIO=new LogDataIO();
 		ArrayList<ArrayList<String>> infos = 
 						logIO.readClusteringLog(inLog);
