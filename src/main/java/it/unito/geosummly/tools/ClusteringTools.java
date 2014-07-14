@@ -705,11 +705,8 @@ public class ClusteringTools {
 		return cCategories/(1.0*featuresMap.size());
 	}
 
-	public Double getClusterDensity(int i, Cluster<?> cluster) 
+	public Double getClusterDensity(int i,  double area) 
 	{
-		int objects = 0;
-		for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) 
-			objects ++;
-		return i/(1.0*objects);
+		return i/(1.0*area);
 	}
 }
