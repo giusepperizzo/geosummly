@@ -5,6 +5,7 @@ import it.unito.geosummly.io.GeoJSONWriter;
 import it.unito.geosummly.io.GeoTurtleWriter;
 import it.unito.geosummly.io.LogDataIO;
 import it.unito.geosummly.tools.ClusteringTools;
+import it.unito.geosummly.tools.ImportTools;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class ClusteringOperator {
 		Double south = new Double(coord.get(2));
 		Double west = new Double(coord.get(3));
 		BoundingBox bbox=new BoundingBox(north, east, south, west);
+		double area = bbox.getArea();
 		
 		//get the number of cell
 		//-1 because of the header
@@ -114,7 +116,7 @@ public class ClusteringOperator {
 	    		cSSE.put(index, tools.getClusterSSE(db, cluster, featuresMap));
 	    		cSurface.put(index, tools.getClusterSurface(db, cluster, normMatrix.size()));
 	    		cHeterogeneity.put(index, tools.getClusterHeterogeneity(cluster, featuresMap));
-	    		cDensity.put(index, tools.getClusterDensity(venuesOfCell.size(), cluster));
+	    		cDensity.put(index, tools.getClusterDensity(venuesOfCell.size(), area));
 	    		
 	    	}
 	    }
