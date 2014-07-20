@@ -33,6 +33,7 @@ app.Map = function(params, callback) {
     overlay = new google.maps.OverlayView();
     overlay.onAdd = function() {
       var overlayEl = this.getPanes().overlayLayer;
+      overlayEl.style.zIndex = "100000";
       g = d3.select(overlayEl).select('svg g');
       if (g.size() === 0) {
         overlayEl.parentNode.style.zIndex = "10000";
