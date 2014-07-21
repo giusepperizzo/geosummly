@@ -2,18 +2,20 @@ package it.unito.geosummly.tools;
 
 import it.unito.geosummly.clustering.subspace.GEOSUBCLU;
 import it.unito.geosummly.clustering.subspace.InMemoryDatabase;
+import it.unito.geosummly.utils.Pair;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TreeSet;
 import java.util.Vector;
-import java.util.Map.Entry;
 
 import org.apache.commons.csv.CSVRecord;
 
@@ -27,11 +29,9 @@ import de.lmu.ifi.dbs.elki.database.Database;
 import de.lmu.ifi.dbs.elki.database.ids.DBIDIter;
 import de.lmu.ifi.dbs.elki.database.ids.DBIDUtil;
 import de.lmu.ifi.dbs.elki.database.relation.Relation;
-import de.lmu.ifi.dbs.elki.database.relation.RelationUtil;
 import de.lmu.ifi.dbs.elki.datasource.ArrayAdapterDatabaseConnection;
 import de.lmu.ifi.dbs.elki.datasource.filter.FixedDBIDsFilter;
 import de.lmu.ifi.dbs.elki.utilities.ClassGenericsUtil;
-import de.lmu.ifi.dbs.elki.utilities.DatabaseUtil;
 import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameterization.ListParameterization;
 
 public class ClusteringTools {
@@ -480,7 +480,8 @@ public class ClusteringTools {
 	
 	/**Set GEOSUBCLU parameters and run the algorithm*/
     public Clustering<?> runGEOSUBCLU (
-										Database db, 
+										Database db,
+										ArrayList<Pair<Double,Double>> boundaries,
 										HashMap<Integer, 
 										String> map, 
 										HashMap<String, 
@@ -499,6 +500,7 @@ public class ClusteringTools {
         geosubclu.setDensity(density);
         geosubclu.setEpsValue(eps);
         geosubclu.setSbLog(sb);
+        geosubclu.setBoundaries(boundaries);
 
         // run GEOSUBCLU on database
         Clustering<SubspaceModel<DoubleVector>> result = geosubclu.run(db);
@@ -564,7 +566,8 @@ public class ClusteringTools {
 					double d2 = o2.doubleValue(dimensions.get(i));
 					
 					ImportTools tools = new ImportTools();
-					sum += d1*d2* ( tools.getDistance(lat1, lng1, lat2, lng2) ); //convert to Km
+					//sum += d1*d2* ( tools.getDistance(lat1, lng1, lat2, lng2) ); //convert to Km
+					sum += tools.getDistance(lat1, lng1, lat2, lng2);
 				}
 				
 				sum_distance += sum;
@@ -689,7 +692,7 @@ public class ClusteringTools {
 		return dimensions;
 	}
 
-	public Double getClusterSurface(Database db, Cluster<?> cluster, int size) 
+	public Double getClusterSurface(Cluster<?> cluster, int size) 
 	{
 		int objects = 0;
 		for (DBIDIter i1 = cluster.getIDs().iter(); i1.valid(); i1.advance()) 
@@ -705,8 +708,31 @@ public class ClusteringTools {
 		return cCategories/(1.0*featuresMap.size());
 	}
 
-	public Double getClusterDensity(int i,  double area) 
+	public Double getClusterDensity(int i,  double surfaceTotal, Double surfaceClusterPercentage) 
 	{
-		return i/(1.0*area);
+		return i/(1.0 * surfaceClusterPercentage * surfaceTotal);
+	}
+
+	public ArrayList<Pair<Double, Double>> getFeatureBoundariesFromCSV(List<CSVRecord> list) 
+	{
+		ArrayList<Pair<Double,Double>> result=new ArrayList<Pair<Double, Double>>();
+		
+		//get size of the first element
+		int featureNumber = list.get(0).size();
+		
+		boolean header = (list.get(0).get(0).contains("Timestamp")) ? true : false;
+		
+		//let's discard the first feature, timestamp not yet used 
+		for (int j=1; j<featureNumber; j++)
+		{
+			Vector<Double> v = new Vector<>();
+			int i = (header) ? 1 : 0;
+			for (;i<list.size(); i++) 
+				v.add(Double.parseDouble( list.get(i).get(j) ));
+				
+			Collections.sort(v);
+			result.add( new Pair<Double, Double>(v.get(0), v.get(v.size()-1)) );
+		}
+		return result;
 	}
 }
