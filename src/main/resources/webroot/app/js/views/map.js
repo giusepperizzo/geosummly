@@ -36,6 +36,7 @@ app.Map = function(params, callback) {
       g = d3.select(overlayEl).select('svg g');
       if (g.size() === 0) {
         overlayEl.parentNode.style.zIndex = "10000";
+        //Vuk's solution: svg = d3.select(this.getPanes().overlayLayer).append("svg");
         svg = d3.select(this.getPanes().overlayLayer).append("svg");
         g = svg.append("g");// .attr("class", "leaflet-zoom-hide");
       }
@@ -109,7 +110,8 @@ app.Map = function(params, callback) {
         return feature.properties.clusterId;
       });
 
-    clustersSelection.enter().append("path")
+    clustersSelection.enter()
+      .append("path")
       .attr('data-href', function(feature) {
         var props = feature.properties,
           hash = [
@@ -134,7 +136,9 @@ app.Map = function(params, callback) {
         }
         tooltip.showTooltip(infoTemplate({ data: data }), d3.event);
       })
-      .on("mouseout", tooltip.hideTooltip);
+      .on("mouseout", tooltip.hideTooltip)
+      .on('click', function() {
+      });
 
     clustersSelection.exit().remove();
   }
