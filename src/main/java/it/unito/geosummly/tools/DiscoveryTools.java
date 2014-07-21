@@ -147,6 +147,7 @@ public class DiscoveryTools {
 			mF=mean.get(i);
 			sD=std.get(i);
 			density=scaleFactor*mF-(1.96* (sD/Math.sqrt(n)) );
+			density = (density >= 1) ? density : 1; //scale factor for having deltad at least equal to 1
 			singleDensities.add(density);
 		}
 		return singleDensities;
@@ -227,6 +228,7 @@ public class DiscoveryTools {
 			// double scaleFactor = Math.PI / 2;
 			
 			density=scaleFactor * mult-(1.96 * (sD/Math.sqrt(n))); 
+			density = (density >= 1) ? density : 1; //scale factor for having deltad at least equal to 1			
 			toRet.add(density);
 		}
 		//recursive call for the next combinations
