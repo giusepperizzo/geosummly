@@ -3,22 +3,21 @@ package it.unito.geosummly.tools;
 import it.unito.geosummly.BoundingBox;
 import it.unito.geosummly.utils.Pair;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
-import java.util.Map.Entry;
+
+import jp.ndca.similarity.distance.Jaccard;
 
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.math3.distribution.NormalDistribution;
-
-import jp.ndca.similarity.distance.Jaccard;
 
 public class EvaluationTools {
 
