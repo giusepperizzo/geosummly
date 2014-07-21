@@ -37,8 +37,8 @@ public class ClusteringOperator {
 			double eps, 
 			String method
 			) 
-					throws IOException 
-					{
+	throws IOException 
+	{
 		//Read all the csv files
 		CSVDataIO dataIO=new CSVDataIO();
 		List<CSVRecord> listDens=dataIO.readCSVFile(inDens);
@@ -159,16 +159,18 @@ public class ClusteringOperator {
 				eps, 
 				out, 
 				cal);
-					}
+	}
+	
 
 	public HashMap<String, Vector<Integer>> executeForValidation(
-			ArrayList<ArrayList<Double>> normalized, 
-			int length, ArrayList<String> labels, 
-			ArrayList<String> minpts, 
-			double eps
-			) 
-					throws IOException 
-					{			
+								String inDens, 
+								ArrayList<ArrayList<Double>> normalized, 
+								int length, ArrayList<String> labels, 
+								ArrayList<String> minpts, 
+								double eps
+								) 
+	throws IOException 
+	{			
 		ClusteringTools tools=new ClusteringTools();
 
 		//build the database from the normalized matrix without considering timestamp values
@@ -184,8 +186,12 @@ public class ClusteringOperator {
 		//% of cells
 		Double density=normMatrix.size()*0.9;
 
+		CSVDataIO dataIO=new CSVDataIO();
+		List<CSVRecord> listDens=dataIO.readCSVFile(inDens);
+		ArrayList<Pair<Double, Double>> boundaries = tools.getFeatureBoundariesFromCSV(listDens);
+		
 		//Run GEOSUBCLU algorithm and get the clustering result
-		Clustering<?> result = tools.runGEOSUBCLU(db, null, featuresMap, deltadMap, density.intValue(), eps, new StringBuilder());
+		Clustering<?> result = tools.runGEOSUBCLU(db, boundaries, featuresMap, deltadMap, density.intValue(), eps, new StringBuilder());
 		ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
 		HashMap<Integer, String> clustersName=new HashMap<Integer, String>(); //key, cluster name
 		HashMap<Integer, ArrayList<Integer>> cellsOfCluster=new HashMap<Integer, ArrayList<Integer>>(); //key, cell_ids
@@ -210,16 +216,17 @@ public class ClusteringOperator {
 		HashMap<String, Vector<Integer>> holdout=tools.buildHoldoutMap(distinctLabels, allCells, length);
 
 		return holdout;
-					}
+	}
 
 	public double executeForCorrectness(
-			ArrayList<ArrayList<Double>> normalized, 
-			ArrayList<String> labels, 
-			ArrayList<String> minpts, 
-			double eps
-			)
-					throws IOException 
-					{	
+										String inDens,
+										ArrayList<ArrayList<Double>> normalized, 
+										ArrayList<String> labels, 
+										ArrayList<String> minpts, 
+										double eps
+										)
+	throws IOException 
+	{	
 		ClusteringTools tools=new ClusteringTools();
 
 		//build the database from the normalized matrix
@@ -235,13 +242,17 @@ public class ClusteringOperator {
 		//% of cells
 		Double density=normalized.size()*0.9;
 
+		CSVDataIO dataIO=new CSVDataIO();
+		List<CSVRecord> listDens=dataIO.readCSVFile(inDens);
+		ArrayList<Pair<Double, Double>> boundaries = tools.getFeatureBoundariesFromCSV(listDens);
+		
 		//Run GEOSUBCLU algorithm and get the clustering result
-		Clustering<?> result = tools.runGEOSUBCLU(db, null, featuresMap, deltadMap, density.intValue(), eps, new StringBuilder());
+		Clustering<?> result = tools.runGEOSUBCLU(db, boundaries, featuresMap, deltadMap, density.intValue(), eps, new StringBuilder());
 		ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
 
 		//Get the SSE
 		double sse=tools.getClusteringSSE(db, cs, featuresMap);
 
 		return sse;
-					}
+	}
 }

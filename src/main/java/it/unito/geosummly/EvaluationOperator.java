@@ -23,10 +23,11 @@ public class EvaluationOperator {
 		eTools=new EvaluationTools();
 	}
 
-	public void executeCorrectness(String inLog, 
-								   String inNorm, 
-								   String out, 
-								   int mnum) throws IOException{
+	public void executeCorrectness(	String inLog, 
+									String inDens,
+									String inNorm, 
+									String out, 
+									int mnum) throws IOException{
 
 		//Read input files
 		CSVDataIO dataIO=new CSVDataIO();
@@ -108,7 +109,7 @@ public class EvaluationOperator {
 										 out, 
 							             "/random-normalized-transformation-matrix-"+i+".csv"); /****NEW CORRECTNESS VARIABLE*****/
 
-			SSEs.add(co.executeForCorrectness(normalizedRandomMatrix, labels, minpts, eps));
+			SSEs.add(co.executeForCorrectness(inDens, normalizedRandomMatrix, labels, minpts, eps));
 		}
 		
 		//Get the sse ratio
@@ -122,11 +123,12 @@ public class EvaluationOperator {
 		logIO.writeSSEforR(SSEs, out);
 	}
 	
-	public void executeValidation(String logFile,
-								   String inDens,
-								   String out,
-								   int fnum) throws IOException {
-		
+	public void executeValidation(  String logFile,
+									String inDens,
+									String out,
+									int fnum) 
+	throws IOException 
+	{	
 		//Read input files
 		CSVDataIO dataIO=new CSVDataIO();
 		List<CSVRecord> list=dataIO.readCSVFile(inDens);
@@ -216,7 +218,7 @@ public class EvaluationOperator {
 				
 				//Clustering of the sets
 				HashMap<String, Vector<Integer>> setClustering = 
-								co.executeForValidation(normalized, length, labels, minpts, eps);
+								co.executeForValidation(inDens, normalized, length, labels, minpts, eps);
 				
 				if(name == 'A')
 					pair.setFirst(setClustering);

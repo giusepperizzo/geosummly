@@ -15,9 +15,9 @@ import org.apache.commons.cli.PosixParser;
 public class Evaluation {
 	
 	private String evalType=null;
+	private String inDens=null;
 	private String inLog=null;
 	private String inNorm=null;
-	private String inSingles=null;
 	private String outDir=null;
 	private int mnum=500;
 	private int fnum=10;
@@ -28,10 +28,10 @@ public class Evaluation {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		
-		String helpUsage="geosummly evaluation -etype validation -input <path/to/file.log> -venues <path/to/file.csv> -output <path/to/dir> [options]";
+		String helpUsage="geosummly evaluation -etype validation -input <path/to/file.log> -density <path/to/file.csv> -output <path/to/dir> [options]";
 		String helpFooter="\n------------------------------------------------------------------"
-				+ "\nThe options etype, input, normalized (only if etype is equal to correctness), "
-				+ "venues (only if etype is equal to validation), output are mandatory."
+				+ "\nThe options etype, input, density, normalized (only if etype is equal to correctness), "
+				+ "output are mandatory."
 				+ "\nThe input file has to be the log file returned by the clustering state."
 				+ "\nIf etype argument is equal to correctness, the normalized option "
 				+ "(csv file of normalized density values) is mandatory and, for each of the mnum matrices, "
@@ -46,14 +46,18 @@ public class Evaluation {
 				+ "\n--------------------------------------------------------"
 				+ "\nExamples:"
 				+ "\n1. geosummly evaluation -etype correctness -input path/to/file.log "
-				+ "-normalized path/to/file1.csv -output path/to/dir -mnum 300"
+				+ "-density path/to/density.csv -normalized path/to/normalized.csv -output path/to/dir -mnum 300"
 				+ "\n2. geosummly evaluation -etype validation -input path/to/file.log "
-				+ "-venues path/to/file1.csv -output path/to/dir -fnum 5";
+				+ "-density path/to/density.csv -output path/to/dir -fnum 5";
 		
 		try {
 			CommandLine line = parser.parse(options, args);
 			
-			if(line.hasOption("etype") && line.hasOption("input") && line.hasOption("output")) {
+			if(line.hasOption("etype") && 
+					line.hasOption("density") && 
+					line.hasOption("input") && 
+					line.hasOption("output")) 
+			{
 				evalType=line.getOptionValue("etype");
 				if(!evalType.equals("correctness") && !evalType.equals("validation")) {
 					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
@@ -65,27 +69,21 @@ public class Evaluation {
 					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 					System.exit(-1);
 				}
+				
+				inDens=line.getOptionValue("density");
+				
 				if(line.hasOption("normalized")) {
-					if(evalType.equals("correctness")) {
+					if(evalType.equals("correctness")) 
 						inNorm=line.getOptionValue("normalized");
-						mandatory=true;
-					}
+					
 					else {
 						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 						System.exit(-1);
 					}
 				}
-				if(line.hasOption("venues")) {
-					if(evalType.equals("validation")) {
-						inSingles=line.getOptionValue("venues");
-						mandatory=true;
-					}
-					else {
-						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
-						System.exit(-1);
-					}
-				}
+				
 				outDir=line.getOptionValue("output");
+				mandatory=true;
 			}
 			
 			if(mandatory) {
@@ -121,10 +119,10 @@ public class Evaluation {
 			
 			EvaluationOperator eo=new EvaluationOperator();
 			if(evalType.equals("correctness")) {
-				eo.executeCorrectness(inLog, inNorm, outDir, mnum);
+				eo.executeCorrectness(inLog, inDens, inNorm, outDir, mnum);
 			}
 			else if(evalType.equals("validation"))
-				eo.executeValidation(inLog, inSingles, outDir, fnum);
+				eo.executeValidation(inLog, inDens, outDir, fnum);
 			
 		}
 		catch(ParseException | NumberFormatException | IOException e) {
@@ -150,18 +148,18 @@ public class Evaluation {
 				 			.hasArg().withArgName("path/to/file").create("I")
 				 		  );
 		 
+		 //option input 
+		 options.addOption(OptionBuilder.withLongOpt("density")
+				 			.withDescription("set as input file the density matrix")
+				 			.hasArg().withArgName("path/to/file").create("D")
+				 			);
+		 
 		 //option normalized
 		 options.addOption(OptionBuilder.withLongOpt("normalized")
 				 			.withDescription("set as input file the normalized matrix")
 				 			.hasArg().withArgName("path/to/file").create("N")
 				 		   );
-		 
-		 //option venues
-		 options.addOption(OptionBuilder.withLongOpt("venues")
-				 			.withDescription("set the input file of single venues")
-				 			.hasArg().withArgName("path/to/file").create("V")
-				 		  );
-		 
+		 		 
 		 //option output
 		 options.addOption(OptionBuilder.withLongOpt("output")
 				 			.withDescription("set the output directory")
