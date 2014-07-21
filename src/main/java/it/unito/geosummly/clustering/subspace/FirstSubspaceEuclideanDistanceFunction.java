@@ -7,10 +7,17 @@ import de.lmu.ifi.dbs.elki.distance.distancefunction.subspace.SubspaceLPNormDist
 
 public class FirstSubspaceEuclideanDistanceFunction extends SubspaceLPNormDistanceFunction {
 
+	
+	
   public FirstSubspaceEuclideanDistanceFunction(BitSet dimensions) {
     super(2.0, dimensions);
   }
 
+  public BitSet getDimensions () 
+  {
+	  return dimensions;
+  }
+  
   /**
    * Provides the Euclidean distance between two given feature vectors in the
    * selected dimensions.
