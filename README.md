@@ -15,7 +15,7 @@ The prototype is composed of 6 stages:
 Please refer to our [paper][paper] for a detailed description. 
 
 ## Requirements
-* Java 8+
+* Java 7+
 * Maven 3+
 * [elki v0.6][elki] (require mvn install)
 * [foursquare-api-java v1.0.3][fi] (require mvn install)
