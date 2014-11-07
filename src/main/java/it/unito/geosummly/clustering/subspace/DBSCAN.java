@@ -290,7 +290,7 @@ public class DBSCAN<O, D extends Distance<D>> extends AbstractDistanceBasedAlgor
 			}  	
 				
 		}
-		return (int) Math.floor(density/cardinality); //(int) (density/cardinality);
+		return (int) Math.floor( density/( Math.pow(cardinality, bs.cardinality()) ) ); //(int) (density/cardinality);
 	}
 
 	@Override

@@ -21,6 +21,8 @@ import de.lmu.ifi.dbs.elki.data.model.SubspaceModel;
 import de.lmu.ifi.dbs.elki.data.type.TypeInformation;
 import de.lmu.ifi.dbs.elki.data.type.TypeUtil;
 import de.lmu.ifi.dbs.elki.database.ProxyDatabase;
+import de.lmu.ifi.dbs.elki.database.ids.DBIDIter;
+import de.lmu.ifi.dbs.elki.database.ids.DBIDUtil;
 import de.lmu.ifi.dbs.elki.database.ids.DBIDs;
 import de.lmu.ifi.dbs.elki.database.relation.Relation;
 import de.lmu.ifi.dbs.elki.database.relation.RelationUtil;
@@ -346,9 +348,13 @@ implements SubspaceClusteringAlgorithm<SubspaceModel<V>>
 				DBIDs objects = c.getIDs();
 				//if ( objects.size()>1 ) { //&& objects.size()<DENSITY ) {
 				clusters.add(c);
-				//System.out.println("\tnumber of objects ci=" + objects.size());
-				sbLog.append("\tnumber of objects ci=" + objects.size()+"\n");
-				//}
+				sbLog.append("\tnumber of objects ci=" + objects.size()+";ids=");
+				
+				for (DBIDIter iter = c.getIDs().iter(); iter.valid(); iter.advance()) {
+			          sbLog.append(DBIDUtil.toString(iter)+" ");
+			    }
+				
+				sbLog.append("\n");
 			}
 		}
 		return clusters;

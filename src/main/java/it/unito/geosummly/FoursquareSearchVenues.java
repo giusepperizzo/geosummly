@@ -18,13 +18,6 @@ import fi.foyt.foursquare.api.entities.Category;
 import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 
-
-/**
- * @author Giacomo Falcone
- *
- * Download venue informations from 4square 
- */
-
 public class FoursquareSearchVenues {
 	private FoursquareApi foursquareApi;
 	private long timestamp;

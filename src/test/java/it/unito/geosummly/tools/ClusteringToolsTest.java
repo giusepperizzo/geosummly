@@ -1,13 +1,39 @@
 package it.unito.geosummly.tools;
 
+import it.unito.geosummly.io.CSVDataIO;
+import it.unito.geosummly.utils.Pair;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.Vector;
+
+import org.apache.commons.csv.CSVRecord;
 
 import junit.framework.TestCase;
 
 public class ClusteringToolsTest extends TestCase {
+	
+	public void testBoundariesFromCSV () 
+	{
+		CSVDataIO dataIO=new CSVDataIO();
+		try {
+			List<CSVRecord> listDens=dataIO.readCSVFile("tests/density-transformation-matrix.csv");
+			ClusteringTools tools=new ClusteringTools();
+			ArrayList<Pair<Double, Double>> boundaries = tools.getFeatureBoundariesFromCSV(listDens);
+			
+			assertEquals(12, boundaries.size());
+			
+			assertEquals(0.0, boundaries.get(2).getFirst());
+			assertEquals(55.79, boundaries.get(2).getSecond(), 0.01);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	
 	public void testBuildNormalizedFromList() {
 		

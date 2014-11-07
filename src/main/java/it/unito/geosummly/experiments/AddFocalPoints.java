@@ -1,6 +1,5 @@
 package it.unito.geosummly.experiments;
 
-import it.unito.geosummly.api.MainCLI;
 import it.unito.geosummly.tools.ImportTools;
 
 import java.io.BufferedWriter;
@@ -18,9 +17,12 @@ import org.apache.commons.io.FileUtils;
 
 public class AddFocalPoints {
 
-	private String pathIn = "/home/rizzo/Cloud/Dropbox/SMAT-F2_WP4_UNITO/Dati/IRPI-CNR/Alluvioni/wip/single-matrix-nocentroid.csv";
-	private String pathOut = "/home/rizzo/Cloud/Dropbox/SMAT-F2_WP4_UNITO/Dati/IRPI-CNR/Alluvioni/wip/";
-	private Integer gnum = 16;
+	//private String pathIn = "/home/rizzo/Cloud/Dropbox/SMAT-F2_WP4_UNITO/Dati/IRPI-CNR/Alluvioni/wip/singles-matrix-nocentroid.csv";
+	//private String pathOut = "/home/rizzo/Cloud/Dropbox/SMAT-F2_WP4_UNITO/Dati/IRPI-CNR/Alluvioni/wip/";
+	
+	private String pathIn = "/home/rizzo/Cloud/Dropbox/SMAT-F2_WP4_UNITO/Dati/IRPI-CNR/wip/singles-matrix-nocentroid.csv";
+	private String pathOut = "/home/rizzo/Cloud/Dropbox/SMAT-F2_WP4_UNITO/Dati/IRPI-CNR/wip/";
+	private static Integer gnum = 100;
 	private String features_header;
 	private List<Record> objects = new ArrayList<Record> ();
 	private Double north;
@@ -34,24 +36,18 @@ public class AddFocalPoints {
 		main.readFile();
 		main.computeBoundaries();
 		main.buildBBox();
-		main.output();
-		
-		final String args_ = "import -input /home/rizzo/Cloud/Dropbox/SMAT-F2_WP4_UNITO/Dati/IRPI-CNR/Alluvioni/wip/single-matrix.csv "
-				+ "-coord 44.557237754000006,8.183214487999999,44.2085034374,7.028183287 "
-				+ "-gnum 16 -output /home/rizzo/Cloud/Dropbox/SMAT-F2_WP4_UNITO/Dati/IRPI-CNR/Alluvioni/wip/";
-		MainCLI.main(args_.split(" "));
+		main.output();	
 	}
 	
 	private void buildBBox() 
 	{
-		int num = (int) Math.pow(gnum, 0.5);
-		Double lngIncr = (est-west) / (num); 
-		Double latIncr = (north-south) / (num);
+		Double lngIncr = (est-west) / (gnum); 
+		Double latIncr = (north-south) / (gnum);
 		
 		Double northTemp = north;
-		for (int i=0; i<num; i++) {
+		for (int i=0; i<gnum; i++) {
 			Double westTemp = west;
-			for (int j=0; j<num; j++) {
+			for (int j=0; j<gnum; j++) {
 				Double cellN = northTemp;
 				Double cellE = westTemp+lngIncr;
 				Double cellS = northTemp-latIncr;
@@ -104,7 +100,7 @@ public class AddFocalPoints {
 		
 		try {
 			//write single-matrix
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(pathOut + "single-matrix.csv"), "utf-8"));
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(pathOut + "singles-matrix.csv"), "utf-8"));
 			writer.write(Record.buildHeader() + features_header + "\n");
 			for (Record r : objects)
 				writer.write(r.serialize() + "\n");
@@ -116,10 +112,10 @@ public class AddFocalPoints {
 			writer.write("Bounding Box: " + north + ", " + est + ", " + south + ", " + west + "\n");
 			writer.write("Area of the bounding box (km^2): " + tool.getDistance(north, west, south, west) *
 															   tool.getDistance(south, west, south, est) + "\n");
-			writer.write("Number of cells of the grid: " + gnum + "\n");
+			writer.write("Number of cells of the grid: " + gnum*gnum + "\n");
 			writer.write("Area of a cell (km^2): " + (tool.getDistance(north, west, south, west) *
 					   								  tool.getDistance(south, west, south, est)) / gnum + "\n");
-			writer.write("Categories number (1st level): " + features_header.split(",").length + "\n");
+			writer.write("Categories number: " + features_header.split(",").length + "\n");
 			writer.close();
 			
 		} catch (UnsupportedEncodingException e) {
@@ -149,12 +145,12 @@ public class AddFocalPoints {
 				
 				else {
 					String[] chunks = file.split("\n")[i].split(",");
-					Record r = new Record();
+					Record r = new Record(i);
 					r.setLat(Double.parseDouble(chunks[0]));
 					r.setLng(Double.parseDouble(chunks[1]));
-					ArrayList<Double> features = new ArrayList<>();
+					ArrayList<Integer> features = new ArrayList<>();
 					for (int j=2; j<chunks.length; j++)
-						features.add(Double.parseDouble(chunks[j]));
+						features.add(Integer.parseInt(chunks[j]));
 					
 					r.setFeatures(features);
 					

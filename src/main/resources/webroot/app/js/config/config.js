@@ -243,6 +243,16 @@ app.Config = function() {
 				},
 				zoom: 12
 			}),
+			turin_old: new Location({
+				jsonUrl: 'data/turin/old-clustering-output-eps0.07071067811865477.geojson',
+				bounds: {
+					north: 45.10975600522702,
+					sud: 45.04393354716772,
+					west: 7.630176544189453,
+					est: 7.734889984130859
+				},
+				zoom: 12
+			}),			
 			turin_pareto: new Location({
 				jsonUrl: 'data/turin/pareto-clustering-output-eps0.07071067811865477.geojson',
 				bounds: {
@@ -252,6 +262,16 @@ app.Config = function() {
 					est: 7.734889984130859
 				},
 				zoom: 12
+			}),
+			cuneo: new Location({
+				jsonUrl: 'data/cuneo/clustering-output-eps0.014142135623730952.geojson',
+				bounds: {
+					north: 44.5668457526, 
+					sud: 44.1902698026, 
+					west: 7.0247083977,
+					est: 8.1718552719
+				},
+				zoom: 10				
 			})			
 		}
 	};

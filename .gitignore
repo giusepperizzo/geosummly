@@ -1,11 +1,11 @@
 *.class
 .classpath
 .project
+.Rhistory
+.settings
 
 # Package Files #
 *.war
 *.ear
 /target
 
-# Mac specific #
-.DS_Store
