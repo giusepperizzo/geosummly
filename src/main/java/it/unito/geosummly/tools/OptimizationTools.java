@@ -70,6 +70,20 @@ public class OptimizationTools {
 		return objs;
 	}
 	
+	
+	public ArrayList<ArrayList<Integer>> getCellIDs(FeatureCollectionTemplate fct) 
+	{
+
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		ArrayList<FeatureTemplate> ft_array=fct.getFeatures();
+		
+		//iterate for all clusters
+		for(FeatureTemplate ft: ft_array) {
+			result.add(ft.getCells()); //multipoints of a cluter
+		}
+		return result;
+	}
+	
 	/**
 	 * Check if a coordinates pair has been already selected.
 	 * It returns true if the coordinate pair is present.
@@ -264,10 +278,12 @@ public class OptimizationTools {
 	}
 	
 	/**
-	 * Get the cells corresponding to the best #top clusters 
+	 * Get the MultiPoints corresponding to the best #top clusters 
 	*/
-	public ArrayList<ArrayList<ArrayList<Double>>> getTopCells(ArrayList<ArrayList<ArrayList<Double>>> allCells,
-																List<Integer> selected) {
+	public ArrayList<ArrayList<ArrayList<Double>>> getTopMultiPoints
+											(ArrayList<ArrayList<ArrayList<Double>>> allCells,
+											List<Integer> selected) 
+	{
 		
 		ArrayList<ArrayList<ArrayList<Double>>> cells = new ArrayList<ArrayList<ArrayList<Double>>>();
 		for(Integer i: selected) {
@@ -305,6 +321,19 @@ public class OptimizationTools {
 		}
 		
 		return labels;
+	}
+	
+	public ArrayList<ArrayList<Integer>> getTopCellIDs(
+										ArrayList<ArrayList<Integer>> cellIDs, 
+										List<Integer> selected
+										) 
+	{
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		for(Integer i: selected) {
+			result.add(cellIDs.get(i-1));
+		}
+		
+		return result;
 	}
 
 	public ArrayList<Double> getSSE(FeatureCollectionTemplate fct) 

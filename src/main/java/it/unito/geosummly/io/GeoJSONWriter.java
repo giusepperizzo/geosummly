@@ -87,6 +87,13 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		writer.beginObject();
 	    		writer.name("type").value("Feature");
 		        writer.name("id").value(key);
+		        
+		        writer.name("cells");
+		        writer.beginArray();
+		        for (ArrayList<Double> cell : cells.get(i)) 
+		        	writer.value(cell.get(0).intValue()); //serialize only the cell id
+		        writer.endArray();
+		        
 		        writer.name("geometry");
 		        writer.beginObject();
 	        	writer.name("type").value("MultiPoint");
@@ -177,7 +184,7 @@ public class GeoJSONWriter implements IGeoWriter{
 											BoundingBox bbox, 
 											List<Integer> selected, 
 											ArrayList<ArrayList<ArrayList<Double>>> multipoints, 
-											ArrayList<Double> surface,
+											ArrayList<ArrayList<Integer>> cellIDs, ArrayList<Double> surface,
 											ArrayList<Double> density,
 											ArrayList<Double> heterogeneity,											
 											ArrayList<Double> sse,
@@ -223,13 +230,21 @@ public class GeoJSONWriter implements IGeoWriter{
 	    		writer.beginObject();
 	    		writer.name("type").value("Feature");
 		        writer.name("id").value(key-1);
+
+		        ArrayList<Integer> cells = cellIDs.get(i);
+		        writer.name("cells");
+		        writer.beginArray();
+		        for (Integer cell : cells)
+		        	writer.value(cell);
+		        writer.endArray();
+		        
 		        writer.name("geometry");
 		        writer.beginObject();
 	        	writer.name("type").value("MultiPoint");
 	        	writer.name("coordinates");
 	        	writer.beginArray();
 	        	
-	    		//iterate for each cell of the cluster
+	    		//iterate for each geometry point of the cluster
 	    		for(ArrayList<Double> cl: multipointsOfCluster) {
 	    			writer.beginArray();
 	    			writer.value(cl.get(0));

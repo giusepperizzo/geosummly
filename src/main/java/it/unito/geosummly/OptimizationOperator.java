@@ -39,6 +39,7 @@ public class OptimizationOperator {
 		ArrayList<ArrayList<VenueTemplate>> 	venues = tools.getVenuesOfClusters(fct);
 		//ArrayList<ArrayList<ArrayList<Double>>> cells = tools.getObjectsOfClusters(venues);
 		ArrayList<String[]> 					labels = tools.getLabelsOfClusters(fct);
+		ArrayList<ArrayList<Integer>>	        cellIDs = tools.getCellIDs(fct);
 		
 		//Function 1: Spatial Coverage
 		ArrayList<Double> surface=tools.getSpatialCoverage(fct);//getSpatialCoverage(cells, s_infos.get(0));
@@ -94,15 +95,17 @@ public class OptimizationOperator {
 		List<Integer> selected = tools.listSelected (frontier);
 			
 		//Get the top clusters infos
-		multiPoints = tools.getTopCells(multiPoints, selected);
+		multiPoints = tools.getTopMultiPoints(multiPoints, selected);
 		venues = tools.getTopVenues(venues, selected);
 		labels = tools.getTopLabels(labels, selected);
+		cellIDs = tools.getTopCellIDs(cellIDs, selected);
 		
 		//Serialize the optimized output to file and create the log
 		GeoJSONWriter geoWriter=new GeoJSONWriter();
 		geoWriter.writerAfterOptimization( bbox, 
 										   selected, 
 										   multiPoints, 
+										   cellIDs,
 										   surface,
 										   density,
 										   heterogeneity,
@@ -140,6 +143,8 @@ public class OptimizationOperator {
 		ArrayList<ArrayList<VenueTemplate>> venues = tools.getVenuesOfClusters(fct);
 		//ArrayList<ArrayList<ArrayList<Double>>> cells = tools.getObjectsOfClusters(venues);
 		ArrayList<String[]> labels = tools.getLabelsOfClusters(fct);
+		ArrayList<ArrayList<Integer>>	        cellIDs = tools.getCellIDs(fct);
+		
 		String date=fct.getProperties().getDate();
 		double eps=fct.getProperties().getEps();
 		BoundingBox bbox=fct.getProperties().getBbox();
@@ -175,9 +180,10 @@ public class OptimizationOperator {
 		List<Integer> selected = tools.selectTop(sortedMap, top);
 		
 		//Get the top clusters infos
-		multiPoints = tools.getTopCells(multiPoints, selected);
+		multiPoints = tools.getTopMultiPoints(multiPoints, selected);
 		venues = tools.getTopVenues(venues, selected);
 		labels = tools.getTopLabels(labels, selected);
+		cellIDs = tools.getTopCellIDs(cellIDs, selected);
 		
 		//Serialize the optimized output to file and create the log
 		GeoJSONWriter geoWriter=new GeoJSONWriter();
@@ -185,6 +191,7 @@ public class OptimizationOperator {
 											bbox, 
 											selected, 
 											multiPoints, 
+											cellIDs,
   										    surface,
 											density,
 											heterogeneity,											
