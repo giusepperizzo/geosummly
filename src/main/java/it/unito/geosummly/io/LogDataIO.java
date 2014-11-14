@@ -497,6 +497,8 @@ public class LogDataIO {
 
 
 	public void writeParetoLog(Collection<ParetoPoint> paretoPoints, 
+							   ArrayList<String[]> labels, 
+							   ArrayList<ArrayList<Integer>> cellIDs, 
 							   List<Integer> selected, 
 							   String output) 
 	{	
@@ -510,6 +512,21 @@ public class LogDataIO {
 	        
 	        bw.write("Clusters before optimization: "+ paretoPoints.size() +"\n");
 	        bw.write("Object on the Pareto Efficient Frontier: "+selected.size()+"\n");
+	        
+	        for (int i=0; i< selected.size(); i++)
+	        {
+	        	String name="";
+	        	for(String s: labels.get(i))
+	    			name=name.concat(s).concat(",");
+	    		name=name.substring(0, name.length()-1); 
+
+	        	String ids = "";
+	        	for (Integer id : cellIDs.get(i)) 
+	        		ids = ids.concat(id.toString()).concat(",");
+	        	
+	        	ids = ids.substring(0, ids.length()-1); 
+	        	bw.write(name.concat("\n\t").concat(ids).concat("\n"));
+	        }
 	        
 	        bw.flush();
 	        bw.close();

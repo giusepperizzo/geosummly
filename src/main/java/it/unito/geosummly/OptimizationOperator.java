@@ -119,7 +119,7 @@ public class OptimizationOperator {
 										   "pareto"
 										  );
 		
-		logIO.writeParetoLog(paretoPoints, selected, output);
+		logIO.writeParetoLog(paretoPoints, labels, cellIDs, selected, output);
 
 	}
 	
