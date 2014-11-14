@@ -328,14 +328,14 @@ public class OptimizationTools {
 	{
 		ArrayList<ParetoPoint> result = new ArrayList<>();
 		
-		for (int i=0; i < spatialCoverage.size(); i++)
+		for (int i=0; i < spatialCoverage.size(); i++) 
 			result.add(new ParetoPoint(i,
 									   spatialCoverage.get(i),
 									   density.get(i),
 									   heterogeneity.get(i),
 									   1/(1.0*sse.get(i)))
 					   );
-		
+
 		return result;
 	}
 

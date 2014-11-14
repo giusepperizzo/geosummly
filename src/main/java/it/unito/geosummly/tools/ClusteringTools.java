@@ -589,6 +589,7 @@ public class ClusteringTools {
 										Cluster<?> cluster,
 										HashMap<Integer, String> featuresMap ) 
     {
+    	double eps=0.0000001;
     	double sse=0.0;
     	Iterator<Relation<?>> iter=db.getRelations().iterator();
 		iter.next();
@@ -638,7 +639,7 @@ public class ClusteringTools {
 //			}
 			total_number++; //total number of points in a cluster
 		}
-		sse+= sum_distance * 1/(2*total_number);
+		sse+= ( sum_distance * 1/(2*total_number) ) + eps;
 		
     	return sse;
     }
