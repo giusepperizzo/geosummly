@@ -253,8 +253,8 @@ public class LogDataIO {
 	 * Write a R script in order to get the SSEs' gaussian distribution
 	*/
 	public void writeSSEforR(ArrayList<Double> SSEs, String output) {
-		int min=Collections.min(SSEs).intValue();
-		int max=Collections.max(SSEs).intValue();
+		Double min=Collections.min(SSEs); //.intValue();
+		Double max=Collections.max(SSEs); //.intValue();
 		StringBuilder sb=new StringBuilder();
 		
 		try {
@@ -271,7 +271,8 @@ public class LogDataIO {
 	        BufferedWriter bw = new BufferedWriter(fw);
 	        sb.append("x=c(");
 			for(Double d: SSEs) {
-				sb.append((int) Math.floor(d)+", ");
+				//sb.append((int) Math.floor(d)+", ");
+				sb.append(d.toString().concat(", "));
 			}
 			sb=sb.replace(sb.length()-1, sb.length(), "");
 			sb.append(");\n");
