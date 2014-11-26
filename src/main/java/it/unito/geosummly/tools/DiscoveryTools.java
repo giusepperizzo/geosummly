@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public class DiscoveryTools {
 	
-	private double scaleFactor = 1; //Math.PI / 2;
-
+	private double scaleFactor = 1; 
 	
 	public DiscoveryTools() {}
 	
@@ -99,44 +98,7 @@ public class DiscoveryTools {
 	}
 	
 	/**
-	 * Get the matrix of mean densities.
-	 * The matrix contains |samples| records. Samples is equal to 50.
-	 * A record of the matrix is a list of intra-feature mean densities of a random matrix.
-	 * A random matrix has |rnum| records and each record is taken randomly by the input dataset.
-	*/
-	/*public ArrayList<ArrayList<Double>> getMeanMatrix(ArrayList<ArrayList<Double>> dataset, int samples, int rnum) {
-		
-		ArrayList<ArrayList<Double>> avgFiftyMat=new ArrayList<ArrayList<Double>>();
-		ArrayList<ArrayList<Double>> matrixRnd;
-		int rnd;
-		
-		for(int h=0;h<samples;h++) {
-			
-			matrixRnd=new ArrayList<ArrayList<Double>>();
-			if(rnum>0) {
-				Random r=new Random();
-				rnd=0;
-				//get a random matrix
-				for(int i=0;i<rnum;i++) {
-					rnd=r.nextInt(dataset.size());
-					matrixRnd.add(dataset.get(rnd));
-				}
-			}
-			else
-				matrixRnd=new ArrayList<ArrayList<Double>>(dataset);
-			
-			//get the array of mean densities of a random matrix
-			//and add it to the returning matrix
-			ArrayList<Double> meanDensities=getMeanArray(matrixRnd);
-			avgFiftyMat.add(meanDensities);
-		}
-		
-		return avgFiftyMat;
-	}*/
-	
-	//Old deltad singles calculation method
-	/**
-	 * Get single density values with 1.57*E(d)-1.96*std/radix(N)
+	 * Get single density values with E(d)-1.96*std/radix(N)
 	*/
 	public ArrayList<Double> getSingleDensities(ArrayList<Double> mean, ArrayList<Double> std, double n) {
 		ArrayList<Double> singleDensities=new ArrayList<Double>();
@@ -152,44 +114,12 @@ public class DiscoveryTools {
 		}
 		return singleDensities;
 	}
-	
-	/**
-	 * Get deltad values of single features with (PI/2)*E(d)-1.96*std/radix(N)
-	*/
-	/*public ArrayList<Double> getDeltadOfSingles(ArrayList<ArrayList<Double>> avgFiftyMat, 
-												ArrayList<Double> meansOfMeans) {
 		
-		ArrayList<Double> deltadValues=new ArrayList<Double>();
-		
-		// Let define C as number of venues with a circle, S as number of 
-		// venues within a square.
-		// C = Q * surface(circle) / surface(square)
-		// Let define N as the number of cells along an edge of the BBox
-		// since the edge of the square is the sqrt(2)/2 * N is sqrt
-		// C = Q * (pi * 1/4 * 2 * 1/N^2) / (1/N^2)
-		//   = Q * pi * 1/2
-		//   = Q * 1.57
-		double scaleFactor = Math.PI / 2;
-		
-		for(int i=0;i<avgFiftyMat.get(0).size();i++) {
-			double sum=0;
-			double avgOfAvgs=meansOfMeans.get(i);
-			
-			for(int j=0;j<avgFiftyMat.size();j++) {
-				sum+=Math.pow((avgFiftyMat.get(j).get(i)- avgOfAvgs), 2);
-			}
-			
-			double std= Math.sqrt( (1/(avgFiftyMat.size()-1)) * sum );
-			deltadValues.add(scaleFactor*avgOfAvgs - 1.96*std);			
-		}
-		
-		return deltadValues;
-	}*/
-	
-	/**Get deltad values of categories combinations with (PI/2)*E-1.96*std/radix(N)
+	/**Get deltad values of categories combinations with E - 1.96*std/radix(N)
 	 * For a category cat, each d_m value is the cat density average of one of the 50 matrix
-	 * E= [(pi/2)^n] * E(d_m, cat1) * E(d_m, cat2) * E(d_m, cat3) * ... * (E(d_m, catn))
-	 * std = radix( sum( (XiYiZi...Kn - E(d_m,cat1)E(d_m,cat2)E(d_m, cat3)...(E(d_m, catn) )^2 ) / N ), Xi, Yi, Zi, ..., Ki are the cat_i density averages for each one of the 50 matrix
+	 * E = E(d_m, cat1) * E(d_m, cat2) * E(d_m, cat3) * ... * (E(d_m, catn))
+	 * std = radix( sum( (XiYiZi...Kn - E(d_m,cat1)E(d_m,cat2)E(d_m, cat3)...(E(d_m, catn) )^2 ) / N ), 
+	 * Xi, Yi, Zi, ..., Ki are the cat_i density averages for each one of the 50 matrix
 	 * N = |record of the matrix| 
 	*/
 	public ArrayList<Double> getDeltadCombinations(ArrayList<ArrayList<Double>> matrix, ArrayList<Double> toRet, ArrayList<Double> mean, int[] comb, int startIndex, int combCount, double n) {
