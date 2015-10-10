@@ -22,7 +22,7 @@ Please refer to our [paper][paper] for a detailed description.
 * [simjoin][simjoin] (require mvn install)
 * [common.csv][csv] (require mvn install)
 * [pareto-core][pareto] (require mvn install)
-* [Foursquare app][4sqrApp] (requre to instanciate an app and to get two auth strings such as Client ID, Client Secret)
+* [Foursquare app][4sqrApp] (require to instanciate an app and to get two auth strings such as Client ID, Client Secret)
 
 ## Setting Up 
     git clone git@github.com:giusepperizzo/geosummly.git
