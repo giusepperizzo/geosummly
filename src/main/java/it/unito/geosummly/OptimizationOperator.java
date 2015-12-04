@@ -25,7 +25,7 @@ public class OptimizationOperator {
 								String output
 							 )
 	throws Exception
-	{
+{
 		//Read input files
 		GeoJSONReader geoReader=new GeoJSONReader();
 		FeatureCollectionTemplate fct = geoReader.decodeForOptimization(inGeo);
@@ -67,7 +67,7 @@ public class OptimizationOperator {
 										 			    heterogeneity,
 										 			    sse);
 			
-		ParetoComparator<Integer, ParetoPoint> comparator = new ParetoComparator<Integer, ParetoPoint>();
+/*		ParetoComparator<Integer, ParetoPoint> comparator = new ParetoComparator<Integer, ParetoPoint>();
 		comparator.setDimensionComparator(0, new Comparator<ParetoPoint>() {
 			public int compare(ParetoPoint o1, ParetoPoint o2) {
 				return Double.valueOf(o1.getX()).compareTo(Double.valueOf(o2.getX()));
@@ -119,7 +119,7 @@ public class OptimizationOperator {
 										   "pareto"
 										  );
 		
-		logIO.writeParetoLog(paretoPoints, labels, cellIDs, selected, output);
+		logIO.writeParetoLog(paretoPoints, labels, cellIDs, selected, output);*/
 
 	}
 	
