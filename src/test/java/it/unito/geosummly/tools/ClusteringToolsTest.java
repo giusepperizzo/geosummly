@@ -16,7 +16,7 @@ import junit.framework.TestCase;
 
 public class ClusteringToolsTest extends TestCase {
 	
-	public void testBoundariesFromCSV () 
+	public void testBoundariesFromCSV ()
 	{
 		CSVDataIO dataIO=new CSVDataIO();
 		try {

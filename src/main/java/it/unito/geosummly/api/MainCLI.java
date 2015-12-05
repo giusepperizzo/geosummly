@@ -55,8 +55,8 @@ public class MainCLI {
 				evaluation.run(args);
 				break;
 			case "optimization":
-				Optimization optimization=new Optimization();
-				optimization.run(args);
+	//			Optimization optimization=new Optimization();
+	//			optimization.run(args);
 				break;
 			default:
 				System.out.println("Invalid operation: " + action + ".\n"+helpFooter);
