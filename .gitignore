@@ -3,9 +3,13 @@
 .project
 .Rhistory
 .settings
+.idea/
 
 # Package Files #
 *.war
 *.ear
 /target
+
+
+
 
