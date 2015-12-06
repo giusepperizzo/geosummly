@@ -4,6 +4,7 @@
 .Rhistory
 .settings
 .idea/
+props/config.properties
 
 # Package Files #
 *.war
