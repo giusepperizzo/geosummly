@@ -42,7 +42,7 @@ public class Sampling {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		Boolean inputFlag=false; //check the presence either of input or coord;
-		String helpUsage="geosummly sampling -input <path/to/file.geojson> -output <path/to/dir> [options]";
+		String helpUsage="geosummly sampling -input <path/to/file.geojson>|<path/to/file.cixtyjson> -output <path/to/dir> [options]";
 		String helpFooter="\n------------------------------------------------------------------"
 				+ "\nThe options coord, input (only if coord is not specified), output are mandatory."
 				+ "\nThe options input and coord are mutually exclusive."
@@ -63,8 +63,10 @@ public class Sampling {
 				inFile=line.getOptionValue("input");
 				//file extension has to be geojson
 				if(!inFile.endsWith("geojson")) {
-					formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
-					System.exit(-1);
+					if(!inFile.endsWith("cixtyjson")) { //add 3cixty data to input
+						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
+						System.exit(-1);
+					}
 				}
 				outDir=line.getOptionValue("output");
 				mandatory=true;

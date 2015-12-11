@@ -2,6 +2,7 @@ package it.unito.geosummly;
 
 import fi.foyt.foursquare.api.FoursquareApiException;
 import it.unito.geosummly.io.CSVDataIO;
+import it.unito.geosummly.io.CixtyJSONReader;
 import it.unito.geosummly.io.GeoJSONReader;
 import it.unito.geosummly.io.LogDataIO;
 import it.unito.geosummly.io.templates.FoursquareObjectTemplate;
@@ -9,6 +10,7 @@ import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.SamplingTools;
 
 import java.io.IOException;
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -18,8 +20,12 @@ import org.json.JSONException;
 
 
 public class SamplingOperator {
+	private boolean JsonFlag = true;
+
+	private HashMap<String, String>categorytree;
+
     public static Logger logger = Logger.getLogger(SamplingOperator.class.toString());
-    
+
     public SamplingOperator() {}
        
     public void executeWithInput( String in, 
@@ -33,8 +39,22 @@ public class SamplingOperator {
     									  	InterruptedException {
     	
     	//Get the grid
-    	GeoJSONReader reader=new GeoJSONReader();
-		ArrayList<BoundingBox> data=reader.decodeForSampling(in);
+		ArrayList<BoundingBox> data = null;
+		if (in.endsWith("geojson")) {
+			JsonFlag = true;
+			GeoJSONReader reader = new GeoJSONReader();
+			data = reader.decodeForSampling(in);
+		}
+		else if(in.endsWith("cixtyjson")) {
+			JsonFlag = false;
+			CixtyJSONReader reader = new CixtyJSONReader();
+			data = reader.decodeForSampling(in);
+			categorytree = reader.getCategoryTree();
+		}
+		else{
+			System.out.println();
+			System.exit(-1);
+		}
 		
 		//top left cell gives ne coordinates
 		Double bigNorth=data.get(0).getNorth();
@@ -107,38 +127,62 @@ public class SamplingOperator {
 									new ArrayList<ArrayList<Byte>>();
 		ArrayList<ArrayList<Byte>> venuesMatrixSecondLevel = 
 									new ArrayList<ArrayList<Byte>>();
-		ArrayList<FoursquareObjectTemplate> cellVenue;
+		//ArrayList<FoursquareObjectTemplate> cellVenue;
 		CSVDataIO dataIO=new CSVDataIO();
-		
-		//Get infos form foursquare
-		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
-		HashMap<String, String> tree = fsv.getCategoryTree(); //category tree
-		
-		
-		//Collect the geopoints
-		for(BoundingBox b: data){
-			
-		    logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
-			cellVenue=fsv.searchVenues(b.getRow(), b.getColumn(), 
-									   b.getNorth(), b.getEast(), 
-									   b.getSouth(), b.getWest());
-			
-			//Copy to cache
+
+		if (JsonFlag) {
+			//Get infos form foursquare
+			ArrayList<FoursquareObjectTemplate> cellVenue;
+			FoursquareSearchVenues fsv = new FoursquareSearchVenues();
+			HashMap<String, String> tree = fsv.getCategoryTree(); //category tree
+
+			//Collect the geopoints
+			for (BoundingBox b : data) {
+
+				logger.log(Level.INFO, "Fetching 4square metadata of the cell: " + b.toString());
+				cellVenue = fsv.searchVenues(b.getRow(), b.getColumn(),
+						b.getNorth(), b.getEast(),
+						b.getSouth(), b.getWest());
+
+				//Copy to cache
 			/*for(FoursquareObjectTemplate fdo: cellVenue){
 				String obj=gson.toJson(fdo); //Serialize with Gson
 				doc=(BasicDBObject) JSON.parse(obj); //initialize the document with the JSON result parsed for MongoDB
 				coll.insert(doc); //insert the document into MongoDB collection
 			}*/
-			
-			venuesMatrix = tools.getInformations2(b.getCenterLat(), 
-												 b.getCenterLng(), 
-												 venuesMatrix, 
-												 cellVenue, 
-												 tree);
-			
-			Thread.sleep(sleep);
+
+				venuesMatrix = tools.getInformations2(b.getCenterLat(),
+						b.getCenterLng(),
+						venuesMatrix,
+						cellVenue,
+						tree);
+
+				Thread.sleep(sleep);
+			}
 		}
-		
+		else {
+			HashMap<String, String> tree = categorytree; //category tree
+
+			//Collect the geopoints
+			for (BoundingBox b : data) {
+			/*	ArrayList<String> cellVenue;
+
+				logger.log(Level.INFO, "Using 3cixty metadata of the cell: " + b.toString());
+
+				cellVenue = fsv.searchVenues(b.getRow(), b.getColumn(),
+						b.getNorth(), b.getEast(),
+						b.getSouth(), b.getWest());
+
+				venuesMatrix = tools.getInformations2(b.getCenterLat(),
+						b.getCenterLng(),
+						venuesMatrix,
+						cellVenue,
+						tree);
+
+				Thread.sleep(sleep);*/
+			}
+
+		}
 		//Sort the dataset alphabetically for column names
 		venuesMatrix = tools.fixRowsLength2(tools.getTotal(), 
 										   venuesMatrix); //update rows length for consistency

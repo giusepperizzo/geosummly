@@ -28,7 +28,7 @@ public class MainCLI {
 		CommandLineParser parser=new PosixParser(); //create the command line parser
 		String helpFooter="Allowed operation: sampling, import, discovery, clustering, evaluation, optimization."
 				+ "\nDigit <operation> help for more details.";
-		
+
 		try {
 			CommandLine line = parser.parse(new Options(), args, true);
 			String action= line.getArgs()[0];

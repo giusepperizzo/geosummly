@@ -43,6 +43,7 @@ public class BoundingBox {
 	public Double getNorth(){
 		return north;
 	}
+
 	
 	public void setEast(Double east){
 		this.east=east;
