@@ -1,5 +1,7 @@
 package it.unito.geosummly.tools;
 
+import it.unito.geosummly.Venue;
+import it.unito.geosummly.io.CixtyJSONReader;
 import it.unito.geosummly.io.templates.FoursquareObjectTemplate;
 
 import java.math.BigDecimal;
@@ -523,7 +525,98 @@ public class SamplingTools {
 		}
 		return matrix;
 	}
-	
+
+
+
+	/**Get the informations of single venue
+	 * from 3xcity JSON file*/
+	public ArrayList<ArrayList<Byte>> getInformations3(Double lat_cell,
+													   Double lng_cell,
+													   ArrayList<ArrayList<Byte>> matrix,
+													   ArrayList<Venue> cell,
+													   HashMap<String, String> tree) {
+
+		ArrayList<Byte> rowOfMatrix =
+				new ArrayList<Byte>();
+		ArrayList<Byte> rowOfMatrixSecondLevel =
+				new ArrayList<Byte>();
+
+		for(Venue venue: cell) {
+
+			if (venue.getCategory() != null) {
+				String category =
+						getTopCategory(venue.getCategory(), tree);
+				String categorySecondLevel =
+						getSubCategory(venue.getCategory(), tree);
+
+				//update the matrix only if the category has a name
+				if (category != null) {
+
+					ArrayList<String> aux = new ArrayList<String>();
+					aux.add(category);
+
+					updateMap2(this.map, aux);//update the hash map
+
+					//create a consistent row (related to the categories).
+					//one row for each venue;
+					rowOfMatrix = fillRowWithSingle2(this.map, category);
+
+					//update the overall number of categories
+					if (this.total < rowOfMatrix.size())
+						this.total = rowOfMatrix.size();
+
+					//add venue and cell coordinates to the record
+					ArrayList<Double> coord = new ArrayList<Double>();
+					coord.add(venue.getLatitude());
+					coord.add(venue.getLongitude());
+					coord.add(lat_cell);
+					coord.add(lng_cell);
+
+					this.coordinates.add(coord);
+
+					this.ids.add(venue.getID()); //memorize venue id
+					if (this.timestamp == (long) 0)
+						this.timestamp = venue.getTimeStamp(); //memorize timestamp
+					this.beenHere.add(venue.getBeenHere()); //memorize check-ins count*/
+
+					//add the complete record
+					matrix.add(rowOfMatrix);
+				}
+
+				if (categorySecondLevel != null) {
+
+					ArrayList<String> auxSecondLevel = new ArrayList<String>();
+					auxSecondLevel.add(categorySecondLevel);
+					updateMap2(this.mapSecond, auxSecondLevel);
+
+					rowOfMatrixSecondLevel =
+							fillRowWithSingle2(this.mapSecond, categorySecondLevel);
+
+					if (this.totalSecond < rowOfMatrixSecondLevel.size()) ;
+					this.totalSecond = rowOfMatrixSecondLevel.size();
+
+					//add venue and cell coordinates to the record
+					ArrayList<Double> coordSecond = new ArrayList<Double>();
+					coordSecond.add(venue.getLatitude());
+					coordSecond.add(venue.getLongitude());
+					coordSecond.add(lat_cell);
+					coordSecond.add(lng_cell);
+
+					this.coordinatesSecond.add(coordSecond);
+
+					this.idsSecond.add(venue.getID()); //memorize venue id
+					if (this.timestampSecond == (long) 0)
+						this.timestampSecond = venue.getTimeStamp(); //memorize timestamp
+					this.beenHereSecond.add(venue.getBeenHere()); //memorize check-ins count
+
+					this.matrixSecond.add(rowOfMatrixSecondLevel);
+				}
+			}
+		}
+		return matrix;
+	}
+
+
 	/**
 	 * Get the corresponding top category of the category "name".
 	 * Totally there are 3 category levels. 

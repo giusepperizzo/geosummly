@@ -1,6 +1,7 @@
 package it.unito.geosummly.io;
 
 import it.unito.geosummly.BoundingBox;
+import it.unito.geosummly.Venue;
 import it.unito.geosummly.pareto.ParetoPoint;
 
 import java.io.BufferedReader;
@@ -173,7 +174,7 @@ public class LogDataIO {
     		e.printStackTrace();
     	}
 	}
-	
+
 	/**
 	 * Write the log file of clustering process 
 	*/

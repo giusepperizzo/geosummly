@@ -30,8 +30,9 @@ public class FoursquareSearchVenues {
 		        PropFactory.config.getProperty("it.unito.geosummly.foursquare.clientID"), 
 		        PropFactory.config.getProperty("it.unito.geosummly.foursquare.clientSecret"), 
 		        "http://www.foursquare.com");
-		foursquareApi.setVersion("20151210");
-		//foursquareApi.setVersion("20140501");
+		//foursquareApi.setVersion("20151216");
+		foursquareApi.setVersion("20140501");
+		//foursquareApi.setVersion("20120131");
 		timestamp=System.currentTimeMillis();
 	}
 	
@@ -46,7 +47,6 @@ public class FoursquareSearchVenues {
 																   UnknownHostException {
 		
 		try {
-			
 			String ne=north+","+east;
 			String sw=south+","+west;
 			Map<String, String> searchParams = new HashMap<String, String>(); 
@@ -58,7 +58,9 @@ public class FoursquareSearchVenues {
 		    
 		    //After client has been initialized we can make queries.
 		    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
-		    
+		    System.out.println("here");
+			System.out.println(result.getMeta().getCode());
+			System.out.println("");
 		    if(result.getMeta().getCode() == 200) {  	
 	    		
 		    	FoursquareObjectTemplate dataobj;

@@ -47,8 +47,6 @@ public class GeoJSONReader {
     	InputStream in= new FileInputStream(f);
 		String str= IOUtils.toString(in);
 
-		System.out.println("GeoJSONReader: " + str);
-
 		in.close();
 		MfGeo result = reader.decode(str); //decode geojson file given as a String
 		MfFeatureCollection collection= (MfFeatureCollection) result;
@@ -63,8 +61,6 @@ public class GeoJSONReader {
 		double west;
 		BoundingBox b;
 
-		double average_lat = 0;
-		double average_long = 0;
 		
 		for(MfFeature mf: coll) {
 			
@@ -81,11 +77,7 @@ public class GeoJSONReader {
 			b = new BoundingBox(north, east, south, west);
 			data.add(b);
 
-			average_lat += (north - south);
-			average_long += (west - east);
 		}
-		System.out.println("average_lat: " + average_lat/coll.size());
-		System.out.println("average_long: " + average_long/coll.size());
 		
 		//Set the matrix indices
 		//First row and col indices are equal to 1
@@ -97,7 +89,6 @@ public class GeoJSONReader {
 			box.setRow(i);
 			box.setColumn(j);
 			j++;
-			
 			
 			if(j>size) { //row complete, continue with the next row
 				i++;

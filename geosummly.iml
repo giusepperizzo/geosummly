@@ -34,7 +34,7 @@
     <orderEntry type="library" name="Maven: org.glassfish.jersey.core:jersey-server:2.2" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.6" level="project" />
-    <orderEntry type="library" name="Maven: fi.foyt:foursquare-api:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: fi.foyt:foursquare-api:1.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.json:json:20090211" level="project" />
     <orderEntry type="library" name="Maven: com.google.appengine:appengine-api-1.0-sdk:1.6.5" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:2.10.1" level="project" />

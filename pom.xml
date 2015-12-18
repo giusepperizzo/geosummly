@@ -62,12 +62,18 @@
             <version>5.1.6</version>
         </dependency>
 
-	      <dependency>
+        <dependency>
+            <groupId>fi.foyt</groupId>
+            <artifactId>foursquare-api</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+
+	     <!-- <dependency>
 		    <groupId>fi.foyt</groupId>
 		    <artifactId>foursquare-api</artifactId>
-		    <version>1.0.2</version><!-- The wrong here is because there is no its repository in settings.xml  !-->
-          </dependency>
-
+		    <version>1.0.3</version>
+          </dependency>!-->
+          <!-- The wrong here is because there is no its repository in settings.xml  !-->
 	  	<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
