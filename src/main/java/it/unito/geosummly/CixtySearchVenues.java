@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by pysherlock on 12/18/15.
  * Search the venue in each cell of 3cixty data
  */
-public class ThreeCixtySearchVenues {
+public class CixtySearchVenues {
 
     public ArrayList<Venue> SearchVenues(double north, double west, double south, double east, ArrayList<Venue> VenueList) {
         ArrayList <Venue>searchvenues = new ArrayList<Venue>();

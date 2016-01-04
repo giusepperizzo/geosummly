@@ -24,68 +24,24 @@ public class CixtyJSONReader {
         */
     public ArrayList <Venue> decodeForSampling(String cixtyjson) throws IOException, JSONException  {
 
-    /*    MfGeoFactory mfFactory = new MfGeoFactory() {
-            public MfFeature createFeature(String id, MfGeometry geometry, JSONObject properties) {
-                return new SamplingFeatureTemplate(id, geometry, properties);
-            }
-        };
-        MfGeoJSONReader reader = new MfGeoJSONReader(mfFactory);
-
-        System.out.println("here\n");
-        File f=new File(cixtyjson);
-        InputStream in= new FileInputStream(f);
-        String str= IOUtils.toString(in);
-
-        in.close();
-        MfGeo result = reader.decode(str); //decode geojson file given as a String
-        MfFeatureCollection collection= (MfFeatureCollection) result;
-        ArrayList<MfFeature> coll = (ArrayList<MfFeature>) collection.getCollection(); //all the geojson features
-        SamplingFeatureTemplate feature;
-        MfGeometry featureGeometry;
-        Geometry jts;
-        Polygon polygon;
-        double north;
-        double east;
-        double south;
-        double west;
-
-
-        HashMap<String, String>Tree = new HashMap<String, String>();
-        ArrayList<Venue> VenueList = new ArrayList<Venue>();  //As Category Tree
-
-
-        for(MfFeature mf: coll) {
-
-            feature=(SamplingFeatureTemplate) mf;
-            featureGeometry=feature.getMfGeometry(); //get the feature geometry
-            jts=featureGeometry.getInternalGeometry();
-
-            polygon=(Polygon) jts; //feature geometry is a polygon
-
-        }
-
-*/
-
         File jsonfile = new File(cixtyjson);
         JSONObject jsonObject = null;
         Scanner input = new Scanner(jsonfile);
         ArrayList<Venue> VenueList = new ArrayList<Venue>();  //As Category Tree
         Venue venue = null;
-        double north = 0;
+    /*  double north = 0;
         double east = 0;
         double south = 0;
-        double west = 0;
-        int num = 0;
+        double west = 0;*/
     //  BoundingBox VenueBox;
 
         while(input.hasNext()) {
             try {
-                num++;
                 jsonObject = new JSONObject(input.nextLine());
-            //    System.out.println(jsonObject.toString());
+            //  System.out.println(jsonObject.toString());
                 venue = new Venue(System.currentTimeMillis(),
-                        (int)(Math.random()*500 + 1),
-                        String.valueOf(num),
+                        0,
+                        jsonObject.getJSONObject("s").getString("value"),
                         jsonObject.getJSONObject("category").getString("value"),
                         jsonObject.getJSONObject("label").getString("value"),
                         jsonObject.getJSONObject("latitude").getDouble("value"),
@@ -93,7 +49,7 @@ public class CixtyJSONReader {
 
                 venue.setCategory(venue.getCategory().split("/3cixty/")[1]);
                 VenueList.add(venue);
-
+/*
                 north = venue.getLatitude();
                 south = venue.getLatitude();
                 east = venue.getLongitude();
@@ -101,36 +57,21 @@ public class CixtyJSONReader {
 
                 if(venue.getLatitude() > north)
                     north = venue.getLatitude();
-                else if (venue.getLatitude() < south)
+                else if(venue.getLatitude() < south)
                     south = venue.getLatitude();
 
                 if(venue.getLongitude() > east)
                     east = venue.getLongitude();
-                else if (venue.getLongitude() < west)
-                    west = venue.getLongitude();
+                else if(venue.getLongitude() < west)
+                    west = venue.getLongitude();*/
             }
             catch (JSONException e) {
                 e.printStackTrace();
             }
             //output.println(venue.toString());
         }
-        //Set the matrix indices
-        //First row and col indices are equal to 1
-    /*    int size = (int) Math.sqrt(VenueList.size());
-        int i=1;
-        int j=1;
-        for(BoundingBox box: VenueList) {
-            box.setRow(i);
-            box.setColumn(j);
-            j++;
 
-            if (j > size) { //row complete, continue with the next row
-                i++;
-                j = 1;
-            }
-        }
-*/
-        System.out.println("North: " + north + " East: " + east + " South: " + south + " West: " + west);
+    //    System.out.println("North: " + north + " East: " + east + " South: " + south + " West: " + west);
         return VenueList;
     }
 

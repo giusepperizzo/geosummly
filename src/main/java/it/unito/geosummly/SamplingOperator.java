@@ -10,7 +10,6 @@ import it.unito.geosummly.tools.CoordinatesNormalizationType;
 import it.unito.geosummly.tools.SamplingTools;
 
 import java.io.IOException;
-import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -38,17 +37,18 @@ public class SamplingOperator {
     	//Get the grid
 		ArrayList<BoundingBox> data = null;
 		ArrayList<Venue> venues = null;
+		Double bigNorth = 0.0, bigEast = 0.0, bigSouth = 90.0, bigWest = 180.0;
 
 		if (in.endsWith("geojson")) {  //Process GEOJSON Data
 			GeoJSONReader reader = new GeoJSONReader();
 			data = reader.decodeForSampling(in);
 			//top left cell gives ne coordinates
-			Double bigNorth=data.get(0).getNorth();
-			Double bigEast=data.get(data.size()-1).getEast();
+			bigNorth=data.get(0).getNorth();
+			bigEast=data.get(data.size()-1).getEast();
 
 			//bottom right cell gives sw coordinates
-			Double bigSouth=data.get(data.size()-1).getSouth();
-			Double bigWest=data.get(0).getWest();
+			bigSouth=data.get(data.size()-1).getSouth();
+			bigWest=data.get(0).getWest();
 
 			BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 			collectAndTransform(global, data, out, sleep, secondLevel);
@@ -56,11 +56,23 @@ public class SamplingOperator {
 		else if(in.endsWith("cixtyjson")) { //Process 3cixtyJSON Data
 			CixtyJSONReader reader = new CixtyJSONReader();
 			venues = reader.decodeForSampling(in);
+			/*
+			for (Venue venue: venues) {
+				if(venue.getLatitude() > bigNorth)
+					bigNorth = venue.getLatitude();
+				if (venue.getLatitude() < bigSouth)
+					bigSouth = venue.getLatitude();
 
-			Double bigNorth=45.567794914783256;
-			Double bigEast=9.312688264185276;
-			Double bigSouth=45.35668565341486;
-			Double bigWest=9.011490619692509;
+				if(venue.getLongitude() > bigEast)
+					bigEast = venue.getLongitude();
+				if (venue.getLongitude() < bigWest)
+					bigWest = venue.getLongitude();
+			}*/
+
+			bigNorth=45.567794914783256;
+			bigEast=9.312688264185276;
+			bigSouth=45.35668565341486;
+			bigWest=9.011490619692509;
 
 			BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 
@@ -68,7 +80,7 @@ public class SamplingOperator {
 	 		ArrayList<BoundingBox> cells = new ArrayList<BoundingBox>();
 			Grid grid = new Grid();
 			grid.setBbox(global);
-			grid.setCellsNumber(40);
+			grid.setCellsNumber(20);
 			grid.setStructure(cells);
 			grid.createCells();
 
@@ -244,7 +256,7 @@ public class SamplingOperator {
 		CSVDataIO dataIO=new CSVDataIO();
 
 		HashMap<String, String> tree = new HashMap<String, String>(); //category tree
-		ThreeCixtySearchVenues tcs = new ThreeCixtySearchVenues();
+		CixtySearchVenues tcs = new CixtySearchVenues();
 		ArrayList<Venue> cellVenue = new ArrayList<Venue>();
 
 		//build Category tree from Venuelist, Venuelist made from local json file

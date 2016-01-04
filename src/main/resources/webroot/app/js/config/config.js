@@ -223,6 +223,16 @@ app.Config = function() {
 				},
 				zoom: 11
 			}),
+/*			milan_cxity: new Location({
+			    jsonUrl: 'data/clustering-output-eps0.03535533905932738.geojson',
+            	bounds: {
+            		north: 45.567794914783256,
+            		sud:  45.35668565341512,
+            		west: 9.011490619692509,
+            		est: 9.312688264185255
+            	},
+            	zoom: 11
+			}),*/
 			/*trentino: new Location({
 				jsonUrl: 'data/trentino/clustering-output-eps0.09.geojson',
 				bounds: {

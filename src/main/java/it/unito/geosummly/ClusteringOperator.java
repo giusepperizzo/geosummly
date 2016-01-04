@@ -105,9 +105,11 @@ public class ClusteringOperator {
 		HashMap<Integer, Double> cDensity = new HashMap<>();
 
 		ArrayList<ArrayList<Double>> cells;
-
+		int count = 0;
 		for(Clustering<?> c: cs) {
 			for(Cluster<?> cluster: c.getAllClusters()) {
+				count++;
+				System.out.println(count);
 				int index=clustersName.size(); //at first clustersName.size()=0
 				clustersName.put(index, cluster.getName()); //put the cluster name in the map (clustersName.size()++)
 				cellsOfCluster=tools.putCompleteCellsOfCluster(cellsOfCluster, cluster, index, listDens); //get all the cell_ids for the selected cluster
