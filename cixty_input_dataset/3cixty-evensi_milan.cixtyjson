@@ -1,0 +1,3 @@
+
+{ "head": { "link": [], "vars": ["s", "label", "category", "identifier", "publisher", "latitude", "longitude"] },
+  "results": { "distinct": false, "ordered": true, "bindings": [ ] } }

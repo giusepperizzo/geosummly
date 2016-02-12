@@ -56,13 +56,14 @@ public class SamplingOperator {
 		else if(in.endsWith("cixtyjson")) { //Process 3cixtyJSON Data
 			CixtyJSONReader reader = new CixtyJSONReader();
 			venues = reader.decodeForSampling(in);
+
 			/*
+			//Compute coordinate data automatically
 			for (Venue venue: venues) {
 				if(venue.getLatitude() > bigNorth)
 					bigNorth = venue.getLatitude();
 				if (venue.getLatitude() < bigSouth)
 					bigSouth = venue.getLatitude();
-
 				if(venue.getLongitude() > bigEast)
 					bigEast = venue.getLongitude();
 				if (venue.getLongitude() < bigWest)
@@ -76,22 +77,20 @@ public class SamplingOperator {
 
 			BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 
-			//grid the BoundingBox for 3cixty JSON file
+			//Grid the BoundingBox for 3cixty JSON file
 	 		ArrayList<BoundingBox> cells = new ArrayList<BoundingBox>();
 			Grid grid = new Grid();
 			grid.setBbox(global);
-			grid.setCellsNumber(20);
+			grid.setCellsNumber(100);
 			grid.setStructure(cells);
 			grid.createCells();
 
 			collectAndTransform_3Cixty(global, cells, venues, out, sleep, secondLevel);
-
 		}
 		else{
 			System.out.println("The file sampled isn't supported");
 			System.exit(-1);
 		}
-
     }
     
     public void executeWithCoord( ArrayList<Double> coord, 
@@ -224,7 +223,6 @@ public class SamplingOperator {
 									  out, 
 									  "/singles-matrix-2nd.csv");
 		}
-		
 		//dataIO.printCells(data, out, "/info-coord-celle.csv");
     
     }
@@ -279,6 +277,7 @@ public class SamplingOperator {
 
 			Thread.sleep(sleep);
 		}
+
 		//Sort the dataset alphabetically for column names
 		venuesMatrix = tools.fixRowsLength2(tools.getTotal(),
 				venuesMatrix); //update rows length for consistency

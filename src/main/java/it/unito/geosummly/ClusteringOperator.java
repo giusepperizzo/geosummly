@@ -108,8 +108,10 @@ public class ClusteringOperator {
 		int count = 0;
 		for(Clustering<?> c: cs) {
 			for(Cluster<?> cluster: c.getAllClusters()) {
+
 				count++;
-				System.out.println(count);
+				System.out.println(count);//Make acount about clusters' num
+
 				int index=clustersName.size(); //at first clustersName.size()=0
 				clustersName.put(index, cluster.getName()); //put the cluster name in the map (clustersName.size()++)
 				cellsOfCluster=tools.putCompleteCellsOfCluster(cellsOfCluster, cluster, index, listDens); //get all the cell_ids for the selected cluster

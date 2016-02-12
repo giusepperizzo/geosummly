@@ -63,7 +63,6 @@ public class Sampling {
 				inFile=line.getOptionValue("input");
 				//file extension has to be geojson
 				if(!inFile.endsWith("geojson")) {
-
 					if(!inFile.endsWith("cixtyjson")) { //add 3cixty data to input
 						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 						System.exit(-1);

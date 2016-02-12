@@ -14,7 +14,7 @@ import fi.foyt.foursquare.api.FoursquareApiException;
 public class FoursquareSearchVenuesTest extends TestCase {
 
 	public void testSearchVenues() throws UnknownHostException, FoursquareApiException {
-	/*	Gson gson=new Gson();
+		Gson gson=new Gson();
 		FoursquareSearchVenues fsv=new FoursquareSearchVenues();
 		ArrayList<FoursquareObjectTemplate> array;
 		array=fsv.searchVenues(1, 1, new Double(45.057), new Double(7.6613), new Double(45.0561), new Double(7.6600));
@@ -27,6 +27,6 @@ public class FoursquareSearchVenuesTest extends TestCase {
 		
 		//Start the tests
 		//assertNotNull(array);
-		//assertEquals(s1, s);	*/
+		//assertEquals(s1, s);	
 	}
 }

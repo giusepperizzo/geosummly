@@ -32,7 +32,7 @@ app.Config = function() {
 					est: 23.8113263
 				},
 				zoom: 11
-			}),		
+			}),
 			athens_pareto: new Location({
 				jsonUrl: 'data/athens/pareto-clustering-output-eps0.039283710065919304.geojson',
 				bounds: {
@@ -223,16 +223,77 @@ app.Config = function() {
 				},
 				zoom: 11
 			}),
-/*			milan_cxity: new Location({
-			    jsonUrl: 'data/clustering-output-eps0.03535533905932738.geojson',
-            	bounds: {
-            		north: 45.567794914783256,
-            		sud:  45.35668565341512,
-            		west: 9.011490619692509,
-            		est: 9.312688264185255
-            	},
-            	zoom: 11
-			}),*/
+			milan_cxity: new Location({
+			    jsonUrl: 'data/milan-cixty/milan_places.geojson',
+                bounds: {
+                    north: 45.567794914783256,
+              		sud:  45.35668565341512,
+              		west: 9.011490619692509,
+               		est: 9.312688264185255
+                },
+                zoom: 11
+			}),
+
+			milan_cxity_separated_publisher: new Location({
+            	jsonUrl: 'data/milan-cixty/milan_places_separated-publishers.geojson',
+                bounds: {
+               		north: 45.567794914783256,
+                    sud:  45.35668565341512,
+                    west: 9.011490619692509,
+                    est: 9.312688264185255
+               	},
+                zoom: 11
+            }),
+            milan_cxity_google: new Location({
+                 jsonUrl: 'data/milan-cixty/google-100-1.geojson',
+                 bounds: {
+                    north: 45.567794914783256,
+                    sud:  45.35668565341512,
+                    west: 9.011490619692509,
+                    est: 9.312688264185255
+                 },
+                 zoom: 11
+            }),
+            milan_cxity_facebook: new Location({
+                 jsonUrl: 'data/milan-cixty/facebook-100-1.geojson',
+                 bounds: {
+                    north: 45.567794914783256,
+                    sud:  45.35668565341512,
+                    west: 9.011490619692509,
+                    est: 9.312688264185255
+                 },
+                 zoom: 11
+            }),
+            milan_cxity_expedia: new Location({
+                 jsonUrl: 'data/milan-cixty/expedia-100-1.geojson',
+                 bounds: {
+                    north: 45.567794914783256,
+                    sud:  45.35668565341512,
+                    west: 9.011490619692509,
+                    est: 9.312688264185255
+                 },
+                 zoom: 11
+            }),
+            milan_cxity_vaxita: new Location({
+                 jsonUrl: 'data/milan-cixty/vaxita-100-1.geojson',
+                 bounds: {
+                    north: 45.567794914783256,
+                    sud:  45.35668565341512,
+                    west: 9.011490619692509,
+                    est: 9.312688264185255
+                 },
+                 zoom: 11
+            }),
+            milan_cxity_yelp: new Location({
+                 jsonUrl: 'data/milan-cixty/yelp-100-1.geojson',
+                 bounds: {
+                    north: 45.567794914783256,
+                    sud:  45.35668565341512,
+                    west: 9.011490619692509,
+                    est: 9.312688264185255
+                 },
+                 zoom: 11
+            }),
 			/*trentino: new Location({
 				jsonUrl: 'data/trentino/clustering-output-eps0.09.geojson',
 				bounds: {

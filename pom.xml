@@ -114,8 +114,10 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-csv</artifactId>
-            <version>1.0</version>    <!--here is some mistake about the name of the dependency ID. That's why can't find the denpendency online !-->
-        </dependency>           
+            <version>1.0</version>
+        </dependency>
+        <!--here is some mistake about the name of the dependency ID. That's why can't find the denpendency online !-->
+
         <dependency>
             <groupId>jp.ndca.similarity.distance</groupId>
             <artifactId>simjoin</artifactId>
