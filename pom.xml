@@ -4,7 +4,7 @@
 
 	<groupId>it.unito.geosummly</groupId>
 	<artifactId>geosummly</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>geosummly</name>
 	<url>http://geosummly.eurecom.fr</url>
