@@ -1,6 +1,7 @@
 package it.unito.geosummly.api.cli;
 
 import fi.foyt.foursquare.api.FoursquareApiException;
+import it.unito.geosummly.DynamicReader;
 import it.unito.geosummly.SamplingOperator;
 import it.unito.geosummly.tools.CoordinatesNormalizationType;
 
@@ -42,12 +43,13 @@ public class Sampling {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		Boolean inputFlag=false; //check the presence either of input or coord;
-		String helpUsage="geosummly sampling -input <path/to/file.geojson>|<path/to/file.cixtyjson> -output <path/to/dir> [options]";
+		String helpUsage="geosummly sampling -input <path/to/file.geojson>|<path/to/file.cixtyjson> -output <path/to/dir> [options]"
+					+ "\ngeosummly sampling -dynamic <3cixty|googleplaces|facebook|yelp|expedia|vaxita|evensi> -output <path/to/dir> [options]";
 		String helpFooter="\n------------------------------------------------------------------"
-				+ "\nThe options coord, input (only if coord is not specified), output are mandatory."
-				+ "\nThe options input and coord are mutually exclusive."
-				+ "\nThe options input and gnum are mutually exclusive."
-				+ "\nThe options input and rnum are mutually exclusive. "
+				+ "\nThe options coord, input (only if coord is not specified), dynamic (without coord and input), output are mandatory."
+				+ "\nThe options input|dynamic and coord are mutually exclusive."
+				+ "\nThe options input|dynamic and gnum are mutually exclusive."
+				+ "\nThe options input|dynamic and rnum are mutually exclusive. "
 				+ "\nThe output consist of a file of single venues for "
 				+ "each of the two levels of the Foursquare categories taxonomy, "
 				+ "a log file with the sampling informations."
@@ -55,7 +57,7 @@ public class Sampling {
 				+ "\nExamples:"
 				+ "\n1. geosummly sampling -input path/to/file.geojson -output path/to/dir -sleep 730 -ctype missing"
 				+ "\n2. geosummly sampling -coord 45.01,8.3,44.0,7.2856 -output path/to/dir -gnum 40 -rnum 100";
-		
+
 		try {
 			CommandLine line = parser.parse(options, args);
 			
@@ -69,6 +71,23 @@ public class Sampling {
 					}
 				}
 				outDir=line.getOptionValue("output");
+				mandatory=true;
+				inputFlag=true;
+			}
+
+			if(line.hasOption("dynamic") && line.hasOption("output")) {
+				String target = line.getOptionValue("dynamic");
+				if(!target.equals("3cixty") && !target.equals("googleplaces")) {
+					if(!target.equals("facebook") && !target.equals("yelp") && !target.equals("expedia")) {
+						if(!target.equals("vaxita") && !target.equals("evensi")) {
+							formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
+							System.exit(-1);
+						}
+					}
+				}
+				DynamicReader dynamicReader = new DynamicReader();
+				inFile = dynamicReader.Cixty_Query(target);
+				outDir = line.getOptionValue("output");
 				mandatory=true;
 				inputFlag=true;
 			}
@@ -156,34 +175,41 @@ public class Sampling {
 	private Options initOptions() {
 			 
 		 Options options = new Options(); //define list of options
-		 
+
 		 //option input
 		 Option input=OptionBuilder.withLongOpt("input").withDescription("set the input file")
 						.hasArg().withArgName("path/to/file").create("I");
-		 
+
 		 //options input and coord have to be mutually exclusive
 		 OptionGroup g1=new OptionGroup();
 		 g1.addOption(input);
 		 g1.addOption(OptionBuilder.withLongOpt("coord").withDescription("set the input grid coordinates")
 						.hasArgs(4).withValueSeparator(',').withArgName("n,e,s,w").create("L"));
-		 
+
 		 //options input and gnum have to be mutually exclusive
 		 OptionGroup g2=new OptionGroup();
 		 g2.addOption(input);
 		 g2.addOption(OptionBuilder.withLongOpt("gnum").withDescription("set the number of cells of a side of the squared grid. Default 20")
 						.hasArg().withArgName("arg").create("g"));
-		 
+
 		 //options input and rnum have to be mutually exclusive
 		 OptionGroup g3=new OptionGroup();
 		 g3.addOption(input);
 		 g3.addOption(OptionBuilder.withLongOpt("rnum").withDescription("set the number of cells, taken randomly, chosen for the sampling")
 						.hasArg().withArgName("arg").create("r"));
-		 
+
+		 OptionGroup g4=new OptionGroup();
+		 g4.addOption(input);
+		 g4.addOption(OptionBuilder.withLongOpt("dynamic").withDescription("set dynamic input target")
+				 .hasArgs().withArgName("target").create("D"));
+
 		 //add mutually exclusive options for sampling
 		 options.addOptionGroup(g1);
 		 options.addOptionGroup(g2);
 		 options.addOptionGroup(g3);
-		 
+		 options.addOptionGroup(g4);
+
+
 		 //add all other options for sampling
 		 options.addOption(OptionBuilder.withLongOpt( "output" ).withDescription("set the output directory")
 							.hasArg().withArgName("path/to/dir").create("O"));

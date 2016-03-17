@@ -47,21 +47,13 @@ public class CixtyJSONReader {
                 //Use to Put different publishers into one map.
 
                 VenueList.add(venue);
-        /*        if(!BaseMap.containsKey(venue.getCoordinate())) {
-                    BaseMap.put(venue.getCoordinate(), venue);
-                    VenueList.add(venue);
-                }
-                else {
-                    System.out.println("BaseMap contains Venue in " + venue.getLatitude() + " " + venue.getLongitude());
-                    Num++;
-                }*/
-        //        count++;
 
             }
             catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+
         /*
         System.out.println("Total num of venues: " + count);
         System.out.println("The num of override venues: " + Num);
