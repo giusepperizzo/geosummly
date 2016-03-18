@@ -43,8 +43,7 @@ public class Sampling {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		Boolean inputFlag=false; //check the presence either of input or coord;
-		String helpUsage="geosummly sampling -input <path/to/file.geojson>|<path/to/file.cixtyjson> -output <path/to/dir> [options]"
-					+ "\ngeosummly sampling -dynamic <3cixty|googleplaces|facebook|yelp|expedia|vaxita|evensi> -output <path/to/dir> [options]";
+		String helpUsage="geosummly sampling -input <path/to/file.geojson>|<path/to/file.cixtyjson> -output <path/to/dir> [options]";
 		String helpFooter="\n------------------------------------------------------------------"
 				+ "\nThe options coord, input (only if coord is not specified), dynamic (without coord and input), output are mandatory."
 				+ "\nThe options input|dynamic and coord are mutually exclusive."
@@ -71,23 +70,6 @@ public class Sampling {
 					}
 				}
 				outDir=line.getOptionValue("output");
-				mandatory=true;
-				inputFlag=true;
-			}
-
-			if(line.hasOption("dynamic") && line.hasOption("output")) {
-				String target = line.getOptionValue("dynamic");
-				if(!target.equals("3cixty") && !target.equals("googleplaces")) {
-					if(!target.equals("facebook") && !target.equals("yelp") && !target.equals("expedia")) {
-						if(!target.equals("vaxita") && !target.equals("evensi")) {
-							formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
-							System.exit(-1);
-						}
-					}
-				}
-				DynamicReader dynamicReader = new DynamicReader();
-				inFile = dynamicReader.Cixty_Query(target);
-				outDir = line.getOptionValue("output");
 				mandatory=true;
 				inputFlag=true;
 			}
