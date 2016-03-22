@@ -52,7 +52,7 @@ public class GeoJSONReader {
 		MfFeatureCollection collection= (MfFeatureCollection) result;
 		ArrayList<MfFeature> coll = (ArrayList<MfFeature>) collection.getCollection(); //all the geojson features
 		SamplingFeatureTemplate feature;
-		MfGeometry featureGeometry; 
+		MfGeometry featureGeometry;
 		Geometry jts;
 		Polygon polygon;
 		double north;

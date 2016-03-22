@@ -224,7 +224,7 @@ app.Config = function() {
 				zoom: 11
 			}),
 			milan_cxity: new Location({
-			    jsonUrl: 'data/milan-cixty/milan_places.geojson',
+			    jsonUrl: 'data/milan-3cixty/milan_places.geojson',
                 bounds: {
                     north: 45.567794914783256,
               		sud:  45.35668565341512,
@@ -235,7 +235,7 @@ app.Config = function() {
 			}),
 
 			milan_cxity_separated_publisher: new Location({
-            	jsonUrl: 'data/milan-cixty/milan_places_separated-publishers.geojson',
+            	jsonUrl: 'data/milan-3cixty/milan_places_separated-publishers.geojson',
                 bounds: {
                		north: 45.567794914783256,
                     sud:  45.35668565341512,
@@ -245,7 +245,7 @@ app.Config = function() {
                 zoom: 11
             }),
             milan_cxity_google: new Location({
-                 jsonUrl: 'data/milan-cixty/google-100-1.geojson',
+                 jsonUrl: 'data/milan-3cixty/google-100-1.geojson',
                  bounds: {
                     north: 45.567794914783256,
                     sud:  45.35668565341512,
@@ -255,7 +255,7 @@ app.Config = function() {
                  zoom: 11
             }),
             milan_cxity_facebook: new Location({
-                 jsonUrl: 'data/milan-cixty/facebook-100-1.geojson',
+                 jsonUrl: 'data/milan-3cixty/facebook-100-1.geojson',
                  bounds: {
                     north: 45.567794914783256,
                     sud:  45.35668565341512,
@@ -265,7 +265,7 @@ app.Config = function() {
                  zoom: 11
             }),
             milan_cxity_expedia: new Location({
-                 jsonUrl: 'data/milan-cixty/expedia-100-1.geojson',
+                 jsonUrl: 'data/milan-3cixty/expedia-100-1.geojson',
                  bounds: {
                     north: 45.567794914783256,
                     sud:  45.35668565341512,
@@ -274,8 +274,8 @@ app.Config = function() {
                  },
                  zoom: 11
             }),
-            milan_cxity_vaxita: new Location({
-                 jsonUrl: 'data/milan-cixty/vaxita-100-1.geojson',
+            milan_cxity_google_2: new Location({
+                 jsonUrl: 'data/milan-3cixty/google-100-1_autoCoord.geojson',
                  bounds: {
                     north: 45.567794914783256,
                     sud:  45.35668565341512,
@@ -285,7 +285,7 @@ app.Config = function() {
                  zoom: 11
             }),
             milan_cxity_yelp: new Location({
-                 jsonUrl: 'data/milan-cixty/yelp-100-1.geojson',
+                 jsonUrl: 'data/milan-3cixty/yelp-100-1.geojson',
                  bounds: {
                     north: 45.567794914783256,
                     sud:  45.35668565341512,
@@ -294,6 +294,17 @@ app.Config = function() {
                  },
                  zoom: 11
             }),
+            nice_cxity_googleplaces: new Location({
+                 jsonUrl: 'data/nice-3cixty/google-100-1.geojson',
+                 bounds: {
+                    north: 43.7592,
+                    sud:  43.6554,
+                    west: 7.1819,
+                    est: 7.32291
+                 },
+                 zoom: 11
+            }),
+
 			/*trentino: new Location({
 				jsonUrl: 'data/trentino/clustering-output-eps0.09.geojson',
 				bounds: {

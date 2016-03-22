@@ -1,10 +1,14 @@
 package it.unito.geosummly.io;
 
-import it.unito.geosummly.BoundingBox;
 import it.unito.geosummly.Venue;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
+import org.omg.CORBA.portable.*;
+
 import java.io.*;
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -18,26 +22,25 @@ public class CixtyJSONReader {
 //  private HashMap<Venue.Coordinate, Venue> BaseMap = new HashMap<>();  //Original Map from some database source, use for checking wheather there are override venues
 
     public void ReadVenue(String file)throws IOException{
-        File jsonfile = new File(file);
-        JSONObject jsonObject = null;
-        Scanner input = new Scanner(jsonfile);
         Venue venue = null;
         String Publisher = new String("");
     //  int Num = 0, count = 0;
 
-        while(input.hasNext()) {
-            try {
-                jsonObject = new JSONObject(input.nextLine());
+        try {
+            JSONObject jsonObject = new JSONObject(new JSONTokener(new FileReader(file)));
+            JSONArray jsonArray = jsonObject.getJSONObject("results").getJSONArray("bindings");
+
+            for(int i = 0; i < jsonArray.length(); i++) {
                 venue = new Venue(System.currentTimeMillis(),
                         0,
-                        jsonObject.getJSONObject("s").getString("value"),
-                        jsonObject.getJSONObject("category").getString("value"),
-                        jsonObject.getJSONObject("label").getString("value"),
-                        jsonObject.getJSONObject("publisher").getString("value"),
-                        jsonObject.getJSONObject("latitude").getDouble("value"),
-                        jsonObject.getJSONObject("longitude").getDouble("value"));
+                        jsonArray.getJSONObject(i).getJSONObject("s").getString("value"),
+                        jsonArray.getJSONObject(i).getJSONObject("category").getString("value"),
+                        jsonArray.getJSONObject(i).getJSONObject("label").getString("value"),
+                        jsonArray.getJSONObject(i).getJSONObject("publisher").getString("value"),
+                        jsonArray.getJSONObject(i).getJSONObject("latitude").getDouble("value"),
+                        jsonArray.getJSONObject(i).getJSONObject("longitude").getDouble("value"));
 
-                if(!Publisher.equals(venue.getPublisher())) {
+                if (!Publisher.equals(venue.getPublisher())) {
                     Publisher = venue.getPublisher();
                     System.out.println(Publisher);
                 }
@@ -47,13 +50,12 @@ public class CixtyJSONReader {
                 //Use to Put different publishers into one map.
 
                 VenueList.add(venue);
+            }
 
-            }
-            catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
-
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
         /*
         System.out.println("Total num of venues: " + count);
         System.out.println("The num of override venues: " + Num);
@@ -72,8 +74,12 @@ public class CixtyJSONReader {
         }
     }
 
-    public ArrayList <Venue> decodeForSampling(String cixtyjson) throws IOException, JSONException  {
+    public ArrayList <Venue> decodeForSampling(String cixtyjson) throws IOException, JSONException {
         ReadVenue(cixtyjson);
+        if (VenueList.isEmpty()){
+            System.out.println("Cannot read venues from the target JSON file");
+            System.exit(-1);
+        }
         return VenueList;
     }
 }
