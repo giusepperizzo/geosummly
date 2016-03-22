@@ -57,7 +57,7 @@ public class SamplingOperator {
 			CixtyJSONReader reader = new CixtyJSONReader();
 			venues = reader.decodeForSampling(in);
 
-			/*
+
 			//Compute coordinate data automatically
 			for (Venue venue: venues) {
 				if(venue.getLatitude() > bigNorth)
@@ -68,12 +68,17 @@ public class SamplingOperator {
 					bigEast = venue.getLongitude();
 				if (venue.getLongitude() < bigWest)
 					bigWest = venue.getLongitude();
-			}*/
+			}
 
+			/*
 			bigNorth=45.567794914783256;
 			bigEast=9.312688264185276;
 			bigSouth=45.35668565341486;
 			bigWest=9.011490619692509;
+			*/
+
+			System.out.println("bigNorth: " + bigNorth + " bigSouth: " + bigSouth +
+					" bigEast: " + bigEast + " bigWest: " + bigWest);
 
 			BoundingBox global=new BoundingBox(bigNorth, bigEast, bigSouth, bigWest);
 

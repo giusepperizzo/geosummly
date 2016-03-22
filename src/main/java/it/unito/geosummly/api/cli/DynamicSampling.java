@@ -78,8 +78,8 @@ public class DynamicSampling {
 
         OptionGroup g1=new OptionGroup();
         g1.addOption(input);
-        g1.addOption(OptionBuilder.withLongOpt("dynamic").withDescription("set dynamic input target")
-                .hasArgs().withArgName("target").create("D"));
+        g1.addOption(OptionBuilder.withLongOpt("source").withDescription("set dynamic input source")
+                .hasArgs().withArgName("source").create("S"));
 
         //add mutually exclusive options for sampling
         options.addOptionGroup(g1);
