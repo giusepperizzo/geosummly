@@ -78,7 +78,7 @@ The options *input*, *output* are mandatory. Input file has to be a .csv of grid
 
     geosummly discovery –input path/to/file.csv –output path/to/dir –combination 3
 
-#####clustering
+###clustering
 ```sh
 -D –density     <path/to/file>  set the input file of density values
 -N –normalized  <path/to/file>  set the input file of normalized density values
