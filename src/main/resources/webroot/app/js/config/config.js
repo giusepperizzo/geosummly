@@ -274,16 +274,6 @@ app.Config = function() {
                  },
                  zoom: 11
             }),
-            milan_cxity_google_2: new Location({
-                 jsonUrl: 'data/milan-3cixty/google-100-1_autoCoord.geojson',
-                 bounds: {
-                    north: 45.567794914783256,
-                    sud:  45.35668565341512,
-                    west: 9.011490619692509,
-                    est: 9.312688264185255
-                 },
-                 zoom: 11
-            }),
             milan_cxity_yelp: new Location({
                  jsonUrl: 'data/milan-3cixty/yelp-100-1.geojson',
                  bounds: {
@@ -296,6 +286,16 @@ app.Config = function() {
             }),
             nice_cxity_googleplaces: new Location({
                  jsonUrl: 'data/nice-3cixty/google-100-1.geojson',
+                 bounds: {
+                    north: 43.7592,
+                    sud:  43.6554,
+                    west: 7.1819,
+                    est: 7.32291
+                 },
+                 zoom: 11
+            }),
+            nice_cxity_googleplaces_2: new Location({
+                 jsonUrl: 'data/nice-3cixty/google-40-1.geojson',
                  bounds: {
                     north: 43.7592,
                     sud:  43.6554,

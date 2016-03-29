@@ -14,11 +14,7 @@ public class DynamicReader {
 
     static String sparqlEndpoint = "http://3cixty-alpha.eurecom.fr/sparql";
 
-    public String Cixty_Query(String Source) {
-        String city = Source.split("/")[0];
-        String publisher = Source.split("/")[1];
-        if(publisher.equals("3cixty")) //publisher
-            publisher = "";
+    public String Cixty_Query(String city, String publisher) {
 
         String queryString ="PREFIX dul: <http://ontologydesignpatterns.org/ont/dul/DUL.owl#>\n" +
                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+

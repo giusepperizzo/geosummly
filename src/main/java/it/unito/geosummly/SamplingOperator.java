@@ -56,7 +56,9 @@ public class SamplingOperator {
 		else if(in.endsWith("cixtyjson")) { //Process 3cixtyJSON Data
 			CixtyJSONReader reader = new CixtyJSONReader();
 			venues = reader.decodeForSampling(in);
-
+			int gnum = (int)Math.sqrt(venues.size());
+			if(gnum > 100) // Manually set the maximal gnum as 100
+				gnum = 100;
 
 			//Compute coordinate data automatically
 			for (Venue venue: venues) {
@@ -86,7 +88,7 @@ public class SamplingOperator {
 	 		ArrayList<BoundingBox> cells = new ArrayList<BoundingBox>();
 			Grid grid = new Grid();
 			grid.setBbox(global);
-			grid.setCellsNumber(100);
+			grid.setCellsNumber(gnum);
 			grid.setStructure(cells);
 			grid.createCells();
 

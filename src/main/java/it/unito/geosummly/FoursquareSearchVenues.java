@@ -58,6 +58,7 @@ public class FoursquareSearchVenues {
 		    
 		    //After client has been initialized we can make queries.
 		    Result<VenuesSearchResult> result = foursquareApi.venuesSearch(searchParams);
+			//For debug
 		    System.out.println("here");
 			System.out.println(result.getMeta().getCode());
 			System.out.println("");

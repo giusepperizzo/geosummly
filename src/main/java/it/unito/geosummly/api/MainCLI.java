@@ -33,10 +33,6 @@ public class MainCLI {
 					Sampling sampling = new Sampling();
 					sampling.run(args);
 					break;
-				case "D-sampling":
-					DynamicSampling dynamicSampling = new DynamicSampling();
-					dynamicSampling.run(args);
-					break;
 				case "import":
 					Import imp = new Import();
 					imp.run(args);

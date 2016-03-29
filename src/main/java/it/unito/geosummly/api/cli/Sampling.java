@@ -43,23 +43,27 @@ public class Sampling {
 		HelpFormatter formatter = new HelpFormatter();
 		Boolean mandatory=false; //check the presence of mandatory options
 		Boolean inputFlag=false; //check the presence either of input or coord;
-		String helpUsage="geosummly sampling -input <path/to/file.geojson>|<path/to/file.cixtyjson> -output <path/to/dir> [options]";
+		String helpUsage="geosummly sampling -input <path/to/file.geojson>|<path/to/file.cixtyjson> -output <path/to/dir> [options]"
+				+"geosummly sampling -coord north,east,south,west -output <path/to/dir> -gnum 40 -rnum 100 [options]"
+				+"geosummly sampling -social 3cixty -city <city> -publisher <publisher> []";
 		String helpFooter="\n------------------------------------------------------------------"
 				+ "\nThe options coord, input (only if coord is not specified), dynamic (without coord and input), output are mandatory."
-				+ "\nThe options input|dynamic and coord are mutually exclusive."
-				+ "\nThe options input|dynamic and gnum are mutually exclusive."
-				+ "\nThe options input|dynamic and rnum are mutually exclusive. "
+				+ "\nThe options input and coord are mutually exclusive."
+				+ "\nThe options input and gnum are mutually exclusive."
+				+ "\nThe options input and rnum are mutually exclusive. "
+				+ "\nThe options input and social are mutually exclusive."
 				+ "\nThe output consist of a file of single venues for "
 				+ "each of the two levels of the Foursquare categories taxonomy, "
 				+ "a log file with the sampling informations."
 				+ "\n------------------------------------------------------------------"
 				+ "\nExamples:"
 				+ "\n1. geosummly sampling -input path/to/file.geojson -output path/to/dir -sleep 730 -ctype missing"
-				+ "\n2. geosummly sampling -coord 45.01,8.3,44.0,7.2856 -output path/to/dir -gnum 40 -rnum 100";
+				+ "\n2. geosummly sampling -coord 45.01,8.3,44.0,7.2856 -output path/to/dir -gnum 40 -rnum 100"
+				+ "\n3. geosummly sampling -social 3cixty -city <city> -publisher <publisher> [options]";
 
 		try {
 			CommandLine line = parser.parse(options, args);
-			
+
 			if(line.hasOption("input") && line.hasOption("output")) {
 				inFile=line.getOptionValue("input");
 				//file extension has to be geojson
@@ -110,10 +114,32 @@ public class Sampling {
 					System.exit(-1);
 				}
 			}
-			
-			/*if(line.hasOption("social")) {
+
+			//Handle other social media data, so far we support 3cixty
+			if(line.hasOption("social") && line.hasOption("output")) {
+				String social = line.getOptionValue("social");
+
+				//Supported social media, so far we support 3cixty
+				if(social.equals("3cixty")) {
+					if(line.hasOption("city") && line.hasOption("publisher")) {
+						String city = line.getOptionValue("city");
+						String publisher = line.getOptionValue("publisher");
+
+						DynamicReader dynamicReader = new DynamicReader(); //Dynamic read data from online database, using sparql
+						inFile = dynamicReader.Cixty_Query(city, publisher);
+						outDir = line.getOptionValue("output");
+						inputFlag = true;
+						mandatory=true;
+					}
+					else{
+						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
+						System.exit(-1);
+					}
+				}
 				//manage social media
 			}
+
+			/*
 			if(line.hasOption("cache")) {
 				//manage cache
 			}*/
@@ -162,11 +188,13 @@ public class Sampling {
 		 Option input=OptionBuilder.withLongOpt("input").withDescription("set the input file")
 						.hasArg().withArgName("path/to/file").create("I");
 
-		 //options input and coord have to be mutually exclusive
+		 //options input and coord and social have to be mutually exclusive, for now
 		 OptionGroup g1=new OptionGroup();
 		 g1.addOption(input);
 		 g1.addOption(OptionBuilder.withLongOpt("coord").withDescription("set the input grid coordinates")
 						.hasArgs(4).withValueSeparator(',').withArgName("n,e,s,w").create("L"));
+		 g1.addOption(OptionBuilder.withLongOpt("social").withDescription("set the social network for meta-data collection. So far foursquare and 3cixty is activable. Default fourquare")
+				.hasArg().withArgName("arg").create("s"));
 
 		 //options input and gnum have to be mutually exclusive
 		 OptionGroup g2=new OptionGroup();
@@ -180,16 +208,10 @@ public class Sampling {
 		 g3.addOption(OptionBuilder.withLongOpt("rnum").withDescription("set the number of cells, taken randomly, chosen for the sampling")
 						.hasArg().withArgName("arg").create("r"));
 
-		 OptionGroup g4=new OptionGroup();
-		 g4.addOption(input);
-		 g4.addOption(OptionBuilder.withLongOpt("dynamic").withDescription("set dynamic input target")
-				 .hasArgs().withArgName("target").create("D"));
-
 		 //add mutually exclusive options for sampling
 		 options.addOptionGroup(g1);
 		 options.addOptionGroup(g2);
 		 options.addOptionGroup(g3);
-		 options.addOptionGroup(g4);
 
 
 		 //add all other options for sampling
@@ -197,8 +219,10 @@ public class Sampling {
 							.hasArg().withArgName("path/to/dir").create("O"));
 		 options.addOption(OptionBuilder.withLongOpt( "ltype" ).withDescription("set the type of coordinates (latitude and longitude) normalization. Allowed values: norm, notnorm, missing. Default norm")
 							.hasArg().withArgName("arg").create("l"));
-		 options.addOption(OptionBuilder.withLongOpt("social").withDescription("set the social network for meta-data collection. So far only foursquare is activable. Default fourquare")
-							.hasArg().withArgName("arg").create("s"));
+		 options.addOption(OptionBuilder.withLongOpt("city").withDescription("set the city from social network for meta-data collection.")
+				.hasArg().withArgName("arg").create("c"));
+		 options.addOption(OptionBuilder.withLongOpt("publisher").withDescription("set the publisher from social network for meta-data collection.")
+				.hasArg().withArgName("arg").create("p"));
 		 options.addOption(OptionBuilder.withLongOpt( "sleep" ).withDescription("set the milliseconds between two calls to social media server. Default 0")
 					.hasArg().withArgName("arg").create("z"));
 		 options.addOption(OptionBuilder.withLongOpt("taxonomy").withDescription("set the level to reach on the "
