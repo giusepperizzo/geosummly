@@ -28,7 +28,8 @@ public class SamplingOperator {
     							  String out, 
     							  CoordinatesNormalizationType ltype, 
     							  long sleep,
-    							  boolean secondLevel) 
+    							  boolean secondLevel,
+								  int Gnum)
     									  	throws IOException, 
     									  	JSONException, 
     									  	FoursquareApiException, 
@@ -56,9 +57,16 @@ public class SamplingOperator {
 		else if(in.endsWith("cixtyjson")) { //Process 3cixtyJSON Data
 			CixtyJSONReader reader = new CixtyJSONReader();
 			venues = reader.decodeForSampling(in);
-			int gnum = (int)Math.sqrt(venues.size());
-			if(gnum > 100) // Manually set the maximal gnum as 100
-				gnum = 100;
+
+			// Compute gnum automatically if no Gnum value from cli input
+			int gnum = 0;
+			if(Gnum==0) {
+				gnum = (int) Math.sqrt(venues.size());
+				if (gnum > 100) // Manually set the maximal gnum as 100
+					gnum = 100;
+			}
+			else
+				gnum = Gnum;
 
 			//Compute coordinate data automatically
 			for (Venue venue: venues) {

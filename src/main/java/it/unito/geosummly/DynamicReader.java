@@ -14,7 +14,7 @@ public class DynamicReader {
 
     static String sparqlEndpoint = "http://3cixty-alpha.eurecom.fr/sparql";
 
-    public String Cixty_Query(String city, String publisher) {
+    public String Cixty_Query(String city, String publisher, String output) {
 
         String queryString ="PREFIX dul: <http://ontologydesignpatterns.org/ont/dul/DUL.owl#>\n" +
                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
@@ -42,14 +42,14 @@ public class DynamicReader {
             ResultSet results = httpQuery.execSelect();
 
             //output a result to a JSON file
-            File file = new File("auto_3cixty_dataset/" + city + '_' + publisher + ".cixtyjson");
+            File file = new File(output + '/' + city + '_' + publisher + ".cixtyjson");
             FileOutputStream fout = new FileOutputStream(file);
             ResultSetFormatter.outputAsJSON(fout, results);
 
             fout.close();
             httpQuery.close();
             System.out.println(file.getName());
-            return ("auto_3cixty_dataset/" + city + '_' + publisher + ".cixtyjson");
+            return (output + '/' + city + '_' + publisher + ".cixtyjson");
         }
         catch (IOException e) {
             e.printStackTrace();

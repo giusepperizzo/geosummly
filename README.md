@@ -39,19 +39,23 @@ For a full list of commands, please refer to:
 ### sampling
 ```sh
 -L –coord   <n,e,s,w>       set the input grid coordinates
--I –input   <path/to/file>  set the geojson input file
+-I –input   <path/to/file>  set the geojson input file or cixtyjson input file
 -O –output  <path/to/dir>   set the output directory
 -g –gnum    <arg>           set the number of cells of a side of the squared grid. Default 20.
 -r –rnum    <arg>           set the number of cells, taken randomly, chosen for the sampling.
--s –social  <arg>           set the social network for meta-data collection. So far only Foursquare is activable. Default Fourquare.
+-s –social  <arg>           set the social network for dynamic meta-data collection. So far foursquare and 3cixty is activable, this option only can be set to "3cixty"
 -z -sleep   <arg>           set the milliseconds between two calls to social media server. Default 0.
 -C –cache                   cache activation. Default deactivated.
+-c -city    <arg>           set the city from social network for meta-data collection
+-p -publisher <arg>         set the publisher from social network for meta-data collection, like googleplaces, facebook
 ```
 The options *coord*, *input* (only if *coord* is not specified), *output* are mandatory. The options *input* and *coord* are mutually exclusive. The options *input* and *gnum* are mutually exclusive. The options *input* and *rnum* are mutually exclusive.
 The output consists of a file of single venues for each of the two levels of the Foursquare categories taxonomy, a log file with the sampling informations. 
 
-    geosummly sampling –input path/to/file.geojson –output path/to/dir –ctype missing 
+    geosummly sampling –input path/to/file.geojson –output path/to/dir –ctype missing
+    geosummly sampling -input path/to/file.cixtyjson -output path/to/dir -gnum 40
     geosummly sampling –coord 45,8,44,7 –output path/to/dir –gnum 40 –rnum 100
+    geosummly sampling -social 3cixty -city nice -publisher googleplaces -output path/to/dir
 
 
 ### import

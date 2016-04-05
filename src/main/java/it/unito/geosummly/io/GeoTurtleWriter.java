@@ -87,8 +87,12 @@ public class GeoTurtleWriter implements IGeoWriter {
     		Object tmp=venues.get(i);
     		if(tmp!=null) {
     			venuesOfCell=new ArrayList<ArrayList<String>>(venues.get(i));
-    			for(ArrayList<String> r: venuesOfCell)
-					sqrVenues.add("http://foursquare.com/v/"+r.get(2));
+    			for(ArrayList<String> r: venuesOfCell) {
+					if(!r.get(2).contains("http"))
+						sqrVenues.add("http://foursquare.com/v/" + r.get(2));
+					else
+						sqrVenues.add(r.get(2));
+				}
     		}
     		
     		multipoint=multipoint.substring(0, multipoint.length()-1); //remove last comma
