@@ -53,7 +53,6 @@ The options *coord*, *input* (only if *coord* is not specified), *output* are ma
 The output consists of a file of single venues for each of the two levels of the Foursquare categories taxonomy, a log file with the sampling informations. 
 
     geosummly sampling –input path/to/file.geojson –output path/to/dir –ctype missing
-    geosummly sampling -input path/to/file.cixtyjson -output path/to/dir -gnum 40
     geosummly sampling –coord 45,8,44,7 –output path/to/dir –gnum 40 –rnum 100
     geosummly sampling -social 3cixty -city nice -publisher googleplaces -output path/to/dir
 

@@ -1,24 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>it.unito.geosummly</groupId>
-	<artifactId>geosummly</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
-	<packaging>jar</packaging>
-	<name>geosummly</name>
-	<url>http://geosummly.eurecom.fr</url>
+    <groupId>it.unito.geosummly</groupId>
+    <artifactId>geosummly</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>geosummly</name>
+    <url>http://geosummly.eurecom.fr</url>
 
-	<properties>
+    <properties>
         <jersey.version>2.2</jersey.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
         <java.version>1.7</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <system.libs>${basedir}/lib</system.libs>
         <system.data>${basedir}/data</system.data>
-	</properties>
+    </properties>
 
     <repositories>
         <repository>
@@ -40,7 +40,7 @@
         </dependencies>
     </dependencyManagement>
 
-	<dependencies>
+    <dependencies>
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-grizzly2-http</artifactId>
@@ -75,23 +75,23 @@
             <version>1.0.3</version>
         </dependency>
 
-	     <!-- <dependency>
-		    <groupId>fi.foyt</groupId>
-		    <artifactId>foursquare-api</artifactId>
-		    <version>1.0.3</version>
-          </dependency>!-->
-          <!-- The wrong here is because there is no its repository in settings.xml  !-->
-	  	<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>2.10.1</version>
-		</dependency>
-	    <dependency>
-	    	<groupId>com.google.code.gson</groupId>
-	      	<artifactId>gson</artifactId>
-	      	<version>2.2.4</version>
-	      	<scope>compile</scope>
-	    </dependency>
+        <!-- <dependency>
+           <groupId>fi.foyt</groupId>
+           <artifactId>foursquare-api</artifactId>
+           <version>1.0.3</version>
+         </dependency>!-->
+        <!-- The wrong here is because there is no its repository in settings.xml  !-->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -132,17 +132,17 @@
 
         <!--This dependency is from 2011 and never update again... I can't find maven dependency online !-->
         <!--So I download the source code from 2011 and install it as a dependency into local repository!-->
-     <!--   <dependency>
-           <groupId>reomuar</groupId>
-            <artifactId>simjoin</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency> !-->
+        <!--   <dependency>
+              <groupId>reomuar</groupId>
+               <artifactId>simjoin</artifactId>
+               <version>0.0.1-SNAPSHOT</version>
+           </dependency> !-->
 
-     <!--   <dependency>
-            <groupId>elki</groupId>
-            <artifactId>elki</artifactId>
-            <version>0.7</version>
-        </dependency> !-->
+        <!--   <dependency>
+               <groupId>elki</groupId>
+               <artifactId>elki</artifactId>
+               <version>0.7</version>
+           </dependency> !-->
         <!--The dependency here I can't find it online by maven. So i download one jar with its dependencies. !-->
 
         <dependency>
@@ -170,13 +170,13 @@
             <version>2.13.0</version>
         </dependency>
 
-	</dependencies>
+    </dependencies>
 
     <build>
-      <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
                     <archive>
@@ -185,50 +185,50 @@
                             <addClasspath>true</addClasspath>
                             <!--<classpathPrefix>lib/</classpathPrefix>!-->
                         </manifest>
-                </archive>
-            </configuration>
-        </plugin>
+                    </archive>
+                </configuration>
+            </plugin>
 
-          <!--<plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-dependency-plugin</artifactId>
-              <executions>
-                  <execution>
-                      <id>copy</id>
-                      <phase>install</phase>
-                      <goals>
-                          <goal>copy-dependencies</goal>
-                      </goals>
-                      <configuration>
-                          <outputDirectory>geosummly/target/lib</outputDirectory>
-                      </configuration>
-                  </execution>
-              </executions>
-          </plugin>!-->
+            <!--<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>geosummly/target/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>!-->
 
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <version>2.4</version>
-            <configuration>
-            <descriptorRefs>
-                <descriptorRef>jar-with-dependencies</descriptorRef>
-            </descriptorRefs>
-            <archive>
-                <manifest>
-                    <mainClass>it.unito.geosummly.api.MainCLI</mainClass>
-                    <addClasspath>true</addClasspath>
-                </manifest>
-            </archive>
-            </configuration>
-            <executions>
-                <execution>
-                <phase>package</phase>
-                <goals>
-                    <goal>single</goal>
-                </goals>
-            </execution>
-            </executions>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>it.unito.geosummly.api.MainCLI</mainClass>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

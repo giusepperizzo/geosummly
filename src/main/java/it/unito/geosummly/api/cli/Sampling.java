@@ -58,9 +58,8 @@ public class Sampling {
 				+ "\n------------------------------------------------------------------"
 				+ "\nExamples:"
 				+ "\n1. geosummly sampling -input path/to/file.geojson -output path/to/dir -sleep 730 -ctype missing"
-				+ "\n2. geosummly sampling -input path/to/file.cixtyjson -output path/to/dir -gnum 40"
-				+ "\n3. geosummly sampling -coord 45.01,8.3,44.0,7.2856 -output path/to/dir -gnum 40 -rnum 100"
-				+ "\n4. geosummly sampling -social 3cixty -city <city> -publisher <publisher> [options]";
+				+ "\n2. geosummly sampling -coord 45.01,8.3,44.0,7.2856 -output path/to/dir -gnum 40 -rnum 100"
+				+ "\n3. geosummly sampling -social 3cixty -city <city> -publisher <publisher> [options]";
 
 		try {
 			CommandLine line = parser.parse(options, args);
@@ -72,18 +71,6 @@ public class Sampling {
 					if(!inFile.endsWith("cixtyjson")) { //add 3cixty data to input
 						formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
 						System.exit(-1);
-					}
-					else{
-						//when file extension is cixtyjson, user can set the gridCells from cli
-						if(line.hasOption("gnum")) {
-							gridCells=Integer.parseInt(line.getOptionValue("gnum"));
-							if(gridCells<0) {
-								formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
-								System.exit(-1);
-							}
-						}
-						else
-							gridCells = 0;
 					}
 				}
 				outDir=line.getOptionValue("output");
@@ -141,16 +128,6 @@ public class Sampling {
 						DynamicReader dynamicReader = new DynamicReader(); //Dynamic read data from online database, using sparql
 						outDir = line.getOptionValue("output");
 						inFile = dynamicReader.Cixty_Query(city, publisher, outDir);
-
-						if(line.hasOption("gnum")) {
-							gridCells=Integer.parseInt(line.getOptionValue("gnum"));
-							if(gridCells<0) {
-								formatter.printHelp(helpUsage, "\ncommands list:", options, helpFooter);
-								System.exit(-1);
-							}
-						}
-						else
-							gridCells = 0;
 						inputFlag = true;
 						mandatory=true;
 					}
@@ -220,12 +197,12 @@ public class Sampling {
 				.hasArg().withArgName("arg").create("s"));
 
 		 //options input and gnum have to be mutually exclusive
-		/*
+
 		 OptionGroup g2=new OptionGroup();
 		 g2.addOption(input);
 		 g2.addOption(OptionBuilder.withLongOpt("gnum").withDescription("set the number of cells of a side of the squared grid. Default 20")
 						.hasArg().withArgName("arg").create("g"));
-						*/
+
 
 		 //options input and rnum have to be mutually exclusive
 		 OptionGroup g3=new OptionGroup();
@@ -235,7 +212,7 @@ public class Sampling {
 
 		 //add mutually exclusive options for sampling
 		 options.addOptionGroup(g1);
-//		 options.addOptionGroup(g2);
+		 options.addOptionGroup(g2);
 		 options.addOptionGroup(g3);
 
 

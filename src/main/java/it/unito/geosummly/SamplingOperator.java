@@ -57,7 +57,8 @@ public class SamplingOperator {
 		else if(in.endsWith("cixtyjson")) { //Process 3cixtyJSON Data
 			CixtyJSONReader reader = new CixtyJSONReader();
 			venues = reader.decodeForSampling(in);
-
+			int gnum = 100; //For milan
+			/*
 			// Compute gnum automatically if no Gnum value from cli input
 			int gnum = 0;
 			if(Gnum==0) {
@@ -66,7 +67,7 @@ public class SamplingOperator {
 					gnum = 100;
 			}
 			else
-				gnum = Gnum;
+				gnum = Gnum;*/
 
 			//Compute coordinate data automatically
 			for (Venue venue: venues) {
