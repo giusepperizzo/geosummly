@@ -1,5 +1,6 @@
 app.Map = function(params, callback) {
 
+console.log(params);
   var
     locationParams = params.location,
 
@@ -23,6 +24,8 @@ app.Map = function(params, callback) {
     colors = params.colors,
     minCircle = 3,
     maxCircle = 30,
+
+    configID = params.configID, // For Map update
 
     tooltip = Tooltip({
       elmId: "tooltip",
@@ -301,6 +304,62 @@ app.Map = function(params, callback) {
       return null;
     }
   }
+
+  map.addListener('center_changed', function(){
+       /*     locationParams = app.config.locations[params.location];
+  			params.locationParams = locationParams;
+  			params.key = app.config.key.leaflet;
+  			jsonUrl = locationParams.jsonUrl;
+              //jsonUrl = 'data/milan-3cixty/yelp-100-1.geojson';
+
+  			this.page.init(this.Clusters(jsonUrl), params);*/
+
+    var new_jsonUrl, new_locationParams;
+    new_params = {};
+    if (map.zoom == 17) {
+        //document.write(map.zoom);
+        if(configID.search("zoomhigh") == -1) { //Increase from lower level
+            new_locationParams = app.config.locations[configID.concat("_zoomhigh")];
+            new_params.locationParams = new_locationParams;
+            console.log(new_params);
+            new_params.key = app.config.key.leaflet;
+            new_jsonUrl = new_locationParams.jsonUrl;
+        //    map.zoom = 17;
+            app.page.init(app.Clusters(new_jsonUrl), new_params);
+        }
+    }
+    else if (map.zoom == 8) {
+        //document.write(map.zoom);
+        if (configID.search("zoomlow") == -1) { //Decrease from higher level, no zoomlow
+            new_locationParams = app.config.locations[configID.concat("_zoomlow")];
+            new_params.locationParams = new_locationParams;
+            new_params.key = app.config.key.leaflet;
+            console.log(new_params);
+            new_jsonUrl = new_locationParams.jsonUrl;
+            app.page.init(app.Clusters(new_jsonUrl), new_params);
+        }
+    }
+    else if (map.zoom == 16) {
+        if (configID.search("zoomhigh") != -1) { //Decrease from higher level, is zoom high
+            new_locationParams = app.config.locations[configID.replace("_zoomhigh", "")];
+            new_params.locationParams = new_locationParams;
+            new_params.key = app.config.key.leaflet;
+            console.log(new_params);
+            new_jsonUrl = new_locationParams.jsonUrl;
+            app.page.init(app.Clusters(new_jsonUrl), new_params);
+        }
+    }
+    else if (map.zoom == 9) {
+        if (configID.search("zoomlow") != -1) { //Iecrease from lower level
+            new_locationParams = app.config.locations[configID.replace("_zoomlow", "")];
+            new_params.locationParams = new_locationParams;
+            new_params.key = app.config.key.leaflet;
+            console.log(new_params);
+            new_jsonUrl = new_locationParams.jsonUrl;
+            app.page.init(app.Clusters(new_jsonUrl), new_params);
+        }
+    }
+  });
 
   return {
     locationParams: locationParams,

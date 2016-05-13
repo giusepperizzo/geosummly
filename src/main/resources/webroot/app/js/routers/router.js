@@ -22,10 +22,13 @@ app.Router = function() {
 	return {
 		defineRoute: function(routeCallback) {
 			$.route(function(hash) {
+			    console.log(hash);
 				var params = urlToParams(hash);
 
 				params = this.prepareParams(params);
 
+                console.log($);
+                console.log(params);
 				console.log('route');
 				routeCallback(params);
 

@@ -90,6 +90,7 @@ public class ClusteringOperator {
 		if(eps <= 0.0) {
 			eps=tools.getEps(normMatrix);
 		}
+		System.out.println("Eps: " + eps);
 
 		//Run GEOSUBCLU algorithm and get the clustering result
 		Clustering<?> result = tools
@@ -169,7 +170,7 @@ public class ClusteringOperator {
 	public HashMap<String, Vector<Integer>> executeForValidation(
 								String inDens, 
 								ArrayList<ArrayList<Double>> normalized, 
-								int length, ArrayList<String> labels, 
+									int length, ArrayList<String> labels,
 								ArrayList<String> minpts, 
 								double eps
 								) 

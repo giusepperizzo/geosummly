@@ -10,7 +10,8 @@ app.Page = function() {
 				elmId: 'map',
 				colors: colors,
 				key: params.key,
-				location: params.locationParams
+				location: params.locationParams,
+				configID: params.location
 			}, callback);
 		}
 		return map;
@@ -50,7 +51,7 @@ app.Page = function() {
 
 	return {
 		init: function(clusters, params) {
-
+            console.log(params);
 			var width = 300,
 				$main = $('#main').css({
 					width: window.innerWidth - width,
@@ -74,6 +75,7 @@ app.Page = function() {
 					map.setOverlay(function() {
 						map.init(filteredClusterFeature, params);
 					});
+
 					initLegend()
 						.update(clusters, params, colors);
 					hideLoader();

@@ -173,6 +173,16 @@ app.Config = function() {
 				},
 				zoom: 11
 			}),
+			milan_grid: new Location({
+            	jsonUrl: 'data/milan/milano-grid.geojson',
+            	bounds: {
+            		north: 45.567794914783256,
+            		sud:  45.35668565341512,
+           			west: 9.011490619692509,
+           			est: 9.312688264185255
+           		},
+           		zoom: 11
+           	}),
 			milan_pareto: new Location({
 				jsonUrl: 'data/milan/pareto-clustering-output-eps0.014142135623730952.geojson',
 				bounds: {
@@ -223,6 +233,26 @@ app.Config = function() {
 				},
 				zoom: 11
 			}),
+			milan_zoomhigh: new Location({
+                jsonUrl: 'data/milan/clustering-output-zoomhigh.geojson',
+                bounds: {
+                	north: 45.567794914783256,
+                	sud:  45.35668565341512,
+                	west: 9.011490619692509,
+                	est: 9.312688264185255
+                },
+                zoom: 17
+             }),
+             milan_zoomlow: new Location({
+                jsonUrl: 'data/milan/clustering-output-zoomlow.geojson',
+                bounds: {
+                    north: 45.567794914783256,
+                    sud:  45.35668565341512,
+                    west: 9.011490619692509,
+                    est: 9.312688264185255
+                },
+                zoom: 7
+             }),
 			milan_cxity: new Location({
 			    jsonUrl: 'data/milan-3cixty/milan_places.geojson',
                 bounds: {
@@ -234,8 +264,8 @@ app.Config = function() {
                 zoom: 11
 			}),
 
-			milan_cxity_separated_publisher: new Location({
-            	jsonUrl: 'data/milan-3cixty/milan_places_separated-publishers.geojson',
+			milan_cxity_art_night: new Location({
+            	jsonUrl: 'data/milan-3cixty/clustering-art_night.geojson',
                 bounds: {
                		north: 45.567794914783256,
                     sud:  45.35668565341512,
@@ -244,25 +274,25 @@ app.Config = function() {
                	},
                 zoom: 11
             }),
-            milan_cxity_google: new Location({
-                 jsonUrl: 'data/milan-3cixty/google-100-1.geojson',
-                 bounds: {
-                    north: 45.567794914783256,
+           milan_cxity_art_night_zoomhigh: new Location({
+                jsonUrl: 'data/milan-3cixty/clustering-art_night-zoomhigh.geojson',
+                bounds: {
+            		north: 45.567794914783256,
                     sud:  45.35668565341512,
                     west: 9.011490619692509,
                     est: 9.312688264185255
-                 },
-                 zoom: 11
+               	},
+                zoom: 17
             }),
-            milan_cxity_facebook: new Location({
-                 jsonUrl: 'data/milan-3cixty/facebook-100-1.geojson',
-                 bounds: {
+            milan_cxity_art_night_zoomlow: new Location({
+                jsonUrl: 'data/milan-3cixty/clustering-art_night-zoomlow.geojson',
+                bounds: {
                     north: 45.567794914783256,
                     sud:  45.35668565341512,
                     west: 9.011490619692509,
                     est: 9.312688264185255
-                 },
-                 zoom: 11
+                },
+                zoom: 8
             }),
             milan_cxity_expedia: new Location({
                  jsonUrl: 'data/milan-3cixty/expedia-100-1.geojson',
@@ -286,16 +316,6 @@ app.Config = function() {
             }),
             nice_cxity_googleplaces: new Location({
                  jsonUrl: 'data/nice-3cixty/google-100-1.geojson',
-                 bounds: {
-                    north: 43.7592,
-                    sud:  43.6554,
-                    west: 7.1819,
-                    est: 7.32291
-                 },
-                 zoom: 11
-            }),
-            nice_cxity_googleplaces_2: new Location({
-                 jsonUrl: 'data/nice-3cixty/google-40-1.geojson',
                  bounds: {
                     north: 43.7592,
                     sud:  43.6554,

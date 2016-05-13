@@ -405,6 +405,9 @@ public class ClusteringTools {
 	public double getEps(ArrayList<ArrayList<Double>> dataset) {
 		double side=Math.sqrt(dataset.size());
 		double eps=Math.sqrt(2)*(1/side);
+
+	//	eps = eps/Math.sqrt(2);  //For the higher zooming level
+	//	eps = eps*Math.sqrt(2);  //For the lower zooming level
 		return eps;
 	}
 	

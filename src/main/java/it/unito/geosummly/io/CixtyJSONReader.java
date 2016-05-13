@@ -30,7 +30,7 @@ public class CixtyJSONReader {
 
             for(int i = 0; i < jsonArray.length(); i++) {
                 venue = new Venue(System.currentTimeMillis(),
-                        0,
+                        100,
                         jsonArray.getJSONObject(i).getJSONObject("s").getString("value"),
                         jsonArray.getJSONObject(i).getJSONObject("category").getString("value"),
                         jsonArray.getJSONObject(i).getJSONObject("label").getString("value"),
@@ -46,8 +46,8 @@ public class CixtyJSONReader {
 
                 //venue.setCategory(venue.getCategory().split("/3cixty/")[1]+Publisher);
                 //Use to Put different publishers into one map.
-
-                VenueList.add(venue);
+                if(venue.getCategory().equals("nightlifespot") || venue.getCategory().equals("artsentertainment"))
+                    VenueList.add(venue);
             }
 
         }
