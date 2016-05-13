@@ -305,18 +305,11 @@ console.log(params);
     }
   }
 
-  map.addListener('center_changed', function(){
-       /*     locationParams = app.config.locations[params.location];
-  			params.locationParams = locationParams;
-  			params.key = app.config.key.leaflet;
-  			jsonUrl = locationParams.jsonUrl;
-              //jsonUrl = 'data/milan-3cixty/yelp-100-1.geojson';
-
-  			this.page.init(this.Clusters(jsonUrl), params);*/
+  map.addListener('zoom_changed', function(){
 
     var new_jsonUrl, new_locationParams;
     new_params = {};
-    if (map.zoom == 17) {
+    if (map.zoom == 16) {
         //document.write(map.zoom);
         if(configID.search("zoomhigh") == -1) { //Increase from lower level
             new_locationParams = app.config.locations[configID.concat("_zoomhigh")];
@@ -324,11 +317,11 @@ console.log(params);
             console.log(new_params);
             new_params.key = app.config.key.leaflet;
             new_jsonUrl = new_locationParams.jsonUrl;
-        //    map.zoom = 17;
+            map.zoom = 16;
             app.page.init(app.Clusters(new_jsonUrl), new_params);
         }
     }
-    else if (map.zoom == 8) {
+    else if (map.zoom == 9) {
         //document.write(map.zoom);
         if (configID.search("zoomlow") == -1) { //Decrease from higher level, no zoomlow
             new_locationParams = app.config.locations[configID.concat("_zoomlow")];
@@ -336,26 +329,29 @@ console.log(params);
             new_params.key = app.config.key.leaflet;
             console.log(new_params);
             new_jsonUrl = new_locationParams.jsonUrl;
+            map.zoom = 9;
             app.page.init(app.Clusters(new_jsonUrl), new_params);
         }
     }
-    else if (map.zoom == 16) {
+    else if (map.zoom == 15) {
         if (configID.search("zoomhigh") != -1) { //Decrease from higher level, is zoom high
             new_locationParams = app.config.locations[configID.replace("_zoomhigh", "")];
             new_params.locationParams = new_locationParams;
             new_params.key = app.config.key.leaflet;
             console.log(new_params);
             new_jsonUrl = new_locationParams.jsonUrl;
+            map.zoom = 15;
             app.page.init(app.Clusters(new_jsonUrl), new_params);
         }
     }
-    else if (map.zoom == 9) {
+    else if (map.zoom == 10) {
         if (configID.search("zoomlow") != -1) { //Iecrease from lower level
             new_locationParams = app.config.locations[configID.replace("_zoomlow", "")];
             new_params.locationParams = new_locationParams;
             new_params.key = app.config.key.leaflet;
             console.log(new_params);
             new_jsonUrl = new_locationParams.jsonUrl;
+            map.zoom = 10;
             app.page.init(app.Clusters(new_jsonUrl), new_params);
         }
     }

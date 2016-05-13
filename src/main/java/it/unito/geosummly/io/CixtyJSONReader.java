@@ -30,7 +30,7 @@ public class CixtyJSONReader {
 
             for(int i = 0; i < jsonArray.length(); i++) {
                 venue = new Venue(System.currentTimeMillis(),
-                        100,
+                        10,
                         jsonArray.getJSONObject(i).getJSONObject("s").getString("value"),
                         jsonArray.getJSONObject(i).getJSONObject("category").getString("value"),
                         jsonArray.getJSONObject(i).getJSONObject("label").getString("value"),
