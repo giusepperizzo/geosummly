@@ -35,7 +35,7 @@ app.Clusters = function(jsonUrl) {
     // temporarly commented
     // kill if area is zero
     clusterFeature.features = clusterFeature.features.filter(function(feature) {
-      if (feature.properties.area == 0) console.log("empty area, then removed clusterId:" + (feature.id + 1) );
+    //  if (feature.properties.area == 0) console.log("empty area, then removed clusterId:" + (feature.id + 1) );
       return feature.properties.area !== 0;
     });
 

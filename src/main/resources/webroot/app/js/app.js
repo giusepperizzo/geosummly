@@ -26,7 +26,6 @@ window.app = {
 			params.locationParams = locationParams;
 			params.key = app.config.key.leaflet;
 			jsonUrl = locationParams.jsonUrl;
-            //jsonUrl = 'data/milan-3cixty/yelp-100-1.geojson';
 
 			this.page.init(this.Clusters(jsonUrl), params);
 

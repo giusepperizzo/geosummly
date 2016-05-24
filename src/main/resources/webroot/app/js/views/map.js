@@ -1,8 +1,8 @@
 app.Map = function(params, callback) {
 
-console.log(params);
+    console.log(params);
   var
-    locationParams = params.location,
+    locationParams = params.locationParams,
 
     map = new google.maps.Map(document.getElementById(params.elmId), {
       zoom: locationParams.zoom,
@@ -25,12 +25,14 @@ console.log(params);
     minCircle = 3,
     maxCircle = 30,
 
-    configID = params.configID, // For Map update
+    configID = params.configID, // For Map update, record the geojson file's ID which is in config.js
 
     tooltip = Tooltip({
       elmId: "tooltip",
       width: 240
     });
+
+   // var configID = new String(params.configID); // For Map update
 
   function setOverlay(callback) {
     overlay = new google.maps.OverlayView();
@@ -119,7 +121,7 @@ console.log(params);
       .attr('data-href', function(feature) {
         var props = feature.properties,
           hash = [
-            '#!' + params.location,
+            '#!' + locationParams,
             // 'category', props.name,
             'clusters', props.clusterId
           ].join('/');
@@ -305,26 +307,29 @@ console.log(params);
     }
   }
 
+  //Implementation for varing visualization by zooming level
   map.addListener('zoom_changed', function(){
 
     var new_jsonUrl, new_locationParams;
     new_params = {};
     if (map.zoom == 16) {
-        //document.write(map.zoom);
         if(configID.search("zoomhigh") == -1) { //Increase from lower level
-            new_locationParams = app.config.locations[configID.concat("_zoomhigh")];
+            configID = configID.concat("_zoomhigh");
+            new_locationParams = app.config.locations[configID];
             new_params.locationParams = new_locationParams;
             console.log(new_params);
             new_params.key = app.config.key.leaflet;
             new_jsonUrl = new_locationParams.jsonUrl;
-            map.zoom = 16;
+//            map.zoom = 16;
+            console.log(map.zoom);
             app.page.init(app.Clusters(new_jsonUrl), new_params);
+            console.log(map.zoom);
         }
     }
     else if (map.zoom == 9) {
-        //document.write(map.zoom);
         if (configID.search("zoomlow") == -1) { //Decrease from higher level, no zoomlow
-            new_locationParams = app.config.locations[configID.concat("_zoomlow")];
+            configID = configID.concat("_zoomlow");
+            new_locationParams = app.config.locations[configID];
             new_params.locationParams = new_locationParams;
             new_params.key = app.config.key.leaflet;
             console.log(new_params);
@@ -334,19 +339,28 @@ console.log(params);
         }
     }
     else if (map.zoom == 15) {
+        console.log(configID);
         if (configID.search("zoomhigh") != -1) { //Decrease from higher level, is zoom high
-            new_locationParams = app.config.locations[configID.replace("_zoomhigh", "")];
+            console.log(configID);
+            configID = configID.replace("_zoomhigh", "");
+            console.log(configID)
+            new_locationParams = app.config.locations[configID];
+            console.log(configID);
             new_params.locationParams = new_locationParams;
             new_params.key = app.config.key.leaflet;
             console.log(new_params);
             new_jsonUrl = new_locationParams.jsonUrl;
-            map.zoom = 15;
+            console.log(map.zoom);
             app.page.init(app.Clusters(new_jsonUrl), new_params);
+            console.log(map.zoom);
+            map.zoom = 15;
+            console.log(map.zoom);
         }
     }
     else if (map.zoom == 10) {
-        if (configID.search("zoomlow") != -1) { //Iecrease from lower level
-            new_locationParams = app.config.locations[configID.replace("_zoomlow", "")];
+        if (configID.search("zoomlow") != -1) { //Increase from lower level
+            configID = configID.replace("_zoomlow", "")
+            new_locationParams = app.config.locations[configID];
             new_params.locationParams = new_locationParams;
             new_params.key = app.config.key.leaflet;
             console.log(new_params);

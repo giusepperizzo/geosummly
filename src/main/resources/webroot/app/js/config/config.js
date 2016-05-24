@@ -173,16 +173,6 @@ app.Config = function() {
 				},
 				zoom: 11
 			}),
-			milan_grid: new Location({
-            	jsonUrl: 'data/milan/milano-grid.geojson',
-            	bounds: {
-            		north: 45.567794914783256,
-            		sud:  45.35668565341512,
-           			west: 9.011490619692509,
-           			est: 9.312688264185255
-           		},
-           		zoom: 11
-           	}),
 			milan_pareto: new Location({
 				jsonUrl: 'data/milan/pareto-clustering-output-eps0.014142135623730952.geojson',
 				bounds: {
@@ -233,26 +223,6 @@ app.Config = function() {
 				},
 				zoom: 11
 			}),
-			milan_zoomhigh: new Location({
-                jsonUrl: 'data/milan/clustering-output-zoomhigh.geojson',
-                bounds: {
-                	north: 45.567794914783256,
-                	sud:  45.35668565341512,
-                	west: 9.011490619692509,
-                	est: 9.312688264185255
-                },
-                zoom: 17
-             }),
-             milan_zoomlow: new Location({
-                jsonUrl: 'data/milan/clustering-output-zoomlow.geojson',
-                bounds: {
-                    north: 45.567794914783256,
-                    sud:  45.35668565341512,
-                    west: 9.011490619692509,
-                    est: 9.312688264185255
-                },
-                zoom: 7
-             }),
 			milan_cxity: new Location({
 			    jsonUrl: 'data/milan-3cixty/milan_places.geojson',
                 bounds: {
@@ -263,7 +233,16 @@ app.Config = function() {
                 },
                 zoom: 11
 			}),
-
+            milan_experiment: new Location({
+			    jsonUrl: 'data/milan-3cixty/milan_places_experiment.geojson',
+                bounds: {
+                    north: 45.567794914783256,
+              		sud:  45.35668565341512,
+              		west: 9.011490619692509,
+               		est: 9.312688264185255
+                },
+                zoom: 11
+			}),
 			milan_cxity_art_night: new Location({
             	jsonUrl: 'data/milan-3cixty/clustering-art_night.geojson',
                 bounds: {
@@ -282,7 +261,7 @@ app.Config = function() {
                     west: 9.011490619692509,
                     est: 9.312688264185255
                	},
-                zoom: 17
+                zoom: 16
             }),
             milan_cxity_art_night_zoomlow: new Location({
                 jsonUrl: 'data/milan-3cixty/clustering-art_night-zoomlow.geojson',

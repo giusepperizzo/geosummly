@@ -81,12 +81,12 @@ public class SamplingOperator {
 					bigWest = venue.getLongitude();
 			}
 
-			/*
+
 			bigNorth=45.567794914783256;
-			bigEast=9.312688264185276;
-			bigSouth=45.35668565341486;
+			bigEast=9.312688264185255;
+			bigSouth=45.35668565341512;
 			bigWest=9.011490619692509;
-			*/
+
 
 			System.out.println("bigNorth: " + bigNorth + " bigSouth: " + bigSouth +
 					" bigEast: " + bigEast + " bigWest: " + bigWest);

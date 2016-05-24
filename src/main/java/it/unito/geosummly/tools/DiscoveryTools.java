@@ -108,8 +108,8 @@ public class DiscoveryTools {
 		for(int i=0;i<mean.size();i++) {
 			mF=mean.get(i);
 			sD=std.get(i);
-			density=scaleFactor*mF-(1.96* (sD/Math.sqrt(n)) );  //Default setting
-			//density=scaleFactor*mF-(1.64* (sD/Math.sqrt(n)) );  //low zoom
+			//density=scaleFactor*mF-(1.96* (sD/Math.sqrt(n)) );  //Default setting
+			density=scaleFactor*mF-(1.64* (sD/Math.sqrt(n)) );  //low zoom
 			//density=scaleFactor*mF-(2.24* (sD/Math.sqrt(n)) );  //
 
 			density = (density >= 1) ? density : 1; //scale factor for having deltad at least equal to 1

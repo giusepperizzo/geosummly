@@ -10,7 +10,8 @@ app.Page = function() {
 				elmId: 'map',
 				colors: colors,
 				key: params.key,
-				location: params.locationParams,
+			//	location: params.locationParams,
+			    locationParams: params.locationParams, // keep this parameter's name same
 				configID: params.location
 			}, callback);
 		}

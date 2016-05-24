@@ -125,7 +125,7 @@ public class ClusteringTools {
 	
 	/**Fill in the deltad hashmap from a list of CSV records.
 	 * Will be considered only that values which are greater than 0 and whose feature is in the features hashmap.*/
-	public  HashMap<String, Double> getValuesMapFromDeltad(List<CSVRecord> list) {
+	public HashMap<String, Double> getValuesMapFromDeltad(List<CSVRecord> list) {
 		HashMap<String, Double> map=new HashMap<String, Double>();
 		ArrayList<String> toExclude=new ArrayList<String>(); //list of excluded features
 	    boolean excluded=false;
@@ -209,7 +209,7 @@ public class ClusteringTools {
 	 * Each entry of the map will be a couple: key=clusterId, list of lists of venue_info.
 	 * Only venues of the same label of the cluster will be included.
 	*/
-	public  HashMap<Integer, ArrayList<ArrayList<String>>> putVenuesOfCells(
+	public HashMap<Integer, ArrayList<ArrayList<String>>> putVenuesOfCells(
 														String clusterName,
 														int index,
 														HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell, 
@@ -405,9 +405,8 @@ public class ClusteringTools {
 	public double getEps(ArrayList<ArrayList<Double>> dataset) {
 		double side=Math.sqrt(dataset.size());
 		double eps=Math.sqrt(2)*(1/side);
-
 	//	eps = eps/Math.sqrt(2);  //For the higher zooming level
-	//	eps = eps*Math.sqrt(2);  //For the lower zooming level
+		eps = eps*Math.sqrt(2);  //For the lower zooming level
 		return eps;
 	}
 	
@@ -449,7 +448,7 @@ public class ClusteringTools {
 	 * Create an hashmap for the holdout used to compute Jaccard evaluation.
 	 * each entry of the map will be a couple: cluster_name, list_of_cells 
 	*/
-	public  HashMap<String, Vector<Integer>> buildHoldoutMap(TreeSet<String> tree, ArrayList<TreeSet<Integer>> cells, int length) {
+	public HashMap<String, Vector<Integer>> buildHoldoutMap(TreeSet<String> tree, ArrayList<TreeSet<Integer>> cells, int length) {
 		HashMap<String, Vector<Integer>> holdout=new HashMap<String, Vector<Integer>>();
 	    Vector<Integer> vector;
 	    Iterator<String> distinctIter=tree.iterator();
