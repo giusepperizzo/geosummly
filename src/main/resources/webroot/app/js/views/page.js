@@ -10,7 +10,8 @@ app.Page = function() {
 				elmId: 'map',
 				colors: colors,
 				key: params.key,
-			//	location: params.locationParams,
+				location: params.locationParams,
+			//    location: params.location,
 			    locationParams: params.locationParams, // keep this parameter's name same
 				configID: params.location
 			}, callback);
@@ -74,9 +75,9 @@ app.Page = function() {
 					// TODO.. bad api..
 					map = initMap(params, colors);
 					map.setOverlay(function() {
-						map.init(filteredClusterFeature, params);
+						map.init(filteredClusterFeature, params); //this params is different map's own params
 					});
-
+                    console.log(params);
 					initLegend()
 						.update(clusters, params, colors);
 					hideLoader();

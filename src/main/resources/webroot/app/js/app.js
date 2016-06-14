@@ -25,6 +25,8 @@ window.app = {
 			locationParams = app.config.locations[params.location];
 			params.locationParams = locationParams;
 			params.key = app.config.key.leaflet;
+			console.log("jsonUrl");
+			console.log(params);
 			jsonUrl = locationParams.jsonUrl;
 
 			this.page.init(this.Clusters(jsonUrl), params);

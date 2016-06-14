@@ -22,9 +22,9 @@ app.Router = function() {
 	return {
 		defineRoute: function(routeCallback) {
 			$.route(function(hash) {
-			    console.log(hash);
+			    console.log(hash);  //one problem is here, the hash is incorrect
 				var params = urlToParams(hash);
-
+                console.log(params);
 				params = this.prepareParams(params);
 
                 console.log($);

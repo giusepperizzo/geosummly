@@ -3,6 +3,7 @@ app.Map = function(params, callback) {
     console.log(params);
   var
     locationParams = params.locationParams,
+    //locationParams = params.location,
 
     map = new google.maps.Map(document.getElementById(params.elmId), {
       zoom: locationParams.zoom,
@@ -31,8 +32,6 @@ app.Map = function(params, callback) {
       elmId: "tooltip",
       width: 240
     });
-
-   // var configID = new String(params.configID); // For Map update
 
   function setOverlay(callback) {
     overlay = new google.maps.OverlayView();
@@ -106,6 +105,7 @@ app.Map = function(params, callback) {
     return _.flatten(groupedCoords, true);
   }
 
+
   function initClustersSelection(selectedFeature, params) {
     var infoTemplate = _.template(d3.select('#cluster-tooltip').html());
 
@@ -121,10 +121,11 @@ app.Map = function(params, callback) {
       .attr('data-href', function(feature) {
         var props = feature.properties,
           hash = [
-            '#!' + locationParams,
+            '#!' + params.location,
             // 'category', props.name,
             'clusters', props.clusterId
           ].join('/');
+          console.log(params);
         return hash;
       })
       .classed('cluster', true)
@@ -186,7 +187,7 @@ app.Map = function(params, callback) {
       .on("mouseout", tooltip.hideTooltip)
       .on('click', function(d) {
         window.open(
-          'https://foursquare.com/v/' + d.id,
+          'https://foursquare.com/v/' + d.id,  //Here has problems, because now we have multiple social media to support
           '_blank'
         );
       });
@@ -317,12 +318,13 @@ app.Map = function(params, callback) {
             configID = configID.concat("_zoomhigh");
             new_locationParams = app.config.locations[configID];
             new_params.locationParams = new_locationParams;
+            new_params.location = configID;
             console.log(new_params);
             new_params.key = app.config.key.leaflet;
             new_jsonUrl = new_locationParams.jsonUrl;
-//            map.zoom = 16;
             console.log(map.zoom);
             app.page.init(app.Clusters(new_jsonUrl), new_params);
+            map.zoom = 16
             console.log(map.zoom);
         }
     }
@@ -331,11 +333,13 @@ app.Map = function(params, callback) {
             configID = configID.concat("_zoomlow");
             new_locationParams = app.config.locations[configID];
             new_params.locationParams = new_locationParams;
+            new_params.location = configID;
             new_params.key = app.config.key.leaflet;
             console.log(new_params);
             new_jsonUrl = new_locationParams.jsonUrl;
-            map.zoom = 9;
             app.page.init(app.Clusters(new_jsonUrl), new_params);
+            map.zoom = 9;
+            console.log(map.zoom);
         }
     }
     else if (map.zoom == 15) {
@@ -343,16 +347,14 @@ app.Map = function(params, callback) {
         if (configID.search("zoomhigh") != -1) { //Decrease from higher level, is zoom high
             console.log(configID);
             configID = configID.replace("_zoomhigh", "");
-            console.log(configID)
             new_locationParams = app.config.locations[configID];
-            console.log(configID);
             new_params.locationParams = new_locationParams;
+            new_params.location = configID;
             new_params.key = app.config.key.leaflet;
             console.log(new_params);
             new_jsonUrl = new_locationParams.jsonUrl;
             console.log(map.zoom);
             app.page.init(app.Clusters(new_jsonUrl), new_params);
-            console.log(map.zoom);
             map.zoom = 15;
             console.log(map.zoom);
         }
@@ -362,11 +364,13 @@ app.Map = function(params, callback) {
             configID = configID.replace("_zoomlow", "")
             new_locationParams = app.config.locations[configID];
             new_params.locationParams = new_locationParams;
+            new_params.location = configID;
             new_params.key = app.config.key.leaflet;
             console.log(new_params);
             new_jsonUrl = new_locationParams.jsonUrl;
-            map.zoom = 10;
             app.page.init(app.Clusters(new_jsonUrl), new_params);
+            map.zoom = 10;
+            console.log(map.zoom);
         }
     }
   });
