@@ -1,5 +1,6 @@
 package it.unito.geosummly;
 
+import it.unito.geosummly.clustering.subspace.AGNES;
 import it.unito.geosummly.io.CSVDataIO;
 import it.unito.geosummly.io.GeoJSONWriter;
 import it.unito.geosummly.io.GeoTurtleWriter;
@@ -96,6 +97,16 @@ public class ClusteringOperator {
 		Clustering<?> result = tools
 				.runGEOSUBCLU(db, boundaries, featuresMap, deltadMap, density.intValue(), eps, new StringBuilder());
 		ArrayList<Clustering<?>> cs = ResultUtil.filterResults(result, Clustering.class);
+		ArrayList<Clustering<?>> cs_agnes = new ArrayList<>();
+
+		//Run AGNES algorithm in order to optimize the clustering
+		for(Clustering<?> c: cs) {
+			int threshold = (int)(c.getAllClusters().size()*0.05); //How to set this parameter
+			AGNES agnes = new AGNES(c, threshold);
+			cs_agnes.add(agnes.run());
+		}
+		cs = cs_agnes;
+
 		HashMap<Integer, String> clustersName=new HashMap<Integer, String>(); //key, cluster name
 		HashMap<Integer, ArrayList<ArrayList<Double>>> cellsOfCluster=new HashMap<Integer, ArrayList<ArrayList<Double>>>(); //key, cell_ids + lat + lng 
 		HashMap<Integer, ArrayList<ArrayList<String>>> venuesOfCell=new HashMap<Integer, ArrayList<ArrayList<String>>>(); //cell_id, venue_record

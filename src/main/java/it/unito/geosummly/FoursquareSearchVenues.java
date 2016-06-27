@@ -30,8 +30,8 @@ public class FoursquareSearchVenues {
 		        PropFactory.config.getProperty("it.unito.geosummly.foursquare.clientID"), 
 		        PropFactory.config.getProperty("it.unito.geosummly.foursquare.clientSecret"), 
 		        "http://www.foursquare.com");
-		//foursquareApi.setVersion("20151216");
-		foursquareApi.setVersion("20140501");
+		foursquareApi.setVersion("20151216");
+		//foursquareApi.setVersion("20140501");
 		//foursquareApi.setVersion("20120131");
 		timestamp=System.currentTimeMillis();
 	}

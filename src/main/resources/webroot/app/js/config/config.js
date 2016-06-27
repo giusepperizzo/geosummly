@@ -233,6 +233,27 @@ app.Config = function() {
                 },
                 zoom: 11
 			}),
+            milan_google: new Location({
+            	jsonUrl: 'data/milan-3cixty/milan_google.geojson',
+                bounds: {
+                    north: 45.567794914783256,
+                    sud:  45.35668565341512,
+                    west: 9.011490619692509,
+                    est: 9.312688264185255
+                },
+                zoom: 11
+            }),
+			milan_google_agnes: new Location({
+            	jsonUrl: 'data/milan-3cixty/milan_google_agnes.geojson',
+                bounds: {
+                    north: 45.567794914783256,
+                    sud:  45.35668565341512,
+                    west: 9.011490619692509,
+                    est: 9.312688264185255
+                },
+                zoom: 11
+            }),
+
             milan_experiment: new Location({
 			    jsonUrl: 'data/milan-3cixty/milan_places_experiment.geojson',
                 bounds: {
@@ -253,7 +274,17 @@ app.Config = function() {
                	},
                 zoom: 11
             }),
-           milan_cxity_art_night_zoomhigh: new Location({
+            milan_cixty_art_night_agnes: new Location({
+            	jsonUrl: 'data/milan-3cixty/milan_art_night_agnes.geojson',
+                bounds: {
+                    north: 45.567794914783256,
+                    sud:  45.35668565341512,
+                    west: 9.011490619692509,
+                    est: 9.312688264185255
+                },
+                zoom: 11
+            }),
+            milan_cxity_art_night_zoomhigh: new Location({
                 jsonUrl: 'data/milan-3cixty/clustering-art_night-zoomhigh.geojson',
                 bounds: {
             		north: 45.567794914783256,
@@ -273,26 +304,7 @@ app.Config = function() {
                 },
                 zoom: 8
             }),
-            milan_cxity_expedia: new Location({
-                 jsonUrl: 'data/milan-3cixty/expedia-100-1.geojson',
-                 bounds: {
-                    north: 45.567794914783256,
-                    sud:  45.35668565341512,
-                    west: 9.011490619692509,
-                    est: 9.312688264185255
-                 },
-                 zoom: 11
-            }),
-            milan_cxity_yelp: new Location({
-                 jsonUrl: 'data/milan-3cixty/yelp-100-1.geojson',
-                 bounds: {
-                    north: 45.567794914783256,
-                    sud:  45.35668565341512,
-                    west: 9.011490619692509,
-                    est: 9.312688264185255
-                 },
-                 zoom: 11
-            }),
+
             nice_cxity_googleplaces: new Location({
                  jsonUrl: 'data/nice-3cixty/google-100-1.geojson',
                  bounds: {
